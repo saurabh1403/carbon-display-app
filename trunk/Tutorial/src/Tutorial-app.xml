@@ -13,7 +13,6 @@
 			the application. Optional.
 -->
 
-	<!-- The application identifier string, unique to this application. Required. -->
 	<id>Tutorial</id>
 
 	<!-- Used as the filename for the application. Required. -->
