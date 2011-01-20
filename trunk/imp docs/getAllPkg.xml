@@ -1,0 +1,27 @@
+<SampleXml>
+	<UI-to-Native>
+		<message>
+			<callIdentifier>{34565344-56-576-657-67-6AD}</callIdentifier>
+			<messagetype>async</messagetype>
+			<sessionbased>false</sessionbased>
+			<sessionid/>
+			<targetobject>getAllAvailablePackages</targetobject>
+			<argumentXml/>
+		</message>
+	</UI-to-Native>
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+				<packageList>
+					<package>
+						<Name>xyz class</Name>
+						<packageId>{345465-6fdf4-4545434}</packageId>
+						<titleText>Class Y ABC Semester I</titleText>
+						<imageIconPath>c:\temp\..\xyz.png<imageIconPath>
+					</package>
+				</packageList>
+			</outputXml>
+		</result>
+	</Native-toUI>
+</SampleXml>

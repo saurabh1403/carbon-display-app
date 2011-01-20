@@ -1,0 +1,25 @@
+<Content>
+	<contentName>Chemical Reaction</contentName>
+	<Headings>
+		<Heading>
+			<HeadingName>Chemical Reaction</HeadingName>
+			<HeadingNumber>12</HeadingNumber>
+			<type>flv</type>
+			<!--This is the relative path with respect to the package data directory-->
+			<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+			<duration>0:12</duration>
+			<!--comma separated keywords-->
+			<keywords>chemical change;chemical reaction</keywords>
+		</Heading>
+		<Heading>
+			<HeadingName>Physical Reaction</HeadingName>
+			<HeadingNumber>13</HeadingNumber>
+			<type>flv</type>
+			<!--This is the relative path with respect to the package data directory-->
+			<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+			<duration>0:12</duration>
+			<!--comma separated keywords-->
+			<keywords>chemical change;chemical reaction</keywords>
+		</Heading>
+	</Headings>
+</Content>

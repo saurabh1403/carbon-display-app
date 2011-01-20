@@ -1,0 +1,61 @@
+<SampleXml>
+	<UI-to-Native>
+		<message>
+			<callIdentifier>{34565344-56-576-657-67-6AD}</callIdentifier>
+			<messagetype>sync</messagetype>
+			<sessionbased>true</sessionbased>
+			<sessionid>{dfdfdgfg -- this is the pkg id}</sessionid>
+			<targetobject>getSessionData</targetobject>
+			<argumentXml/>
+		</message>
+	</UI-to-Native>
+	<!--in case of Error-->
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+				<errorCode>012</errorCode>
+				<errorTitle>This package is corrupted or has expired.</errorTitle>
+				<errorMsg>This is a temp error Msg</errorMsg>
+			</outputXml>
+		</result>
+	</Native-toUI>
+	<!--in case of successful opening of session-->
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+				<!--all generic resource related information will be put in this xml.-->
+				<resourceFiles>
+					<contentType>Generic-content</contentType>
+					<infoXmlPath>c:\test2\..\resource.xml</infoXmlPath>
+				</resourceFiles>
+				<!--this uiData is needed to fill the common ui data and elements.-->
+				<uiData>
+					<contentType>Generic-content</contentType>
+					<infoXmlPath>c:\test2\..\uvw.xml</infoXmlPath>
+				</uiData>
+				<!--all below nodes will be according to the .information sent when starting the session-->
+				<contentNodes>
+					<explanationData>
+						<contentType>3-Level-Video-Content</contentType>
+						<infoXmlPath>c:\test1\..\abc.xml</infoXmlPath>
+					</explanationData>
+					<exerciseQuestions>
+						<contenttype>3-Level-Video-Content</contenttype>
+						<infoXmlPath>c:\test2\..\rst.xml</infoXmlPath>
+					</exerciseQuestions>
+					<extraQuestions>
+						<contenttype>3-Level-Video-Content</contenttype>
+						<infoXmlPath>c:\test2\..\def.xml</infoXmlPath>
+					</extraQuestions>
+					<!--this is needed to fill the practiseQuestions content on UI.-->
+					<practiseQuestions>
+						<contenttype>2-Level-Video-Content</contenttype>
+						<infoXmlPath>c:\test2\..\xyz.xml</infoXmlPath>
+					</practiseQuestions>
+				</contentNodes>
+			</outputXml>
+		</result>
+	</Native-toUI>
+</SampleXml>
