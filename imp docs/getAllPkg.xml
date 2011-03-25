@@ -25,3 +25,5 @@
 		</result>
 	</Native-toUI>
 </SampleXml>
+
+<!--in case of error, the native will send the error node instead of outputXml as node in the result tag. This error node will have following nodes - error code, error message etc.-->

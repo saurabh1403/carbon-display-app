@@ -5,7 +5,7 @@
 			<messagetype>async</messagetype>
 			<sessionbased>false</sessionbased>
 			<sessionid/>
-			<targetobject>startSession</targetobject>
+			<targetobject>startPackageSession</targetobject>
 			<argumentXml>
 				<!--This pkg id is the pkg on which user clicked and it will be treated as the session id-->
 				<packageId>{4565344-56-576-657}</packageId>
