@@ -1,11 +1,11 @@
-<Content>
-	<!-- see the generic content node instead of this. this is old here-->
-	<contentName>Chemical Reaction</contentName>
+<contentXmlNode>
+	<name>Chemical Changes in real world</name>
 	<type>flv</type>
 	<!--This is the relative path with respect to the package data directory-->
 	<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
 	<duration>0:12</duration>
 	<!--comma separated keywords-->
 	<keywords>chemical change;chemical reaction</keywords>
-
-</Content>
+	<!--shows if the content is encrypted or not. if content is not protected, the ui can access it itself without any call to native-->
+	<isProtected>true</isProtected>
+</contentXmlNode>
