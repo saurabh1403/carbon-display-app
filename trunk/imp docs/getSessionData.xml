@@ -5,7 +5,7 @@
 			<messagetype>sync</messagetype>
 			<sessionbased>true</sessionbased>
 			<sessionid>{dfdfdgfg -- this is the pkg id}</sessionid>
-			<targetobject>getSessionData</targetobject>
+			<targetobject>getPackageSessionData</targetobject>
 			<argumentXml/>
 		</message>
 	</UI-to-Native>
@@ -20,7 +20,7 @@
 			</outputXml>
 		</result>
 	</Native-toUI>
-	<!--in case of successful opening of session-->
+	<!--in case of successful opening of session.-->
 	<Native-toUI>
 		<result>
 			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
@@ -37,23 +37,24 @@
 				</uiData>
 				<!--all below nodes will be according to the .information sent when starting the session-->
 				<contentNodes>
-					<explanationData>
-						<contentType>3-Level-Video-Content</contentType>
+					<content>
+						<contentType>1-Level-content</contentType>
+						<!-- These xml will be stored in basic base 64 encoded format which will provide a preliminary encoding to the end user-->
 						<infoXmlPath>c:\test1\..\abc.xml</infoXmlPath>
-					</explanationData>
-					<exerciseQuestions>
-						<contenttype>3-Level-Video-Content</contenttype>
+					</content>
+					<content>
+						<contenttype>2-Level-content</contenttype>
 						<infoXmlPath>c:\test2\..\rst.xml</infoXmlPath>
-					</exerciseQuestions>
-					<extraQuestions>
-						<contenttype>3-Level-Video-Content</contenttype>
-						<infoXmlPath>c:\test2\..\def.xml</infoXmlPath>
-					</extraQuestions>
+					</content>
+					<content>
+						<contenttype>3-Level-content</contenttype>
+						<content>c:\test2\..\def.xml</infoXmlPath>
+					</content>
 					<!--this is needed to fill the practiseQuestions content on UI.-->
-					<practiseQuestions>
-						<contenttype>2-Level-Video-Content</contenttype>
+					<content>
+						<contenttype>2-Level-content</contenttype>
 						<infoXmlPath>c:\test2\..\xyz.xml</infoXmlPath>
-					</practiseQuestions>
+					</content>
 				</contentNodes>
 			</outputXml>
 		</result>

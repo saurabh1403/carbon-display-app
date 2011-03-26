@@ -1,0 +1,37 @@
+<SampleXml>
+	<UI-to-Native>
+		<message>
+			<callIdentifier>{34565344-56-576-657-67-6AD}</callIdentifier>
+			<messagetype>sync</messagetype>
+			<sessionbased>true</sessionbased>
+			<sessionid>{3434hj3j4jh454 -- this is the pkg id}</sessionid>
+			<targetobject>getContent</targetobject>
+			<argumentXml>
+				<contentFile>\sem1\14gv.app</contentFile>
+				<type>pdf</type>
+			</argumentXml>
+		</message>
+	</UI-to-Native>
+	<!--in case of Error-->
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+				<errorCode>012</errorCode>
+				<errorTitle>This package is corrupted or has expired.</errorTitle>
+				<errorMsg>This is a temp error Msg</errorMsg>
+			</outputXml>
+		</result>
+	</Native-toUI>
+	<!--in case of successful opening of session.-->
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+				<contentFile>\sem1\14gv.app</contentFile>
+				<type>pdf</type>
+				<contentPath>C:\temp\ssdsdsdsdsds.avi</contentPath>
+			</outputXml>
+		</result>
+	</Native-toUI>
+</SampleXml>

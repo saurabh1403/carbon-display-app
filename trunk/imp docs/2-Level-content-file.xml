@@ -6,6 +6,7 @@
 			<HeadingNumber>12</HeadingNumber>
 			<Topics>
 				<Topic>
+					<!-- see the generic content node instead of this. this is old here-->
 					<name>Chemical Changes in real world</name>
 					<type>flv</type>
 					<!--This is the relative path with respect to the package data directory-->

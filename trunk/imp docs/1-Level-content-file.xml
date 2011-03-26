@@ -2,6 +2,7 @@
 	<contentName>Chemical Reaction</contentName>
 	<Headings>
 		<Heading>
+			<!-- see the generic content node instead of this. this is old here-->
 			<HeadingName>Chemical Reaction</HeadingName>
 			<HeadingNumber>12</HeadingNumber>
 			<type>flv</type>
