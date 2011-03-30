@@ -1,0 +1,39 @@
+<result>
+	<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+	<Sessions>
+		<Session id="{345465-6fdf4-4545434}">
+			<outputXml>
+				<!--all generic resource related information will be put in this xml.-->
+				<resourceFiles>
+					<contentType>Generic-content</contentType>
+					<infoXmlPath>c:\test2\..\resource.xml</infoXmlPath>
+				</resourceFiles>
+				<!--this uiData is needed to fill the common ui data and elements.-->
+				<uiData>
+					<contentType>Generic-content</contentType>
+					<infoXmlPath>c:\test2\..\uvw.xml</infoXmlPath>
+				</uiData>
+				<!--all below nodes will be according to the .information sent when starting the session-->
+				<contentNodes>
+					<explainationData>
+						<contentType>3-Level-Video-Content</contentType>
+						<infoXmlPath>/assets/data/3-Level-content-file.xml</infoXmlPath>
+					</explainationData>
+					<exerciseQuestions>
+						<contenttype>2-Level-Video-Content</contenttype>
+						<infoXmlPath>/assets/data/2-Level-content-file.xml</infoXmlPath>
+					</exerciseQuestions>
+					<extraQuestions>
+						<contenttype>1-Level-Video-Content</contenttype>
+						<infoXmlPath>/assets/data/1-Level-content-file.xml</infoXmlPath>
+					</extraQuestions>
+					<!--this is needed to fill the practiseQuestions content on UI.-->
+					<practiseQuestions>
+						<contenttype>0-Level-Video-Content</contenttype>
+						<infoXmlPath>/assets/data/0-Level-content-file.xml</infoXmlPath>
+					</practiseQuestions>
+				</contentNodes>
+			</outputXml>
+		</Session>
+	</Sessions>
+</result>

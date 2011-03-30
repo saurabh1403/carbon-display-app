@@ -1,0 +1,10 @@
+<content>
+	<name>Chemical Reaction</name>
+	<number></number>
+	<type>flv</type>
+	<!--This is the relative path with respect to the package data directory-->
+	<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+	<duration>0:12</duration>
+	<!--comma separated keywords-->
+	<keywords>chemical change;chemical reaction</keywords>
+</content>

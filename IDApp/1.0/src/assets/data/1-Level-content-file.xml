@@ -1,0 +1,29 @@
+<content>
+	<name>Chemical Reaction</name>
+	<number></number>
+	<contentType>1</contentType>
+	<headings>
+		<heading>
+			<name>Chemical Reaction</name>
+			<number>12</number>
+			<type>flv</type>
+			<contentType>0</contentType>
+			<!--This is the relative path with respect to the package data directory-->
+			<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+			<duration>0:12</duration>
+			<!--comma separated keywords-->
+			<keywords>chemical change;chemical reaction</keywords>
+		</heading>
+		<heading>
+			<name>Physical Reaction</name>
+			<number>13</number>
+			<type>flv</type>
+			<contentType>0</contentType>
+			<!--This is the relative path with respect to the package data directory-->
+			<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+			<duration>0:12</duration>
+			<!--comma separated keywords-->
+			<keywords>chemical change;chemical reaction</keywords>
+		</heading>
+	</headings>
+</content>

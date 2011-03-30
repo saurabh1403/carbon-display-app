@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%" verticalGap="0"
+		 horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		 creationComplete="onCreationComplete()" xmlns:components="com.Tutorial.view.components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.ApplicationFacade;
+			import com.Tutorial.business.TutConstants;
+			
+			import spark.skins.spark.windowChrome.CloseButtonSkin;
+			import spark.skins.spark.windowChrome.MaximizeButtonSkin;
+			import spark.skins.spark.windowChrome.MinimizeButtonSkin;
+			
+			public static const DASHBOARDNUM:int = 0;
+			public static const LEVEL3VIEWNUM:int = 1;
+			public static const LEVEL2VIEWNUM:int = 2;
+			public static const LEVEL1VIEWNUM:int = 3;
+			public static const LEVEL0VIEWNUM:int = 4;
+			
+/* 			public static const UPDATER:Number = 0;
+			public static const PREFS:Number = 1;
+			public static const DONEERRORS:Number = 2;
+			public static const PROGRESS:Number = 3;
+			public static const FINISH:Number = 4;
+			public static const ABOUT:Number = 5; */
+			
+			[Bindable] public var currentViewSelector:int = DASHBOARDNUM;
+			public var activeView:Object;
+			
+			[Bindable] public var isNavPanelVisible:Boolean = false;
+			
+			[Bindable]
+			[Embed("/assets/images/backgroundImage.jpg")]
+			private var barImage:Class;
+			
+			private var isWindowMaximized:Boolean = false;
+			private var windowPos:Point;
+			
+			private function onCreationComplete():void
+			{
+				//var ds:DropShadows = new DropShadows();
+				appControlBar.setStyle("backgroundImage", barImage);
+			}
+			
+			private function sendEvent(action:String):void
+			{
+				this.dispatchEvent(new Event( action, true ));
+			}
+
+			protected function maxBtn_clickHandler(event:MouseEvent):void
+			{
+				if(isWindowMaximized)
+				{
+					stage.nativeWindow.width = TutConstants.WINDOWWIDTH;
+					stage.nativeWindow.height = TutConstants.WINDOWHEIGHT;
+					stage.nativeWindow.x = windowPos.x;
+					stage.nativeWindow.y = windowPos.y;
+				}
+				else
+				{
+					windowPos = new Point(stage.nativeWindow.x, stage.nativeWindow.y);
+					stage.nativeWindow.maximize();
+				}
+				isWindowMaximized = !isWindowMaximized;
+			}
+
+
+			protected function homeBtn_clickHandler(event:MouseEvent):void
+			{
+				currentViewSelector=MainDisplay.DASHBOARDNUM;
+				isNavPanelVisible = false;
+			}
+
+
+			protected function appControlBar_mouseMoveHandler(event:MouseEvent):void
+			{
+				stage.nativeWindow.startMove();
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Binding source="myStack.selectedChild" destination="activeView"/>
+	
+	<mx:ApplicationControlBar id="appControlBar" width="100%" height="8%"
+							  mouseMove="appControlBar_mouseMoveHandler(event)">
+		<s:HGroup width="100%" height="100%" verticalAlign="middle">
+			<s:Button id="homeBtn" label="Home" click="homeBtn_clickHandler(event)"/>
+			<mx:Spacer width="100%"/>
+			<s:Button id="minBtn" label="minimize" click="stage.nativeWindow.minimize()"
+					  skinClass="spark.skins.spark.windowChrome.MinimizeButtonSkin"/>
+			<s:Button id="maxBtn" label="maximize" click="maxBtn_clickHandler(event)"
+					  skinClass="spark.skins.spark.windowChrome.MaximizeButtonSkin"/>
+			<s:Button id="closeBtn" label="close" click="ApplicationFacade.getInstance().sendNotification(TutConstants.N_APPLICATIONQUIT)"
+					  skinClass="spark.skins.spark.windowChrome.CloseButtonSkin"/>
+		</s:HGroup>
+	</mx:ApplicationControlBar>
+	
+	<mx:HBox width="100%" height="100%" horizontalGap="2"
+			 backgroundColor="0xff0000"
+			 paddingBottom="5" paddingRight="5" paddingLeft="5" paddingTop="5">
+		
+		<components:NavigationPanel id="navigationPanel" visible="{isNavPanelVisible}" includeInLayout="{isNavPanelVisible}"/>
+		<!--<navigationPanel visible={isNavPanelVisible}/>-->
+		<mx:Canvas width="100%" height="100%"
+				   left="2" right="2" bottom="2" top="2">
+			<mx:ViewStack id="myStack" selectedIndex="{currentViewSelector}"
+						  creationPolicy="auto"  width="100%" height="100%" >
+				<components:Dashboard id="dashboard" width="100%" height="100%"/>
+				<components:Level3View id="level3View" width="100%" height="100%"/>
+				<components:Level2View id="level2View" width="100%" height="100%"/>
+				<components:Level1View id="level1View" width="100%" height="100%"/>
+				<components:Level0View id="level0View" width="100%" height="100%"/>
+			</mx:ViewStack>
+		</mx:Canvas>
+		
+	</mx:HBox>
+	
+<!--	<mx:VBox width="100%" height="100%">
+		<mx:Spacer height="100%"/>
+		<s:Label text="hello"/>
+	</mx:VBox>-->
+		
+</mx:VBox>

@@ -1,0 +1,34 @@
+<SampleXml>
+	<UI-to-Native>
+		<message>
+			<callIdentifier>{34565344-56-576-657-67-6AD}</callIdentifier>
+			<messagetype>async</messagetype>
+			<sessionbased>false</sessionbased>
+			<sessionid/>
+			<targetobject>startSession</targetobject>
+			<argumentXml>
+				<!--This pkg id is the pkg on which user clicked and it will be treated as the session id-->
+				<packageId>{4565344-56-576-657}</packageId>
+			</argumentXml>
+		</message>
+	</UI-to-Native>
+	<!--in case of Error-->
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+				<errorCode>012</errorCode>
+				<errorTitle>This package is corrupted or has expired.</errorTitle>
+				<errorMsg>This is a temp error Msg</errorMsg>
+			</outputXml>
+		</result>
+	</Native-toUI>
+	<!--in case of successful opening of session-->
+	<Native-toUI>
+		<result>
+			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<outputXml>
+			</outputXml>
+		</result>
+	</Native-toUI>
+</SampleXml>
