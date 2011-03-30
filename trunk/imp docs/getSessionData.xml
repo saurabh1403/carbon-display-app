@@ -27,11 +27,16 @@
 			<outputXml>
 				<!--all generic resource related information will be put in this xml.-->
 				<resourceFiles>
+					<resourceBaseFolder>
+					<!--this is basically the package directory-->
+					</resourceBaseFolder>
 					<contentType>Generic-content</contentType>
 					<infoXmlPath>c:\test2\..\resource.xml</infoXmlPath>
 				</resourceFiles>
 				<!--this uiData is needed to fill the common ui data and elements.-->
 				<uiData>
+					<resourceBaseFolder>
+					</resourceBaseFolder>
 					<contentType>Generic-content</contentType>
 					<infoXmlPath>c:\test2\..\uvw.xml</infoXmlPath>
 				</uiData>

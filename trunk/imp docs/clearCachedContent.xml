@@ -1,4 +1,5 @@
 <SampleXml>
+	<!-- make this call a complete sync from ui side. Donot send any other call from ui unless it is processed-->
 	<UI-to-Native>
 		<message>
 			<callIdentifier>{34565344-56-576-657-67-6AD}</callIdentifier>
