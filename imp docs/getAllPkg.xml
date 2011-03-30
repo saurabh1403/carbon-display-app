@@ -5,7 +5,7 @@
 			<messagetype>async</messagetype>
 			<sessionbased>false</sessionbased>
 			<sessionid/>
-			<targetobject>getAllAvailablePackages</targetobject>
+			<targetobject>getAvailablePackages</targetobject>
 			<argumentXml/>
 		</message>
 	</UI-to-Native>
