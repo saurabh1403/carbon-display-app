@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="30%" height="100%"
+		 backgroundColor="0x0000ff" xmlns:components="com.Tutorial.view.components.*"
+		 
+		 creationComplete="vbox1_creationCompleteHandler(event)"
+		 paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10"
+		 horizontalScrollPolicy="off" verticalScrollPolicy="auto">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace components "com.Tutorial.view.components.*";
+		.customButton
+		{
+			/* bold */
+			color: #cccccc;
+			textRollOverColor: #cccccc;
+			textSelectedColor: #cccccc;
+			fontSize: 14;
+			upSkin: Embed(source="assets/images/button_n.png"); 
+			overSkin: Embed(source="assets/images/button_r.png"); 
+			downSkin: Embed(source="assets/images/button_s.png"); 
+			disabledSkin: Embed(source="assets/images/button_d.png");
+			selectedUpSkin: Embed(source="assets/images/button_n.png"); 
+			selectedOverSkin: Embed(source="assets/images/button_r.png"); 
+			selectedDownSkin: Embed(source="assets/images/button_s.png"); 
+			selectedDisabledSkin: Embed(source="assets/images/button_d.png");
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.view.widgets.CollapsibleComponent;
+			
+			import mx.binding.utils.BindingUtils;
+			import mx.collections.ArrayList;
+			import mx.controls.Button;
+			import mx.controls.Label;
+			import mx.controls.Spacer;
+			import mx.core.INavigatorContent;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			private var list:ArrayList = new ArrayList(["1","2","3","4","5","6","7","8","9","10"]);
+			
+			public var lastExpanded:CollapsibleComponent = null;
+			
+/* 			private function btClickHandler(ev:MouseEvent):void
+			{
+				var cb:CollapsibleComponent = (ev.currentTarget as Button).parent as CollapsibleComponent;
+				cb.bExpanded = !cb.bExpanded;
+				
+				if((lastExpanded != null) && (lastExpanded != cb))
+				{
+					lastExpanded.bExpanded = false;
+					(lastExpanded.getChildByName("vbox") as VBox).visible = false;
+					(lastExpanded.getChildByName("vbox") as VBox).includeInLayout = false;
+					lastExpanded = null;
+				}
+				
+ 				(cb.getChildByName("vbox") as VBox).visible = cb.bExpanded;
+				(cb.getChildByName("vbox") as VBox).includeInLayout = cb.bExpanded;
+				
+				if(cb.bExpanded)
+					lastExpanded = cb;
+			} */
+			protected function vbox1_creationCompleteHandler(event:FlexEvent):void
+			{
+				/* var sp:Spacer = new Spacer;
+				sp.height = 2;
+				for(var i:int = 0; i < 5; ++i)
+				{
+					var cb:CollapsibleComponent = new CollapsibleComponent;
+					cb.percentWidth = 100;
+					cb.name = "cb";
+					
+					var bt:Button = new Button;
+					bt.label = "test" + i.toString();
+					bt.name = "btn";
+					bt.percentWidth = 100;
+					
+					bt.styleName = "customButton";
+					bt.setStyle("icon", tempIcon);
+					//bt.setStyle("style", "customButton");
+					bt.addEventListener(MouseEvent.CLICK, btClickHandler);
+					
+					var vb:VBox = new VBox;
+					for(var j:int = 0; j < 5; ++j)
+					{
+						var lb:Label = new Label;
+						lb.text = "Label" + j.toString();
+						vb.addChild(lb);
+					}
+					vb.name = "vbox";
+					
+ 					vb.visible = cb.bExpanded;
+					vb.includeInLayout = cb.bExpanded; 
+					
+					cb.addChild(bt);
+					cb.addChild(vb);
+					
+					myVG.addChild(cb);					
+					myVG.addChild(sp);
+				} */
+			}
+
+		]]>
+	</fx:Script>
+	
+	<mx:VBox id="myVG" width="100%" height="100%">
+		
+	</mx:VBox>
+	
+<!--	<mx:Accordion width="100%" height="100%" verticalGap="4"
+				  paddingLeft="4" paddingRight="4" paddingTop="4" paddingBottom="4"
+				  openDuration="1000"
+				  alpha="0.8">
+		<!-<components:AccHeader accentColor="0x434343" buttonMode="true" chromeColor="0x888888" cornerRadius="4"
+						color="0xff0000" focusColor="0x00ff00"
+						textAlign="center" toggle="true"
+						/>->
+		<mx:VBox width="100%" height="100%" label="Test1">
+			<s:List width="100%" height="100%" dataProvider="{list}"/>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Test2">
+			<s:List width="100%" height="100%" dataProvider="{list}"/>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Test3">
+			<s:List width="100%" height="100%" dataProvider="{list}"/>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Test4">
+			<s:List width="100%" height="100%" dataProvider="{list}"/>
+		</mx:VBox>
+	</mx:Accordion>-->
+
+</mx:VBox>

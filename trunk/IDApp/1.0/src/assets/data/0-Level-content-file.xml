@@ -1,0 +1,11 @@
+<content>
+	<name>Chemical Reaction</name>
+	<number></number>
+	<type>flv</type>
+	<contentType>0</contentType>
+	<!--This is the relative path with respect to the package data directory-->
+	<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+	<duration>0:12</duration>
+	<!--comma separated keywords-->
+	<keywords>chemical change;chemical reaction</keywords>
+</content>

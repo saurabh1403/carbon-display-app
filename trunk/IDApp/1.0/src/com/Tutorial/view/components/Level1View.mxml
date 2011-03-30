@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%" xmlns:components="com.Tutorial.view.components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.ApplicationFacade;
+			import com.Tutorial.business.TutConstants;
+			import com.Tutorial.model.objects.DataEntity;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.DynamicEvent;
+			
+			public const CLICK_NOTIFICATION:String = "ClickNotification";
+			
+			[Bindable]
+			public var arrC:ArrayCollection = new ArrayCollection;
+			
+			[Bindable]
+			public var arrSubTopics:ArrayCollection = new ArrayCollection;
+
+			[Bindable]
+			public var titleText:String = "";
+			
+			protected function tileList_clickHandler(event:MouseEvent):void
+			{
+				ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
+				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, tileList.selectedItem);
+			}
+			protected function tileListSubTopics_clickHandler(event:MouseEvent):void
+			{
+				var dataEnt:DataEntity = event.currentTarget.selectedItem as DataEntity;
+				var dEvent:DynamicEvent = new DynamicEvent(CLICK_NOTIFICATION, true);
+				dEvent.dataEntity = dataEnt;
+				dispatchEvent(dEvent);
+				//dispatchEvent(new Event(CLICK_NOTIFICATION, true));
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Label width="100%" text="Level1"/>
+	<s:Label width="100%" text="{titleText}"
+			 visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}" includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+	
+	<mx:TileList id="tileList" width="100%" height="100%"
+				 borderVisible="false"
+				 contentBackgroundAlpha="0"
+				 columnCount="1"
+				 dataProvider="{arrC}"
+				 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
+				 click="tileList_clickHandler(event)"
+				 visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}" includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+	
+	<mx:HBox width="100%" height="100%"
+			 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">
+		<components:VideoComponent width="70%" height="100%"
+					id="videoComp"/>
+		<mx:TileList width="30%" height="100%"
+				id="tileListSubTopics"
+				 borderVisible="false"
+				 contentBackgroundAlpha="0"
+				 columnCount="1"
+				 dataProvider="{arrSubTopics}"
+				 click="tileListSubTopics_clickHandler(event)"
+				 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
+				 />
+	</mx:HBox>
+	
+</mx:VBox>

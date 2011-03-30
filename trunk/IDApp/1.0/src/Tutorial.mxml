@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   applicationComplete="windowedapplication1_applicationCompleteHandler(event)"
+					   activate="windowedapplication1_activateHandler(event)"
+					   xmlns:components="com.Tutorial.view.components.*"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
+					   width="400" height="300"
+					   showStatusBar="false"
+					   autoLayout="true"
+					   >
+	
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.ApplicationFacade;
+			import com.Tutorial.business.NativeCommunicator;
+			import com.Tutorial.business.TutConstants;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+ 			
+			
+			[Bindable]
+			[Embed(source="/assets/images/backgroundImage.jpg")]
+			private var bkgndImage:Class;
+			
+			public static var _appInstance:Tutorial;	
+
+			
+			
+			
+/* 			[Bindable]
+			[Embed(source="assets/icons/temp.png")]
+			private var tIcon:Class; 
+			[Bindable]
+			private var temp:ArrayCollection = new ArrayCollection;
+			private function populateTempVar(tem:ArrayCollection, iLevel:int = 0):void
+			{
+				//tem = new ArrayCollection;
+				
+				var obj:Object = new Object;
+				obj.name = iLevel.toString();
+				if(iLevel < 4)
+				{
+					obj.children = new ArrayCollection;
+					populateTempVar(obj.children, iLevel+1);
+				}
+				tem.addItem(obj);
+				obj = new Object;
+				obj.name = (iLevel+1).toString();
+				if(iLevel < 4)
+				{
+					obj.children = new ArrayCollection;
+					populateTempVar(obj.children, iLevel+1);
+				}
+				tem.addItem(obj);
+			}
+			protected function windowedapplication1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				populateTempVar(temp);
+				return; 
+			} */
+			
+			
+			
+			protected function windowedapplication1_applicationCompleteHandler(event:FlexEvent):void
+			{				
+				_appInstance = this;
+				ApplicationFacade.getInstance().startup(this);
+				
+				//start loading different contents in the backend:
+				
+				//1. load the native executable.....This is not being done right now here.....
+				//2. 
+				if(!NativeCommunicator.instance.getAllPackageData())
+				{
+					Alert.show("GetAllPackageData Failed...");
+				}
+				else
+				{
+					
+				}
+			}
+
+
+			protected function windowedapplication1_activateHandler(event:Event):void
+			{
+				//add functionality to handle any case where user brings the focus back to this application
+				ApplicationFacade.getInstance().sendNotification(TutConstants.N_WINDOWACTIVATED);
+			}
+
+			protected function image1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//this.visible = true;
+			}
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				var splashScreen:NativeWindow = this.nativeWindow;
+				splashScreen.x = (Screen.mainScreen.visibleBounds.width -
+					splashScreen.width) / 2;
+				splashScreen.y = (Screen.mainScreen.visibleBounds.height -
+					splashScreen.height) / 2; 
+			}
+
+
+			protected function image1_clickHandler(event:MouseEvent):void
+			{
+				proceedToMainView();
+			}
+
+			public function proceedToMainView():void
+			{
+				myCan.visible = false;
+				mainDisplay.visible = true;
+				
+				var splashScreen:NativeWindow = this.nativeWindow;
+				splashScreen.width = TutConstants.WINDOWWIDTH;
+				splashScreen.height = TutConstants.WINDOWHEIGHT;
+				splashScreen.x = (Screen.mainScreen.visibleBounds.width -
+					splashScreen.width) / 2;
+				splashScreen.y = (Screen.mainScreen.visibleBounds.height -
+					splashScreen.height) / 2;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<mx:Canvas width="100%" height="100%" id="myCan">
+		<mx:Image x="0" y="0" source="{bkgndImage}"
+				  width="100%" height="100%"
+				  creationCompleteEffect="Fade"
+				  creationComplete="image1_creationCompleteHandler(event)"
+				  click="image1_clickHandler(event)"/>
+		<mx:VBox width="100%" height="100%">
+			<mx:Spacer height="100%"/>
+			<mx:HBox width="100%">
+				<mx:Spacer width="10%"/>
+				<mx:ProgressBar width="80%" indeterminate="true" height="10"
+								label="Loading..." color="white"
+								trackHeight="24"/>
+				<mx:Spacer width="10%"/>
+			</mx:HBox>
+			<mx:Spacer height="100%"/>
+		</mx:VBox>
+		
+<!--		<mx:Tree width="100%" height="100%"
+				 dataProvider="{temp}"
+				 depth="1"
+				 labelField="name"
+				 defaultLeafIcon="{tIcon}"
+				 />-->
+	</mx:Canvas>
+	
+	<components:MainDisplay id="mainDisplay" height="100%" width="100%" visible="false"
+							backgroundColor="0x888888"/>
+</s:WindowedApplication>
