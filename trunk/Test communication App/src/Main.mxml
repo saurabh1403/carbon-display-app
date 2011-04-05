@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"					   
+					   width="800" height="500">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.flash.*;
+			import mx.validators.EmailValidator;
+			
+			public var process:NativeProcess;
+			
+			public var exePath:String = "D:\\saurabhg\\My extra\\final application development\\Source Code\\carbon-app-management\\carbon\\1.0\\dev\\target\\Debug\\win\\IDAppNative.exe";
+			
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+			}
+
+			public function  onOutputData(event:ProgressEvent): void
+			{ 
+				var stdOut:IDataInput = process.standardOutput; 
+				var data:String = stdOut.readUTFBytes(process.standardOutput.bytesAvailable);
+				outText.text = data;
+				retLen.text = data.length.toString();
+			}
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var len:int = inText.text.length;
+				process.standardInput.endian = Endian.LITTLE_ENDIAN;
+//				process.standardInput.writeUnsignedInt(len);
+
+//				sendLen.text  = process.standardInput.endian;
+
+				sendLen.text = inText.text.length.toString();
+				process.standardInput.writeUTF(inText.text);
+//				process.standardInput.writeUTFBytes("hello world\n");
+//				process.closeInput();
+			}
+
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				if(!NativeProcess.isSupported)
+				{
+					Alert.show(" not supported", "native p ");
+				}
+				else
+				{
+					//					Alert.show("supported", "native p ");
+					var nativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo(); 
+					var tempExePath:String = exe_path.text;
+					if(tempExePath.length == 0)
+						tempExePath = exePath;
+					var file:File = File.applicationDirectory.resolvePath(tempExePath); 
+					
+					nativeProcessStartupInfo.executable = file; 
+					var processArgs:Vector.<String> = new Vector.<String>(); 
+					processArgs.push("hello");
+					nativeProcessStartupInfo.arguments = processArgs; 
+					process = new NativeProcess();
+					process.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onOutputData);
+					//					process.addEventListener(ProgressEvent.STANDARD_INPUT_PROGRESS, oninputData); 
+					process.start(nativeProcessStartupInfo);
+				}			
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Button x="342" y="13" label="Send Data" width="125" height="34" enabled="true" click="button1_clickHandler(event)"/>
+	<s:TextArea x="414" y="54" width="376" height="355" id="outText"/>
+	<s:TextArea x="22" y="52" width="363" height="357" id="inText"/>
+	<s:Label x="111" y="10" text="Input text" width="106" height="32" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="555" y="10" text="returned text" width="132" height="29" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="94" y="434" text="In text length :" width="97" height="19" id="sendLen"/>
+	<s:Label x="512" y="440" text="Label" width="97" height="19" id="retLen"/>
+	<s:Button x="633" y="464" label="Launch process" width="139" height="26" click="button2_clickHandler(event)"/>
+	<s:TextInput x="70" y="461" width="539" height="29" id="exe_path"/>
+	<s:Label x="10" y="464" text="exe path" height="28" width="52" textAlign="center" verticalAlign="middle"/>
+</s:WindowedApplication>
