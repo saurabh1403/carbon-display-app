@@ -4,10 +4,10 @@
 			<callIdentifier>{34565344-56-576-657-67-6AD}</callIdentifier>
 			<messagetype>sync</messagetype>
 			<sessionbased>true</sessionbased>
-			<sessionid>{3434hj3j4jh454 -- this is the pkg id}</sessionid>
+			<sessionid>{111}</sessionid>
 			<targetobject>getContent</targetobject>
 			<argumentXml>
-				<contentFile>\sem1\14gv.app</contentFile>
+				<contentFile>\data\11</contentFile>
 				<type>pdf</type>
 			</argumentXml>
 		</message>
