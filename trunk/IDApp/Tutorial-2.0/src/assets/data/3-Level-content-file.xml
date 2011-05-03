@@ -1,0 +1,124 @@
+<content>
+	<name>Chemical Reaction</name>
+	<number></number>
+	<contentType>3</contentType>
+	<headings>
+		<heading>
+			<name>Chemical Reaction</name>
+			<number>12</number>
+			<contentType>2</contentType>
+			<topics>
+				<topic>
+					<name>Chemical Changes</name>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
+							<name>Chemical Changes in real world</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<!--This is the relative path with respect to the package data directory-->
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<!--comma separated keywords-->
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+						<subtopic>
+							<name>Chemical Changes in elements</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+					</subtopics>
+				</topic>
+				<topic>
+					<name>Physical Changes</name>
+					<number></number>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
+							<name>Physical Changes in real world</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+						<subtopic>
+							<name>Physical Changes in elements</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+					</subtopics>
+				</topic>
+			</topics>
+		</heading>
+		<heading>
+			<name>Physical Reaction</name>
+			<number>13</number>
+			<contentType>2</contentType>
+			<topics>
+				<topic>
+					<name>Chemical Changes</name>
+					<number></number>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
+							<name>Chemical Changes in real world</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<!--This is the relative path with respect to the package data directory-->
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<!--comma separated keywords-->
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+						<subtopic>
+							<name>Chemical Changes in elements</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+					</subtopics>
+				</topic>
+				<topic>
+					<name>Physical Changes</name>
+					<number></number>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
+							<name>Physical Changes in real world</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+						<subtopic>
+							<name>Physical Changes in elements</name>
+							<number></number>
+							<type>flv</type>
+							<contentType>0</contentType>
+							<relativeSrcfile>D:\temp\test1.mp4</relativeSrcfile>
+							<duration>0:12</duration>
+							<keywords>chemical change;chemical reaction</keywords>
+						</subtopic>
+					</subtopics>
+				</topic>
+			</topics>
+		</heading>
+	</headings>
+</content>

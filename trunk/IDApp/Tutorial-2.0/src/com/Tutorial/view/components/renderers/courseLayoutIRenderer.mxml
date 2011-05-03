@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true"
+				implements="mx.controls.listClasses.IListItemRenderer"
+				toolTip="{data.title}"
+				
+				width="100%" height="100%"
+				>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.listClasses.IListItemRenderer;
+		]]>
+	</fx:Script>
+	
+	<mx:HBox width="100%" height="100%">
+		<mx:Image source="{data.mainIconPath}"/>
+		<mx:VBox width="100%" height="100%">
+			<s:Label text="{data.pkgName}"/>
+			<s:Label text="{data.title}"/>
+		</mx:VBox>		
+	</mx:HBox>
+	
+	<!--<mx:Image width="100%" height="100%"
+			  source="{data.mainIconPath}"/>-->
+</s:ItemRenderer>
