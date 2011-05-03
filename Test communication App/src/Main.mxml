@@ -3,7 +3,7 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"					   
-					   width="800" height="500">
+					   width="800" height="550">
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
@@ -13,7 +13,8 @@
 			
 			public var process:NativeProcess;
 			
-			public var exePath:String = "D:\\saurabhg\\My extra\\final application development\\Source Code\\carbon-app-management\\carbon\\1.0\\dev\\target\\Debug\\win\\IDAppNative.exe";
+			//public var exePath:String = "D:\\saurabhg\\My extra\\final application development\\Source Code\\carbon-app-management\\carbon\\1.0\\dev\\target\\Debug\\win\\IDAppNative.exe";
+			public var exePath:String = "d:\\temp\\test.exe";
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
