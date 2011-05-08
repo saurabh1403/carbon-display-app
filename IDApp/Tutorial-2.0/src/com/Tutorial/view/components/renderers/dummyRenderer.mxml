@@ -15,5 +15,5 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:Label width="100%" text="{data.name}"/>
+	<s:Label width="100%" text="{data.name}" color="0xFFFFFF"/>
 </s:ItemRenderer>

@@ -30,43 +30,6 @@
 			
 			public static var _appInstance:Tutorial;	
 
-			
-			
-			
-/* 			[Bindable]
-			[Embed(source="assets/icons/temp.png")]
-			private var tIcon:Class; 
-			[Bindable]
-			private var temp:ArrayCollection = new ArrayCollection;
-			private function populateTempVar(tem:ArrayCollection, iLevel:int = 0):void
-			{
-				//tem = new ArrayCollection;
-				
-				var obj:Object = new Object;
-				obj.name = iLevel.toString();
-				if(iLevel < 4)
-				{
-					obj.children = new ArrayCollection;
-					populateTempVar(obj.children, iLevel+1);
-				}
-				tem.addItem(obj);
-				obj = new Object;
-				obj.name = (iLevel+1).toString();
-				if(iLevel < 4)
-				{
-					obj.children = new ArrayCollection;
-					populateTempVar(obj.children, iLevel+1);
-				}
-				tem.addItem(obj);
-			}
-			protected function windowedapplication1_applicationCompleteHandler(event:FlexEvent):void
-			{
-				populateTempVar(temp);
-				return; 
-			} */
-			
-			
-			
 			protected function windowedapplication1_applicationCompleteHandler(event:FlexEvent):void
 			{				
 				_appInstance = this;
@@ -82,9 +45,7 @@
 					return;
 				}
 				
-				//<TODO: This part needs to be removed. getAllPackageData should be called only when native process is launched properly
-				//Or this timer should be used as a timeout only....i.e. if Native does not launch within 10 seconds, then it should QUIT
-				
+				//So, finally decided to use it as a timeout timer only. If by 10 seconds, the native process is not launched, then it is treated as an error case and the process will be aborted.
 				var timer:Timer = new Timer(10000, 1);
 				timer.addEventListener(TimerEvent.TIMER, timerHandler);
 				timer.start();
@@ -97,14 +58,6 @@
 					////NativeCommunicator.closeNativeSession();		//I think this should not be called
 					//TODO : What to do to terminate App....
 				}
-				/* if(!NativeCommunicator.instance.getAllPackageData())
-				{
-					Alert.show("GetAllPackageData Failed...");
-				}
-				else
-				{
-					
-				} */
 			}
 
 
@@ -139,7 +92,7 @@
 				myCan.visible = false;
 				mainDisplay.visible = true;
 				
-				this.maximize();
+				//this.maximize();
 				
 				var splashScreen:NativeWindow = this.nativeWindow;
 				splashScreen.width = TutConstants.WINDOWWIDTH;

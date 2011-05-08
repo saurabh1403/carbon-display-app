@@ -2,7 +2,7 @@
 <mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%" verticalGap="0"
+		 width="1024" height="800" verticalGap="0"
 		 horizontalScrollPolicy="off" verticalScrollPolicy="off"
 		 creationComplete="onCreationComplete()" xmlns:components="com.Tutorial.view.components.*">
 	
@@ -36,6 +36,9 @@
 			[Bindable]
 			[Embed("/assets/images/backgroundImage.jpg")]
 			private var barImage:Class;
+			[Bindable]
+			[Embed("/assets/images/Home-256.png")]
+			private var homeImage:Class;
 			
 			private var isWindowMaximized:Boolean = false;
 			private var windowPos:Point;
@@ -90,10 +93,12 @@
 	
 	<fx:Binding source="myStack.selectedChild" destination="activeView"/>
 	
-	<mx:ApplicationControlBar id="appControlBar" width="100%" height="8%"
+	<mx:ApplicationControlBar id="appControlBar" width="100%" height="40"
 							  mouseMove="appControlBar_mouseMoveHandler(event)">
 		<s:HGroup width="100%" height="100%" verticalAlign="middle">
-			<s:Button id="homeBtn" label="Home" click="homeBtn_clickHandler(event)"/>
+			<!--<s:Button id="homeBtn" label="Home" click="homeBtn_clickHandler(event)"/>-->
+			<mx:Image id="homeBtn" toolTip="Home" click="homeBtn_clickHandler(event)"
+					  source="{homeImage}" height="90%"/>
 			<mx:Spacer width="100%"/>
 			<s:Button id="minBtn" label="minimize" click="stage.nativeWindow.minimize()"
 					  skinClass="spark.skins.spark.windowChrome.MinimizeButtonSkin"/>
@@ -105,9 +110,10 @@
 	</mx:ApplicationControlBar>
 	
 	<mx:HBox width="100%" height="100%" horizontalGap="2"
-			 backgroundColor="0xff0000"
+			 backgroundColor="0x505050"
 			 paddingBottom="5" paddingRight="5" paddingLeft="5" paddingTop="5">
-		
+		<!--backgroundColor="0x383838"-->
+		<!--backgroundColor="0xff0000"-->
 		<components:NavigationPanel id="navigationPanel" visible="{isNavPanelVisible}" includeInLayout="{isNavPanelVisible}"/>
 		<!--<navigationPanel visible={isNavPanelVisible}/>-->
 		<mx:Canvas width="100%" height="100%"
@@ -123,10 +129,5 @@
 		</mx:Canvas>
 		
 	</mx:HBox>
-	
-<!--	<mx:VBox width="100%" height="100%">
-		<mx:Spacer height="100%"/>
-		<s:Label text="hello"/>
-	</mx:VBox>-->
 		
 </mx:VBox>

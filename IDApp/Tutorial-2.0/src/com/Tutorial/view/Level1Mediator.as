@@ -60,16 +60,16 @@ package com.Tutorial.view
 						switch(dataEnt.videoType)
 						{
 							case TutConstants.CONTENT_FLV:
-								level1View.videoComp.flvVideoSrcFile = dataEnt.relativeSrcFile;
+								level1View.videoComp.flvVideoSrcFile = dataEnt.completePath;
 								break;
 							case TutConstants.CONTENT_SWF:
-								level1View.videoComp.swfVideoSrcFile = dataEnt.relativeSrcFile;
+								level1View.videoComp.swfVideoSrcFile = dataEnt.completePath;
 								break;
 							case TutConstants.CONTENT_PDF:
-								level1View.videoComp.pdfSrcFile = dataEnt.relativeSrcFile;
+								level1View.videoComp.pdfSrcFile = dataEnt.completePath;
 								break;
 							case TutConstants.CONTENT_HTM:
-								level1View.videoComp.htmlSrcFile = dataEnt.relativeSrcFile;
+								level1View.videoComp.htmlSrcFile = dataEnt.completePath;
 								break;
 							default:
 								
@@ -81,9 +81,13 @@ package com.Tutorial.view
 					try
 					{
 						var obj:Object = notification.getBody();
-						level1View.titleText = obj.name;
-						level1View.arrC = obj.children;
-						level1View.arrSubTopics = obj.subTopics;
+						
+						try{
+							level1View.titleText = obj.name;
+							level1View.arrC = obj.children;
+							level1View.arrSubTopics = obj.subTopics;
+						}
+						catch(e:Error){}
 					}
 					catch(e:Error)
 					{

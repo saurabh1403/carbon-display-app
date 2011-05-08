@@ -11,14 +11,21 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.listClasses.IListItemRenderer;
+			
+			[Bindable]
+			[Embed(source="/assets/images/chapter_image.png")]
+			private var chapterImage:Class;
+			
 		]]>
 	</fx:Script>
 	
 	<mx:HBox width="100%" height="100%">
-		<mx:Image source="{data.mainIconPath}"/>
+		<!--<mx:Image source="{data.mainIconPath}"/>-->
+		<mx:Image source="{chapterImage}"
+				  width="80" height="80"/>
 		<mx:VBox width="100%" height="100%">
 			<s:Label text="{data.pkgName}"/>
-			<s:Label text="{data.title}"/>
+			<mx:Label text="{data.title}" truncateToFit="true"/>
 		</mx:VBox>		
 	</mx:HBox>
 	
