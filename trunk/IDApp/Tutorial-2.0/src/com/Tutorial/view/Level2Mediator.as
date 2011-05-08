@@ -32,8 +32,13 @@ package com.Tutorial.view
 			{
 				case TutConstants.N_LEVEL2CLICKED:
 					var obj:Object = notification.getBody();
-					level2View.titleText = obj.name;
-					level2View.arrC = obj.children;
+					try{
+						level2View.titleText = obj.name;
+						level2View.arrC = obj.children;
+					}
+					catch(e:Error)
+					{
+					}
 					break;
 				default:
 					break;

@@ -328,7 +328,8 @@ package com.Tutorial.business
 				return;
 			var vidData:VideoData = arr[id];
 			var dataEntity:DataEntity = vidData.dataEntity;
-			dataEntity.relativeSrcFile = videoPath;
+			//dataEntity.relativeSrcFile = videoPath;		//<TODO : This needs to be populated with the same relative path that we had sent to the native process for decoding.....
+			dataEntity.completePath = videoPath;
 			//dataEntity.relativeSrcFile = dataEntity.relativeSrcFile;	//Here we need to update the file Path received from native
 			ApplicationFacade.getInstance().sendNotification(notificationStr, dataEntity);
 		}

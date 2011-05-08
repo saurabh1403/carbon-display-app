@@ -3,8 +3,9 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="100%" height="100%"
-		 backgroundColor="0x888888">
-
+		 backgroundAlpha="0"
+		 >
+	<!--backgroundColor="0x888888"-->
 	<fx:Script>
 		<![CDATA[
 			import com.Tutorial.ApplicationFacade;
@@ -37,6 +38,9 @@
 			
 			protected function tileComponent_clickHandler(event:MouseEvent):void
 			{
+				if(tileComponent.selectedItem == null)
+					return;
+				
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_CREATENAVPANEL);
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_SETNAVPANELVISIBILITY, "true");
 				
@@ -70,9 +74,13 @@
 						 contentBackgroundAlpha="0"
 						 columnCount="2"
 						 dataProvider="{pkgColl}"
+						 rowHeight="100"
 						 itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
 						 click="tileComponent_clickHandler(event)"
+						 
 						 />
+			<!--chromeColor="0x303030"
+			color="0x303030"-->
 			<mx:Spacer width="10%"/>
 		</mx:HBox>
 		<mx:Spacer height="10%"/>

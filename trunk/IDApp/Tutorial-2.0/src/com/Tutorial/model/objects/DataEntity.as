@@ -9,6 +9,7 @@ package com.Tutorial.model.objects
 		private var _name:String;
 		private var _contentType:String;
 		private var _relativeSrcFile:String;
+		private var _completePath:String;
 		private var _duration:String;
 		private var _keywords:String;
 		private var _videoType:String;
@@ -25,6 +26,7 @@ package com.Tutorial.model.objects
 			_name = "";
 			_contentType = TutConstants.LEVELCONTENT0;
 			_relativeSrcFile = "";
+			_completePath = "";
 			_duration = "";
 			_keywords = "";
 			_videoType = TutConstants.CONTENT_FLV;
@@ -41,6 +43,10 @@ package com.Tutorial.model.objects
 		public function get relativeSrcFile():String
 		{
 			return _relativeSrcFile;
+		}
+		public function get completePath():String
+		{
+			return _completePath;
 		}
 		public function get duration():String
 		{
@@ -70,6 +76,10 @@ package com.Tutorial.model.objects
 		public function set relativeSrcFile(src:String):void
 		{
 			_relativeSrcFile = src;
+		}
+		public function set completePath(path:String):void
+		{
+			_completePath = path;
 		}
 		public function set duration(dr:String):void
 		{

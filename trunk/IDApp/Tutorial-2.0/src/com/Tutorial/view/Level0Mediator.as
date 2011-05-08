@@ -46,16 +46,16 @@ package com.Tutorial.view
 						switch(dataEnt.videoType)
 						{
 							case TutConstants.CONTENT_FLV:
-								level0View.videoComp.flvVideoSrcFile = dataEnt.relativeSrcFile;
+								level0View.videoComp.flvVideoSrcFile = dataEnt.completePath;//dataEnt.relativeSrcFile;
 								break;
 							case TutConstants.CONTENT_SWF:
-								level0View.videoComp.swfVideoSrcFile = dataEnt.relativeSrcFile;
+								level0View.videoComp.swfVideoSrcFile = dataEnt.completePath;
 								break;
 							case TutConstants.CONTENT_PDF:
-								level0View.videoComp.pdfSrcFile = dataEnt.relativeSrcFile;
+								level0View.videoComp.pdfSrcFile = dataEnt.completePath;
 								break;
 							case TutConstants.CONTENT_HTM:
-								level0View.videoComp.htmlSrcFile = dataEnt.relativeSrcFile;
+								level0View.videoComp.htmlSrcFile = dataEnt.completePath;
 								break;
 							default:
 								
