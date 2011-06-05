@@ -8,22 +8,33 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import Controller.DataProcessor;
+			import Controller.MCQConstants;
+			
+			import Events.QuesButtClickEvent;
+			
+			import model.Question;
+			
 			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			
 			public var appWidth:int = 0;
 			public var appHeight:int = 0;
 			
-			protected function button1_clickHandler(event:MouseEvent):void
+//			private var currQues:Question;
+			private var currQuesNumber:int = 0;
+			private var totalQuesCount:int = 0;
+			
+			protected function FinishHandler(event:MouseEvent):void
 			{
-				var cusEvent:Event = new Event("test_Completed");
+				var cusEvent:Event = new Event(MCQConstants.testCompletedEventName);
 				dispatchEvent(cusEvent);
 				
 			}
 			
-			protected function button2_clickHandler(event:MouseEvent):void
+			protected function HelpClickHandler(event:MouseEvent):void
 			{
-				var detailView:TestDetailOverlay = new TestDetailOverlay();
+				var detailView:DetailOverlay = new DetailOverlay();
 				detailView.width = appWidth - 40;
 				detailView.height = appHeight - 40;
 
@@ -35,6 +46,79 @@
 			{
 				appWidth = this.width;
 				appHeight = this.height;
+				
+				currentState = "TestMode";
+				
+				var currQues:Question = DataProcessor.instance.quesProxy.questions[currQuesNumber];
+
+				//register different handlers
+				totalQuesCount = DataProcessor.instance.quesProxy.questions.length;
+				quesBox.initWtihButtons(totalQuesCount);
+				quesBox.addEventListener(MCQConstants.quesButtonClickEventName, quesChangedEventHandler);
+				
+				choiceBox.setCurrentState(currentState);
+
+				populateDataOnScreen(currQues);
+				
+			}
+			
+			//this commits all the data for the current question
+			//this is called only when the question is changed
+			protected function currQuesDone():void
+			{
+				var quesState:int = choiceBox.commitSelectedOptions();
+				quesBox.setButtonColor(currQuesNumber,quesState);						
+			}
+			
+			protected function quesChangedEventHandler(event:Event):void
+			{
+				//get the event data from here
+				//commit the data in choice box here
+				if(currentState == "TestMode")
+					currQuesDone();
+				
+				if(event.target.id == "nextButton")
+					currQuesNumber = ((currQuesNumber + 1) % totalQuesCount);
+				
+				else if(event.target.id == "prevButton")
+				{
+					if(currQuesNumber == 0)
+						currQuesNumber = totalQuesCount - 1;
+					else
+						currQuesNumber = (currQuesNumber - 1);
+				}
+				
+				else
+				{
+					var newEvent:QuesButtClickEvent = event as QuesButtClickEvent;
+					currQuesNumber = newEvent.buttNumber;		//TODO: get the new question from here
+				}
+				
+				var currQues:Question = DataProcessor.instance.quesProxy.questions[currQuesNumber];
+				populateDataOnScreen(currQues);
+			}
+			
+			protected function populateDataOnScreen(_currQues:Question):void
+			{
+				//populate statement
+				quesStatement.text = _currQues.quesStatement;
+				
+				quesBox.setButtonColor(currQuesNumber, MCQConstants.currQuesSelected);
+				
+				if(_currQues._imagePath.length == 0)
+				{
+//					choiceBox.percentWidth = 100;
+					diagram.visible = false;
+				}
+				else
+				{
+	//				choiceBox.percentWidth = 70;
+					diagram.visible = true;
+				}
+				
+				//populate choice box
+				choiceBox.populateChoices(_currQues);
+
 			}
 			
 		]]>
@@ -54,26 +138,46 @@
 		</s:BasicLayout>
 	</s:layout>
 	<s:BorderContainer left="10" top="10" bottom="10" width="78%">
-		<components:ExplanationBar includeIn="ReviewMode" left="80" right="80" bottom="29"
-								   height="20%" horizontalCenter="0">
+		<components:ExplanationBar includeIn="ReviewMode" left="80" right="80" bottom="20"
+								   height="15%" horizontalCenter="0">
 		</components:ExplanationBar>
-		<s:Button includeIn="TestMode" x="190" y="374" label="Button"
+		<s:Button includeIn="TestMode" x="281" y="350" label="Button"
 				  click="currentState='ReviewMode'"/>
-		<s:RichText includeIn="TestMode" top="40" width="90%" height="14%" horizontalCenter="-1"
-					text="RichText"/>
+		<!--s:VGroup horizontalAlign="center" horizontalCenter="0"
+				  top.TestMode="20" width.TestMode="95%" height.TestMode="90%"
+				  horizontalCenter.TestMode="0"-->
+			
+			<s:RichText id="quesStatement" top="40" width="90%" height="14%" chromeColor="#FCFBFB"
+						color="#678C60" fontFamily="Verdana" fontSize="13" fontWeight="bold"
+						paddingBottom="10" paddingTop="10" text="Sample statement"
+						textAlign="left" verticalAlign="top"
+						left="20"/>
+			<components:choicesBox id="choiceBox" left="20" top="113" width="70%"
+								   height="50%">
+			</components:choicesBox>
+			<components:DiagramDisplayer id="diagram" right="10" top="113" width="25%" height="40%">
+			</components:DiagramDisplayer>
 		
+		<s:Button id="nextButton" right="10" bottom="20" label="Next"
+				  click="quesChangedEventHandler(event)"
+				  width="7%" height="7%"/>
+		
+		<s:Button id="prevButton" width="7%" height="7%" label="Previous"
+				  click="quesChangedEventHandler(event)"
+				  left="10" bottom="20"/>
+
 		<!--s:Button click="currentState = 'ReviewMode'" x="300" y="200"/-->
 	</s:BorderContainer>
 	<s:Panel right="6" top="10" bottom="10" width="20%">
-		<s:Button  label="Done" click="button1_clickHandler(event)"
-				  bottom="20" width="50%" height="5%"
-				  horizontalCenter="0"
-				  />
+		<s:Button bottom="20" width="50%" height="5%" label="Done"
+				   horizontalCenter="0"
+				  click="FinishHandler(event)"/>
 		
-		<s:Button top="20" width="50%" height="5%" label="Help" horizontalCenter="0"
-				  click="button2_clickHandler(event)"/>
-		<components:questionsButtBox top="65" width="90%" height="20%"
-									 horizontalCenter="0">
+		<s:Button top="20" width="50%" height="5%" label="Help"
+				  horizontalCenter="0"
+				  click="HelpClickHandler(event)"/>
+		<components:questionsButtBox id="quesBox" width="90%" height="20%"
+									 top="75" horizontalCenter="0">
 		</components:questionsButtBox>
 		<s:BorderContainer includeIn="TestMode" bottom="80" width="80%" height="70"
 						   horizontalCenter="0">

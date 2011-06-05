@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
-				   xmlns:s="library://ns.adobe.com/flex/spark" 
-				   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   backgroundColor="#93C0BC" borderColor="#A89A9A"
+				   borderWeight="7" dropShadowVisible="true">
 	<s:layout>
-		<s:BasicLayout/>
+		<s:TileLayout horizontalGap="0" paddingBottom="0" paddingLeft="0" paddingRight="0"
+					  paddingTop="0" verticalGap="0">
+			
+		</s:TileLayout>
 	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import Controller.MCQConstants;
+			
+			import Events.QuesButtClickEvent;
+			
+			import spark.components.Button;
+			
+			public function initWtihButtons(count:int, buttPrefix:String = "butt"):void
+			{
+				var buttongWidth:int = this.width /5;
+				var buttonHeight:int = this.height /6;
+				
+				//TODO: fix the sizing problems of button
+				for(var i:int = 0; i < count ; i++)
+				{
+					var butt:Button = new Button();
+					butt.width = buttongWidth;
+					butt.height = buttonHeight;
+					butt.addEventListener(MouseEvent.CLICK, buttClickHandler);
+					butt.label = (i+1).toString();
+//					butt.percentWidth = 18;
+//					butt.percentHeight = 15;
+					butt.id = i.toString();
+					this.addElement(butt);
+				}
+			}
+
+			public function setButtonColor(butt_number:int, buttonState:int):void
+			{
+				
+			}
+			
+	
+			protected function buttClickHandler(event:Event):void
+			{
+				//extract the button number
+				var quesId:String = event.target.id;
+				
+				var newEvent:QuesButtClickEvent = new QuesButtClickEvent(MCQConstants.quesButtonClickEventName);
+				newEvent.buttNumber = parseInt(quesId);
+				dispatchEvent(newEvent);
+				
+			}
+
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
