@@ -1,8 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 >
+	<s:states>
+		<s:State name="TestMode"/>
+		<s:State name="ReviewMode"/>
+	</s:states>
 	<fx:Declarations>
+		<s:RadioButtonGroup id="radiogroup1"
+							itemClick="radiogroup1_itemClickHandler(event)"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout paddingLeft="5"
+						  horizontalAlign="left" paddingBottom="15"
+						  paddingRight="5" paddingTop="5">
+			
+		</s:VerticalLayout>
+	</s:layout>
+
+	<fx:Script>
+		<![CDATA[
+			import Controller.MCQConstants;
+			
+			import model.Question;
+			
+			import mx.controls.Label;
+			import mx.events.ItemClickEvent;
+			
+			import spark.primitives.Line;
+			
+			import view.widgets.choiceRadioButton;
+
+			//auto resizable choice box
+			private var currQues:Question;
+			
+			private var choicesSelected:int = 0;		//0 means no item selected
+			
+			public function reset():void
+			{
+				//remove all elements
+				this.removeAllElements();
+			}
+			
+			public function populateChoices(_currQues:Question):void
+			{
+				currQues = _currQues;
+				reset();
+				setData();
+			}
+			
+			//this creates the radio buttons
+			private function setData():void
+			{
+				for(var i:int = 0; i < currQues.choices.length; i++)
+				{
+					var radioElement:choiceRadioButton = new choiceRadioButton();
+					radioElement.width = this.width;
+					radioElement.id = (i+1).toString();
+					radioElement.setCurrentState(currentState);
+					radioElement.initRadioChoice(radiogroup1, currQues.choices[i]);
+					this.addElement(radioElement);
+				}
+				
+			}
+
+			//this commits the selection done by the user
+			//this returns the different state of the selection by user- attempted, marked for review etc.
+			public function commitSelectedOptions():int
+			{
+				//TODO: get the selection
+				if(choicesSelected ==0)
+				{
+					return MCQConstants.quesUnAttempted;
+				}
+				
+				else
+				{
+					currQues.choices[choicesSelected].userAnswer = true;
+					currQues.userAnswer = MCQConstants.primeNumberArray[choicesSelected];		//this thing will be used later
+				}
+				
+				
+				
+				return 1;
+			}
+			
+			protected function radiogroup1_itemClickHandler(event:ItemClickEvent):void
+			{
+				choicesSelected = parseInt(event.target.id.toString());
+			}
+			
+		]]>
+	</fx:Script>
+	
 </s:Group>

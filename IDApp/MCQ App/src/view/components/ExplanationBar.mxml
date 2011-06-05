@@ -2,7 +2,7 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
-				   width="400" height="300" borderAlpha="0.61" borderColor="#7C7A7A" borderWeight="0.7"
+				   borderAlpha="0.61" borderColor="#2A2A2A" borderWeight="0"
 				   dropShadowVisible="true">
 	<s:layout>
 		<s:BasicLayout/>
@@ -10,4 +10,8 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	<s:RichText width="95%" height="95%" backgroundColor="#8B8888" chromeColor="#FCF8F8"
+				color="#FCFCFC" fontFamily="Verdana" fontSize="19" horizontalCenter="0"
+				paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10"
+				text="RichText" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
 </s:BorderContainer>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" width="100%">
+	<s:states>
+		<s:State name="TestMode"/>
+		<s:State name="ReviewMode"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.components.RadioButtonGroup;
+			
+			[Bindable]
+			private var grpName:String = "";
+			
+			[Bindable]
+			private var radButtWidth:int = 80;
+			
+			[Bindable]
+			private var radLabel:String = " this is dummy";
+			
+			
+			//use this method only
+			public function initRadioChoice(radioGroupName:RadioButtonGroup, choiceObj:Object):void
+			{
+				radButtWidth = this.width * 0.8;
+				rad.group = radioGroupName;
+				radLabel = (choiceObj.choice as String).toString();
+
+				//TODO: parse the choice object to correctly show the radio group
+				if(currentState == 'ReviewMode')
+				{
+					img.visible = true;
+					rad.enabled = false;
+					if(choiceObj.correctAnswer)
+					{
+						img.source = "assets/right.png";
+					}
+					
+					if(choiceObj.userAnswer)
+					{
+						rad.selected = true;
+						if(!choiceObj.correctAnswer)
+							img.source = "assets/wrong.png";
+					}
+					
+					else
+					{
+						img.visible = false;
+					}
+					
+				}
+				
+				else
+				{
+					img.visible = false;
+					rad.enabled = true;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		s|RadioButton {
+			skinClass: ClassReference("skins.CustomMultilineRadioButtonSkin");
+		}
+	</fx:Style>
+
+	<s:RadioButton id="rad" maxWidth="{radButtWidth}" label="{radLabel}"
+				   />
+	<s:Image id="img" width="20%"/>
+
+</s:HGroup>
