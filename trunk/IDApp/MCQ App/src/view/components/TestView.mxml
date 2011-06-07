@@ -25,6 +25,9 @@
 			private var currQuesNumber:int = 0;
 			private var totalQuesCount:int = 0;
 			
+			private var quesAttemptedTrack:Dictionary = new Dictionary();
+			private var quesAttempted:int = 0;
+			
 			protected function FinishHandler(event:MouseEvent):void
 			{
 				var cusEvent:Event = new Event(MCQConstants.testCompletedEventName);
@@ -53,12 +56,16 @@
 
 				//register different handlers
 				totalQuesCount = DataProcessor.instance.quesProxy.questions.length;
+				
 				quesBox.initWtihButtons(totalQuesCount);
 				quesBox.addEventListener(MCQConstants.quesButtonClickEventName, quesChangedEventHandler);
 				
 				choiceBox.setCurrentState(currentState);
 
 				populateDataOnScreen(currQues);
+
+				quesProgress.setProgress(quesAttempted, totalQuesCount);
+				quesProgress.label = quesAttempted.toString() + "//" + totalQuesCount.toString() + " completed";
 				
 			}
 			
@@ -68,12 +75,24 @@
 			{
 				var quesState:int = choiceBox.commitSelectedOptions();
 				quesBox.setButtonColor(currQuesNumber,quesState);						
+				
+				if(quesState == MCQConstants.questAttempted && quesAttemptedTrack[currQuesNumber] == null)
+				{
+					quesAttemptedTrack[currQuesNumber] = true;
+					quesAttempted++;
+					
+				}
+				
+				//update the progress bar
+				quesProgress.setProgress(quesAttempted, totalQuesCount);
+				quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
 			}
 			
 			protected function quesChangedEventHandler(event:Event):void
 			{
 				//get the event data from here
 				//commit the data in choice box here
+				
 				if(currentState == "TestMode")
 					currQuesDone();
 				
@@ -91,8 +110,11 @@
 				else
 				{
 					var newEvent:QuesButtClickEvent = event as QuesButtClickEvent;
-					currQuesNumber = newEvent.buttNumber;		//TODO: get the new question from here
+					
+					currQuesNumber = newEvent.buttNumber;
 				}
+				
+				trace("currQues is" + currQuesNumber.toString());
 				
 				var currQues:Question = DataProcessor.instance.quesProxy.questions[currQuesNumber];
 				populateDataOnScreen(currQues);
@@ -118,7 +140,6 @@
 				
 				//populate choice box
 				choiceBox.populateChoices(_currQues);
-
 			}
 			
 		]]>
@@ -134,7 +155,6 @@
 	
 	<s:layout>
 		<s:BasicLayout>
-			
 		</s:BasicLayout>
 	</s:layout>
 	<s:BorderContainer left="10" top="10" bottom="10" width="78%">
@@ -158,9 +178,9 @@
 			<components:DiagramDisplayer id="diagram" right="10" top="113" width="25%" height="40%">
 			</components:DiagramDisplayer>
 		
-		<s:Button id="nextButton" right="10" bottom="20" label="Next"
+		<s:Button id="nextButton" right="10" bottom="20" width="7%" height="7%" label="Next"
 				  click="quesChangedEventHandler(event)"
-				  width="7%" height="7%"/>
+				  chromeColor.TestMode="#DD9C9C"/>
 		
 		<s:Button id="prevButton" width="7%" height="7%" label="Previous"
 				  click="quesChangedEventHandler(event)"
@@ -182,7 +202,7 @@
 		<s:BorderContainer includeIn="TestMode" bottom="80" width="80%" height="70"
 						   horizontalCenter="0">
 		</s:BorderContainer>
-		<mx:ProgressBar includeIn="TestMode" width="80%" height="36" horizontalCenter="0"
-						verticalCenter="40"/>
+		<mx:ProgressBar id="quesProgress" includeIn="TestMode" width="80%" height="36"
+						horizontalCenter="0" verticalCenter="40"/>
 	</s:Panel>
 </s:Group>

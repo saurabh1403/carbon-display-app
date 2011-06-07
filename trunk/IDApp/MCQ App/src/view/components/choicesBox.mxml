@@ -9,7 +9,7 @@
 	</s:states>
 	<fx:Declarations>
 		<s:RadioButtonGroup id="radiogroup1"
-							itemClick="radiogroup1_itemClickHandler(event)"/>
+							/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
@@ -25,6 +25,8 @@
 		<![CDATA[
 			import Controller.MCQConstants;
 			
+			import Events.ChoiceElementEvent;
+			
 			import model.Question;
 			
 			import mx.controls.Label;
@@ -37,22 +39,26 @@
 			//auto resizable choice box
 			private var currQues:Question;
 			
-			private var choicesSelected:int = 0;		//0 means no item selected
+			private var choicesSelected:int = -1;		
+			private var choiceSelectedWeight:int = 1;		//1 means no item selected
 			
 			public function reset():void
 			{
 				//remove all elements
 				this.removeAllElements();
+				currQues = null;
+				choicesSelected = -1;
+				choiceSelectedWeight = 1;
 			}
 			
 			public function populateChoices(_currQues:Question):void
 			{
-				currQues = _currQues;
 				reset();
+				currQues = _currQues;
 				setData();
 			}
 			
-			//this creates the radio buttons
+			//this creates the radio buttons. This will not work for checkbox choices type
 			private function setData():void
 			{
 				for(var i:int = 0; i < currQues.choices.length; i++)
@@ -61,7 +67,9 @@
 					radioElement.width = this.width;
 					radioElement.id = (i+1).toString();
 					radioElement.setCurrentState(currentState);
-					radioElement.initRadioChoice(radiogroup1, currQues.choices[i]);
+					radioElement.elementNumber = i;
+					radioElement.addEventListener("ff", radiogroup1_itemClickHandler);
+					radioElement.initRadioChoice(radiogroup1, (currQues.choices[i].choice as String), (currQues.userAnswer == i), currQues.choices[i].correctAnswer);
 					this.addElement(radioElement);
 				}
 				
@@ -71,26 +79,26 @@
 			//this returns the different state of the selection by user- attempted, marked for review etc.
 			public function commitSelectedOptions():int
 			{
-				//TODO: get the selection
-				if(choicesSelected ==0)
+				if(choiceSelectedWeight == 1)
 				{
 					return MCQConstants.quesUnAttempted;
 				}
 				
 				else
 				{
-					currQues.choices[choicesSelected].userAnswer = true;
-					currQues.userAnswer = MCQConstants.primeNumberArray[choicesSelected];		//this thing will be used later
+					currQues.userAnswer = choicesSelected;
+					currQues.userAnswerWeight = choiceSelectedWeight;
+					return MCQConstants.questAttempted;
 				}
-				
-				
-				
+
 				return 1;
 			}
 			
-			protected function radiogroup1_itemClickHandler(event:ItemClickEvent):void
+			protected function radiogroup1_itemClickHandler(event:ChoiceElementEvent):void
 			{
-				choicesSelected = parseInt(event.target.id.toString());
+				
+				choicesSelected = event.choiceSelection;
+				choiceSelectedWeight = MCQConstants.primeNumberArray[event.choiceSelection];		//in case of checkbox, this should be multiplied by previous value. this is a multiplication of prime numbers
 			}
 			
 		]]>

@@ -12,6 +12,8 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import Events.ChoiceElementEvent;
+			
 			import spark.components.RadioButtonGroup;
 			
 			[Bindable]
@@ -23,28 +25,30 @@
 			[Bindable]
 			private var radLabel:String = " this is dummy";
 			
+			public var elementNumber:int = 0;
+			
 			
 			//use this method only
-			public function initRadioChoice(radioGroupName:RadioButtonGroup, choiceObj:Object):void
+			public function initRadioChoice(radioGroupName:RadioButtonGroup, choiceStatement:String = "", isSelectedByUser:Boolean = false, isCorrectAnswer = false):void
 			{
 				radButtWidth = this.width * 0.8;
 				rad.group = radioGroupName;
-				radLabel = (choiceObj.choice as String).toString();
+				radLabel = choiceStatement;
 
 				//TODO: parse the choice object to correctly show the radio group
 				if(currentState == 'ReviewMode')
 				{
 					img.visible = true;
 					rad.enabled = false;
-					if(choiceObj.correctAnswer)
+					if(isCorrectAnswer)
 					{
 						img.source = "assets/right.png";
 					}
 					
-					if(choiceObj.userAnswer)
+					if(isSelectedByUser)
 					{
 						rad.selected = true;
-						if(!choiceObj.correctAnswer)
+						if(!isCorrectAnswer)
 							img.source = "assets/wrong.png";
 					}
 					
@@ -59,7 +63,15 @@
 				{
 					img.visible = false;
 					rad.enabled = true;
+					rad.selected = isSelectedByUser;
 				}
+			}
+			
+			protected function rad_clickHandler(event:MouseEvent):void
+			{
+				var newEvent:ChoiceElementEvent = new ChoiceElementEvent("ff");
+				newEvent.choiceSelection = elementNumber;
+				dispatchEvent(newEvent);
 			}
 			
 		]]>
@@ -75,7 +87,8 @@
 	</fx:Style>
 
 	<s:RadioButton id="rad" maxWidth="{radButtWidth}" label="{radLabel}"
-				   />
-	<s:Image id="img" width="20%"/>
+				  click="rad_clickHandler(event)" />
+	<s:Spacer width="3%"/>
+	<s:Image id="img" width="15%"/>
 
 </s:HGroup>
