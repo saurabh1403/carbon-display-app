@@ -18,8 +18,10 @@ package model
 		//each choices have a prime number associated with it.
 		public var choices:ArrayCollection;			//this is the array collection of choice object which has three things - statement(string), user answer(bool), correct answer (bool)
 		
-		public var corrAnswer:int = 1; 		//this correct answer is the 
-		public var userAnswer:int = 0;
+		public var corrAnswer:int = 1; 		//this correct answer is the answer weight
+
+		public var userAnswerWeight:int = 1;
+		public var userAnswer:int = -1;		//in case of checkbox, it will be an array
 		
 		public var quesMark:int = 1;
 		
@@ -43,8 +45,16 @@ package model
 			{
 				var tempObj:Object = new Object();
 				tempObj.choice = choiceList[i].toString();
-				tempObj.correctAnswer = (choiceList[i].@ans == "1");
-				tempObj.userAnswer = false;
+				if(choiceList[i].@ans == "1")
+				{
+					tempObj.correctAnswer = true;
+					corrAnswer = corrAnswer * MCQConstants.primeNumberArray[i];
+				}
+				else
+				{
+					tempObj.correctAnswer = false;
+				}
+	//				tempObj.userAnswer = false;		//not to be used now
 				
 				choices.addItem(tempObj);
 			}

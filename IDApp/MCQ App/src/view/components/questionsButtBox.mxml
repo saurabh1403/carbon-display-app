@@ -2,7 +2,7 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
-				   backgroundColor="#93C0BC" borderColor="#A89A9A"
+				   backgroundColor="#E4DFE6" borderColor="#A89A9A"
 				   borderWeight="7" dropShadowVisible="true">
 	<s:layout>
 		<s:TileLayout horizontalGap="0" paddingBottom="0" paddingLeft="0" paddingRight="0"
@@ -19,6 +19,8 @@
 			
 			import spark.components.Button;
 			
+			private var buttNamePrefix:String = "button";
+			
 			public function initWtihButtons(count:int, buttPrefix:String = "butt"):void
 			{
 				var buttongWidth:int = this.width /5;
@@ -30,8 +32,10 @@
 					var butt:Button = new Button();
 					butt.width = buttongWidth;
 					butt.height = buttonHeight;
+					butt.setStyle("chromeColor",MCQConstants.quesStateColor[3]);
 					butt.addEventListener(MouseEvent.CLICK, buttClickHandler);
 					butt.label = (i+1).toString();
+//					butt.name = buttNamePrefix + i.toString();
 //					butt.percentWidth = 18;
 //					butt.percentHeight = 15;
 					butt.id = i.toString();
@@ -41,7 +45,9 @@
 
 			public function setButtonColor(butt_number:int, buttonState:int):void
 			{
-				
+				var currButt:Button = this.getElementAt(butt_number) as Button;
+				if(currButt != null)
+					currButt.setStyle("chromeColor", MCQConstants.quesStateColor[buttonState]);
 			}
 			
 	
