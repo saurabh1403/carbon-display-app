@@ -113,62 +113,69 @@ package com.Tutorial.business
 			
 			if(data.search("<result>NativeProcessLaunched</result>") != -1)		//received in the beginning when the native process is launched
 			{
-				if(!NativeCommunicator.instance.getAllPackageData())
+				/*if(!NativeCommunicator.instance.getAllPackageData())
 				{
 					Alert.show("Unable to get package data. Quitting");
 					//<TODO: Send a call to native to quit......
 					closeNativeSession();
-				}
+				}*/
 				NativeCommunicator.instance.bNativeLaunched = true;
 				return;
 			}
 			
-			var xml:XML = new XML(data);
-			if(xml.localName() == "result")
+			try
 			{
-				var callId:String = xml.CallIdentifier.toString();
-				var mObj:MessageSessionObj = NativeCommunicator.instance.callIdentifierDict[callId];
-				
-				if(mObj != null)
+				var xml:XML = new XML(data);
+				if(xml.localName() == "result")
 				{
-					var evName:String = mObj.targetObject;
-					//Tutorial._appInstance.dispatchEvent(new DataEvent(evName, false, false, (xml.outputXml as XML).toXMLString()));
-					switch(evName)
+					var callId:String = xml.CallIdentifier.toString();
+					var mObj:MessageSessionObj = NativeCommunicator.instance.callIdentifierDict[callId];
+					
+					if(mObj != null)
 					{
-						case "getAvailablePackages":
-							//Alert.show(xml.outputXml.toXMLString());
-							var content:String = xml.outputXml.toXMLString();
-							AllPackageDataReceivedHandler(new DataEvent(evName, false, false, content));
-							
-							break;
-						case "startPackageSession":
-							var pkID:String = mObj.packageid;
-							sessionStartedHandler(pkID);
-							
-							break;
-						case "getPackageSessionData":
-							//var dataStr:String = 
-							//sessionDataReceivedHandler(
-							var pkID:String = mObj.packageid;
-							//var testStr:String = xml.toString();
-							sessionDataReceivedHandler(pkID, xml);
-							
-							break;
-						case "getContent":
-							/*var callIdentifier:String = callId;
-							var contentFile:String = xml.outputXml.contentFile.toString();
-							var type:String = xml.outputXml.type.toString();*/
-							var contentPath:String = xml.outputXml.contentPath.toString();
-							
-							videoPathReceivedHandler(callId, contentPath);
-							
-							
-							//Tutorial._appInstance.dispatchEvent(new DataEvent(VIDEOPATHRECEIVED, false, false, vidData.notificationID.toString() + separatorStr + vidData.index.toString()));
-							break;
-						default:
-							break;
+						var evName:String = mObj.targetObject;
+						//Tutorial._appInstance.dispatchEvent(new DataEvent(evName, false, false, (xml.outputXml as XML).toXMLString()));
+						switch(evName)
+						{
+							case "getAvailablePackages":
+								//Alert.show(xml.outputXml.toXMLString());
+								var content:String = xml.outputXml.toXMLString();
+								AllPackageDataReceivedHandler(new DataEvent(evName, false, false, content));
+								
+								break;
+							case "startPackageSession":
+								var pkID:String = mObj.packageid;
+								sessionStartedHandler(pkID);
+								
+								break;
+							case "getPackageSessionData":
+								//var dataStr:String = 
+								//sessionDataReceivedHandler(
+								var pkID:String = mObj.packageid;
+								//var testStr:String = xml.toString();
+								sessionDataReceivedHandler(pkID, xml);
+								
+								break;
+							case "getContent":
+								/*var callIdentifier:String = callId;
+								var contentFile:String = xml.outputXml.contentFile.toString();
+								var type:String = xml.outputXml.type.toString();*/
+								var contentPath:String = xml.outputXml.contentPath.toString();
+								
+								videoPathReceivedHandler(callId, contentPath);
+								
+								
+								//Tutorial._appInstance.dispatchEvent(new DataEvent(VIDEOPATHRECEIVED, false, false, vidData.notificationID.toString() + separatorStr + vidData.index.toString()));
+								break;
+							default:
+								break;
+						}
 					}
 				}
+			}
+			catch(e:Error)
+			{
+				Alert.show("Error with the output data received from the native binary....");
 			}
 			
 			//Alert.show(data);
@@ -414,6 +421,8 @@ package com.Tutorial.business
 		{
 			if(notificationID == "")
 				return;
+			
+			ApplicationFacade.getInstance().sendNotification(TutConstants.N_STOPCURRENTPLAYINGVIDEO);
 			
 			var arr:Array = new Array;
 			var vidData:VideoData = new VideoData;

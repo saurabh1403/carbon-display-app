@@ -13,22 +13,29 @@
 			import mx.controls.listClasses.IListItemRenderer;
 			
 			[Bindable]
-			[Embed(source="/assets/images/chapter_image.png")]
+			[Embed(source="/assets/images/mainChapterImages/cover1.png")]
 			private var chapterImage:Class;
 			
 		]]>
 	</fx:Script>
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
 	
-	<mx:HBox width="100%" height="100%">
+	
 		<!--<mx:Image source="{data.mainIconPath}"/>-->
+		
 		<mx:Image source="{chapterImage}"
-				  width="80" height="80"/>
-		<mx:VBox width="100%" height="100%">
+				  horizontalAlign="center" verticalAlign="middle"
+				  width="100%" height="100%"
+				  left="10" right="10" top="10" bottom="10"
+				  />
+				  <!--width="80" height="80"/>-->
+		<!--<mx:VBox width="100%" height="100%">
 			<s:Label text="{data.pkgName}"/>
 			<mx:Label text="{data.title}" truncateToFit="true"/>
-		</mx:VBox>		
-	</mx:HBox>
-	
+		</mx:VBox>	-->
+			
 	<!--<mx:Image width="100%" height="100%"
 			  source="{data.mainIconPath}"/>-->
 </s:ItemRenderer>

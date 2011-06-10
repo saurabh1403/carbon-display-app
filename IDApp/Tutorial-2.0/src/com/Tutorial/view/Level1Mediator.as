@@ -1,5 +1,6 @@
 package com.Tutorial.view
 {
+	import com.Tutorial.ApplicationFacade;
 	import com.Tutorial.business.NativeCommunicator;
 	import com.Tutorial.business.TutConstants;
 	import com.Tutorial.model.objects.DataEntity;
@@ -48,8 +49,39 @@ package com.Tutorial.view
 		{
 			switch(notification.getName())
 			{
+				case TutConstants.N_LEVEL1CLICKED:
+					try
+					{
+						var obj:Object = notification.getBody();
+						
+						try{
+							level1View.titleText = obj.name;
+							level1View.arrC = obj.children;
+							level1View.arrSubTopics = obj.subTopics;
+							
+							if((obj.subTopics != null) && (obj.subTopics.length != 0))
+							{
+								//need to populate the video part of the view.
+								//Sending the notification to populate the mainViewComponent instead
+								
+								//ApplicationFacade.getInstance().sendNotification(TutConstants.N_POPULATEMAINVIEW, obj);
+								ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
+								//ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, obj);
+								var dataObj:Object = new Object;
+								dataObj.dEnt = obj as DataEntity;
+								dataObj.clickedFromLevelZ = "false";
+								ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
+							}
+						}
+						catch(e:Error){}
+					}
+					catch(e:Error)
+					{
+						
+					}
+					break;
 				case NOTIFICATIONNAME:
-					try{
+					/*try{
 						var dataEnt:DataEntity = notification.getBody() as DataEntity;
 						
 						level1View.videoComp.flvVideoSrcFile = "";
@@ -75,24 +107,7 @@ package com.Tutorial.view
 								
 						}
 					}
-					catch(e:Error){}
-					break;
-				case TutConstants.N_LEVEL1CLICKED:
-					try
-					{
-						var obj:Object = notification.getBody();
-						
-						try{
-							level1View.titleText = obj.name;
-							level1View.arrC = obj.children;
-							level1View.arrSubTopics = obj.subTopics;
-						}
-						catch(e:Error){}
-					}
-					catch(e:Error)
-					{
-						
-					}
+					catch(e:Error){}*/
 					break;
 				default:
 					break;

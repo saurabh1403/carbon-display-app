@@ -27,16 +27,20 @@
 			protected function tileList_clickHandler(event:MouseEvent):void
 			{
 				ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
-				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, tileList.selectedItem);
+				//ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, tileList.selectedItem);
+				var dataObj:Object = new Object;
+				dataObj.dEnt = tileList.selectedItem as DataEntity;
+				dataObj.clickedFromLevelZ = "false";
+				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
 			}
-			protected function tileListSubTopics_clickHandler(event:MouseEvent):void
+			/* protected function tileListSubTopics_clickHandler(event:MouseEvent):void
 			{
 				var dataEnt:DataEntity = event.currentTarget.selectedItem as DataEntity;
 				var dEvent:DynamicEvent = new DynamicEvent(CLICK_NOTIFICATION, true);
 				dEvent.dataEntity = dataEnt;
 				dispatchEvent(dEvent);
 				//dispatchEvent(new Event(CLICK_NOTIFICATION, true));
-			}
+			} */
 		]]>
 	</fx:Script>
 	
@@ -57,11 +61,11 @@
 				 click="tileList_clickHandler(event)"
 				 visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}" includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
 	
-	<mx:HBox width="100%" height="100%"
+	<!--<mx:HBox width="100%" height="100%"
 			 horizontalScrollPolicy="off" verticalScrollPolicy="off"
 			 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">
-		<components:VideoComponent width="70%" height="100%"
-					id="videoComp"/>
+		<components:VideoComponent width="800" height="600"
+								   id="videoComp"/>
 		<mx:TileList width="30%" height="100%"
 				id="tileListSubTopics"
 				 borderVisible="false"
@@ -71,6 +75,10 @@
 				 click="tileListSubTopics_clickHandler(event)"
 				 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
 				 />
-	</mx:HBox>
-	
+	</mx:HBox>-->
+	<!--<components:mainViewComponent width="100%" height="100%"
+				  id="videoComponentContainer"
+				  visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
+				  arrSubTopics="{arrSubTopics}" 
+				  />-->
 </mx:VBox>

@@ -1,0 +1,36 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+/*
+.scrollBar_Horiz
+{ 
+	trackUpSkin: Embed(source="scrollbar/track_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="9", scaleGridBottom="366"); 
+	trackOverSkin: Embed(source="scrollbar/track_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="9", scaleGridBottom="366"); 
+	trackDownSkin: Embed(source="scrollbar/track_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="9", scaleGridBottom="366"); 
+	track-disabled-skin: Embed(source="scrollbar/track_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="9", scaleGridBottom="366"); 
+	
+	thumbUpSkin: Embed(source="scrollbar/thumb_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="2", scaleGridRight="9", scaleGridBottom="53");
+	thumbOverSkin: Embed(source="scrollbar/thumb_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="2", scaleGridRight="9", scaleGridBottom="53");
+	thumbDownSkin: Embed(source="scrollbar/thumb_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="2", scaleGridRight="9", scaleGridBottom="53");
+	thumb-disabled-skin: Embed(source="scrollbar/thumb_n_h.png", 		
+		scaleGridLeft="2", scaleGridTop="2", scaleGridRight="9", scaleGridBottom="53");
+	downArrowSkin: ClassReference(null);
+	upArrowSkin: ClassReference(null);
+	thumbIcon: Embed(source="scrollbar/thumbIcon_h.png");
+}
+*/
+
+ToolTip
+{
+	fontSize: 11;
+	color: #ffffff;
+	borderSkin: ClassReference("com.Tutorial.view.skins.ToolTipSkin");
+}

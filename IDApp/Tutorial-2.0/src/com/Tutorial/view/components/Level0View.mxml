@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="com.Tutorial.view.components.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="com.Tutorial.view.components.*"
+		 creationComplete="vbox1_creationCompleteHandler(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:Label width="100%" text="Level0" color="0xFFFFFF"/>
+<!--	<s:Label width="100%" text="Level0" color="0xFFFFFF"/>
 	
 	<components:VideoComponent width="100%" height="100%"
-				id="videoComp"/>
+				id="videoComp"/>-->
+	
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.ApplicationFacade;
+			import com.Tutorial.business.TutConstants;
+			import com.Tutorial.model.objects.DataEntity;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			/* [Bindable]
+			public var videoSrcObject:Object = new Object; */
+			
+			[Bindable]
+			public var arrSubTopics:ArrayCollection = null;
+			
+			protected function tileListSubTopics_clickHandler(event:MouseEvent):void
+			{
+				ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
+				var dataObj:Object = new Object;
+				dataObj.dEnt = tileListSubTopics.selectedItem as DataEntity;
+				dataObj.clickedFromLevelZ = "true";
+				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
+			}
+
+			protected function vbox1_creationCompleteHandler(event:FlexEvent):void
+			{
+				/* videoSrcObject.flvVideoSrcFile = "";
+				videoSrcObject.swfVideoSrcFile = "";
+				videoSrcObject.pdfSrcFile = "";
+				videoSrcObject.htmlSrcFile = ""; */
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:Label width="100%" text="chapter related info goes here...."/>
+	
+	<mx:HBox width="100%" height="100%"
+			 horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			 <!--visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">-->
+		<!--<components:VideoComponent width="70%" height="100%"
+		id="videoComp"/>-->
+		<components:VideoComponent width="800" height="600"
+								   id="videoComp"/>
+								   <!--videoSrcObject="{videoSrcObject}"/>-->
+		<mx:VBox width="100%" height="100%"
+				 horizontalScrollPolicy="off">
+			<mx:TileList width="100%" height="50%"
+						 id="tileListSubTopics"
+						 borderVisible="false"
+						 contentBackgroundAlpha="0"
+						 columnCount="1"
+						 dataProvider="{arrSubTopics}"
+						 click="tileListSubTopics_clickHandler(event)"
+						 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
+						 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
+						 />
+			
+			<mx:VBox width="100%" height="50%" horizontalScrollPolicy="off">
+				<!-- This contains a list of all the buttons that may be required to be shown on the right hand side panel -->
+				<s:Button label="Exit"/>
+				<s:Button label="Refresh"/>
+				<s:Button label="Testing"/>
+			</mx:VBox>
+			
+		</mx:VBox>
+		
+	</mx:HBox>
 </mx:VBox>
