@@ -4,6 +4,7 @@ package com.Tutorial.view
 	import com.Tutorial.business.TutConstants;
 	import com.Tutorial.business.TutUtilities;
 	import com.Tutorial.model.PackageProxy;
+	import com.Tutorial.model.objects.DataEntity;
 	import com.Tutorial.model.objects.Package;
 	import com.Tutorial.view.components.NavigationPanel;
 	import com.Tutorial.view.widgets.CollapsibleComponent;
@@ -29,6 +30,10 @@ package com.Tutorial.view
 		[Bindable]
 		[Embed(source="assets/icons/temp.png")]
 		public var tempIcon:Class;
+		
+		[Bindable]
+		[Embed(source="assets/icons/avi_32.png")]
+		public var leafIcon:Class;
 		
 		public function NavigationPanelMediator( viewComponent:Object )
 		{
@@ -98,6 +103,7 @@ package com.Tutorial.view
 								tree.dataProvider = iter.current.children;
 								
 								tree.labelField = "name";
+								tree.setStyle("defaultLeafIcon", leafIcon);
 								
 								tree.addEventListener(MouseEvent.CLICK, treeClickHandler);
 								vb.addChild(tree);
@@ -138,7 +144,11 @@ package com.Tutorial.view
 			{
 				case TutConstants.LEVELCONTENT0:
 					ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
-					ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, (item.currentTarget as Tree).selectedItem);
+					//ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, (item.currentTarget as Tree).selectedItem);
+					var dataObj:Object = new Object;
+					dataObj.dEnt = (item.currentTarget as Tree).selectedItem as DataEntity;
+					dataObj.clickedFromLevelZ = "false";
+					ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
 					break;
 				case TutConstants.LEVELCONTENT1:
 					ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL1SCREEN);
@@ -177,7 +187,11 @@ package com.Tutorial.view
 			{
 				case TutConstants.LEVELCONTENT0:
 					ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
-					ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, (ev.currentTarget as Button).data);
+					//ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, (ev.currentTarget as Button).data);
+					var dataObj:Object = new Object;
+					dataObj.dEnt = (ev.currentTarget as Button).data as DataEntity;
+					dataObj.clickedFromLevelZ = "false";
+					ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
 					break;
 				case TutConstants.LEVELCONTENT1:
 					ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL1SCREEN);

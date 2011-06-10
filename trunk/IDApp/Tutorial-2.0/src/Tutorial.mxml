@@ -6,11 +6,13 @@
 					   activate="windowedapplication1_activateHandler(event)"
 					   xmlns:components="com.Tutorial.view.components.*"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
-					   width="400" height="300"
+					   width="800" height="600"
 					   showStatusBar="false"
 					   autoLayout="true"
 					   close="windowedapplication1_closeHandler(event)"
 					   >
+	
+	<fx:Style source="/assets/tutorialStyle.css" />
 	
 	<fx:Script>
 		<![CDATA[
@@ -27,6 +29,8 @@
 			[Bindable]
 			[Embed(source="/assets/images/backgroundImage.jpg")]
 			private var bkgndImage:Class;
+			
+			private var nCounter:int = 0;
 			
 			public static var _appInstance:Tutorial;	
 
@@ -46,10 +50,12 @@
 				}
 				
 				//So, finally decided to use it as a timeout timer only. If by 10 seconds, the native process is not launched, then it is treated as an error case and the process will be aborted.
-				var timer:Timer = new Timer(10000, 1);
+				timer = new Timer(TIMER_VAL);
 				timer.addEventListener(TimerEvent.TIMER, timerHandler);
 				timer.start();
 			}
+			var timer:Timer;
+			private static var TIMER_VAL:Number = 5000;
 			private function timerHandler(event:TimerEvent):void
 			{
 				if(!NativeCommunicator.instance.bNativeLaunched)
@@ -58,6 +64,18 @@
 					////NativeCommunicator.closeNativeSession();		//I think this should not be called
 					//TODO : What to do to terminate App....
 				}
+				else
+				{
+					//this means native process has been launched and splash screen has been shown for a minimum of TIMER_VAL seconds
+					if(!NativeCommunicator.instance.getAllPackageData())
+					{
+						Alert.show("Unable to get package data. Quitting");
+						//<TODO: Send a call to native to quit......
+						NativeCommunicator.closeNativeSession();
+					}
+				}
+				
+				timer.stop();
 			}
 
 
@@ -84,15 +102,18 @@
 
 			protected function image1_clickHandler(event:MouseEvent):void
 			{
-				proceedToMainView();
+				//proceedToMainView();
 			}
 
 			public function proceedToMainView():void
 			{
 				myCan.visible = false;
+				myCan.includeInLayout = false;
 				mainDisplay.visible = true;
+				mainDisplay.includeInLayout = true;
 				
 				//this.maximize();
+				mainDisplay.maxBtn_clickHandler(null);
 				
 				var splashScreen:NativeWindow = this.nativeWindow;
 				splashScreen.width = TutConstants.WINDOWWIDTH;
@@ -119,7 +140,7 @@
 	
 	<mx:Canvas width="100%" height="100%" id="myCan">
 		<mx:Image x="0" y="0" source="{bkgndImage}"
-				  width="100%" height="100%"
+				  width="100%" height="{myCan.height}"
 				  creationCompleteEffect="Fade"
 				  creationComplete="image1_creationCompleteHandler(event)"
 				  click="image1_clickHandler(event)"/>
@@ -143,6 +164,6 @@
 				 />-->
 	</mx:Canvas>
 	
-	<components:MainDisplay id="mainDisplay" height="100%" width="100%" visible="false"
+	<components:MainDisplay id="mainDisplay" height="100%" width="100%" visible="false" includeInLayout="false"
 							backgroundColor="0x888888"/>
 </s:WindowedApplication>

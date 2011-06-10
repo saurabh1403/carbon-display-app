@@ -15,6 +15,10 @@
 			import com.Tutorial.model.objects.Package;
 			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			public static var listHorizontalColumnCount:int = 2;
 			
 /* 			[Bindable]
 			private var arr:Array = new Array(
@@ -57,6 +61,85 @@
 				}
 			}
 
+
+			protected function leftBtn_clickHandler(event:MouseEvent):void
+			{
+				var pos:int = tileComponent.horizontalScrollPosition-1;
+				var min:int = 0;
+				var value:int = Math.max(min, pos);
+				tileComponent.horizontalScrollPosition = value;
+				
+				if(value == 0)
+					leftBtn.enabled = false;
+				else
+					leftBtn.enabled = true;
+				
+				//if(pkgColl.length >= listHorizontalColumnCount)
+					rightBtn.enabled = true;
+				
+				/*
+				// TODO Auto-generated method stub
+				var n:int = tileComponent.horizontalScrollPosition;
+				var imgWid:int = tileComponent.width/2;
+				
+				tileComponent.horizontalScrollPosition = (n % imgWid) - 1 >= 0 ? ((n % imgWid) - 1) * imgWid : 0;
+				*/
+			}
+
+
+			protected function rightBtn_clickHandler(event:MouseEvent):void
+			{
+				var pos:int = tileComponent.horizontalScrollPosition+1;
+				var max:int = tileComponent.maxHorizontalScrollPosition;
+				var value:int = Math.min(pos, max);
+				tileComponent.horizontalScrollPosition = value;
+				
+				if(value == max)
+					rightBtn.enabled = false;
+				else
+					rightBtn.enabled = true;
+				
+				//if(max >= pkgColl.length)
+					leftBtn.enabled = true;
+				/*
+				// TODO Auto-generated method stub
+				var n:int = tileComponent.horizontalScrollPosition;
+				var imgWid:int = tileComponent.width/2;
+				
+				tileComponent.horizontalScrollPosition = (n % imgWid) + 1 < pkgColl.length - 1 ? ((n % imgWid) + 1)*imgWid : (pkgColl.length - 1) * imgWid;
+				*/
+			}
+
+
+			protected function leftBtn_mouseOverHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(leftBtn.enabled)
+					leftBtn.source = "/assets/icons/leftarrow-32_hover.png";
+			}
+
+
+			protected function leftBtn_mouseOutHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				leftBtn.source = "/assets/icons/leftarrow-32.png";
+			}
+
+
+			protected function rightBtn_mouseOverHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(rightBtn.enabled)
+					rightBtn.source = "/assets/icons/rightarrow-32_hover.png";
+			}
+
+
+			protected function rightBtn_mouseOutHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				rightBtn.source = "/assets/icons/rightarrow-32.png";
+			}
+
 		]]>
 	</fx:Script>
 
@@ -69,7 +152,7 @@
 		<mx:Spacer height="10%"/>
 		<mx:HBox width="100%" height="100%">
 			<mx:Spacer width="10%"/>
-			<mx:TileList width="100%" height="100%" id="tileComponent"
+			<!--<mx:TileList width="100%" height="100%" id="tileComponent"
 						 borderVisible="false"
 						 contentBackgroundAlpha="0"
 						 columnCount="2"
@@ -78,7 +161,40 @@
 						 itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
 						 click="tileComponent_clickHandler(event)"
 						 
-						 />
+						 />-->
+			
+			<mx:VBox height="100%">
+				<mx:Spacer height="100%"/>
+				<mx:Image id="leftBtn" click="leftBtn_clickHandler(event)"
+						  source="/assets/icons/leftarrow-32.png"
+						  mouseOver="leftBtn_mouseOverHandler(event)"
+						  mouseOut="leftBtn_mouseOutHandler(event)"
+						  enabled="false"						  
+						  />
+				<mx:Spacer height="100%"/>
+			</mx:VBox>
+			<mx:HorizontalList width="100%" height="100%" id="tileComponent"
+						dataProvider="{pkgColl}"
+						itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
+						click="tileComponent_clickHandler(event)"
+						borderStyle="none" columnCount="{listHorizontalColumnCount}"
+						horizontalScrollPolicy="off"
+					/>
+			<mx:VBox height="100%">
+				<mx:Spacer height="100%"/>
+				<mx:Image id="rightBtn" click="rightBtn_clickHandler(event)"
+						  source="/assets/icons/rightarrow-32.png"
+						  mouseOver="rightBtn_mouseOverHandler(event)"
+						  mouseOut="rightBtn_mouseOutHandler(event)"
+						  />
+				<mx:Spacer height="100%"/>
+			</mx:VBox>
+			
+			<!--borderStyle="none" backgroundAlpha="0" 
+			selectable="false" useRollOver="false"
+			itemRenderer="com.adobe.UWAFlex.view.components.renderers.AffectedChannelItemRenderer" 
+			columnWidth="20" rowHeight="20" maxColumnsOnScreen="12" height="22"-->
+						
 			<!--chromeColor="0x303030"
 			color="0x303030"-->
 			<mx:Spacer width="10%"/>

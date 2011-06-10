@@ -9,7 +9,7 @@ package com.Tutorial.model.objects
 		public var pkgName:String = "";
 		public var pkgID:String = "";					//this will also be used as session id for the user session
 		public var title:String = "";
-		public var mainIconPath:String = "";			//this image is shown on the dashboard
+		[Bindable] public var mainIconPath:String = "";			//this image is shown on the dashboard
 		
 		public var bAlreadyPopulated:Boolean;			//once populated, no need to retrieve the complete data again
 		

@@ -16,14 +16,31 @@
 			[Bindable] public var pdfSrcFile:String = "";
 			[Bindable] public var htmlSrcFile:String = "";
 			
+			//[Bindable] public var videoSrcObject:Object = new Object;
+			
 
 			protected function vbox1_creationCompleteHandler(event:FlexEvent):void
 			{
+				/* videoSrcObject.flvVideoSrcFile = "";
+				videoSrcObject.swfVideoSrcFile = "";
+				videoSrcObject.pdfSrcFile = "";
+				videoSrcObject.htmlSrcFile = ""; */
 			}
 
 		]]>
 	</fx:Script>
 	
+	<!--<s:VideoPlayer width="100%" height="100%"
+				   source="{videoSrcObject.flvVideoSrcFile}"
+				   visible="{videoSrcObject.flvVideoSrcFile != ''}" includeInLayout="{videoSrcObject.flvVideoSrcFile != ''}"
+				   />
+	<mx:SWFLoader width="100%" height="100%"
+				  source="{videoSrcObject.swfVideoSrcFile}"
+				  visible="{videoSrcObject.swfVideoSrcFile != ''}" includeInLayout="{videoSrcObject.swfVideoSrcFile != ''}"
+				  />
+	<mx:HTML width="100%" height="100%"
+			 visible="{videoSrcObject.htmlSrcFile != ''}" includeInLayout="{videoSrcObject.htmlSrcFile != ''}"
+			 />-->
 	<s:VideoPlayer width="100%" height="100%"
 				   source="{flvVideoSrcFile}"
 				   visible="{flvVideoSrcFile != ''}" includeInLayout="{flvVideoSrcFile != ''}"

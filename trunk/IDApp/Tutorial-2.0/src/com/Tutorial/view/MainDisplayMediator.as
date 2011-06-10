@@ -37,6 +37,7 @@ package com.Tutorial.view
 			facade.registerMediator(new Level1Mediator(mainDisplay.level1View));
 			facade.registerMediator(new Level2Mediator(mainDisplay.level2View));
 			facade.registerMediator(new Level3Mediator(mainDisplay.level3View));
+			/*facade.registerMediator(new mainViewMediator(mainDisplay.mainView));*/
 			
 /*            facade.registerMediator(new UpdaterScreenMediator(mainDisplay.updater));     
             facade.registerMediator(new InstallThankYouMediator(mainDisplay.finish));
@@ -54,7 +55,8 @@ package com.Tutorial.view
 				TutConstants.LEVEL0SCREEN,
 				TutConstants.LEVEL1SCREEN,
 				TutConstants.LEVEL2SCREEN,
-				TutConstants.LEVEL3SCREEN,
+				TutConstants.LEVEL3SCREEN/*,
+				TutConstants.MAINVIEWSCREEN*/
 				];
 		}
        
@@ -84,6 +86,9 @@ package com.Tutorial.view
 				case TutConstants.LEVEL3SCREEN:
 					mainDisplay.currentViewSelector = MainDisplay.LEVEL3VIEWNUM;
 					break;
+				/*case TutConstants.MAINVIEWSCREEN:
+					mainDisplay.currentViewSelector = MainDisplay.MAINVIEW;
+					break;*/
        			default:
 					break;
     		}

@@ -38,6 +38,11 @@ package com.Tutorial.business
 		public static const N_LEVEL1CLICKED:String = "N_Level1Clicked";
 		public static const N_LEVEL2CLICKED:String = "N_Level2Clicked";
 		public static const N_LEVEL3CLICKED:String = "N_Level3Clicked";
+		//public static const N_POPULATEMAINVIEW:String = "N_PopulateMainView";
+		
+		public static const N_STOPCURRENTPLAYINGVIDEO:String = "N_StopCurrentPlayingVideo";
+		
+		//public static const N_LEVEL0GROUPCLICKED:String = 
 		
 		
 		
@@ -50,6 +55,7 @@ package com.Tutorial.business
 		public static const LEVEL1SCREEN:String = "Level1Screen";
 		public static const LEVEL2SCREEN:String = "Level2Screen";
 		public static const LEVEL3SCREEN:String = "Level3Screen";
+		//public static const MAINVIEWSCREEN:String = "MainViewScreen";
 		
 		//constants to define the current mode in order to handle the data received from native in an appropriate manner
 		public static const MODE_VIDEO:String = "Mode_Video";
