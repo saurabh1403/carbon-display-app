@@ -2,7 +2,6 @@ package Controller
 {
 	import model.QuestionsProxy;
 	
-
 	public class DataProcessor
 	{
 		private static var _instance:DataProcessor = new DataProcessor(SingletonLock);

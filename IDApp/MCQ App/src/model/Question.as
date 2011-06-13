@@ -13,32 +13,43 @@ package model
 		public var _imagePath:String = "";
 		public var explanation:String = "";
 		
+		public var newVar:String = "";
+		
 		public var quesType:String = MCQConstants.radioTypeQues;
 		
 		//each choices have a prime number associated with it.
 		public var choices:ArrayCollection;			//this is the array collection of choice object which has three things - statement(string), user answer(bool), correct answer (bool)
 		
-		public var corrAnswer:int = 1; 		//this correct answer is the answer weight
+		public var corrAnswerWeight:int = 1; 		//this correct answer is the answer weight
 
 		public var userAnswerWeight:int = 1;
 		public var userAnswer:int = -1;		//in case of checkbox, it will be an array
 		
 		public var quesMark:int = 1;
 		
-		public var quesAttemptTime:int = 0;
+		public var quesAttemptTime:int = 0;		//time in seconds
 
 		public var quesStartTime:int = 0;
 		public var quesFinishTime:int = 0;
+
+		public var isQuesMarkedForReview:Boolean = false;
+		public var isQuesAttempted:Boolean = false;
 		
+		public var quesState:int = MCQConstants.quesUnAttempted;
+
 		public function Question()
 		{
-			_imagePath = "";
 			choices = new ArrayCollection();
 		}
 		
 		public function initQuestion(inXmlNode:XML):void
 		{
 			quesStatement = inXmlNode.statement.toString();
+			
+			if(inXmlNode.imagePath != null && inXmlNode.imagePath.toString() != "")
+			{
+				_imagePath = inXmlNode.imagePath.toString();
+			}
 			
 			var choiceList:XMLList = inXmlNode.choices.choice;
 			for (var i:int = 0; i < choiceList.length(); i++)
@@ -48,7 +59,7 @@ package model
 				if(choiceList[i].@ans == "1")
 				{
 					tempObj.correctAnswer = true;
-					corrAnswer = corrAnswer * MCQConstants.primeNumberArray[i];
+					corrAnswerWeight = corrAnswerWeight * MCQConstants.primeNumberArray[i];
 				}
 				else
 				{
@@ -59,9 +70,6 @@ package model
 				choices.addItem(tempObj);
 			}
 			
-			if(inXmlNode.imagePath != null && inXmlNode.imagePath.toString() != "")
-				_imagePath = inXmlNode.imagePath.toSring();
-
 			quesMark = parseInt(inXmlNode.mark.toString());
 			
 			quesType = (inXmlNode.type.toString() == "radio") ? MCQConstants.radioTypeQues : MCQConstants.checkBoxTypeQues;

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%" contentBackgroundColor="#706C6C" xmlns:components="view.components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import Controller.MCQConstants;
+			
+			import model.Question;
+			import model.QuestionsProxy;
+			import model.TestResultData;
+			
+			import mx.charts.chartClasses.ChartBase;
+			import mx.charts.series.PieSeries;
+			import mx.collections.ArrayCollection;
+			import mx.collections.IViewCursor;
+			import mx.events.IndexChangedEvent;
+			import mx.utils.object_proxy;
+			
+			public var pieChartData:ChartBase  = new ChartBase();
+			
+			public var toggle:Boolean = true;
+			
+			[Bindable]
+			public var testResult:TestResultData ;
+			
+			[Bindable]
+			private var quesStatPieData:ArrayCollection = new ArrayCollection();		//this is populated for question stats data
+			[Bindable]
+			private var timeStatBarData:ArrayCollection = new ArrayCollection();
+
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				//set the data for pie chart here
+				
+			}
+			
+			private function displayQuestionStat(data:Object, field:String, index:Number, percentValue:Number):String {
+				var temp:String= (" " + percentValue).toString().substr(0,6);
+				return data.quesState + ": " + data.number + '\n(' + temp + "%)";
+			}
+
+			private function clickHandler(event:Event):void
+			{
+				if(toggle)
+				{
+					toggle = false;
+					ps.explodeRadius=.05;
+					event.target.percentWidth = 100;
+					event.target.percentHeight = 80;
+				}
+				else
+				{
+					event.target.percentWidth = 80;
+					event.target.percentHeight = 50;
+					toggle = true;
+					ps.explodeRadius = 0;
+				}
+			}
+			
+			private function processQuesStatData(quesProxy:QuestionsProxy):void
+			{
+				quesStatPieData.removeAll();
+				
+				var tempObj:Object = new Object();
+				tempObj["quesState"] = "Correct Answers"; 
+				tempObj["number"] = testResult.totalCorrectQuestion;
+				quesStatPieData.addItem(tempObj);
+				
+				tempObj = new Object();
+				tempObj["quesState"] = "Wrong Answers"; 
+				tempObj["number"] = testResult.totalQuesAttempted - testResult.totalCorrectQuestion;
+				quesStatPieData.addItem(tempObj);
+
+				tempObj = new Object();
+				tempObj["quesState"] = "Questions Unattempted"; 
+				tempObj["number"] = testResult.totalQuestions - testResult.totalQuesAttempted;
+				quesStatPieData.addItem(tempObj);
+
+			}
+			
+			protected function  processTimeStatData(quesProxy:QuestionsProxy):void
+			{
+				timeStatBarData.removeAll();
+				
+				var i:int = 1;
+				var ptr:IViewCursor = quesProxy.questions.createCursor();
+				while(!ptr.afterLast)
+				{
+					var tempObj:Object = new Object();
+					var qTime:int = (ptr.current as Question).quesAttemptTime ;
+					tempObj["quesNumber"] = i; 
+					tempObj["quesTime"] = (ptr.current as Question).quesAttemptTime*10;
+					timeStatBarData.addItem(tempObj);
+
+					i++;
+					ptr.moveNext();
+				}
+			}
+
+			//TODO: currently it takes data from proxy. Make it take a parameter as test result data object
+			public function processData(quesProxy:QuestionsProxy):void
+			{
+				testResult = quesProxy.testResult;
+				processQuesStatData(quesProxy);
+				processTimeStatData(quesProxy);
+			}
+			
+			protected function clickHandler1(event:MouseEvent):void
+			{
+				if(event.type == MouseEvent.MOUSE_OVER)
+				{
+					ps.explodeRadius=.05;
+					piechart1.percentWidth = 90;
+					piechart1.percentHeight = 70;
+
+				}
+				else
+				{
+					piechart1.percentWidth = 80;
+					piechart1.percentHeight = 50;
+					ps.explodeRadius = 0;
+				}
+			}
+			
+			protected function navigatorcontent1_clickHandler(event:IndexChangedEvent):void
+			{
+				if(event.newIndex == 0)
+				{
+					currentState = "quesStat";
+				}
+				else
+				{
+					currentState = "marksStats";
+				}
+			}
+			
+			protected function testRetakeButtonClicked(event:Event):void
+			{
+				var newEvent:Event = new Event(MCQConstants.testViewStartEventName);
+				dispatchEvent(newEvent);
+				
+			}
+			
+			protected function testReviewButtonClicked(event:Event):void
+			{
+				var newEvent:Event = new Event(MCQConstants.testReviewEventName);
+				dispatchEvent(newEvent);
+			}
+			
+			protected function testQuitButtonClicked(event:Event):void
+			{
+				var newEvent:Event = new Event(MCQConstants.testQuitEventName);
+				dispatchEvent(newEvent);
+			}
+
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace components "view.components.*";
+		
+		.resultGridStyle
+		{
+			percentWidth:100;
+			height:60;
+		}		
+		
+	</fx:Style>
+
+	<s:states>
+		<s:State name="marksStats"/>
+		<s:State name="quesStat"/>
+	</s:states>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:SolidColor id="sc2" color="red" alpha=".3"/>
+	</fx:Declarations>
+
+	<s:BorderContainer backgroundColor="#797777" borderWeight="3"
+					   right="20" top="20" bottom="20"
+					   width="45%"
+					   height="100%">
+		
+		<s:BorderContainer top="20" width="90%" backgroundColor="#797777"
+						   borderVisible="false" horizontalCenter="0"
+						   height="10%">
+			
+		</s:BorderContainer>
+		
+		<s:BorderContainer bottom="15" width="95%" backgroundColor="#797777"
+						   borderVisible="false" horizontalCenter="0"
+						   height="85%">
+			
+			<mx:PieChart id="piechart1" includeIn="quesStat" width="80%" height="50%"
+						 chromeColor="#A8A6A6" click="clickHandler(event)" color="#FDFAFA"
+						 dataProvider="{quesStatPieData}" fontSize="12" fontStyle="italic"
+						 fontWeight="bold" horizontalCenter="0" verticalCenter="-40">
+				
+				<mx:series>
+					<mx:PieSeries id="ps" 
+								  field="number" 
+								  nameField="quesState"
+								  displayName="quesState"
+								  labelPosition="insideWithCallout" 
+								  labelFunction="displayQuestionStat" 
+								  filters="[]"
+								  />
+				</mx:series>
+			</mx:PieChart>
+			<mx:Legend includeIn="quesStat" left="30" bottom="20" width="20%" height="10%"
+					   color="#F8F2F2" dataProvider="{piechart1}" fontFamily="Verdana" fontSize="17"
+					   fontStyle="italic" fontWeight="bold" textAlign="left" verticalAlign="middle"/>
+			
+			<mx:ColumnChart id="timeStatGraph" includeIn="marksStats" width="80%" height="50%"
+							chromeColor="#A8A6A6" click="clickHandler(event)" color="#FDFAFA"
+							dataProvider="{timeStatBarData}" horizontalCenter="0"
+							showDataTips="true" verticalCenter="-40">
+				<mx:series>
+					<mx:ColumnSeries id="cs" displayName="Questions Time" 
+									 yField="quesTime"
+									 xField="quesNumber"
+									 fill="{sc2}"/>
+				</mx:series>	
+			</mx:ColumnChart>
+			<mx:Legend includeIn="marksStats" dataProvider="{timeStatGraph}"
+					   left="30" bottom="20" width="20%" height="10%"/>
+		</s:BorderContainer>
+	</s:BorderContainer>
+	
+	<s:BorderContainer left="20" top="20" bottom="20" width="50%">		
+		<mx:Accordion top="50" width="90%"
+					  change="navigatorcontent1_clickHandler(event)" horizontalCenter="0"
+					  resizeToContent="true"
+					  cornerRadius="17">
+			<mx:VBox label="Marks Statistics" contentBackgroundColor="#FAF8F8"
+					 width="100%" backgroundColor="#FFFFFF">
+				<components:TestResultGrid  width="100%" height="60" dataName="Total Marks" dataValue="{testResult.totalMarks.toString()}" styleName="resultGridStyle"/>
+				<components:TestResultGrid height="60" width="100%" dataName="Marks Scored" dataValue="{testResult.marksObtained.toString()}" styleName="resultGridStyle"/>
+				<components:TestResultGrid  height="60" width="100%" dataName="Percentage (%)" dataValue="{testResult.percentObtained.toString()}" styleName="resultGridStyle"/>
+				<components:TestResultGrid  height="60" width="100%" dataName="Total Time" dataValue="{testResult.totalTimeTakenStr}" styleName="resultGridStyle"/>
+			</mx:VBox>
+
+			<mx:VBox label="Question Statistics" contentBackgroundColor="#FAF8F8"
+					 width="100%" backgroundColor="#FEFEFE">
+				<components:TestResultGrid  height="60" width="100%" imagePath="assets/total_ques.png" dataName="Total Questions" dataValue="{testResult.totalQuestions.toString()}" styleName="resultGridStyle"/>
+				<components:TestResultGrid  height="60" width="100%" imagePath="assets/right.png" dataName="Correct Answers" dataValue="{testResult.totalCorrectQuestion.toString()}" styleName="resultGridStyle"/>
+			</mx:VBox>
+		</mx:Accordion>
+		
+		<s:Button left="30" bottom="40" width="30%" height="10%" label="Retake Test"
+				  click="testRetakeButtonClicked(event)"
+				  color="#22B526" fontFamily="Verdana" fontSize="15"
+				  fontStyle="italic" fontWeight="bold"/>
+		<s:Button right="30" bottom="40" width="30%" height="10%" label="Review Test"
+				  click="testReviewButtonClicked(event)"
+				  color="#5091CD" fontFamily="Verdana" fontSize="15"
+				  fontStyle="italic" fontWeight="bold"/>
+		<s:Button x="148" y="10" label="Quit" click="testQuitButtonClicked(event)"/>
+	</s:BorderContainer>
+
+</s:Group>

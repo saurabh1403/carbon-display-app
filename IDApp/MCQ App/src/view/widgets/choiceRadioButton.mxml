@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" width="100%">
+			   xmlns:mx="library://ns.adobe.com/flex/mx">
 	<s:states>
 		<s:State name="TestMode"/>
 		<s:State name="ReviewMode"/>
@@ -9,7 +9,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
+
 	<fx:Script>
 		<![CDATA[
 			import Events.ChoiceElementEvent;
@@ -20,16 +20,15 @@
 			private var grpName:String = "";
 			
 			[Bindable]
-			private var radButtWidth:int = 80;
+			private var radButtWidth:int = 0;
 			
 			[Bindable]
 			private var radLabel:String = " this is dummy";
 			
 			public var elementNumber:int = 0;
-			
-			
+
 			//use this method only
-			public function initRadioChoice(radioGroupName:RadioButtonGroup, choiceStatement:String = "", isSelectedByUser:Boolean = false, isCorrectAnswer = false):void
+			public function initRadioChoice(radioGroupName:RadioButtonGroup, choiceStatement:String = "", isSelectedByUser:Boolean = false, isCorrectAnswer:Boolean = false):void
 			{
 				radButtWidth = this.width * 0.8;
 				rad.group = radioGroupName;
@@ -44,19 +43,16 @@
 					{
 						img.source = "assets/right.png";
 					}
-					
 					if(isSelectedByUser)
 					{
 						rad.selected = true;
 						if(!isCorrectAnswer)
 							img.source = "assets/wrong.png";
 					}
-					
 					else
 					{
 						img.visible = false;
 					}
-					
 				}
 				
 				else
@@ -73,22 +69,34 @@
 				newEvent.choiceSelection = elementNumber;
 				dispatchEvent(newEvent);
 			}
-			
+
 		]]>
 	</fx:Script>
-	
+
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
-		
+
 		s|RadioButton {
 			skinClass: ClassReference("skins.CustomMultilineRadioButtonSkin");
 		}
 	</fx:Style>
 
-	<s:RadioButton id="rad" maxWidth="{radButtWidth}" label="{radLabel}"
-				  click="rad_clickHandler(event)" />
-	<s:Spacer width="3%"/>
-	<s:Image id="img" width="15%"/>
+	<s:BorderContainer id="bor" width="100%" height="100%"
+					   borderColor="#000000" borderWeight="3">
 
+		<s:layout.TestMode>
+			<s:HorizontalLayout/>
+		</s:layout.TestMode>
+	
+	</s:BorderContainer>
+
+		<s:RadioButton id="rad" maxWidth="{radButtWidth}"
+					   click="rad_clickHandler(event)"
+					   label="{radLabel}"
+					   />
+		<s:Spacer width="3%"/>
+		<s:Image id="img" width="40"
+				 height="40" scaleMode="stretch" smoothingQuality="high"
+				 smooth="true"/>
 </s:HGroup>

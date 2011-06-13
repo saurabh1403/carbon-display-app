@@ -1,0 +1,248 @@
+<test>
+	<name>Test for all CSBE Science X</name>
+	<totalTime>
+		<!--time in minutes-->23</totalTime>
+	<totalMarks>20</totalMarks>
+	<questions>
+		<question>
+			<statement>Q1. Select the non-metal out of the following:</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice ans="1">Silicon</choice>
+				<choice>Silver</choice>
+				<choice>Strontium</choice>
+				<choice>Calcium</choice>
+			</choices>
+			<explanation>Silicon is a non-metal while others are metals.</explanation>
+		</question>
+		<question>
+			<statement>Q2. Which of the following metals can be cut with a knife?</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>Iron</choice>
+				<choice ans="1">Sodium</choice>
+				<choice>Zinc</choice>
+				<choice>Aluminium</choice>
+			</choices>
+			<explanation>Sodium is a soft metal. It can be cut with a knife.</explanation>
+		</question>
+		<question>
+			<statement>Q3. Sonority is a property of metals. It is associated with</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>drawing wires</choice>
+				<choice>making sheets</choice>
+				<choice>passing electricity</choice>
+				<choice ans="1">producing sound</choice>
+			</choices>
+			<explanation>A metal produces sound when struck with a hard surface.</explanation>
+		</question>
+		<question>
+			<statement>Q4. Which non-metal is lustrous?</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>Carbon</choice>
+				<choice>Sulphur</choice>
+				<choice ans="1">Iodine</choice>
+				<choice>Bromine</choice>
+			</choices>
+			<explanation>Iodine shows lusture like metals.</explanation>
+		</question>
+		<question>
+			<statement>Q5. Which is the natural hardest substance?</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice ans="1">Diamond</choice>
+				<choice>Aluminium</choice>
+				<choice>Iron</choice>
+				<choice>Silicon</choice>
+			</choices>
+			<explanation>Diamond is the natural hardest substance.</explanation>
+		</question>
+		<question>
+			<statement>Q6. Aluminium oxide shows</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>acidic behaviour</choice>
+				<choice>basic behaviour</choice>
+				<choice ans="1">both acidic and basic behaviour</choice>
+				<choice>neither acidic nor basic behaviour</choice>
+			</choices>
+			<explanation>Aluminium oxide is amphoteric in nature. It gives the properties of an acid and a base.</explanation>
+		</question>
+		<question>
+			<statement>Q7. Anodising is a process of</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>depositing anything on the anode</choice>
+				<choice ans="1">forming a thick layer of oxide on aluminium</choice>
+				<choice>passing electricity through a solution</choice>
+				<choice>none of these</choice>
+			</choices>
+			<explanation>Aluminium is protected from atmospheric oxygen by anodising.</explanation>
+		</question>
+		<question>
+			<statement>Q8. The correct order of reactivity of the following metals with water is</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice ans="1">Na > Mg > Fe > Cu</choice>
+				<choice>Na &lt; Mg &lt; Fe &lt; Cu</choice>
+				<choice>Mg > Na > Cu > Fe</choice>
+				<choice>Mg &lt; Na &lt; Cu &lt; Fe</choice>
+			</choices>
+			<explanation>This is the correct order of reactivity of the metals towards water.</explanation>
+		</question>
+		<question>
+			<statement>Q9. Which of the following metals react with dilute nitric acid to produce hydrogen gas?</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>Copper</choice>
+				<choice ans="1">Manganese</choice>
+				<choice>Zinc</choice>
+				<choice>Iron</choice>
+			</choices>
+			<explanation>Out of the given metals, only Mn reacts with dilute nitric acid to produce hydrogen gas.</explanation>
+		</question>
+		<question>
+			<statement>Q10. Gold and platinum dissolve in</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>dilute nitric acid on heating</choice>
+				<choice>concentrated nitric acid in cold</choice>
+				<choice>concentrated sulphuric acid at 500 K</choice>
+				<choice ans="1">aqua regia</choice>
+			</choices>
+			<explanation>Gold and platinum dissolve only in aqua regia.</explanation>
+		</question>
+		<question>
+			<statement>Q11. Write the elements Ca, Al, Cu and Au in correct decreasing order of reactivity</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>Au > Cu > Al > Ca</choice>
+				<choice ans="1">Ca > Al > Cu > Au</choice>
+				<choice>Al > Cu > Ca > Au</choice>
+				<choice>Al > Cu > Au > Ca</choice>
+			</choices>
+			<explanation>This is the correct decreasing order of reactivity of metals.</explanation>
+		</question>
+		<question>
+			<statement>Q12. The electronic configuration in the outermost orbit of phosphorus is</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>2,8,4</choice>
+				<choice ans="1">2,8,5</choice>
+				<choice>2,8,7</choice>
+				<choice>2,8,8</choice>
+			</choices>
+			<explanation>The electronic configuration in the outermost orbit of phosphorus is 2,8,5.</explanation>
+		</question>
+		<question>
+			<statement>Q13. The ores are minerals</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>which are sulphides</choice>
+				<choice>which are oxides</choice>
+				<choice>which are carbonates</choice>
+				<choice ans="1">from which the metal can be extracted profitably</choice>
+			</choices>
+			<explanation>Ores are the minerals from which the metal can be extracted profitably.</explanation>
+		</question>
+		<question>
+			<statement>Q14. Rusting of iron is caused by the</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>presence of air</choice>
+				<choice>presence of moisture</choice>
+				<choice ans="1">presence of both</choice>
+				<choice>none of the above</choice>
+			</choices>
+			<explanation>Rusting of iron is caused by the presence of air and moisture both.</explanation>
+		</question>
+		<question>
+			<statement>Q15. Choose the wrong statement</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>An alloy is a homogeneous mixture of two metals</choice>
+				<choice ans="1">An alloy is a homogeneous mixture of two non-metals</choice>
+				<choice>An alloy is a homogeneous mixture of a metal and a non-metal</choice>
+				<choice>The alloy with mercury is called amalgam</choice>
+			</choices>
+			<explanation>A mixture of two non-metals does not form an alloy.</explanation>
+		</question>
+		<question>
+			<statement>Q16. The ability of the metals to be drawn into thin wires is known as</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice ans="1">ductility</choice>
+				<choice>malleability</choice>
+				<choice>sonorousity</choice>
+				<choice>conductivity</choice>
+			</choices>
+			<explanation>The ability of a metal to be drawn into wires is called ductility.</explanation>
+		</question>
+		<question>
+			<statement>Q17. Galvanisation is a method of protecting iron from rusting by coating with a thin layer of</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>gallium</choice>
+				<choice>aluminium</choice>
+				<choice ans="1">zinc</choice>
+				<choice>silver</choice>
+			</choices>
+			<explanation>Coating a metal with zinc is called galvanisation.</explanation>
+		</question>
+		<question>
+			<statement>Q18. Stainless steel is very useful material for our life. In stainless steel, iron is mixed with</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice ans="1">Ni and Cr</choice>
+				<choice>Cu and Cr</choice>
+				<choice>Ni and Cu</choice>
+				<choice>Cu and Au</choice>
+			</choices>
+			<explanation>Nickel and chromium are added to iron to make stainless steel.</explanation>
+		</question>
+		<question>
+			<statement>Q19. Choose the incorrect statement</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice>Non-metal oxides are acidic in nature</choice>
+				<choice>Graphite is a conductor of electricity</choice>
+				<choice>Bromine is a liquid</choice>
+				<choice ans="1">Magnesium oxide in water turns blue litmus red</choice>
+			</choices>
+			<explanation>MgO is basic in nature. It will turn red litmus blue.</explanation>
+		</question>
+		<question>
+			<statement>Q20. Aqua regia is a mixture of</statement>
+			<type>radio</type>
+			<mark>1</mark>
+			<choices>
+				<choice ans="1">hydrochloric acid and nitric acid in the ratio of 3:1</choice>
+				<choice>hydrochloric acid and nitric acid in the ratio of 1:3</choice>
+				<choice>hydrochloric acid and sulphuric acid in the ratio of 3:1</choice>
+				<choice>hydrochloric acid and sulphuric acid in the ratio of 1:3</choice>
+			</choices>
+			<explanation>Aqua regia is a mixture of hydrochloric acid and nitric acid in the ratio of 3:1.</explanation>
+		</question>
+	</questions>
+</test>

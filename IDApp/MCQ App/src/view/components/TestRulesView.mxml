@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import Controller.MCQConstants;
+			
+			public function pickTest(testNumber:int):void
+			{
+				
+			}
+			
+			protected function testStartClicked(event:Event):void
+			{
+				var newEvent:Event = new Event(MCQConstants.testViewStartEventName);
+				dispatchEvent(newEvent);
+
+			}
+			
+			protected function testQuitClicked(event:Event):void
+			{
+				var newEvent:Event = new Event(MCQConstants.testQuitEventName);
+				dispatchEvent(newEvent);
+			}
+												
+		]]>
+	</fx:Script>
+	
+	<s:Button x="187" y="230" label="Start" click="testStartClicked(event)"/>
+	<s:Button x="447" y="230" label="Quit" click="testQuitClicked(event)"/>
+</s:Group>

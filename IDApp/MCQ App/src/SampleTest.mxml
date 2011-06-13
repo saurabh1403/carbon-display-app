@@ -9,32 +9,90 @@
 			import Controller.DataProcessor;
 			import Controller.MCQConstants;
 			
+			import Events.TestResultEvent;
+			import Events.TestSelectionEvent;
+			
 			import mx.events.FlexEvent;
 			
 			import view.components.HomeDisplay;
+			import view.components.TestResultDisplay;
+			import view.components.TestRulesView;
 			import view.components.TestView;
 			
 			public var testXmlPath:String = "d:\\test1.xml";
 			
+			public var testNumber:int = -1;
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
-				DataProcessor.instance.quesProxy.initProxyWithXml(testXmlPath);
-				testCompleted(null);
+				MCQConstants.appWidth = this.width;
+				MCQConstants.appHeight = this.height;
+
+				showHomeDisplay(null);
 			}
 			
-			protected function testCompleted(event:Event):void
+			protected function showHomeDisplay(event:Event):void
 			{
+				//reset all the variables here
+				DataProcessor.instance.quesProxy.reset();
 				var homeView:HomeDisplay = new HomeDisplay();
-				homeView.addEventListener("butt_click", buttonClicked);
+				homeView.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
 				this.removeAllElements();
 				this.addElement(homeView);
+				
 			}
 			
-			protected function buttonClicked(event:Event):void
+			protected function testCompleted(event:TestResultEvent):void
 			{
-				var testView:TestView = new TestView();
-				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted);
+				if(event!=null)
+				{
+					if(event.isTestMode)
+						DataProcessor.instance.quesProxy.processQuestionsStats(event);
+					
+					var testResult:TestResultDisplay = new TestResultDisplay(); 
+					testResult.processData(DataProcessor.instance.quesProxy);
+					
+					testResult.addEventListener(MCQConstants.testReviewEventName, startTestInReviewMode, false, 0, true);
+					testResult.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
+					testResult.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+					
+					this.removeAllElements();
+					this.addElement(testResult);
+	
+				}
+			}
+			
+			protected function startTest(event:TestSelectionEvent):void
+			{
+				var newTest:TestRulesView = new TestRulesView();
+				testNumber = event.testNumber;
+				newTest.pickTest(event.testNumber);
+				newTest.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
+				newTest.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				
+				//get the test number here and then start the test
 				this.removeAllElements();
+				this.addElement(newTest);
+			}
+			
+			protected function startTestView(event:Event):void
+			{
+				DataProcessor.instance.quesProxy.initProxyWithXml(testXmlPath);
+				var testView:TestView = new TestView();
+				testView.setCurrentState("TestMode");
+				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+				testView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				this.removeAllElements();
+				this.addElement(testView);
+
+			}
+
+			protected function startTestInReviewMode(event:Event):void
+			{
+				this.removeAllElements();
+				var testView:TestView = new TestView();
+				testView.setCurrentState("ReviewMode");
+				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
 				this.addElement(testView);
 			}
 			
