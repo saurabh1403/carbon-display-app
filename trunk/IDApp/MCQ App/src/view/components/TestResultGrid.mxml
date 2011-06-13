@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   backgroundAlpha="0.0" borderVisible="false"
+				   cornerRadius="17" dropShadowVisible="false">
+	<s:layout>
+		<s:VerticalLayout gap="0" verticalAlign="middle" horizontalAlign="center"/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+
+			[Bindable]
+			public var imagePath:String = "";
+
+			[Bindable]
+			public var dataName:String = "";
+
+			[Bindable]
+			public var dataValue:String = "";
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:Spacer left="0" width="100%" height="10%" verticalCenter="0"/>
+	<s:HGroup width="100%" height="80%" gap="0" verticalAlign="middle">
+		<s:Spacer width="10%"/>
+		<s:BorderContainer x="10" width="50%" height="100%" backgroundColor="#7E7C7C" borderVisible="true"
+						   borderWeight="3" cornerRadius="0" dropShadowVisible="true" verticalCenter="0">
+			<s:layout>
+				<s:HorizontalLayout gap="20" verticalAlign="middle" horizontalAlign="center"/>
+			</s:layout>
+			<s:Image top="5" width="20%" height="40%" backgroundColor="#7E7C7C" horizontalCenter="0"
+					 smooth="true" smoothingQuality="high" source="{imagePath}" visible="{imagePath.length !=0}" includeInLayout="{imagePath.length !=0}"/>
+			<s:RichText bottom="10" width="60%" height="50%" fontFamily="Verdana" fontSize="14"
+						fontWeight="normal" horizontalCenter="0" text="{dataName}" textAlign="center"
+						verticalAlign="middle"/>
+		</s:BorderContainer>
+		<s:BorderContainer x="523" width="30%" height="100%" backgroundColor="#454343"
+						   borderVisible="true" borderWeight="3" cornerRadius="0"
+						   dropShadowVisible="true" verticalCenter="0">
+			<s:RichText width="80%" height="50%" color="#FDFCFC" fontFamily="Verdana" fontSize="14"
+						fontStyle="normal" fontWeight="bold" horizontalCenter="0" text="{dataValue}"
+						textAlign="center" verticalAlign="middle" verticalCenter="0"/>
+		</s:BorderContainer>
+		<s:Spacer width="10%"/>
+	</s:HGroup>
+	<s:Spacer width="100%" height="10%"/>
+</s:BorderContainer>

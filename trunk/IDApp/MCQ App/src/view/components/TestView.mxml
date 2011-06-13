@@ -12,16 +12,16 @@
 			import Controller.MCQConstants;
 			
 			import Events.QuesButtClickEvent;
+			import Events.TestResultEvent;
 			
 			import model.Question;
 			
 			import mx.events.FlexEvent;
+			import mx.formatters.Formatter;
 			import mx.managers.PopUpManager;
 			
-			public var appWidth:int = 0;
-			public var appHeight:int = 0;
+			import org.osmf.events.TimeEvent;
 			
-//			private var currQues:Question;
 			private var currQuesNumber:int = 0;
 			private var totalQuesCount:int = 0;
 			
@@ -29,40 +29,100 @@
 			private var quesAttempted:int = 0;
 			
 			[Bindable]
-			private var timePassed:Timer = new Timer(1000);
+			private var timePassed:String = "";
+			private var currViewTimer:Timer = new Timer(1000);
+			
+			private var currQuesTimer:Timer = new Timer(1000);
+			
+			//timer related 
+			private var secondsPassed:int = 0;			
+			private var hourPassed:int = 0;
+			private var minutePassed:int = 0;
+
+			private var currQues:Question = null;
+			
+			private var isExplanationExpanded:Boolean = false;
 			
 			protected function FinishHandler(event:MouseEvent):void
 			{
-				var cusEvent:Event = new Event(MCQConstants.testCompletedEventName);
-				dispatchEvent(cusEvent);
+				var resEvent:TestResultEvent = new TestResultEvent(MCQConstants.testCompletedEventName);
+
+				if(currentState == "TestMode")
+				{
+					currQuesDone();
+
+					resEvent.hourPassed = this.hourPassed;
+					resEvent.minutePassed = this.minutePassed;
+					resEvent.secondsPassed = this.secondsPassed;
+
+					resEvent.quesAttempted = this.quesAttempted;
+					resEvent.totalQuesCount = this.totalQuesCount;
+					resEvent.totalTimeTaken = this.timePassed;
+
+					resEvent.isTestMode = true;
+					
+				}
+				
+				else
+				{
+					resEvent.isTestMode = false;
+					
+				}
+				
+				dispatchEvent(resEvent);
 				
 			}
 			
 			protected function HelpClickHandler(event:MouseEvent):void
 			{
 				var detailView:DetailOverlay = new DetailOverlay();
-				detailView.width = appWidth - 40;
-				detailView.height = appHeight - 40;
+				detailView.setCurrentState("TextState");
+				detailView.width = MCQConstants.appWidth - 40;
+				detailView.height = MCQConstants.appHeight - 40;
 
 				PopUpManager.addPopUp(detailView, this, true);
 				PopUpManager.centerPopUp(detailView);
 			}
 			
-			protected function timerHandler(event:Event):void
+			protected function timerHandler(event:TimerEvent):void
 			{
+				secondsPassed++;
 				
+				if(secondsPassed == 60)
+				{
+					secondsPassed = 0;
+					minutePassed ++;
+				}
+				
+				if(minutePassed == 60)
+				{
+					minutePassed = 0;
+					hourPassed ++;
+				}
+				
+				if(hourPassed == 60)
+				{
+					hourPassed = 0;
+					//TODO: warn the user to quit the test
+				}
+				
+				//format the string
+				timePassed = formatTime(hourPassed) + ":" + formatTime(minutePassed) + ":" + formatTime(secondsPassed);
+					
+			}
+			
+			protected function formatTime(i:int):String
+			{
+				//TODO: format the string here. like "0" should be printed as "00"
+				return i.toString();
 				
 			}
 			
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
-				timePassed.start();
-				appWidth = this.width;
-				appHeight = this.height;
+				currViewTimer.start();
 				
-				currentState = "TestMode";
-				
-				var currQues:Question = DataProcessor.instance.quesProxy.questions[currQuesNumber];
+				currQues = DataProcessor.instance.quesProxy.questions[currQuesNumber];
 
 				//register different handlers
 				totalQuesCount = DataProcessor.instance.quesProxy.questions.length;
@@ -70,33 +130,63 @@
 				quesBox.initWtihButtons(totalQuesCount);
 				quesBox.addEventListener(MCQConstants.quesButtonClickEventName, quesChangedEventHandler);
 				
+				diagram.addEventListener(MCQConstants.diagramClickEventName, diagClicked);
+				
 				choiceBox.setCurrentState(currentState);
 
 				populateDataOnScreen(currQues);
 
-				quesProgress.setProgress(quesAttempted, totalQuesCount);
-				quesProgress.label = quesAttempted.toString() + "//" + totalQuesCount.toString() + " completed";
+				if(currentState == "TestMode")
+				{
+					quesProgress.setProgress(quesAttempted, totalQuesCount);
+					quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
+					
+					currViewTimer.addEventListener(TimerEvent.TIMER, timerHandler);
+				}
+			}
+			
+			protected function diagClicked(event:Event):void
+			{
+				var diagOverlay:DetailOverlay = new DetailOverlay();
+				diagOverlay.currentState = "ImageState";
 				
-				timePassed.addEventListener(TimerEvent.TIMER, timerHandler);
+				diagOverlay.width = MCQConstants.appWidth - 60;
+				diagOverlay.height = MCQConstants.appHeight - 60;
+				
+				diagOverlay.imagePath = currQues._imagePath;
+				
+				PopUpManager.addPopUp(diagOverlay, this, true);
+				PopUpManager.centerPopUp(diagOverlay);
+
 			}
 			
 			//this commits all the data for the current question
 			//this is called only when the question is changed
 			protected function currQuesDone():void
 			{
-				var quesState:int = choiceBox.commitSelectedOptions();
-				quesBox.setButtonColor(currQuesNumber,quesState);						
+				choiceBox.commitSelectedOptions();
 				
-				if(quesState == MCQConstants.questAttempted && quesAttemptedTrack[currQuesNumber] == null)
+				if(currQues.isQuesAttempted == true && quesAttemptedTrack[currQuesNumber] == null)
 				{
 					quesAttemptedTrack[currQuesNumber] = true;
 					quesAttempted++;
-					
 				}
 				
+				if(currQues.isQuesMarkedForReview)
+					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesReviewState"] as int);
+				
+				else if(currQues.isQuesAttempted)
+					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesAttempted"] as int);
+
+				else
+					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
+
 				//update the progress bar
 				quesProgress.setProgress(quesAttempted, totalQuesCount);
 				quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
+				
+				currQues.quesAttemptTime += currQuesTimer.currentCount;
+//				quesTime.text = currQues.quesAttemptTime.toString();
 			}
 			
 			protected function quesChangedEventHandler(event:Event):void
@@ -107,9 +197,12 @@
 				if(currentState == "TestMode")
 					currQuesDone();
 				
+				else
+					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
+
 				if(event.target.id == "nextButton")
 					currQuesNumber = ((currQuesNumber + 1) % totalQuesCount);
-				
+
 				else if(event.target.id == "prevButton")
 				{
 					if(currQuesNumber == 0)
@@ -117,7 +210,7 @@
 					else
 						currQuesNumber = (currQuesNumber - 1);
 				}
-				
+
 				else
 				{
 					var newEvent:QuesButtClickEvent = event as QuesButtClickEvent;
@@ -127,30 +220,77 @@
 				
 				trace("currQues is" + currQuesNumber.toString());
 				
-				var currQues:Question = DataProcessor.instance.quesProxy.questions[currQuesNumber];
+				currQues = DataProcessor.instance.quesProxy.questions[currQuesNumber];
 				populateDataOnScreen(currQues);
 			}
 			
 			protected function populateDataOnScreen(_currQues:Question):void
 			{
+				if(currentState == "TestMode")
+				{
+					currQuesTimer.reset();
+					currQuesTimer.start();
+					quesReviewCheckBox.selected = (_currQues.isQuesMarkedForReview);
+				}
+				
+				else
+				{
+					isExplanationExpanded = false;
+					quesExplanation.explanationText = _currQues.explanation;
+				}
+				
 				//populate statement
 				quesStatement.text = _currQues.quesStatement;
-				
-				quesBox.setButtonColor(currQuesNumber, MCQConstants.currQuesSelected);
+
+				quesBox.setButtonColor(currQuesNumber, MCQConstants.quesStateColor["currQuesSelected"] as int);
 				
 				if(_currQues._imagePath.length == 0)
 				{
-//					choiceBox.percentWidth = 100;
 					diagram.visible = false;
 				}
 				else
 				{
-	//				choiceBox.percentWidth = 70;
 					diagram.visible = true;
+					diagram.setImage(_currQues._imagePath);
 				}
 				
 				//populate choice box
 				choiceBox.populateChoices(_currQues);
+			}
+			
+			protected function reviewCheckBoxClickHandler(event:MouseEvent):void
+			{
+				if(quesReviewCheckBox.selected == true)
+				{
+					currQues.isQuesMarkedForReview = true;
+				}
+				
+				else
+				{
+					currQues.isQuesMarkedForReview = false;
+				}
+			}
+			
+			protected function testQuitButtonClicked(event:Event):void
+			{
+				var newEvent:Event = new Event(MCQConstants.testQuitEventName);
+				dispatchEvent(newEvent);
+			}
+			
+			protected function expandExplanation(event:Event):void
+			{
+				if(isExplanationExpanded)
+				{
+					quesExplanation.percentHeight = 13;
+					isExplanationExpanded = false;
+				}
+					
+				else
+				{
+					quesExplanation.percentHeight = 60;
+					isExplanationExpanded = true;
+				}
+
 			}
 			
 		]]>
@@ -169,25 +309,21 @@
 		</s:BasicLayout>
 	</s:layout>
 	<s:BorderContainer left="10" top="10" bottom="10" width="78%">
-		<components:ExplanationBar includeIn="ReviewMode" left="80" right="80" bottom="20"
-								   height="15%" horizontalCenter="0">
+		<components:ExplanationBar id="quesExplanation" includeIn="ReviewMode" bottom="20"
+								   width="70%" height="13%" horizontalCenter="0">
 		</components:ExplanationBar>
-		<s:Button includeIn="TestMode" x="281" y="350" label="Button"
-				  click="currentState='ReviewMode'"/>
-		<!--s:VGroup horizontalAlign="center" horizontalCenter="0"
-				  top.TestMode="20" width.TestMode="95%" height.TestMode="90%"
-				  horizontalCenter.TestMode="0"-->
-			
-			<s:RichText id="quesStatement" top="40" width="90%" height="14%" chromeColor="#FCFBFB"
-						color="#678C60" fontFamily="Verdana" fontSize="13" fontWeight="bold"
-						paddingBottom="10" paddingTop="10" text="Sample statement"
-						textAlign="left" verticalAlign="top"
-						left="20"/>
-			<components:choicesBox id="choiceBox" left="20" top="113" width="70%"
-								   height="50%">
-			</components:choicesBox>
-			<components:DiagramDisplayer id="diagram" right="10" top="113" width="25%" height="40%">
-			</components:DiagramDisplayer>
+		
+		<s:RichText id="quesStatement" top="40" width="90%" height="14%" chromeColor="#FCFBFB"
+					color="#678C60" fontFamily="Verdana" fontSize="13" fontWeight="bold"
+					paddingBottom="10" paddingTop="10" text="Sample statement"
+					textAlign="left" verticalAlign="top"
+					left="20"/>
+		<components:choicesBox id="choiceBox" left="20" top="113" width="70%"
+							   height="50%">
+		</components:choicesBox>
+		<components:DiagramDisplayer id="diagram" right="10" top="113" width="25%" height="40%"
+									 right.ReviewMode="30" top.ReviewMode="113"
+									 right.TestMode="30" top.TestMode="113"/>
 		
 		<s:Button id="nextButton" right="10" bottom="20" width="7%" height="7%" label="Next"
 				  click="quesChangedEventHandler(event)"
@@ -196,12 +332,17 @@
 		<s:Button id="prevButton" width="7%" height="7%" label="Previous"
 				  click="quesChangedEventHandler(event)"
 				  left="10" bottom="20"/>
-
+		<s:CheckBox id="quesReviewCheckBox" includeIn="TestMode" bottom="20" height="5%"
+					label="Mark For Review Later" click="reviewCheckBoxClickHandler(event)"
+					fontStyle="italic" horizontalCenter="0" textDecoration="underline"/>
+		<s:Button label="Quit" click="testQuitButtonClicked(event)"
+				  left="10" top="10" width="70"/>
+		
 		<!--s:Button click="currentState = 'ReviewMode'" x="300" y="200"/-->
 	</s:BorderContainer>
 	<s:Panel right="6" top="10" bottom="10" width="20%">
 		<s:Button bottom="20" width="50%" height="5%" label="Done"
-				   horizontalCenter="0"
+				  horizontalCenter="0"
 				  click="FinishHandler(event)"/>
 		
 		<s:Button top="20" width="50%" height="5%" label="Help"
@@ -213,9 +354,9 @@
 		<s:BorderContainer includeIn="TestMode" bottom="80" width="80%" height="70"
 						   horizontalCenter="0">
 			<s:RichText id="timer" color="#54AD69" fontSize="19" fontWeight="bold" horizontalCenter="0"
-						text="{timePassed.toString()}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
+						text="{timePassed}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
 		</s:BorderContainer>
 		<mx:ProgressBar id="quesProgress" includeIn="TestMode" width="80%" height="36"
-						horizontalCenter="0" verticalCenter="40"/>
+						horizontalCenter="0" verticalCenter="40" minimum="0" mode="manual"/>
 	</s:Panel>
 </s:Group>

@@ -43,11 +43,11 @@
 				}
 			}
 
-			public function setButtonColor(butt_number:int, buttonState:int):void
+			public function setButtonColor(butt_number:int, buttColor:int):void
 			{
 				var currButt:Button = this.getElementAt(butt_number) as Button;
 				if(currButt != null)
-					currButt.setStyle("chromeColor", MCQConstants.quesStateColor[buttonState]);
+					currButt.setStyle("chromeColor", buttColor);
 			}
 			
 	

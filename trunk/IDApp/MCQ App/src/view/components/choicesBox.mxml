@@ -46,6 +46,8 @@
 			{
 				//remove all elements
 				this.removeAllElements();
+//				this.validateSize(true);
+//				this.validateNow();
 				currQues = null;
 				choicesSelected = -1;
 				choiceSelectedWeight = 1;
@@ -57,22 +59,26 @@
 				currQues = _currQues;
 				setData();
 			}
-			
+
 			//this creates the radio buttons. This will not work for checkbox choices type
 			private function setData():void
 			{
 				for(var i:int = 0; i < currQues.choices.length; i++)
 				{
 					var radioElement:choiceRadioButton = new choiceRadioButton();
+					radioElement.setCurrentState(currentState);
 					radioElement.width = this.width;
 					radioElement.id = (i+1).toString();
-					radioElement.setCurrentState(currentState);
 					radioElement.elementNumber = i;
 					radioElement.addEventListener("ff", radiogroup1_itemClickHandler);
+//					radioElement.validateNow();
 					radioElement.initRadioChoice(radiogroup1, (currQues.choices[i].choice as String), (currQues.userAnswer == i), currQues.choices[i].correctAnswer);
 					this.addElement(radioElement);
 				}
-				
+
+				choicesSelected = currQues.userAnswer;
+				choiceSelectedWeight = currQues.userAnswerWeight;
+
 			}
 
 			//this commits the selection done by the user
@@ -81,11 +87,13 @@
 			{
 				if(choiceSelectedWeight == 1)
 				{
+					currQues.isQuesAttempted = false;
 					return MCQConstants.quesUnAttempted;
 				}
 				
 				else
 				{
+					currQues.isQuesAttempted = true;
 					currQues.userAnswer = choicesSelected;
 					currQues.userAnswerWeight = choiceSelectedWeight;
 					return MCQConstants.questAttempted;
@@ -96,7 +104,6 @@
 			
 			protected function radiogroup1_itemClickHandler(event:ChoiceElementEvent):void
 			{
-				
 				choicesSelected = event.choiceSelection;
 				choiceSelectedWeight = MCQConstants.primeNumberArray[event.choiceSelection];		//in case of checkbox, this should be multiplied by previous value. this is a multiplication of prime numbers
 			}
