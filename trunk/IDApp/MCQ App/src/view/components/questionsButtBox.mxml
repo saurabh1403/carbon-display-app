@@ -33,7 +33,7 @@
 					butt.width = buttongWidth;
 					butt.height = buttonHeight;
 					butt.setStyle("chromeColor",MCQConstants.quesStateColor[3]);
-					butt.addEventListener(MouseEvent.CLICK, buttClickHandler);
+					butt.addEventListener(MouseEvent.CLICK, buttClickHandler, false, 0, true);
 					butt.label = (i+1).toString();
 //					butt.name = buttNamePrefix + i.toString();
 //					butt.percentWidth = 18;

@@ -38,8 +38,6 @@ package model
 
 		}
 		
-
-		
 		public function TestResultData()
 		{
 		}

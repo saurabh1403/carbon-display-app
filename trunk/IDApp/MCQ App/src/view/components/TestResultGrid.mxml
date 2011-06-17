@@ -3,9 +3,11 @@
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
 				   backgroundAlpha="0.0" borderVisible="false"
-				   cornerRadius="17" dropShadowVisible="false">
+				   cornerRadius="17" dropShadowVisible="false"
+				   creationPolicy="all"
+				   >
 	<s:layout>
-		<s:VerticalLayout gap="0" verticalAlign="middle" horizontalAlign="center"/>
+		<s:VerticalLayout gap="0" horizontalAlign="center" verticalAlign="middle"/>
 	</s:layout>
 	<fx:Script>
 		<![CDATA[
@@ -31,15 +33,15 @@
 		<s:BorderContainer x="10" width="50%" height="100%" backgroundColor="#7E7C7C" borderVisible="true"
 						   borderWeight="3" cornerRadius="0" dropShadowVisible="true" verticalCenter="0">
 			<s:layout>
-				<s:HorizontalLayout gap="20" verticalAlign="middle" horizontalAlign="center"/>
+				<s:HorizontalLayout gap="0" horizontalAlign="center" verticalAlign="middle"/>
 			</s:layout>
 			<s:Image top="5" width="20%" height="40%" backgroundColor="#7E7C7C" horizontalCenter="0"
 					 smooth="true" smoothingQuality="high" source="{imagePath}" visible="{imagePath.length !=0}" includeInLayout="{imagePath.length !=0}"/>
-			<s:RichText bottom="10" width="60%" height="50%" fontFamily="Verdana" fontSize="14"
+			<s:RichText width="60%" height="50%" fontFamily="Verdana" fontSize="14"
 						fontWeight="normal" horizontalCenter="0" text="{dataName}" textAlign="center"
 						verticalAlign="middle"/>
 		</s:BorderContainer>
-		<s:BorderContainer x="523" width="30%" height="100%" backgroundColor="#454343"
+		<s:BorderContainer width="30%" height="100%" backgroundColor="#454343"
 						   borderVisible="true" borderWeight="3" cornerRadius="0"
 						   dropShadowVisible="true" verticalCenter="0">
 			<s:RichText width="80%" height="50%" color="#FDFCFC" fontFamily="Verdana" fontSize="14"

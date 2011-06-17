@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx">
 	<s:states>
@@ -26,43 +26,64 @@
 			private var radLabel:String = " this is dummy";
 			
 			public var elementNumber:int = 0;
+			
+			[Bindable]
+			public var isImgVisible:Boolean;
+
+			[Bindable]
+			public var imgSource:String;
+
+			//this should be called first when this view is getting created
+			public function initView(curState:String = "TestMode"):void
+			{
+				currentState = curState;
+			}
 
 			//use this method only
-			public function initRadioChoice(radioGroupName:RadioButtonGroup, choiceStatement:String = "", isSelectedByUser:Boolean = false, isCorrectAnswer:Boolean = false):void
+			public function initRadioChoice(choiceStatement:String = "", isSelectedByUser:Boolean = false, isCorrectAnswer:Boolean = false):void
 			{
 				radButtWidth = this.width * 0.8;
-				rad.group = radioGroupName;
 				radLabel = choiceStatement;
 
-				//TODO: parse the choice object to correctly show the radio group
 				if(currentState == 'ReviewMode')
 				{
-					img.visible = true;
 					rad.enabled = false;
-					if(isCorrectAnswer)
-					{
-						img.source = "assets/right.png";
-					}
+					
 					if(isSelectedByUser)
 					{
 						rad.selected = true;
-						if(!isCorrectAnswer)
-							img.source = "assets/wrong.png";
+						isImgVisible = true;
+						
+						if(isCorrectAnswer)
+							imgSource = "assets/right.png";
+						
+						else
+							imgSource = "assets/wrong.png";
 					}
+					
 					else
 					{
-						img.visible = false;
+						rad.selected = false;
+						if(isCorrectAnswer)
+						{
+							isImgVisible = true;
+							imgSource = "assets/right.png";
+						}
+						else
+						{
+							isImgVisible = false;
+						}
 					}
 				}
-				
+
 				else
 				{
-					img.visible = false;
+					isImgVisible = false;
 					rad.enabled = true;
 					rad.selected = isSelectedByUser;
 				}
 			}
-			
+
 			protected function rad_clickHandler(event:MouseEvent):void
 			{
 				var newEvent:ChoiceElementEvent = new ChoiceElementEvent("ff");
@@ -77,26 +98,22 @@
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
 
-		s|RadioButton {
-			skinClass: ClassReference("skins.CustomMultilineRadioButtonSkin");
-		}
 	</fx:Style>
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
 
-	<s:BorderContainer id="bor" width="100%" height="100%"
-					   borderColor="#000000" borderWeight="3">
+	<s:RadioButton id="rad" maxWidth="{radButtWidth}" label="{radLabel}"
+				   click="rad_clickHandler(event)" fontFamily="Verdana"
+				   fontStyle="normal" skinClass="skins.CustomMultilineRadioButtonSkin"
+				   left="0" fontSize="12" verticalCenter="0"/>
+	<s:Spacer width="3%" includeIn="ReviewMode"/>
+	<s:Image id="img" scaleMode="stretch"
+			 includeIn="ReviewMode"
+			 smooth="true" smoothingQuality="high"
+			 width="25" height="20"
+			 visible="{isImgVisible}"
+			 source="{imgSource}"
+			 />
 
-		<s:layout.TestMode>
-			<s:HorizontalLayout/>
-		</s:layout.TestMode>
-	
-	</s:BorderContainer>
-
-		<s:RadioButton id="rad" maxWidth="{radButtWidth}"
-					   click="rad_clickHandler(event)"
-					   label="{radLabel}"
-					   />
-		<s:Spacer width="3%"/>
-		<s:Image id="img" width="40"
-				 height="40" scaleMode="stretch" smoothingQuality="high"
-				 smooth="true"/>
-</s:HGroup>
+</s:Group>

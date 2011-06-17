@@ -65,7 +65,8 @@ package model
 				{
 					tempObj.correctAnswer = false;
 				}
-	//				tempObj.userAnswer = false;		//not to be used now
+
+				tempObj.userAnswer = false;
 				
 				choices.addItem(tempObj);
 			}

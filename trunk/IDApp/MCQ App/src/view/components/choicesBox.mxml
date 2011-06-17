@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 >
+		 xmlns:widgets="view.widgets.*"
+		 width="100%" height="100%"
+		>
+	
 	<s:states>
 		<s:State name="TestMode"/>
 		<s:State name="ReviewMode"/>
 	</s:states>
 	<fx:Declarations>
-		<s:RadioButtonGroup id="radiogroup1"
-							/>
+		<s:RadioButtonGroup id="radiogroup1"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
 	<s:layout>
-		<s:VerticalLayout paddingLeft="5"
-						  horizontalAlign="left" paddingBottom="15"
-						  paddingRight="5" paddingTop="5">
-			
+		<s:VerticalLayout horizontalAlign="left" paddingBottom="15" paddingLeft="5" paddingRight="5"
+						  paddingTop="5">
 		</s:VerticalLayout>
 	</s:layout>
 
@@ -29,7 +29,10 @@
 			
 			import model.Question;
 			
+			import mx.binding.utils.BindingUtils;
+			import mx.collections.ArrayCollection;
 			import mx.controls.Label;
+			import mx.events.FlexEvent;
 			import mx.events.ItemClickEvent;
 			
 			import spark.primitives.Line;
@@ -42,10 +45,14 @@
 			private var choicesSelected:int = -1;		
 			private var choiceSelectedWeight:int = 1;		//1 means no item selected
 			
+			private var childElements:ArrayCollection = new ArrayCollection();
+			
+			private var isInit:Boolean = false;
+			private var maxElemenets:int = 4;
+			
 			public function reset():void
 			{
 				//remove all elements
-				this.removeAllElements();
 //				this.validateSize(true);
 //				this.validateNow();
 				currQues = null;
@@ -59,23 +66,44 @@
 				currQues = _currQues;
 				setData();
 			}
-
-			//this creates the radio buttons. This will not work for checkbox choices type
-			private function setData():void
+			
+			private function initRadioButtons():void
 			{
-				for(var i:int = 0; i < currQues.choices.length; i++)
+				for(var i:int = 0; i < maxElemenets; i++)
 				{
 					var radioElement:choiceRadioButton = new choiceRadioButton();
+					radioElement.rad.group = radiogroup1;
 					radioElement.setCurrentState(currentState);
 					radioElement.width = this.width;
-					radioElement.id = (i+1).toString();
 					radioElement.elementNumber = i;
-					radioElement.addEventListener("ff", radiogroup1_itemClickHandler);
-//					radioElement.validateNow();
-					radioElement.initRadioChoice(radiogroup1, (currQues.choices[i].choice as String), (currQues.userAnswer == i), currQues.choices[i].correctAnswer);
-					this.addElement(radioElement);
+					radioElement.addEventListener("ff", radiogroup1_itemClickHandler, false, 0, true);
+					this.addElementAt(radioElement, i);
+//					BindingUtils.bindProperty(radioElement, "width", this, "width");
+				}
+			}
+			
+			private function setData():void
+			{
+				if(!isInit)
+				{
+					initRadioButtons();
+					isInit = true;
 				}
 
+				var i:int = 0;
+				//currently it supports only maximum four choices
+				for( i = 0; i < currQues.choices.length && i < 4 ; i++)
+				{
+					var childObj:choiceRadioButton = this.getElementAt(i) as choiceRadioButton;
+					childObj.initRadioChoice((currQues.choices[i].choice as String), (currQues.userAnswer == i), currQues.choices[i].correctAnswer);
+					childObj.visible = true;
+				}
+				
+				for(; i < maxElemenets; i++)
+				{
+					(this.getElementAt(i) as choiceRadioButton).visible = false;
+				}
+				
 				choicesSelected = currQues.userAnswer;
 				choiceSelectedWeight = currQues.userAnswerWeight;
 
@@ -90,7 +118,7 @@
 					currQues.isQuesAttempted = false;
 					return MCQConstants.quesUnAttempted;
 				}
-				
+
 				else
 				{
 					currQues.isQuesAttempted = true;
@@ -108,7 +136,7 @@
 				choiceSelectedWeight = MCQConstants.primeNumberArray[event.choiceSelection];		//in case of checkbox, this should be multiplied by previous value. this is a multiplication of prime numbers
 			}
 			
+			
 		]]>
 	</fx:Script>
-	
 </s:Group>
