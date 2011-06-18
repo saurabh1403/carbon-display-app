@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%" contentBackgroundColor="#706C6C" xmlns:components="view.components.*">
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   xmlns:components="view.components.*"
+				   width="100%" height="100%" backgroundColor="#595656"
+				   contentBackgroundColor="#706C6C"
+				   borderVisible="true" borderWeight="1">
 	
 	<fx:Script>
 		<![CDATA[
@@ -55,13 +58,13 @@
 				{
 					toggle = false;
 					ps.explodeRadius=.05;
-					event.target.percentWidth = 100;
+					event.target.percentWidth = 80;
 					event.target.percentHeight = 80;
 				}
 				else
 				{
-					event.target.percentWidth = 80;
-					event.target.percentHeight = 50;
+					event.target.percentWidth = 70;
+					event.target.percentHeight = 60;
 					toggle = true;
 					ps.explodeRadius = 0;
 				}
@@ -99,7 +102,7 @@
 					var tempObj:Object = new Object();
 					var qTime:int = (ptr.current as Question).quesAttemptTime ;
 					tempObj["quesNumber"] = i; 
-					tempObj["quesTime"] = (ptr.current as Question).quesAttemptTime*10;
+					tempObj["quesTime"] = (ptr.current as Question).quesAttemptTime;
 					timeStatBarData.addItem(tempObj);
 
 					i++;
@@ -113,8 +116,27 @@
 				testResult = quesProxy.testResult;
 				processQuesStatData(quesProxy);
 				processTimeStatData(quesProxy);
+				processView();
 			}
 			
+			protected function processView():void
+			{
+				if(parseInt(testResult.percentObtained) > 60)
+				{
+					performanceLabel.text = "Your Performance is Good.";
+					performanceBar.setStyle("backgroundColor", 0x76D13D);
+					performanceIcon.source = "assets/thumbsUp.jpg";
+				}
+				else
+				{
+					performanceLabel.text = "Your Performance is Poor.";
+					performanceBar.setStyle("backgroundColor", 0xF01D32);
+					performanceIcon.source = "assets/thumbsDown.jpg";
+				}
+				
+			}
+			
+			//not used now
 			protected function clickHandler1(event:MouseEvent):void
 			{
 				if(event.type == MouseEvent.MOUSE_OVER)
@@ -126,8 +148,8 @@
 				}
 				else
 				{
-					piechart1.percentWidth = 80;
-					piechart1.percentHeight = 50;
+					piechart1.percentWidth = 70;
+					piechart1.percentHeight = 60;
 					ps.explodeRadius = 0;
 				}
 			}
@@ -136,11 +158,13 @@
 			{
 				if(event.newIndex == 0)
 				{
-					currentState = "quesStat";
+					currentState = "marksStats";
+
 				}
 				else
 				{
-					currentState = "marksStats";
+					currentState = "quesStat";
+					
 				}
 			}
 			
@@ -179,36 +203,45 @@
 		}		
 		
 	</fx:Style>
-
+	
 	<s:states>
 		<s:State name="marksStats"/>
 		<s:State name="quesStat"/>
 	</s:states>
-
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<mx:SolidColor id="sc2" color="red" alpha=".3"/>
 	</fx:Declarations>
-
-	<s:BorderContainer backgroundColor="#797777" borderWeight="3"
-					   right="20" top="20" bottom="20"
-					   width="45%"
-					   height="100%">
+	
+	<s:BorderContainer right="20" top="10" bottom="20" height="100%"
+					   backgroundAlpha="0.0" backgroundColor="#797777" borderVisible="false"
+					   borderWeight="3" dropShadowVisible="false"
+					   width="50%">
 		
-		<s:BorderContainer top="20" width="90%" backgroundColor="#797777"
-						   borderVisible="false" horizontalCenter="0"
-						   height="10%">
+		<s:BorderContainer id="performanceBar" top="10" width="95%" height="10%"
+						   backgroundColor="#797777" horizontalCenter="0"
+						   borderVisible="true" borderWeight="0"
+						   cornerRadius="14" dropShadowVisible="true">
+			<s:Label id="performanceLabel" left="100" width="90%" height="50%"
+					 color="#FEFEFE" fontFamily="Verdana" fontSize="22" fontStyle="normal"
+					 fontWeight="normal" text="Label" textAlign="center" textDecoration="none"
+					 verticalAlign="middle" verticalCenter="-10"/>
+			<s:Image id="performanceIcon" left="20" width="60" height="60" verticalCenter="0"
+					 scaleMode="stretch" smoothingQuality="high"
+					 smooth="true"/>
 			
 		</s:BorderContainer>
 		
-		<s:BorderContainer bottom="15" width="95%" backgroundColor="#797777"
-						   borderVisible="false" horizontalCenter="0"
-						   height="85%">
+		<s:BorderContainer bottom="10" backgroundColor="#797777"
+						   borderVisible="false" borderWeight="3" cornerRadius="15"
+						   dropShadowVisible="true" horizontalCenter="0"
+						   width="95%" height="80%">
 			
-			<mx:PieChart id="piechart1" includeIn="quesStat" width="80%" height="50%"
+			<mx:PieChart id="piechart1" includeIn="marksStats" width="70%" height="60%"
 						 chromeColor="#A8A6A6" click="clickHandler(event)" color="#FDFAFA"
 						 dataProvider="{quesStatPieData}" fontSize="12" fontStyle="italic"
-						 fontWeight="bold" horizontalCenter="0" verticalCenter="-40">
+						 fontWeight="bold" horizontalCenter="0" verticalCenter="-30">
 				
 				<mx:series>
 					<mx:PieSeries id="ps" 
@@ -221,14 +254,14 @@
 								  />
 				</mx:series>
 			</mx:PieChart>
-			<mx:Legend includeIn="quesStat" left="30" bottom="20" width="20%" height="10%"
+			<mx:Legend includeIn="marksStats" left="30" bottom="20" width="20%" height="10%"
 					   color="#F8F2F2" dataProvider="{piechart1}" fontFamily="Verdana" fontSize="17"
 					   fontStyle="italic" fontWeight="bold" textAlign="left" verticalAlign="middle"/>
 			
-			<mx:ColumnChart id="timeStatGraph" includeIn="marksStats" width="80%" height="50%"
+			<mx:ColumnChart id="timeStatGraph" includeIn="quesStat" width="70%" height="60%"
 							chromeColor="#A8A6A6" click="clickHandler(event)" color="#FDFAFA"
 							dataProvider="{timeStatBarData}" horizontalCenter="0"
-							showDataTips="true" verticalCenter="-40">
+							showDataTips="true" verticalCenter="-30">
 				<mx:series>
 					<mx:ColumnSeries id="cs" displayName="Questions Time" 
 									 yField="quesTime"
@@ -236,16 +269,18 @@
 									 fill="{sc2}"/>
 				</mx:series>	
 			</mx:ColumnChart>
-			<mx:Legend includeIn="marksStats" dataProvider="{timeStatGraph}"
+			<mx:Legend includeIn="quesStat" dataProvider="{timeStatGraph}"
 					   left="30" bottom="20" width="20%" height="10%"/>
 		</s:BorderContainer>
 	</s:BorderContainer>
 	
-	<s:BorderContainer left="20" top="20" bottom="20" width="50%">		
-		<mx:Accordion top="50" width="90%" change="navigatorcontent1_clickHandler(event)"
-					  cornerRadius="17" horizontalCenter="0"
-					  resizeToContent="true"
-					  height="70%">
+	<s:BorderContainer left="20" top="20" bottom="20" backgroundAlpha="0.0"
+					   borderVisible="false"
+					   width="45%">		
+		<mx:Accordion top="50" width="100%" height="80%"
+					  change="navigatorcontent1_clickHandler(event)" chromeColor="#000000"
+					  color="#FFFFFF" cornerRadius="17" horizontalCenter="0" resizeToContent="true"
+					  >
 			<s:NavigatorContent height="100%" width="100%" label="marks Statistics">
 				<components:marksStatsView testResult="{testResult}" id="marksResultView" width="100%" height="100%"/>
 			</s:NavigatorContent>
@@ -253,16 +288,16 @@
 				<components:timeStatsView testResult="{testResult}" id="timeResultView" width="100%" height="100%"/> 
 			</s:NavigatorContent>
 		</mx:Accordion>
-
-		<s:Button left="30" bottom="40" width="30%" height="10%" label="Retake Test"
-				  click="testRetakeButtonClicked(event)"
-				  color="#22B526" fontFamily="Verdana" fontSize="15"
-				  fontStyle="italic" fontWeight="bold"/>
-		<s:Button right="30" bottom="40" width="30%" height="10%" label="Review Test"
-				  click="testReviewButtonClicked(event)"
-				  color="#5091CD" fontFamily="Verdana" fontSize="15"
-				  fontStyle="italic" fontWeight="bold"/>
+		
+		<s:Button width="30%" height="10%" label="Retake Test"
+				  click="testRetakeButtonClicked(event)" color="#22B526" fontFamily="Verdana"
+				  fontSize="15" fontStyle="italic" fontWeight="bold"
+				  left="30" bottom="30"/>
+		<s:Button width="30%" height="10%" label="Review Test"
+				  click="testReviewButtonClicked(event)" color="#5091CD" fontFamily="Verdana"
+				  fontSize="15" fontStyle="italic" fontWeight="bold"
+				  right="30" bottom="30"/>
 		<s:Button x="148" y="10" label="Quit" click="testQuitButtonClicked(event)"/>
 	</s:BorderContainer>
 
-</s:Group>
+</s:BorderContainer>

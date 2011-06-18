@@ -55,10 +55,10 @@
 						isImgVisible = true;
 						
 						if(isCorrectAnswer)
-							imgSource = "assets/right.png";
+							imgSource = "assets/Ok-icon.png";
 						
 						else
-							imgSource = "assets/wrong.png";
+							imgSource = "assets/Quit-icon.png";
 					}
 					
 					else
@@ -67,7 +67,7 @@
 						if(isCorrectAnswer)
 						{
 							isImgVisible = true;
-							imgSource = "assets/right.png";
+							imgSource = "assets/Ok-icon.png";
 						}
 						else
 						{

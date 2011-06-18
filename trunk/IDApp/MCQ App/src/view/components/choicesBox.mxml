@@ -17,7 +17,8 @@
 	
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="left" paddingBottom="15" paddingLeft="5" paddingRight="5"
-						  paddingTop="5">
+						  paddingTop="10"
+						  gap="15">
 		</s:VerticalLayout>
 	</s:layout>
 
