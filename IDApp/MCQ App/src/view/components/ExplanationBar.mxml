@@ -13,7 +13,7 @@
 	<fx:Script>
 		<![CDATA[
 
-			public var explanationString:String = "Explanation \n";
+			public var explanationString:String = "Explanation: \n\n";
 
 			[Bindable]
 			public var explanationText:String = "";
@@ -29,10 +29,9 @@
 		<s:State name="expanded"/>
 	</s:states>
 
-	<s:TextArea width="100%" height="100%" chromeColor="#FCF8F8" color="#767474" editable="false"
-				fontFamily="Verdana" fontSize="13" horizontalCenter="0" paddingBottom="10"
-				paddingLeft="10" paddingRight="10" paddingTop="10" selectable="false"
-				text="{explanationString + explanationText}" verticalCenter="0"
-				horizontalScrollPolicy.collapsed="off" textAlign="left"
-				verticalScrollPolicy.collapsed="off"/>
+	<s:RichText width="100%" height="100%" chromeColor="#FCF8F8" color="#767474" fontFamily="Verdana"
+				fontSize="13" horizontalCenter="0" paddingBottom="10" paddingLeft="10"
+				paddingRight="10" paddingTop="10" text="{explanationString + explanationText}"
+				textAlign="left" verticalCenter="0"
+				verticalAlign.collapsed="top"/>
 </s:BorderContainer>

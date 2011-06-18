@@ -34,10 +34,11 @@ package Controller
 
 		static public var primeNumberArray:Array = new Array(2, 3, 5, 7, 11, 13, 17);
 		
-		
 		//application wise constants
 		static public var appWidth:int = 0;
 		static public var appHeight:int = 0;
+		
+		static public var testBaseFolder:String = ""; 		// this is the base folder in which all the resources are kept
 		
 		public function MCQConstants()
 		{

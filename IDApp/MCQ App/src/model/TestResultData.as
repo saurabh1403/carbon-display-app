@@ -8,9 +8,9 @@ package model
 	public class TestResultData
 	{
 		//ques stats
-		public var totalQuesAttempted:int = 11;
-		public var totalQuestions:int = 20;
-		public var totalCorrectQuestion:int = 9;
+		public var totalQuesAttempted:int = 0;
+		public var totalQuestions:int = 0;
+		public var totalCorrectQuestion:int = 0;
 		
 		//time stats
 		public var totalTimeTakenVal:int = 0;			//number of seconds
@@ -20,7 +20,7 @@ package model
 		//marks stats
 		public var totalMarks:int = 0;
 		public var marksObtained:int = 0;
-		public var percentObtained:Number = 0.0;
+		public var percentObtained:String = "";
 
 		public function resetStats():void
 		{
@@ -30,7 +30,7 @@ package model
 			
 			totalMarks = 0;
 			marksObtained = 0;
-			percentObtained = 0.0;
+			percentObtained = "";
 			
 			totalTimeTakenStr = "";
 			totalTimeTakenVal = 0;

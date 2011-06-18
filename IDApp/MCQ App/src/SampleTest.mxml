@@ -2,8 +2,9 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" 
-					   width="1000" height="750" xmlns:components="view.components.*"
-					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+					   width="1020" height="750" xmlns:components="view.components.*"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
+					   >
 	<fx:Script>
 		<![CDATA[
 			import Controller.DataProcessor;
@@ -21,7 +22,7 @@
 			import view.TopLevelViews.TestView;
 			import view.TopLevelViews.TestView2;
 			
-			public var testXmlPath:String = "d:\\test1.xml";
+			public var testXmlPath:String = "D:\\saurabhg\\My extra\\app testing\\MCQ\\test1\\test1.xml";
 			
 			public var testNumber:int = -1;
 			
@@ -40,28 +41,17 @@
 				{
 					event.target.disposeView();
 				}
+
 				DataProcessor.instance.quesProxy.reset();
 				var homeView:HomeDisplay = new HomeDisplay();
 				homeView.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
-				//if(testView)
-					//this.removeElement(testView);
-				//testView = null;
-				
-//				if(newTest)
-//				{
-//					newTest.removeEventListener(MCQConstants.testViewStartEventName, startTestView2);
-//					newTest.removeEventListener(MCQConstants.testQuitEventName, showHomeDisplay);
-//					newTest = null;
-//				}
-				
+
 				this.removeAllElements();
 				this.addElement(homeView);
 			}
 
 			protected function testCompleted(event:TestResultEvent):void
 			{
-//				event.target.setCurrentState("ReviewMode");
-//				return;
 				if(event!=null)
 				{
 					if(event.isTestMode)
@@ -86,15 +76,20 @@
 					event.target.disposeView();
 				}
 
+				//TODO: get the xml for that level here
+
 				var newTest:TestRulesView = new TestRulesView();
+
+				//TODO: testXmlPath should come from event data
+				DataProcessor.instance.quesProxy.initProxyWithXml(testXmlPath);
 				testNumber = event.testNumber;
-				newTest.pickTest(event.testNumber);
+
 				newTest.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
 				newTest.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
-				
+
 				//get the test number here and then start the test
 				this.removeAllElements();
-				
+
 				this.addElement(newTest);
 			}
 
@@ -113,20 +108,16 @@
 				{
 					event.target.disposeView();
 				}
+				event = null;
 
-				DataProcessor.instance.quesProxy.initProxyWithXml(testXmlPath);
 				var testView:TestView = new TestView();
-				trace("parence instance created");
 				
 				testView.setCurrentState("TestMode");
-				trace("parent state set");
 
 				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
 				testView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
 				this.removeAllElements();
 				this.addElement(testView);
-				trace("parent view added");
-//				testView.initView("TestMode");
 
 			}
 
@@ -136,6 +127,7 @@
 				{
 					event.target.disposeView();
 				}
+				event = null;
 
 				this.removeAllElements();
 				var testView:TestView = new TestView();

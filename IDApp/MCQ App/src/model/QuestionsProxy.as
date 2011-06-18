@@ -8,9 +8,12 @@ package model
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import flash.globalization.NumberFormatter;
 	
 	import mx.collections.ArrayCollection;
 	import mx.core.mx_internal;
+	
+	import spark.formatters.NumberFormatter;
 
 	public class QuestionsProxy
 	{
@@ -18,6 +21,13 @@ package model
 		public var questions:ArrayCollection;
 
 		public var testResult:TestResultData = new TestResultData();
+		
+		public var totalQuestions:int = 0;
+		public var testTotalTime:int = 0;			//time in minutes
+		public var testTotalMarks:int = 0;
+		public var testTitle:String = "";
+		public var testSubjectName:String = "";
+		public var testIcon:String = "";
 
 		public function QuestionsProxy()
 		{
@@ -26,8 +36,17 @@ package model
 		
 		public function reset():void
 		{
-			questions = new ArrayCollection();
+			questions.removeAll();
 			testResult.resetStats();
+			
+			totalQuestions = 0;
+			testTotalMarks = 0;
+			testTotalTime = 0;			//time in minutes
+			testTotalMarks = 0;
+			testTitle = "";
+			testSubjectName = "";
+			testIcon = "";
+
 		}
 
 		public function initProxyWithXml(inXmlPath:String):Boolean
@@ -47,8 +66,20 @@ package model
 			{
 				var ques_obj:Question = new Question();
 				ques_obj.initQuestion(ques[i]);
+				testTotalMarks += parseInt(ques[i].mark.toString());
 				questions.addItem(ques_obj);
 			}
+			
+			totalQuestions = ques.length();
+			testTitle = inXml.title.toString();
+			testSubjectName = inXml.Subject.toString();
+			
+			if(inXml.testIcon != null && inXml.testIcon.toString() != "")
+			{
+				testIcon = inXml.testIcon.toString();
+			}
+			
+			testTotalTime = parseInt(inXml.totalTime.toString());
 
 			return true;
 		}
@@ -78,6 +109,12 @@ package model
 				}
 				testResult.totalMarks += curr_ques.quesMark;
 			}
+			
+			var numFormat:flash.globalization.NumberFormatter = new flash.globalization.NumberFormatter("en_US");
+			numFormat.fractionalDigits = 2;
+			
+			testResult.percentObtained = numFormat.formatNumber((testResult.marksObtained * 100 )/ testResult.totalMarks);
+			
 			
 			trace("here");
 		}
