@@ -13,8 +13,10 @@ package Controller
 		static public var questAttempted:int = 0;
 		static public var quesReviewState:int = 2;
 		static public var quesUnAttempted:int = 3;
+		static public var quesIsWrong:int = 4;
+		static public var quesIsRight:int = 5;
 		//color according to the states defined above
-		static public var quesStateColor:Object = {quesAttempted:0xAD6839, currQuesSelected: 0x74A2AB, quesReviewState: 0xF2275A, quesUnAttempted: 0xD1E0DD};
+		static public var quesStateColor:Object = {quesAttempted:0xAD6839, currQuesSelected: 0x74A2AB, quesReviewState: 0xF2275A, quesUnAttempted: 0xD1E0DD, quesIsWrong:0xF71128,quesIsRight:0x44A651 };
 
 		//event names
 		static public var quesButtonClickEventName:String = "buttClick";

@@ -5,8 +5,6 @@
 		 xmlns:components="view.components.*"
 		 width="100%" height="100%" currentState="TestMode"
 		 creationComplete="group1_creationCompleteHandler(event)"
-		 preinitialize="group1_preinitializeHandler(event)"
-		 initialize="group1_initializeHandler(event)"
 		 >
 	
 	<fx:Script>
@@ -19,6 +17,7 @@
 			
 			import model.Question;
 			
+			import mx.collections.IViewCursor;
 			import mx.events.FlexEvent;
 			import mx.formatters.Formatter;
 			import mx.managers.PopUpManager;
@@ -125,22 +124,8 @@
 			
 			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
-				trace("parent creation complete");
 				initView();
 			}
-
-			protected function group1_preinitializeHandler(event:FlexEvent):void
-			{
-				trace("now preinitialize");
-				
-			}
-
-			protected function group1_initializeHandler(event:FlexEvent):void
-			{
-				trace("parent initialized");
-				
-			}
-
 			
 			public function initView(curState:String = "TestMode"):void
 			{
@@ -165,8 +150,12 @@
 				{
 					quesProgress.setProgress(quesAttempted, totalQuesCount);
 					quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
-					
 					currViewTimer.addEventListener(TimerEvent.TIMER, timerHandler, false, 0, true);
+				}
+				else
+				{
+					//TODO: it is not working
+					initQuesBoxButtonsInReviewMode();
 				}
 
 			}
@@ -218,7 +207,32 @@
 				quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
 				
 				currQues.quesAttemptTime += currQuesTimer.currentCount;
-//				quesTime.text = currQues.quesAttemptTime.toString();
+			}
+			
+			protected function initQuesBoxButtonsInReviewMode():void
+			{
+				var quesItr:IViewCursor = DataProcessor.instance.quesProxy.questions.createCursor();
+				var i:int = 0;
+				while(quesItr.afterLast)
+				{
+					var tempColor:int;
+					if((quesItr.current as Question).userAnswer == -1)
+					{
+						tempColor = MCQConstants.quesStateColor["quesUnAttempted"];
+					}
+					else if((quesItr.current as Question).isQuesCorrect())
+					{
+						tempColor = MCQConstants.quesStateColor["quesIsRight"];
+					}
+					else
+					{
+						tempColor = MCQConstants.quesStateColor["quesIsWrong"];
+					}
+					
+					quesBox.setButtonColor(i, tempColor);
+					i++;
+					quesItr.moveNext();
+				}
 			}
 			
 			protected function quesChangedEventHandler(event:Event):void
@@ -228,9 +242,9 @@
 				
 				if(currentState == "TestMode")
 					currQuesDone();
-				
-				else
-					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
+
+//				else
+//					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
 
 				if(event.target.id == "nextButton")
 					currQuesNumber = ((currQuesNumber + 1) % totalQuesCount);
@@ -263,18 +277,18 @@
 					currQuesTimer.reset();
 					currQuesTimer.start();
 					quesReviewCheckBox.selected = (_currQues.isQuesMarkedForReview);
+					quesBox.setButtonColor(currQuesNumber, MCQConstants.quesStateColor["currQuesSelected"] as int);
 				}
 				
 				else
 				{
 					isExplanationExpanded = false;
+					quesExplanation.percentHeight = 13;
 					quesExplanation.explanationText = _currQues.explanation;
 				}
 				
 				//populate statement
 				quesStatement.text = _currQues.quesStatement;
-
-				quesBox.setButtonColor(currQuesNumber, MCQConstants.quesStateColor["currQuesSelected"] as int);
 				
 				if(_currQues._imagePath.length == 0)
 				{
@@ -342,9 +356,6 @@
 		</s:BasicLayout>
 	</s:layout>
 	<s:BorderContainer left="10" top="10" bottom="10" width="78%">
-		<components:ExplanationBar id="quesExplanation" includeIn="ReviewMode" bottom="20"
-								   width="70%" height="13%" horizontalCenter="0">
-		</components:ExplanationBar>
 		
 		<s:RichText id="quesStatement" left="20" top="40" width="90%" height="14%"
 					chromeColor="#FCFBFB" color="#678C60" fontFamily="Verdana" fontSize="13"
@@ -355,6 +366,10 @@
 		</components:choicesBox>
 		<components:DiagramDisplayer id="diagram" right="10" top="113" width="25%" height="40%"
 									 />
+		<components:ExplanationBar id="quesExplanation" includeIn="ReviewMode" bottom="20"
+								   width="70%" height="13%" horizontalCenter="0"
+								   click="expandExplanation(event)">
+		</components:ExplanationBar>
 		
 		<s:Button id="nextButton" right="10" bottom="20" width="7%" height="7%" label="Next"
 				  click="quesChangedEventHandler(event)"

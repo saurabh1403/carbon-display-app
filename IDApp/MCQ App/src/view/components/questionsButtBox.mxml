@@ -5,8 +5,9 @@
 				   backgroundColor="#E4DFE6" borderColor="#A89A9A"
 				   borderWeight="7" dropShadowVisible="true">
 	<s:layout>
-		<s:TileLayout horizontalGap="0" paddingBottom="0" paddingLeft="0" paddingRight="0"
-					  paddingTop="0" verticalGap="0">
+		<s:TileLayout horizontalAlign="left" horizontalGap="0" orientation="rows" paddingBottom="0"
+					  paddingLeft="0" paddingRight="0" paddingTop="0" verticalAlign="top"
+					  verticalGap="0">
 			
 		</s:TileLayout>
 	</s:layout>
@@ -23,8 +24,10 @@
 			
 			public function initWtihButtons(count:int, buttPrefix:String = "butt"):void
 			{
-				var buttongWidth:int = this.width /5;
-				var buttonHeight:int = this.height /6;
+				var buttongWidth:int = this.width * 0.2;
+				var buttonHeight:int = this.height /5;
+				
+				this.removeAllElements();
 				
 				//TODO: fix the sizing problems of button
 				for(var i:int = 0; i < count ; i++)
@@ -35,9 +38,6 @@
 					butt.setStyle("chromeColor",MCQConstants.quesStateColor[3]);
 					butt.addEventListener(MouseEvent.CLICK, buttClickHandler, false, 0, true);
 					butt.label = (i+1).toString();
-//					butt.name = buttNamePrefix + i.toString();
-//					butt.percentWidth = 18;
-//					butt.percentHeight = 15;
 					butt.id = i.toString();
 					this.addElement(butt);
 				}
@@ -49,8 +49,7 @@
 				if(currButt != null)
 					currButt.setStyle("chromeColor", buttColor);
 			}
-			
-	
+
 			protected function buttClickHandler(event:Event):void
 			{
 				//extract the button number
