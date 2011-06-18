@@ -42,6 +42,11 @@ package model
 			choices = new ArrayCollection();
 		}
 		
+		public function isQuesCorrect():Boolean
+		{
+			return (userAnswerWeight == corrAnswerWeight);
+		}
+		
 		public function initQuestion(inXmlNode:XML):void
 		{
 			quesStatement = inXmlNode.statement.toString();
@@ -74,6 +79,8 @@ package model
 			quesMark = parseInt(inXmlNode.mark.toString());
 			
 			quesType = (inXmlNode.type.toString() == "radio") ? MCQConstants.radioTypeQues : MCQConstants.checkBoxTypeQues;
+			
+			explanation = inXmlNode.explanation.toString();
 			
 		}
 	}

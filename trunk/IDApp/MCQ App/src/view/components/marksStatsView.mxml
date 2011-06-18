@@ -19,8 +19,8 @@
 		]]>
 	</fx:Script>
 	
-	<components:TestResultGrid  width="100%" height="20%" dataName="Total Marks" dataValue="{testResult.totalMarks.toString()}" styleName="resultGridStyle"/>
-	<components:TestResultGrid 	height="20%" width="100%" dataName="Marks Scored" dataValue="{testResult.marksObtained.toString()}" styleName="resultGridStyle"/>
-	<components:TestResultGrid  height="20%" width="100%" dataName="Percentage (%)" dataValue="{testResult.percentObtained.toString()}" styleName="resultGridStyle"/>
-	<components:TestResultGrid  height="20%" width="100%" dataName="Total Time" dataValue="{testResult.totalTimeTakenStr}" styleName="resultGridStyle"/>
+	<components:TestResultGrid  width="100%" height="10%" dataName="Total Marks" dataValue="{testResult.totalMarks.toString()}" />
+	<components:TestResultGrid 	height="10%" width="100%" dataName="Marks Scored" dataValue="{testResult.marksObtained.toString()}" />
+	<components:TestResultGrid  height="10%" width="100%" dataName="Percentage (%)" dataValue="{testResult.percentObtained.toString()}" />
+	<components:TestResultGrid  height="10%" width="100%" dataName="Total Time" dataValue="{testResult.totalTimeTakenStr}" />
 </s:BorderContainer>
