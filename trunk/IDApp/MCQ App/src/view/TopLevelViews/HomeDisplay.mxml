@@ -17,6 +17,8 @@
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				var cusEvent:TestSelectionEvent = new TestSelectionEvent(MCQConstants.testStartEventName);
+				cusEvent.testFolderPath = MCQConstants.testBaseFolder;
+				cusEvent.testXmlName = MCQConstants.testXmlName;
 				dispatchEvent(cusEvent);
 			}
 

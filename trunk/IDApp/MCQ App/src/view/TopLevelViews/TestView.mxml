@@ -16,6 +16,7 @@
 			import Events.TestResultEvent;
 			
 			import model.Question;
+			import model.QuestionsProxy;
 			
 			import mx.collections.IViewCursor;
 			import mx.events.FlexEvent;
@@ -100,34 +101,33 @@
 			
 			protected function timerHandlerCountDown(event:TimerEvent):void
 			{
-				if(secondsLeft == 0)
+				secondsLeft--;
+				
+				if(secondsLeft == -1)
 				{
-					
+					secondsLeft = 59;
+					minuteLeft --;
 				}
 				
-				secondsPassed--;
-				
-				if(secondsPassed == 60)
+				if(minuteLeft == -1)
 				{
-					secondsPassed = 0;
-					minutePassed ++;
+					minuteLeft = 59;
+					hourLeft--;
 				}
 				
-				if(minutePassed == 60)
+				if(hourLeft == -1)
 				{
-					minutePassed = 0;
-					hourPassed ++;
-				}
-				
-				if(hourPassed == 60)
-				{
-					hourPassed = 0;
-					//TODO: warn the user to quit the test
+					promptTimeOut();
 				}
 				
 				//format the string
-				timePassed = formatTime(hourPassed) + ":" + formatTime(minutePassed) + ":" + formatTime(secondsPassed);
+				timeLeft = formatTime(hourLeft) + ":" + formatTime(minuteLeft) + ":" + formatTime(secondsLeft);
 
+			}
+			
+			protected function promptTimeOut():void
+			{
+				
 			}
 			
 			protected function timerHandlerCountUp(event:TimerEvent):void
@@ -174,7 +174,9 @@
 //				this.setCurrentState(curState);
 				currViewTimer.start();
 				
-				currQues = DataProcessor.instance.quesProxy.questions[currQuesNumber];
+				var quesProxy:QuestionsProxy = DataProcessor.instance.quesProxy;
+				
+				currQues = quesProxy.questions[currQuesNumber];
 				
 				//register different handlers
 				totalQuesCount = DataProcessor.instance.quesProxy.questions.length;
@@ -192,7 +194,11 @@
 				{
 					quesProgress.setProgress(quesAttempted, totalQuesCount);
 					quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
-					currViewTimer.addEventListener(TimerEvent.TIMER, timerHandlerCountUp, false, 0, true);
+					currViewTimer.addEventListener(TimerEvent.TIMER, timerHandlerCountDown, false, 0, true);
+
+					secondsLeft = 0;
+					minuteLeft = quesProxy.testTotalTime % 60;
+					hourLeft = quesProxy.testTotalTime / 60;
 				}
 				else
 				{
@@ -438,13 +444,13 @@
 		<s:Button top="20" width="50%" height="5%" label="Help"
 				  horizontalCenter="0"
 				  click="HelpClickHandler(event)"/>
-		<components:questionsButtBox id="quesBox" width="90%" height="20%"
+		<components:questionsButtBox id="quesBox" width="95%" height="20%"
 									 top="75" horizontalCenter="0">
 		</components:questionsButtBox>
 		<s:BorderContainer includeIn="TestMode" bottom="80" width="80%" height="80" borderWeight="3"
 						   cornerRadius="8" horizontalCenter="0">
 			<s:RichText id="timer" color="#54AD69" fontSize="19" fontWeight="bold" horizontalCenter="0"
-						text="{timePassed}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
+						text="{timeLeft}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
 		</s:BorderContainer>
 		<mx:ProgressBar id="quesProgress" includeIn="TestMode" width="80%" height="36"
 						horizontalCenter="0" verticalCenter="90" minimum="0" mode="manual"/>

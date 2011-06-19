@@ -22,7 +22,7 @@
 			import view.TopLevelViews.TestView;
 			import view.TopLevelViews.TestView2;
 			
-			public var testXmlPath:String = "D:\\saurabhg\\My extra\\app testing\\MCQ\\test1\\test1.xml";
+			public var testXmlPath:String = "D:\\test\\test.xml";
 			
 			public var testNumber:int = -1;
 			
@@ -60,13 +60,20 @@
 					var testResult:TestResultDisplay = new TestResultDisplay(); 
 					
 					testResult.addEventListener(MCQConstants.testReviewEventName, startTestInReviewMode, false, 0, true);
-					testResult.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
+					testResult.addEventListener(MCQConstants.testViewStartEventName, startTest, false, 0, true);
 					testResult.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
 					
 					this.removeAllElements();
 					this.addElement(testResult);
 					testResult.processData(DataProcessor.instance.quesProxy);
 				}
+			}
+			
+			//TODO:
+			protected function showErrorMsg():void
+			{
+				//show error dialogue here
+				
 			}
 
 			protected function startTest(event:TestSelectionEvent):void
@@ -75,13 +82,15 @@
 				{
 					event.target.disposeView();
 				}
-
-				//TODO: get the xml for that level here
+				else
+				{
+					showErrorMsg();
+					return;
+				}
 
 				var newTest:TestRulesView = new TestRulesView();
 
-				//TODO: testXmlPath should come from event data
-				DataProcessor.instance.quesProxy.initProxyWithXml(testXmlPath);
+				DataProcessor.instance.quesProxy.initProxyWithXml(event.testFolderPath, event.testXmlName);
 				testNumber = event.testNumber;
 
 				newTest.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
