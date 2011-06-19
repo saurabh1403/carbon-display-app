@@ -280,7 +280,7 @@
 		<mx:Accordion top="50" width="100%" height="80%"
 					  change="navigatorcontent1_clickHandler(event)" chromeColor="#000000"
 					  color="#FFFFFF" cornerRadius="17" horizontalCenter="0" resizeToContent="true"
-					  >
+					  symbolColor.marksStats="#FFFFFF">
 			<s:NavigatorContent height="100%" width="100%" label="marks Statistics">
 				<components:marksStatsView testResult="{testResult}" id="marksResultView" width="100%" height="100%"/>
 			</s:NavigatorContent>
