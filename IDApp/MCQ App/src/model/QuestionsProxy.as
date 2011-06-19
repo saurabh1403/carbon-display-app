@@ -1,5 +1,7 @@
 package model
 {
+	import Controller.MCQConstants;
+	
 	import Events.QuesButtClickEvent;
 	import Events.TestResultEvent;
 	
@@ -28,6 +30,9 @@ package model
 		public var testTitle:String = "";
 		public var testSubjectName:String = "";
 		public var testIcon:String = "";
+		
+		public var testXmlName:String = "";
+		public var testBaseFolderPath:String = "";
 
 		public function QuestionsProxy()
 		{
@@ -49,12 +54,17 @@ package model
 
 		}
 
-		public function initProxyWithXml(inXmlPath:String):Boolean
+		public function initProxyWithXml(inXmlFolderPath:String, inXmlName:String):Boolean
 		{
 			reset();
+
+			testXmlName = inXmlName;
+			testBaseFolderPath = inXmlFolderPath;
 			
-			var file:File = new File(inXmlPath);
-			file.resolvePath(inXmlPath);
+			var xmlFullPath:String = inXmlFolderPath + MCQConstants.OSSlash + inXmlName;
+			
+			var file:File = new File(xmlFullPath);
+			file.resolvePath(xmlFullPath);
 
 			var fileStream:FileStream = new FileStream();
 			fileStream.open(file, FileMode.READ);

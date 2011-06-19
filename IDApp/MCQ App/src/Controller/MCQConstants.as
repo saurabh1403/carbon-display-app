@@ -38,7 +38,11 @@ package Controller
 		static public var appWidth:int = 0;
 		static public var appHeight:int = 0;
 		
-		static public var testBaseFolder:String = ""; 		// this is the base folder in which all the resources are kept
+		//TODO: change this according to package content. just for testing here
+		static public var testBaseFolder:String = "D:\\test\\"; 		// this is the base folder in which all the resources are kept
+		static public var testXmlName:String = "test.xml";
+		
+		static public var OSSlash:String = "\\";
 		
 		public function MCQConstants()
 		{

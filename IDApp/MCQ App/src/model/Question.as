@@ -53,7 +53,7 @@ package model
 			
 			if(inXmlNode.imagePath != null && inXmlNode.imagePath.toString() != "")
 			{
-				_imagePath = inXmlNode.imagePath.toString();
+				_imagePath = MCQConstants.testBaseFolder + inXmlNode.imagePath.toString();
 			}
 			
 			var choiceList:XMLList = inXmlNode.choices.choice;
