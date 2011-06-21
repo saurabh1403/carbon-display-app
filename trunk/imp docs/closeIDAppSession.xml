@@ -14,21 +14,10 @@
 	</UI-to-Native>
 	<!--in case of Error-->
 	<Native-toUI>
-		<result>
-			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
-			<outputXml>
-				<errorCode>012</errorCode>
-				<errorTitle>This package is corrupted or has expired.</errorTitle>
-				<errorMsg>This is a temp error Msg</errorMsg>
-			</outputXml>
-		</result>
+		<error>some error is there</error>
 	</Native-toUI>
 	<!--in case of successful opening of session-->
 	<Native-toUI>
-		<result>
-			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
-			<outputXml>
-			</outputXml>
-		</result>
+		<result>NativeProcessClosed</result>
 	</Native-toUI>
 </SampleXml>

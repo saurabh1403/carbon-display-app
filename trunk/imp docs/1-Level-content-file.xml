@@ -1,23 +1,32 @@
 <Content>
 	<contentName>Chemical Reaction</contentName>
+	<barIcon>/Resources/546546.png</barIcon>
+	<thumbnailImage>/Resources/3455.png</thumbnailImage>
+	<number>12</number>
 	<Headings>
 		<Heading>
+			<barIcon>/Resources/546546.png</barIcon>
+			<icon>/Resources/2123.png</icon>
+			<thumbnailImage>/Resources/3455.png</thumbnailImage>
 			<!-- see the generic content node instead of this. this is old here-->
-			<HeadingName>Chemical Reaction</HeadingName>
+			<number>Chemical Reaction</number>
 			<HeadingNumber>12</HeadingNumber>
 			<type>flv</type>
 			<!--This is the relative path with respect to the package data directory-->
-			<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+			<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 			<duration>0:12</duration>
 			<!--comma separated keywords-->
 			<keywords>chemical change;chemical reaction</keywords>
 		</Heading>
 		<Heading>
-			<HeadingName>Physical Reaction</HeadingName>
+			<number>Physical Reaction</number>
 			<HeadingNumber>13</HeadingNumber>
+			<barIcon>/Resources/546546.png</barIcon>
+			<icon>/Resources/2123.png</icon>
+			<thumbnailImage>/Resources/3455.png</thumbnailImage>
 			<type>flv</type>
 			<!--This is the relative path with respect to the package data directory-->
-			<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+			<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 			<duration>0:12</duration>
 			<!--comma separated keywords-->
 			<keywords>chemical change;chemical reaction</keywords>

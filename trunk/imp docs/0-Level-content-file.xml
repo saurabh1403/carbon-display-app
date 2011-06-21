@@ -2,10 +2,11 @@
 	<!-- see the generic content node instead of this. this is old here-->
 	<contentName>Chemical Reaction</contentName>
 	<type>flv</type>
+	<number>12</number>
+	<barIcon>/Resources/546546.png</barIcon>
 	<!--This is the relative path with respect to the package data directory-->
-	<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+	<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 	<duration>0:12</duration>
 	<!--comma separated keywords-->
 	<keywords>chemical change;chemical reaction</keywords>
-
 </Content>
