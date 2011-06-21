@@ -13,6 +13,7 @@
 	<Native-toUI>
 		<result>
 			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<SessionId>{111}</SessionId>
 			<outputXml>
 				<errorCode>012</errorCode>
 				<errorTitle>This package is corrupted or has expired.</errorTitle>
@@ -24,6 +25,7 @@
 	<Native-toUI>
 		<result>
 			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
+			<SessionId>{111}</SessionId>
 			<outputXml>
 				<!--all generic resource related information will be put in this xml.-->
 				<resourceFiles>

@@ -1,98 +1,130 @@
-<Content>
-	<contentName>Chemical Reaction</contentName>
-	<Headings>
-		<Heading>
-			<HeadingName>Chemical Reaction</HeadingName>
-			<HeadingNumber>12</HeadingNumber>
-			<Topics>
-				<Topic>
+<content>
+	<name>Chemical Reaction</name>
+	<barIcon>/Resources/2323.png</barIcon>
+	<thumbnailImage>/Resources/expl_1_bar.png</thumbnailImage>
+	<number/>
+	<contentType>3</contentType>
+	<headings>
+		<heading>
+			<name>Chemical Reaction</name>
+			<number>12</number>
+			<icon>/Resources/2123.png</icon>
+			<contentType>2</contentType>
+			<barIcon>/Resources/ch_1_icon.png</barIcon>
+			<thumbnailImage>/Resources/ch_1_thumb.png</thumbnailImage>
+			<topics>
+				<topic>
 					<name>Chemical Changes</name>
-					<subTopics>
-						<subTopic>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
 							<!-- see the generic content node instead of this. this is old here-->
 							<name>Chemical Changes in real world</name>
+							<number/>
 							<type>flv</type>
+							<contentType>0</contentType>
 							<!--This is the relative path with respect to the package data directory-->
-							<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+							<relativeSrcfile>/data/v4.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<!--comma separated keywords-->
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-						<subTopic>
+						</subtopic>
+						<subtopic>
 							<name>Chemical Changes in elements</name>
+							<number/>
 							<type>flv</type>
-							<relativeSrcfile>\sem1\3fgv.app</relativeSrcfile>
+							<contentType>0</contentType>
+							<relativeSrcfile>/data/v5.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-					</subTopics>
-				</Topic>
-				<Topic>
+						</subtopic>
+					</subtopics>
+				</topic>
+				<topic>
 					<name>Physical Changes</name>
-					<subTopics>
-						<subTopic>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
 							<name>Physical Changes in real world</name>
+							<number/>
+							<contentType>0</contentType>
 							<type>flv</type>
-							<relativeSrcfile>\sem1\14g2.app</relativeSrcfile>
+							<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-						<subTopic>
+						</subtopic>
+						<subtopic>
 							<name>Physical Changes in elements</name>
+							<number/>
+							<contentType>0</contentType>
 							<type>flv</type>
-							<relativeSrcfile>\sem1\a3gv.app</relativeSrcfile>
+							<relativeSrcfile>/data/v5.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-					</subTopics>
-				</Topic>
-			</Topics>
-		</Heading>
-		<Heading>
-			<HeadingName>Physical Reaction</HeadingName>
-			<HeadingNumber>13</HeadingNumber>
-			<Topics>
-				<Topic>
+						</subtopic>
+					</subtopics>
+				</topic>
+			</topics>
+		</heading>
+		<heading>
+			<name>Physical Reaction</name>
+			<number>13</number>
+			<contentType>2</contentType>
+			<barIcon>/Resources/ch_2_icon.png</barIcon>
+			<icon>/Resources/2123.png</icon>
+			<thumbnailImage>/Resources/ch_2_thumb.png</thumbnailImage>
+			<topics>
+				<topic>
 					<name>Chemical Changes</name>
-					<subTopics>
-						<subTopic>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
 							<name>Chemical Changes in real world</name>
+							<number/>
+							<contentType>0</contentType>
 							<type>flv</type>
 							<!--This is the relative path with respect to the package data directory-->
-							<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+							<relativeSrcfile>/data/v4.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<!--comma separated keywords-->
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-						<subTopic>
+						</subtopic>
+						<subtopic>
 							<name>Chemical Changes in elements</name>
+							<number/>
+							<contentType>0</contentType>
 							<type>flv</type>
-							<relativeSrcfile>\sem1\3fgv.app</relativeSrcfile>
+							<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-					</subTopics>
-				</Topic>
-				<Topic>
+						</subtopic>
+					</subtopics>
+				</topic>
+				<topic>
 					<name>Physical Changes</name>
-					<subTopics>
-						<subTopic>
+					<contentType>1</contentType>
+					<subtopics>
+						<subtopic>
 							<name>Physical Changes in real world</name>
+							<number/>
+							<contentType>0</contentType>
 							<type>flv</type>
-							<relativeSrcfile>\sem1\14g2.app</relativeSrcfile>
+							<relativeSrcfile>/data/test1.mp4</relativeSrcfile>
 							<duration>0:12</duration>
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-						<subTopic>
+						</subtopic>
+						<subtopic>
 							<name>Physical Changes in elements</name>
+							<number/>
+							<contentType>0</contentType>
 							<type>flv</type>
-							<relativeSrcfile>\sem1\a3gv.app</relativeSrcfile>
+							<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 							<duration>0:12</duration>
 							<keywords>chemical change;chemical reaction</keywords>
-						</subTopic>
-					</subTopics>
-				</Topic>
-			</Topics>
-		</Heading>
-	</Headings>
-</Content>
+						</subtopic>
+					</subtopics>
+				</topic>
+			</topics>
+		</heading>
+	</headings>
+</content>

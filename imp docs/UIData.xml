@@ -1,0 +1,15 @@
+<uiData>
+	<!-- this xml contains ui resources-->
+	<Explanation>
+		<sideBarIcon>/Resources/23445.png</sideBarIcon>
+		<headings>
+			<heading>
+				<number>12</number>
+				<!--this is the relative source path of the icon for every heading-->
+				<IconImagePath>/Resources/11123.png</IconImagePath>
+				<ThumbnailPath>/Resources/3343.png</ThumbnailPath>
+			</heading>
+		</headings>
+	</Explanation>
+	<!--similarly for other categories also. Resources will be specified here-->
+</uiData>

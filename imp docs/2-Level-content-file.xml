@@ -1,47 +1,60 @@
 <Content>
-<contentName>Chemical Reaction</contentName>
+	<contentName>Chemical Reaction</contentName>
+	<barIcon>/Resources/2323.png</barIcon>
+	<thumbnailImage>/Resources/3455.png</thumbnailImage>
+	<contentType>2</contentType>
+	<number>12</number>
 	<Headings>
 		<Heading>
 			<HeadingName>Chemical Reaction</HeadingName>
-			<HeadingNumber>12</HeadingNumber>
+			<number>12</number>
+			<barIcon>/Resources/546546.png</barIcon>
+			<icon>/Resources/2123.png</icon>
+			<contentType>1</contentType>
+			<thumbnailImage>/Resources/3455.png</thumbnailImage>
 			<Topics>
 				<Topic>
 					<!-- see the generic content node instead of this. this is old here-->
 					<name>Chemical Changes in real world</name>
 					<type>flv</type>
 					<!--This is the relative path with respect to the package data directory-->
-					<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+					<relativeSrcfile>/data/v2.flv</relativeSrcfile>
 					<duration>0:12</duration>
+					<contentType>0</contentType>
 					<!--comma separated keywords-->
 					<keywords>chemical change;chemical reaction</keywords>
 				</Topic>
 				<Topic>
 					<name>Physical Changes</name>
 					<type>flv</type>
-					<relativeSrcfile>\sem1\14g2.app</relativeSrcfile>
+					<relativeSrcfile>/data/v3.flv</relativeSrcfile>
 					<duration>0:12</duration>
+					<contentType>0</contentType>
 					<keywords>chemical change;chemical reaction</keywords>
 				</Topic>
 			</Topics>
 		</Heading>
 		<Heading>
 			<HeadingName>Physical Reaction</HeadingName>
-			<HeadingNumber>13</HeadingNumber>
+			<number>13</number>
+			<contentType>1</contentType>
 			<Topics>
 				<Topic>
 					<name>Chemical Changes in real world</name>
 					<type>flv</type>
 					<!--This is the relative path with respect to the package data directory-->
-					<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+					<relativeSrcfile>/data/v5.flv</relativeSrcfile>
 					<duration>0:12</duration>
+					<contentType>0</contentType>
 					<!--comma separated keywords-->
 					<keywords>chemical change;chemical reaction</keywords>
 				</Topic>
 				<Topic>
 					<name>Physical Changes in real world</name>
 					<type>flv</type>
-					<relativeSrcfile>\sem1\14g2.app</relativeSrcfile>
+					<relativeSrcfile>/data/v5.flv</relativeSrcfile>
 					<duration>0:12</duration>
+					<contentType>0</contentType>
 					<keywords>chemical change;chemical reaction</keywords>
 				</Topic>
 			</Topics>

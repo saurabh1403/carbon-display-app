@@ -1,0 +1,16 @@
+<!--this is the sample node for an object in any level of xml file. some nodes can be present in some type of parent nodes.-->
+<Topic>
+	<!-- see the generic content node instead of this. this is old here-->
+	<name>Chemical Changes in real world</name>
+	<type>flv</type>
+	<number>12</number>
+				<barIcon>/Resources/546546.png</barIcon>
+			<thumbnailImage>/Resources/3455.png</thumbnailImage>
+
+	<!--This is the relative path with respect to the package data directory-->
+	<relativeSrcfile>\sem1\14gv.app</relativeSrcfile>
+	<duration>0:12</duration>
+	<contentType>0</contentType>
+	<!--comma separated keywords-->
+	<keywords>chemical change;chemical reaction</keywords>
+</Topic>
