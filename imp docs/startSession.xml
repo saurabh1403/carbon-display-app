@@ -30,6 +30,7 @@
 			<CallIdentifier>{34565344-56-576-657-67-6AD}</CallIdentifier>
 			<SessionId>{111}</SessionId>
 			<outputXml>
+			<pkgPath></pkgPath>
 			</outputXml>
 		</result>
 	</Native-toUI>
