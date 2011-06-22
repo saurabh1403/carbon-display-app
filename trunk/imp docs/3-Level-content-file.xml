@@ -1,17 +1,17 @@
 <content>
 	<name>Chemical Reaction</name>
-	<barIcon>/Resources/2323.png</barIcon>
-	<thumbnailImage>/Resources/expl_1_bar.png</thumbnailImage>
+	<barIcon>/Resources/b14.png</barIcon>
+	<thumbnailImage>/Resources/t13.png</thumbnailImage>
 	<number/>
 	<contentType>3</contentType>
 	<headings>
 		<heading>
 			<name>Chemical Reaction</name>
 			<number>12</number>
-			<icon>/Resources/2123.png</icon>
+			<icon>/Resources/i3.png</icon>
 			<contentType>2</contentType>
-			<barIcon>/Resources/ch_1_icon.png</barIcon>
-			<thumbnailImage>/Resources/ch_1_thumb.png</thumbnailImage>
+			<barIcon>/Resources/b3.png</barIcon>
+			<thumbnailImage>/Resources/t3.png</thumbnailImage>
 			<topics>
 				<topic>
 					<name>Chemical Changes</name>
@@ -70,9 +70,9 @@
 			<name>Physical Reaction</name>
 			<number>13</number>
 			<contentType>2</contentType>
-			<barIcon>/Resources/ch_2_icon.png</barIcon>
-			<icon>/Resources/2123.png</icon>
-			<thumbnailImage>/Resources/ch_2_thumb.png</thumbnailImage>
+			<barIcon>/Resources/b3.png</barIcon>
+			<icon>/Resources/i2.png</icon>
+			<thumbnailImage>/Resources/t3.png</thumbnailImage>
 			<topics>
 				<topic>
 					<name>Chemical Changes</name>
