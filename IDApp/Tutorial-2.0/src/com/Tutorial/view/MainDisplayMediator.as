@@ -1,20 +1,18 @@
 
 package com.Tutorial.view
-{
-/*    import com.adobe.UWAFlex.business.CSUpdater;
-    import com.adobe.UWAFlex.business.UWAConstants;
-    import com.adobe.UWAFlex.business.UWAUtils;
-    import com.adobe.UWAFlex.controller.gateway.ExternalGateway;
-    import com.adobe.UWAFlex.localization.ZStringLoader;
-    import com.adobe.UWAFlex.model.objects.MessageObject;
-    import com.adobe.UWAFlex.view.components.MainDisplay;*/
-    
+{   
     import com.Tutorial.business.TutConstants;
     import com.Tutorial.view.components.MainDisplay;
+    import com.Tutorial.view.components.OverlayDialog;
     
+    import flash.events.Event;
+    
+    import mx.core.Application;
     import mx.events.DynamicEvent;
+    import mx.events.EffectEvent;
     import mx.events.FlexEvent;
     import mx.logging.Log;
+    import mx.managers.PopUpManager;
     
     import org.puremvc.Tutorial.interfaces.INotification;
     import org.puremvc.Tutorial.patterns.mediator.Mediator;
@@ -28,6 +26,7 @@ package com.Tutorial.view
             super( NAME, viewComponent );   
         }
 
+		private var overlayDlg:OverlayDialog = null;
         override public function onRegister():void
         {   
 			facade.registerMediator(new DashboardMediator(mainDisplay.dashboard));
@@ -55,7 +54,9 @@ package com.Tutorial.view
 				TutConstants.LEVEL0SCREEN,
 				TutConstants.LEVEL1SCREEN,
 				TutConstants.LEVEL2SCREEN,
-				TutConstants.LEVEL3SCREEN/*,
+				TutConstants.LEVEL3SCREEN,
+				TutConstants.SHOW_SPINNING_OVERLAY,
+				TutConstants.HIDE_SPINNING_OVERLAY/*,
 				TutConstants.MAINVIEWSCREEN*/
 				];
 		}
@@ -89,11 +90,59 @@ package com.Tutorial.view
 				/*case TutConstants.MAINVIEWSCREEN:
 					mainDisplay.currentViewSelector = MainDisplay.MAINVIEW;
 					break;*/
+				case TutConstants.SHOW_SPINNING_OVERLAY:
+					
+					hideSpinningOverlay();
+					
+					Tutorial._appInstance.mainDisplay.enabled = false;
+					
+					overlayDlg = new OverlayDialog();
+					overlayDlg.width = Tutorial._appInstance.mainDisplay.parentApplication.width;
+					overlayDlg.height = Tutorial._appInstance.mainDisplay.parentApplication.height;
+					overlayDlg.x = Tutorial._appInstance.mainDisplay.parentApplication.width/2 - 10;
+					overlayDlg.y = Tutorial._appInstance.mainDisplay.parentApplication.height/2 - 10;
+					
+					/*Application.application.mainDisplay.enabled = false;
+					
+					overlayDlg = new OverlayDialog();
+					overlayDlg.width = Application.application.width;
+					overlayDlg.height = Application.application.height;
+					overlayDlg.x = Application.application.width/2 - 10;
+					overlayDlg.y = Application.application.height/2 - 10;*/
+					
+					overlayDlg.addEventListener(EffectEvent.EFFECT_END, removeWarningScreen);
+					PopUpManager.addPopUp(overlayDlg, mainDisplay, false);
+					
+					break;
+				case TutConstants.HIDE_SPINNING_OVERLAY:
+					hideSpinningOverlay();
+					break;
+				
        			default:
 					break;
     		}
         }
+		private function hideSpinningOverlay():void
+		{
+			if(overlayDlg != null)
+			{
+				overlayDlg.visible = false;
+			}
+			Tutorial._appInstance.mainDisplay.enabled = true;
+			//Application.application.mainDisplay.enabled = true;
+		}
  
+		private function removeWarningScreen(ev:Event):void
+		{
+			// confirm this is the fadeOut effect, and not the initial fadeIn
+			if( (overlayDlg != null) && (overlayDlg.fadeOutStarted == true) )
+			{
+				overlayDlg.spinner.stopTimer();
+				PopUpManager.removePopUp(overlayDlg);
+				overlayDlg = null;
+			}
+		}
+		
         protected function get mainDisplay():MainDisplay
         {
             return viewComponent as MainDisplay;

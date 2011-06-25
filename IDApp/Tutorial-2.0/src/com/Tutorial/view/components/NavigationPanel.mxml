@@ -3,7 +3,7 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="30%" height="100%"
-		 backgroundColor="0x0000ff" xmlns:components="com.Tutorial.view.components.*"
+		 backgroundColor="0x707070" xmlns:components="com.Tutorial.view.components.*"
 		 
 		 creationComplete="vbox1_creationCompleteHandler(event)"
 		 paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10"
@@ -19,10 +19,15 @@
 		.customButton
 		{
 			/* bold */
+			color: #000000;
+			text-roll-over-color: #ff0000;
+			text-selected-color: #0000ff;
+			text-align: left;
+			fontSize: 14;
+			/* 
 			color: #cccccc;
 			textRollOverColor: #cccccc;
 			textSelectedColor: #cccccc;
-			fontSize: 14;
 			upSkin: Embed(source="assets/images/button_n.png"); 
 			overSkin: Embed(source="assets/images/button_r.png"); 
 			downSkin: Embed(source="assets/images/button_s.png"); 
@@ -30,7 +35,8 @@
 			selectedUpSkin: Embed(source="assets/images/button_n.png"); 
 			selectedOverSkin: Embed(source="assets/images/button_r.png"); 
 			selectedDownSkin: Embed(source="assets/images/button_s.png"); 
-			selectedDisabledSkin: Embed(source="assets/images/button_d.png");
+			selectedDisabledSkin: Embed(source="assets/images/button_d.png"); */
+			corner-radius: 5;
 		}
 	</fx:Style>
 	<fx:Script>

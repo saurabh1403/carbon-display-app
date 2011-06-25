@@ -96,6 +96,14 @@ package com.Tutorial.business
 				ent.duration = xml.duration;
 			if(xml.child("keywords").length() != 0)
 				ent.keywords = xml.keywords;
+			
+			if(xml.child("icon").length() != 0)
+				ent.icon = TutConstants.TEMP_HARDCODED_PATH + xml.icon;
+			if(xml.child("barIcon").length() != 0)
+				ent.barIcon = TutConstants.TEMP_HARDCODED_PATH + xml.barIcon;
+			if(xml.child("thumbnailImage").length() != 0)
+				ent.thumbnailIcon = TutConstants.TEMP_HARDCODED_PATH + xml.thumbnailImage;
+			
 			if(xml.child("type").length() != 0)
 			{
 				var index:int = xml.type.toString().lastIndexOf(".");
@@ -321,6 +329,7 @@ package com.Tutorial.business
 					{
 						trace("unable to read content for " + (obj as XML).localName() + " for session : " + sessionID);
 					}
+					
 				}
 			}
 			/*catch(e:Error)

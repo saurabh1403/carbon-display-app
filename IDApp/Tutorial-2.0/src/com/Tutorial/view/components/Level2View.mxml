@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%">
+		 width="100%" height="100%" xmlns:widgets="com.Tutorial.view.widgets.*">
 	
 	<fx:Script>
 		<![CDATA[
 			import com.Tutorial.ApplicationFacade;
 			import com.Tutorial.business.TutConstants;
+			import com.Tutorial.model.objects.DataEntity;
 			
 			import mx.collections.ArrayCollection;
 			
-			[Bindable]
+			[Bindable] public var dataEnt:DataEntity = null;
+			/*[Bindable]
 			public var arrC:ArrayCollection = new ArrayCollection;
 			
 			[Bindable]
-			public var titleText:String = "";
+			public var titleText:String = "";*/
 			
 			protected function tileComponent_clickHandler(event:MouseEvent):void
 			{
+				if(tileList.selectedItem == null)
+					return;
+				
 				ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL1SCREEN);
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL1CLICKED, tileList.selectedItem);
+				tileList.selectedItem = null;
 			}
 		]]>
 	</fx:Script>
@@ -29,15 +35,68 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:Label width="100%" text="Level2" color="0xFFFFFF"/>
-	<s:Label width="100%" text="{titleText}" color="0xFFFFFF"/>
+	<mx:HBox width="100%" height="100%">
+		
+		<mx:VBox width="100%" height="100%">
+			<mx:Spacer height="1%"/>
+			
+			<mx:HBox width="100%" height="100%">
+				<mx:Spacer width="5%"/>
+				<mx:VBox width="100%">
+					<mx:Text width="70%" styleName="titleHeader"
+							 text="{dataEnt.name}"
+							 tabFocusEnabled="false" selectable="false"/>
+					<widgets:LightHRule width="80%" id="lightrule"
+										strokeWidth="1" strokeColor="0xffffff" strokeOpacity=".4" />
+					<mx:Text width="70%" styleName="titleHeader"
+							 text="Please select a lesson"
+							 color="0xffc90e"
+							 tabFocusEnabled="false" selectable="false"/>
+					
+					<mx:Spacer height="5%"/>
+					
+					<mx:TileList id="tileList" width="{lightrule.width}" height="100%"
+								 dataProvider="{dataEnt.children}"
+								 itemRenderer="com.Tutorial.view.components.renderers.dummyRendererWithIcons"
+								 click="tileComponent_clickHandler(event)"
+								 borderVisible="false" horizontalScrollPolicy="off"
+								 contentBackgroundAlpha="0"
+								 columnCount="2"
+								 selectionColor="0x404040"
+								 rollOverColor="0xffc90e"
+								 />
+					
+					<mx:Spacer width="10%"/>
+				</mx:VBox>
+				<mx:Spacer width="5%"/>
+			</mx:HBox>
+			
+			<mx:Spacer height="5%"/>
+		</mx:VBox>
+		<mx:Spacer width="5"/>
+		<mx:Image width="128" height="128"
+				  source="{dataEnt.thumbnailIcon}"
+				  visible="{dataEnt.thumbnailIcon.length > 0}" includeInLayout="{dataEnt.thumbnailIcon.length > 0}"/>
+	</mx:HBox>
 	
-	<mx:TileList id="tileList" width="100%" height="100%"
-				 borderVisible="false"
-				 contentBackgroundAlpha="0"
-				 columnCount="1"
-				 dataProvider="{arrC}"
-				 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
-				 click="tileComponent_clickHandler(event)">
-	</mx:TileList>
-</mx:VBox>
+	<!--<mx:VBox width="100%" height="100%">
+		<s:Label width="100%" text="Level2" color="0xFFFFFF"/>
+		<s:Label width="100%" text="{dataEnt.name}" color="0xFFFFFF"/>
+		
+		<mx:TileList id="tileList" width="100%" height="100%"
+					 borderVisible="false"
+					 contentBackgroundAlpha="0"
+					 columnCount="1"
+					 dataProvider="{dataEnt.children}"
+					 itemRenderer="com.Tutorial.view.components.renderers.dummyRendererWithIcons"
+					 click="tileComponent_clickHandler(event)">
+		</mx:TileList>
+	</mx:VBox>
+	
+	<mx:HBox width="100%">
+		<mx:Spacer width="100%"/>
+		<mx:Image width="128" height="128"
+				  source="{dataEnt.thumbnailIcon}"
+				  visible="{dataEnt.thumbnailIcon.length > 0}" includeInLayout="{dataEnt.thumbnailIcon.length > 0}"/>
+	</mx:HBox>-->
+</mx:Canvas>

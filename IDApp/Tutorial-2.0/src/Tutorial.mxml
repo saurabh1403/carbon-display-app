@@ -54,7 +54,7 @@
 				timer.addEventListener(TimerEvent.TIMER, timerHandler);
 				timer.start();
 			}
-			var timer:Timer;
+			private var timer:Timer;
 			private static var TIMER_VAL:Number = 5000;
 			private function timerHandler(event:TimerEvent):void
 			{

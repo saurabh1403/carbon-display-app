@@ -7,6 +7,7 @@ package com.Tutorial.view
 	import com.Tutorial.model.objects.DataEntity;
 	import com.Tutorial.model.objects.Package;
 	import com.Tutorial.view.components.NavigationPanel;
+	//import com.Tutorial.view.components.renderers.myTreeItemRenderer;
 	import com.Tutorial.view.widgets.CollapsibleComponent;
 	
 	import flash.events.Event;
@@ -18,6 +19,7 @@ package com.Tutorial.view
 	import mx.controls.Button;
 	import mx.controls.Spacer;
 	import mx.controls.Tree;
+	import mx.core.ClassFactory;
 	import mx.events.TreeEvent;
 	
 	import org.puremvc.Tutorial.interfaces.INotification;
@@ -82,8 +84,22 @@ package com.Tutorial.view
 						bt.percentWidth = 100;
 						bt.data = iter.current;
 						
+						/*var tempCl:Class;
+						if(iter.current.barIcon == "")
+							tempCl = tempIcon;
+						else
+							tempCl = Class(iter.current.barIcon);*/
+						
+						//var tempC:Class = iter.current.barIcon;
+						
 						bt.styleName = "customButton";
+						//bt.setStyle("icon", @Embed(source='TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon'));
+						//bt.icon = TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon;
+						//tempIcon.source = TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon;
 						bt.setStyle("icon", tempIcon);
+						//bt.setStyle("icon", iter.current.barIcon);
+						//bt.setStyle("icon", ClassFactory(new Class(TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon)));
+						//bt.setStyle("icon", TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon);
 						//bt.setStyle("style", "customButton");
 						bt.addEventListener(MouseEvent.CLICK, btClickHandler);
 						
@@ -104,6 +120,14 @@ package com.Tutorial.view
 								
 								tree.labelField = "name";
 								tree.setStyle("defaultLeafIcon", leafIcon);
+								
+								/*tree.setStyle("folderClosedIcon", iter.current.barIcon);
+								tree.setStyle("folderOpenIcon", );*/
+								
+								/*var factory:ClassFactory = new ClassFactory(myTreeItemRenderer);
+								factory.properties = {dataEnt:imgClickHandler,
+									compData:item.controls};
+								tree.itemRenderer = factory;*/
 								
 								tree.addEventListener(MouseEvent.CLICK, treeClickHandler);
 								vb.addChild(tree);
@@ -128,7 +152,7 @@ package com.Tutorial.view
 						
 						iter.moveNext();
 					}
-					//if(((navigationPanelView as NavigationPanel).myVG as VBox).getChildren().length != 0)
+					if(((navigationPanelView as NavigationPanel).myVG as VBox).getChildren().length != 0)
 					{
 						((((navigationPanelView as NavigationPanel).myVG as VBox).getChildAt(0) as CollapsibleComponent).getChildByName("btn") as Button).dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 					}
@@ -140,6 +164,9 @@ package com.Tutorial.view
 		}
 		private function treeClickHandler(item:MouseEvent):void
 		{
+			if((item.currentTarget as Tree).selectedItem == null)
+				return;
+			
 			switch((item.currentTarget as Tree).selectedItem.contentType)
 			{
 				case TutConstants.LEVELCONTENT0:

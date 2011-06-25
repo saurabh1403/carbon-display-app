@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%" xmlns:components="com.Tutorial.view.components.*">
+		 width="100%" height="100%" xmlns:components="com.Tutorial.view.components.*" xmlns:widgets="com.Tutorial.view.widgets.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -15,32 +15,30 @@
 			
 			public const CLICK_NOTIFICATION:String = "ClickNotification";
 			
-			[Bindable]
+			/* [Bindable]
 			public var arrC:ArrayCollection = new ArrayCollection;
 			
 			[Bindable]
 			public var arrSubTopics:ArrayCollection = new ArrayCollection;
 
 			[Bindable]
-			public var titleText:String = "";
+			public var titleText:String = ""; */
+			
+			[Bindable] public var dataEnt:DataEntity = null;
 			
 			protected function tileList_clickHandler(event:MouseEvent):void
 			{
+				if(tileList.selectedItem == null)
+					return;
+				
 				ApplicationFacade.getInstance().sendNotification(TutConstants.LEVEL0SCREEN);
-				//ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, tileList.selectedItem);
 				var dataObj:Object = new Object;
 				dataObj.dEnt = tileList.selectedItem as DataEntity;
 				dataObj.clickedFromLevelZ = "false";
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
+				
+				tileList.selectedItem = null;
 			}
-			/* protected function tileListSubTopics_clickHandler(event:MouseEvent):void
-			{
-				var dataEnt:DataEntity = event.currentTarget.selectedItem as DataEntity;
-				var dEvent:DynamicEvent = new DynamicEvent(CLICK_NOTIFICATION, true);
-				dEvent.dataEntity = dataEnt;
-				dispatchEvent(dEvent);
-				//dispatchEvent(new Event(CLICK_NOTIFICATION, true));
-			} */
 		]]>
 	</fx:Script>
 	
@@ -48,37 +46,57 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:Label width="100%" text="Level1" color="0xFFFFFF"/>
-	<s:Label width="100%" text="{titleText}" color="0xFFFFFF"
-			 visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}" includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+	<mx:HBox width="100%" height="100%">
+		
+		<mx:VBox width="100%" height="100%">
+			<mx:Spacer height="1%"/>
+			
+			<mx:HBox width="100%" height="100%">
+				<mx:Spacer width="5%"/>
+				<mx:VBox width="100%">
+					<mx:Text width="70%" styleName="titleHeader"
+							 text="{dataEnt.name}"
+							 tabFocusEnabled="false" selectable="false"/>
+					<widgets:LightHRule width="80%" id="lightrule"
+										strokeWidth="1" strokeColor="0xffffff" strokeOpacity=".4" />
+					<mx:Text width="70%" styleName="titleHeader"
+							 text="Please select a topic"
+							 color="0xffc90e"
+							 tabFocusEnabled="false" selectable="false"/>
+					
+					<mx:Spacer height="5%"/>
+					
+					<mx:TileList id="tileList" width="{lightrule.width}" height="100%"
+								 dataProvider="{dataEnt.children}"
+								 itemRenderer="com.Tutorial.view.components.renderers.dummyRendererWithIcons"
+								 click="tileList_clickHandler(event)"
+								 columnCount="2"
+								 borderVisible="false" horizontalScrollPolicy="off"
+								 contentBackgroundAlpha="0"
+								 selectionColor="0x404040"
+								 rollOverColor="0xffc90e"
+								 />
+					<!--<mx:TileList id="tileList" width="100%" height="100%"
+								 borderVisible="false"
+								 contentBackgroundAlpha="0"
+								 columnCount="1"
+								 dataProvider="{arrC}"
+								 itemRenderer="com.Tutorial.view.components.renderers.dummyRendererWithIcons"
+								 click="tileList_clickHandler(event)"
+								 visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}" includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
+								 />-->
+					
+					<mx:Spacer width="10%"/>
+				</mx:VBox>
+				<mx:Spacer width="5%"/>
+			</mx:HBox>
+			
+			<mx:Spacer height="5%"/>
+		</mx:VBox>
+		<mx:Spacer width="5"/>
+		<mx:Image width="128" height="128"
+				  source="{dataEnt.thumbnailIcon}"
+				  visible="{dataEnt.thumbnailIcon.length > 0}" includeInLayout="{dataEnt.thumbnailIcon.length > 0}"/>
+	</mx:HBox>
 	
-	<mx:TileList id="tileList" width="100%" height="100%"
-				 borderVisible="false"
-				 contentBackgroundAlpha="0"
-				 columnCount="1"
-				 dataProvider="{arrC}"
-				 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
-				 click="tileList_clickHandler(event)"
-				 visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}" includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
-	
-	<!--<mx:HBox width="100%" height="100%"
-			 horizontalScrollPolicy="off" verticalScrollPolicy="off"
-			 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">
-		<components:VideoComponent width="800" height="600"
-								   id="videoComp"/>
-		<mx:TileList width="30%" height="100%"
-				id="tileListSubTopics"
-				 borderVisible="false"
-				 contentBackgroundAlpha="0"
-				 columnCount="1"
-				 dataProvider="{arrSubTopics}"
-				 click="tileListSubTopics_clickHandler(event)"
-				 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
-				 />
-	</mx:HBox>-->
-	<!--<components:mainViewComponent width="100%" height="100%"
-				  id="videoComponentContainer"
-				  visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
-				  arrSubTopics="{arrSubTopics}" 
-				  />-->
-</mx:VBox>
+</mx:Canvas>

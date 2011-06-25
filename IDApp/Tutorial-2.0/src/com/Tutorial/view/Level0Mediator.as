@@ -53,7 +53,7 @@ package com.Tutorial.view
 					}
 					catch(e:Error)
 					{
-						Alert.show("Ideally we should not be here.....Handle it now....");
+						//Alert.show("Ideally we should not be here.....Handle it now....");
 					}
 					break;
 				case NOTIFICATIONNAME:
@@ -119,6 +119,7 @@ package com.Tutorial.view
 						//retrieve the path to the first video component in the subTopics
 						newDataEnt = dataEntity.subTopics.getItemAt(0) as DataEntity;
 					}
+					
 					try{
 						NativeCommunicator.instance.getVideoPath(NOTIFICATIONNAME, newDataEnt);
 					}
