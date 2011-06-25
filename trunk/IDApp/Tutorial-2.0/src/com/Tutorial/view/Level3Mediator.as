@@ -1,6 +1,7 @@
 package com.Tutorial.view
 {
 	import com.Tutorial.business.TutConstants;
+	import com.Tutorial.model.objects.DataEntity;
 	import com.Tutorial.view.components.Level3View;
 	
 	import org.puremvc.Tutorial.interfaces.INotification;
@@ -33,8 +34,9 @@ package com.Tutorial.view
 				case TutConstants.N_LEVEL3CLICKED:
 					var obj:Object = notification.getBody();
 					try{
-						level3View.titleText = obj.name;
-						level3View.arrC = obj.children;
+						/*level3View.titleText = obj.name;
+						level3View.arrC = obj.children;*/
+						level3View.dataEnt = obj as DataEntity;
 					}
 					catch(e:Error){}
 					break;

@@ -4,6 +4,7 @@ package com.Tutorial.model.objects
 	
 	import mx.collections.ArrayCollection;
 
+	[Bindable]
 	public class DataEntity
 	{
 		private var _name:String;
@@ -14,6 +15,10 @@ package com.Tutorial.model.objects
 		private var _keywords:String;
 		private var _videoType:String;
 		private var _packageid:String;
+		
+		private var _icon:String;
+		private var _barIcon:String;
+		private var _thumbnailIcon:String;
 		
 		public var children:ArrayCollection;
 		public var subTopics:ArrayCollection;
@@ -30,6 +35,10 @@ package com.Tutorial.model.objects
 			_duration = "";
 			_keywords = "";
 			_videoType = TutConstants.CONTENT_FLV;
+			
+			_icon = "";
+			_barIcon = "";
+			_thumbnailIcon = "";
 		}
 		
 		public function get name():String
@@ -64,6 +73,18 @@ package com.Tutorial.model.objects
 		{
 			return _packageid;
 		}
+		public function get icon():String
+		{
+			return _icon;
+		}
+		public function get barIcon():String
+		{
+			return _barIcon;
+		}
+		public function get thumbnailIcon():String
+		{
+			return _thumbnailIcon;
+		}
 		
 		public function set name(nm:String):void
 		{
@@ -96,6 +117,18 @@ package com.Tutorial.model.objects
 		public function set packageid(id:String):void
 		{
 			_packageid = id;
+		}
+		public function set icon(icon:String):void
+		{
+			_icon = icon;
+		}
+		public function set barIcon(icon:String):void
+		{
+			_barIcon = icon;
+		}
+		public function set thumbnailIcon(icon:String):void
+		{
+			_thumbnailIcon = icon;
 		}
 	}
 }

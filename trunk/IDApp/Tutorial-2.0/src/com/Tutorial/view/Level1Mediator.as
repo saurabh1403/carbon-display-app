@@ -55,9 +55,10 @@ package com.Tutorial.view
 						var obj:Object = notification.getBody();
 						
 						try{
-							level1View.titleText = obj.name;
+							/*level1View.titleText = obj.name;
 							level1View.arrC = obj.children;
-							level1View.arrSubTopics = obj.subTopics;
+							level1View.arrSubTopics = obj.subTopics;*/
+							level1View.dataEnt = obj as DataEntity;
 							
 							if((obj.subTopics != null) && (obj.subTopics.length != 0))
 							{

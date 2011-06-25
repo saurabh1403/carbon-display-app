@@ -3,7 +3,7 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="100%" height="100%"
-		 backgroundAlpha="0"
+		 backgroundAlpha="0" xmlns:widgets="com.Tutorial.view.widgets.*"
 		 >
 	<!--backgroundColor="0x888888"-->
 	<fx:Script>
@@ -59,6 +59,7 @@
 				{
 					ApplicationFacade.getInstance().sendNotification(TutConstants.N_PARAMSCONFIGURED, tileComponent.selectedItem.pkgID);
 				}
+				tileComponent.selectedItem = null;
 			}
 
 
@@ -76,14 +77,6 @@
 				
 				//if(pkgColl.length >= listHorizontalColumnCount)
 					rightBtn.enabled = true;
-				
-				/*
-				// TODO Auto-generated method stub
-				var n:int = tileComponent.horizontalScrollPosition;
-				var imgWid:int = tileComponent.width/2;
-				
-				tileComponent.horizontalScrollPosition = (n % imgWid) - 1 >= 0 ? ((n % imgWid) - 1) * imgWid : 0;
-				*/
 			}
 
 
@@ -142,26 +135,43 @@
 
 		]]>
 	</fx:Script>
-
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-<!--		<s:TileLayout id="tileLayout" columnAlign="justifyUsingGap" horizontalGap="20" verticalGap="20"/>-->
-	</fx:Declarations>
 	
 	<mx:VBox width="100%" height="100%">
-		<mx:Spacer height="10%"/>
+		<mx:Spacer height="5%"/>
+		
 		<mx:HBox width="100%" height="100%">
 			<mx:Spacer width="10%"/>
-			<!--<mx:TileList width="100%" height="100%" id="tileComponent"
-						 borderVisible="false"
-						 contentBackgroundAlpha="0"
-						 columnCount="2"
-						 dataProvider="{pkgColl}"
-						 rowHeight="100"
-						 itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
-						 click="tileComponent_clickHandler(event)"
-						 
-						 />-->
+			<mx:VBox width="100%">
+				<mx:Text width="70%" styleName="titleHeader"
+						 text="Available Courses"
+						 tabFocusEnabled="false" selectable="false"/>
+				<widgets:LightHRule width="80%" id="lightrule"
+						strokeWidth="1" strokeColor="0xffffff" strokeOpacity=".4" />
+				<mx:Text width="70%" styleName="titleHeader"
+						 text="Please select a course"
+						 color="0xffc90e"
+						 tabFocusEnabled="false" selectable="false"/>
+				
+				<mx:Spacer height="5%"/>
+				
+				<mx:TileList width="{lightrule.width}" height="100%" id="tileComponent"
+							 dataProvider="{pkgColl}"
+							 itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
+							 click="tileComponent_clickHandler(event)"
+							 borderStyle="none" horizontalScrollPolicy="off"
+							 columnCount="{listHorizontalColumnCount}" maxColumns="{listHorizontalColumnCount}"
+							 selectionColor="0x404040"
+							 rollOverColor="0xffc90e"
+							 />
+				
+				<mx:Spacer width="10%"/>
+			</mx:VBox>
+			<mx:Spacer width="10%"/>
+		</mx:HBox>
+		
+		<mx:HBox width="100%" height="0"
+				 visible="false" includeInLayout="false">
+			<mx:Spacer width="10%"/>
 			
 			<mx:VBox height="100%">
 				<mx:Spacer height="100%"/>
@@ -173,13 +183,13 @@
 						  />
 				<mx:Spacer height="100%"/>
 			</mx:VBox>
-			<mx:HorizontalList width="100%" height="100%" id="tileComponent"
-						dataProvider="{pkgColl}"
-						itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
-						click="tileComponent_clickHandler(event)"
-						borderStyle="none" columnCount="{listHorizontalColumnCount}"
-						horizontalScrollPolicy="off"
-					/>
+			<mx:HorizontalList width="100%" height="100%" id="tileComponent1"
+							   dataProvider="{pkgColl}"
+							   itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
+							   click="tileComponent_clickHandler(event)"
+							   borderStyle="none" columnCount="{listHorizontalColumnCount}"
+							   horizontalScrollPolicy="off"
+							   />
 			<mx:VBox height="100%">
 				<mx:Spacer height="100%"/>
 				<mx:Image id="rightBtn" click="rightBtn_clickHandler(event)"
@@ -190,13 +200,6 @@
 				<mx:Spacer height="100%"/>
 			</mx:VBox>
 			
-			<!--borderStyle="none" backgroundAlpha="0" 
-			selectable="false" useRollOver="false"
-			itemRenderer="com.adobe.UWAFlex.view.components.renderers.AffectedChannelItemRenderer" 
-			columnWidth="20" rowHeight="20" maxColumnsOnScreen="12" height="22"-->
-						
-			<!--chromeColor="0x303030"
-			color="0x303030"-->
 			<mx:Spacer width="10%"/>
 		</mx:HBox>
 		<mx:Spacer height="10%"/>

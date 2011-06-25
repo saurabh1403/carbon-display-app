@@ -3,6 +3,22 @@
 @namespace mx "library://ns.adobe.com/flex/mx";
 
 /*
+mx|ToolTip
+{
+	fontSize: 11;
+	color: #ffffff;
+	borderSkin: ClassReference("com.Tutorial.view.skins.ToolTipSkin");
+}
+*/
+	
+.titleHeader
+{
+	fontSize: 24;
+	color: #ffffff;
+	/* bold */
+}
+
+/*
 .scrollBar_Horiz
 { 
 	trackUpSkin: Embed(source="scrollbar/track_n_h.png", 		
@@ -27,10 +43,3 @@
 	thumbIcon: Embed(source="scrollbar/thumbIcon_h.png");
 }
 */
-
-ToolTip
-{
-	fontSize: 11;
-	color: #ffffff;
-	borderSkin: ClassReference("com.Tutorial.view.skins.ToolTipSkin");
-}

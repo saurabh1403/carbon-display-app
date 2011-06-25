@@ -41,11 +41,11 @@
 	<mx:HTML width="100%" height="100%"
 			 visible="{videoSrcObject.htmlSrcFile != ''}" includeInLayout="{videoSrcObject.htmlSrcFile != ''}"
 			 />-->
-	<s:VideoPlayer width="100%" height="100%"
+	<s:VideoPlayer width="800" height="600"
 				   source="{flvVideoSrcFile}"
 				   visible="{flvVideoSrcFile != ''}" includeInLayout="{flvVideoSrcFile != ''}"
 				   />
-	<mx:SWFLoader width="100%" height="100%"
+	<mx:SWFLoader width="800" height="600"
 				  source="{swfVideoSrcFile}"
 				  visible="{swfVideoSrcFile != ''}" includeInLayout="{swfVideoSrcFile != ''}"
 				  />

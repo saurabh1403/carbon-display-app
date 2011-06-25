@@ -4,38 +4,88 @@
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
 				autoDrawBackground="true"
 				implements="mx.controls.listClasses.IListItemRenderer"
-				toolTip="{data.title}"
-				
 				width="100%" height="100%"
+				mouseOver="itemrenderer1_mouseOverHandler(event)"
+				mouseOut="itemrenderer1_mouseOutHandler(event)" xmlns:widgets="com.Tutorial.view.widgets.*"
 				>
 	<fx:Script>
 		<![CDATA[
 			import mx.controls.listClasses.IListItemRenderer;
+			import mx.events.FlexEvent;
 			
 			[Bindable]
 			[Embed(source="/assets/images/mainChapterImages/cover1.png")]
 			private var chapterImage:Class;
-			
+
+
+			protected function itemrenderer1_mouseOverHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				titleText.setStyle("color", 0x000000);
+			}
+
+
+			protected function itemrenderer1_mouseOutHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				titleText.setStyle("color", 0xffffff);
+			}
+
 		]]>
 	</fx:Script>
 	<s:layout>
-		<s:HorizontalLayout/>
+		<s:BasicLayout/>
 	</s:layout>
 	
 	
 		<!--<mx:Image source="{data.mainIconPath}"/>-->
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:Spacer height="100%"/>
+		<mx:HBox width="100%" height="100%">
+			<mx:Spacer width="5%"/>
+			<mx:Image id="chapImage"
+					  source="{chapterImage}"
+					  verticalAlign="middle"
+					  width="128" height="128"
+					  left="10" top="30" bottom="30"
+					  />
+		<!--horizontalAlign="center" -->
+		</mx:HBox>
+		<mx:Spacer height="100%"/>
+	</mx:VBox>
+	<widgets:MultilineTextComponent id="titleText"
+			y="{chapImage.y + chapImage.height/5}"
+			styleName="titleHeader"
+			text="{data.title}"
+			tabFocusEnabled="false" selectable="false"
+			color="0xffffff"
+			fontSize="16"
+			width="100%"
+			/>
 		
-		<mx:Image source="{chapterImage}"
-				  horizontalAlign="center" verticalAlign="middle"
-				  width="100%" height="100%"
-				  left="10" right="10" top="10" bottom="10"
-				  />
-				  <!--width="80" height="80"/>-->
-		<!--<mx:VBox width="100%" height="100%">
-			<s:Label text="{data.pkgName}"/>
-			<mx:Label text="{data.title}" truncateToFit="true"/>
-		</mx:VBox>	-->
-			
-	<!--<mx:Image width="100%" height="100%"
-			  source="{data.mainIconPath}"/>-->
+	<!--<mx:VBox width="100%" height="100%">
+		<mx:Spacer height="100%"/>
+		<mx:HBox width="100%" height="100%">
+			<mx:Image id="chapImage"
+					  source="{chapterImage}"
+					  horizontalAlign="center" verticalAlign="middle"
+					  width="128" height="128"
+					  left="10" top="30" bottom="30"
+					  />
+			<mx:VBox width="100%" height="100%" paddingLeft="0">
+				<mx:Spacer height="30%"/>
+				<widgets:MultilineTextComponent id="titleText"
+						 styleName="titleHeader"
+						 text="{data.title}"
+						 tabFocusEnabled="false" selectable="false"
+						 color="0xffffff"
+						 fontSize="16"
+						 width="80%"
+						 paddingLeft="0"
+						 />
+			</mx:VBox>
+		</mx:HBox>
+		<mx:Spacer height="100%"/>
+	</mx:VBox>-->
 </s:ItemRenderer>

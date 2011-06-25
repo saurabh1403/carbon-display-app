@@ -69,7 +69,7 @@ package com.Tutorial.business
 			if(!NativeProcess.isSupported)
 				return false;
 			
-			var exePath:String = "D:\\temp\\test_Main.exe";
+			var exePath:String = TutConstants.TEMP_HARDCODED_EXE_PATH;
 			
 			var nativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo(); 
 			var tempExePath:String = exePath;
@@ -151,18 +151,23 @@ package com.Tutorial.business
 							case "getPackageSessionData":
 								//var dataStr:String = 
 								//sessionDataReceivedHandler(
-								var pkID:String = mObj.packageid;
+								var pkgID:String = mObj.packageid;
 								//var testStr:String = xml.toString();
-								sessionDataReceivedHandler(pkID, xml);
+								sessionDataReceivedHandler(pkgID, xml);
 								
 								break;
 							case "getContent":
 								/*var callIdentifier:String = callId;
 								var contentFile:String = xml.outputXml.contentFile.toString();
 								var type:String = xml.outputXml.type.toString();*/
-								var contentPath:String = xml.outputXml.contentPath.toString();
+								ApplicationFacade.getInstance().sendNotification(TutConstants.HIDE_SPINNING_OVERLAY);
 								
-								videoPathReceivedHandler(callId, contentPath);
+								try{
+									var contentPath:String = xml.outputXml.contentPath.toString();
+									videoPathReceivedHandler(callId, contentPath);
+								}
+								catch(e:Error)
+								{}
 								
 								
 								//Tutorial._appInstance.dispatchEvent(new DataEvent(VIDEOPATHRECEIVED, false, false, vidData.notificationID.toString() + separatorStr + vidData.index.toString()));
@@ -175,13 +180,8 @@ package com.Tutorial.business
 			}
 			catch(e:Error)
 			{
-				Alert.show("Error with the output data received from the native binary....");
+				//Alert.show("Error with the output data received from the native binary....");
 			}
-			
-			//Alert.show(data);
-			
-			/*outText.text = data;
-			retLen.text = data.length.toString();*/
 		}
 		private static function sendDataToNative(msgobj:MsgObj):void
 		{
@@ -423,6 +423,7 @@ package com.Tutorial.business
 				return;
 			
 			ApplicationFacade.getInstance().sendNotification(TutConstants.N_STOPCURRENTPLAYINGVIDEO);
+			ApplicationFacade.getInstance().sendNotification(TutConstants.SHOW_SPINNING_OVERLAY);
 			
 			var arr:Array = new Array;
 			var vidData:VideoData = new VideoData;

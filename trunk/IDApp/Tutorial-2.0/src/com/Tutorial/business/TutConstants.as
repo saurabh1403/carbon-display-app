@@ -61,5 +61,16 @@ package com.Tutorial.business
 		public static const MODE_VIDEO:String = "Mode_Video";
 		public static const MODE_SESSIONPREPARE:String = "Mode_SessionPrepare";
 		public static const MODE_DEFAULT:String = "Mode_Default";
+		
+		public static const SHOW_SPINNING_OVERLAY:String = "ShowSpinningOverlay";
+		public static const HIDE_SPINNING_OVERLAY:String = "HideSpinningOverlay";
+		
+		
+		
+		
+		
+		
+		public static const TEMP_HARDCODED_EXE_PATH:String = "D:\\temp\\test_Main.exe";
+		public static const TEMP_HARDCODED_PATH:String = "D:\\test_carbon";
 	}
 }

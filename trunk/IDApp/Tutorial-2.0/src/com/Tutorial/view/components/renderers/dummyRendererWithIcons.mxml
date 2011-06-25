@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true"
+				implements="mx.controls.listClasses.IListItemRenderer"
+				width="100%" height="100%"
+				mouseOut="itemrenderer1_mouseOutHandler(event)"
+				mouseOver="itemrenderer1_mouseOverHandler(event)" xmlns:widgets="com.Tutorial.view.widgets.*"
+				>
+
+	<fx:Script>
+		<![CDATA[
+			protected function itemrenderer1_mouseOutHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				titleText.setStyle("color", 0xffffff);
+			}
+
+			protected function itemrenderer1_mouseOverHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				titleText.setStyle("color", 0x000000);
+			}
+
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:Spacer height="100%"/>
+		<mx:Image id="chapImage"
+				  source="{data.icon}"
+				  verticalAlign="middle"
+				  width="64" height="64"
+				  left="3" top="3" bottom="3"
+				  />
+		<mx:Spacer height="100%"/>
+	</mx:VBox>
+	<widgets:MultilineTextComponent id="titleText"
+			y="{chapImage.y + chapImage.height/5}"
+			styleName="titleHeader"
+			text="{data.name}"
+			tabFocusEnabled="false" selectable="false"
+			color="0xffffff"
+			fontSize="16"
+			width="100%"
+			/>
+	
+	<!--<mx:HBox width="100%" height="100%"
+			 paddingLeft="10" paddingTop="10" paddingRight="10" paddingBottom="10">
+		<mx:Image width="64" height="64"
+				  source="{data.icon}"/>
+		<s:Label width="100%" text="{data.name}" color="0xFFFFFF" />
+	</mx:HBox>	-->
+	
+</s:ItemRenderer>

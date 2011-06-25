@@ -34,6 +34,8 @@
 				dataObj.dEnt = tileListSubTopics.selectedItem as DataEntity;
 				dataObj.clickedFromLevelZ = "true";
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
+				
+				tileListSubTopics.selectedItem = null;
 			}
 
 			protected function vbox1_creationCompleteHandler(event:FlexEvent):void
@@ -47,35 +49,53 @@
 		]]>
 	</fx:Script>
 	
-	<s:Label width="100%" text="chapter related info goes here...."/>
+	<!--<s:Label width="100%" text="chapter related info goes here...."/>-->
 	
 	<mx:HBox width="100%" height="100%"
 			 horizontalScrollPolicy="off" verticalScrollPolicy="off">
 			 <!--visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}" includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">-->
 		<!--<components:VideoComponent width="70%" height="100%"
 		id="videoComp"/>-->
-		<components:VideoComponent width="800" height="600"
-								   id="videoComp"/>
-								   <!--videoSrcObject="{videoSrcObject}"/>-->
+		<mx:Spacer width="100%"
+				   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
+				   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+		<mx:VBox width="100%" height="100%">
+			<mx:Spacer height="100%"
+					   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
+					   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+			<components:VideoComponent width="100%" height="100%"
+									   id="videoComp"/>
+				<!--videoSrcObject="{videoSrcObject}"/>-->
+			<mx:Spacer height="100%"
+					   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
+					   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+		</mx:VBox>
+		
+		<mx:Spacer width="100%"
+				   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
+				   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
 		<mx:VBox width="100%" height="100%"
-				 horizontalScrollPolicy="off">
-			<mx:TileList width="100%" height="50%"
+				 horizontalScrollPolicy="off"
+				 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
+				 includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">
+			
+			<mx:List width="100%" height="50%"
 						 id="tileListSubTopics"
 						 borderVisible="false"
 						 contentBackgroundAlpha="0"
-						 columnCount="1"
 						 dataProvider="{arrSubTopics}"
 						 click="tileListSubTopics_clickHandler(event)"
+						 wordWrap="true"
 						 itemRenderer="com.Tutorial.view.components.renderers.dummyRenderer"
 						 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
+						 includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
 						 />
 			
-			<mx:VBox width="100%" height="50%" horizontalScrollPolicy="off">
-				<!-- This contains a list of all the buttons that may be required to be shown on the right hand side panel -->
+			<!--<mx:VBox width="100%" height="50%" horizontalScrollPolicy="off">
 				<s:Button label="Exit"/>
 				<s:Button label="Refresh"/>
 				<s:Button label="Testing"/>
-			</mx:VBox>
+			</mx:VBox>-->
 			
 		</mx:VBox>
 		
