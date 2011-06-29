@@ -1,13 +1,13 @@
 package com.Tutorial.view
 {
 	import com.Tutorial.ApplicationFacade;
+	import com.Tutorial.business.IconUtility;
 	import com.Tutorial.business.TutConstants;
 	import com.Tutorial.business.TutUtilities;
 	import com.Tutorial.model.PackageProxy;
 	import com.Tutorial.model.objects.DataEntity;
 	import com.Tutorial.model.objects.Package;
 	import com.Tutorial.view.components.NavigationPanel;
-	//import com.Tutorial.view.components.renderers.myTreeItemRenderer;
 	import com.Tutorial.view.widgets.CollapsibleComponent;
 	
 	import flash.events.Event;
@@ -97,6 +97,7 @@ package com.Tutorial.view
 						//bt.icon = TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon;
 						//tempIcon.source = TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon;
 						bt.setStyle("icon", tempIcon);
+						//bt.setStyle("icon", IconUtility.getClass(bt, "file:///" + TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon));
 						//bt.setStyle("icon", iter.current.barIcon);
 						//bt.setStyle("icon", ClassFactory(new Class(TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon)));
 						//bt.setStyle("icon", TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon);
