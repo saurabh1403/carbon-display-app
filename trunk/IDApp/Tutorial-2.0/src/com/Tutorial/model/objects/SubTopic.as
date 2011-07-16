@@ -2,6 +2,7 @@ package com.Tutorial.model.objects
 {
 	import com.Tutorial.business.TutConstants;
 
+	//not used now
 	public class SubTopic
 	{
 		public var name:String = "";

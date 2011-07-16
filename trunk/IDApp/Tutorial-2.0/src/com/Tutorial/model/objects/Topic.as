@@ -4,6 +4,7 @@ package com.Tutorial.model.objects
 	
 	import mx.collections.ArrayCollection;
 
+	//not used now
 	public class Topic
 	{
 		public var name:String = "";
