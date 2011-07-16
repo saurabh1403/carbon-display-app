@@ -66,11 +66,7 @@ package com.Tutorial.business
 		public static const HIDE_SPINNING_OVERLAY:String = "HideSpinningOverlay";
 		
 		
-		
-		
-		
-		
-		public static const TEMP_HARDCODED_EXE_PATH:String = "D:/temp/test_Main.exe";
+		public static const TEMP_HARDCODED_EXE_PATH:String = "D:/test_carbon/test.exe";
 		public static const TEMP_HARDCODED_PATH:String = "D:/test_carbon";
 	}
 }

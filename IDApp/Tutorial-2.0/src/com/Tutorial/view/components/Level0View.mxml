@@ -17,10 +17,10 @@
 			import com.Tutorial.ApplicationFacade;
 			import com.Tutorial.business.TutConstants;
 			import com.Tutorial.model.objects.DataEntity;
-			
+
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
-			
+
 			/* [Bindable]
 			public var videoSrcObject:Object = new Object; */
 			
@@ -34,7 +34,6 @@
 				dataObj.dEnt = tileListSubTopics.selectedItem as DataEntity;
 				dataObj.clickedFromLevelZ = "true";
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_LEVEL0CLICKED, dataObj);
-				
 				tileListSubTopics.selectedItem = null;
 			}
 
@@ -59,27 +58,26 @@
 		<mx:Spacer width="100%"
 				   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
 				   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
-		<mx:VBox width="100%" height="100%">
+		<mx:VBox width="800" height="100%">
 			<mx:Spacer height="100%"
-					   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
-					   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
-			<components:VideoComponent width="100%" height="100%"
+					   />
+			<components:VideoComponent width="100%" height="600"
 									   id="videoComp"/>
 				<!--videoSrcObject="{videoSrcObject}"/>-->
 			<mx:Spacer height="100%"
-					   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
-					   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
+					   />
 		</mx:VBox>
 		
 		<mx:Spacer width="100%"
 				   visible="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"
 				   includeInLayout="{(arrSubTopics == null) || (arrSubTopics.length == 0)}"/>
-		<mx:VBox width="100%" height="100%"
+		<mx:VBox width="100%" height="600"
 				 horizontalScrollPolicy="off"
 				 visible="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}"
 				 includeInLayout="{(arrSubTopics != null) &amp;&amp; (arrSubTopics.length != 0)}">
-			
-			<mx:List width="100%" height="50%"
+			<mx:Spacer height="50"
+					   />
+			<mx:List width="100%"
 						 id="tileListSubTopics"
 						 borderVisible="false"
 						 contentBackgroundAlpha="0"

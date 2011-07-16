@@ -79,9 +79,9 @@
 			<mx:Spacer height="5%"/>
 		</mx:VBox>
 		<mx:Spacer width="5"/>
-		<mx:Image width="128" height="128"
-				  source="{dataEnt.thumbnailIcon}"
-				  visible="{dataEnt.thumbnailIcon.length > 0}" includeInLayout="{dataEnt.thumbnailIcon.length > 0}"/>
+		<s:Image visible="{dataEnt.thumbnailIcon.length &gt; 0}" width="128" height="128"
+				 includeInLayout="{dataEnt.thumbnailIcon.length &gt; 0}" scaleMode="stretch"
+				 smooth="true" smoothingQuality="high" source="{dataEnt.thumbnailIcon}"/>
 	</mx:HBox>
 	
 	<!--<mx:VBox width="100%" height="100%">

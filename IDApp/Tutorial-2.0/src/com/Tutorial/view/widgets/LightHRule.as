@@ -31,8 +31,7 @@ package com.Tutorial.view.widgets
 			graphics.moveTo(0, 1);
 			graphics.lineStyle(1, shadowColor, .9);
 			graphics.lineTo(unscaledWidth, 1);
-			
-			
+
 		}
 	}
 }
