@@ -25,7 +25,7 @@ package com.Tutorial.view
 		
 		override public function onRegister():void
 		{
-			level1View.addEventListener(level1View.CLICK_NOTIFICATION, vidClickNotificationHandler);
+			level1View.addEventListener(level1View.CLICK_NOTIFICATION, vidClickNotificationHandler, false, 0, true);
 		}
 		
 		private function vidClickNotificationHandler(ev:DynamicEvent):void

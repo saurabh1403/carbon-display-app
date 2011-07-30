@@ -49,7 +49,7 @@
 				
 				//So, finally decided to use it as a timeout timer only. If by 10 seconds, the native process is not launched, then it is treated as an error case and the process will be aborted.
 				timer = new Timer(TIMER_VAL);
-				timer.addEventListener(TimerEvent.TIMER, timerHandler);
+				timer.addEventListener(TimerEvent.TIMER, timerHandler, false, 0, true);
 				timer.start();
 			}
 			private var timer:Timer;

@@ -56,7 +56,7 @@ package com.Tutorial.business
 				/*Tutorial._appInstance.addEventListener(AllPackageDataReceived, AllPackageDataReceivedHandler);
 				Tutorial._appInstance.addEventListener(SESSIONSTARTED, sessionStartedHandler);
 				Tutorial._appInstance.addEventListener(SESSIONDATARECEIVED, sessionDataReceivedHandler);*/
-				Tutorial._appInstance.addEventListener(VIDEOPATHRECEIVED, videoPathReceivedHandler);
+				Tutorial._appInstance.addEventListener(VIDEOPATHRECEIVED, videoPathReceivedHandler, false, 0, true);
 				
 			}
 			return _instance;
@@ -81,7 +81,7 @@ package com.Tutorial.business
 			processArgs.push("hello");
 			nativeProcessStartupInfo.arguments = processArgs; 
 			nativeProcess = new NativeProcess();
-			nativeProcess.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onOutputData);
+			nativeProcess.addEventListener(ProgressEvent.STANDARD_OUTPUT_DATA, onOutputData, false, 0, true);
 			//					process.addEventListener(ProgressEvent.STANDARD_INPUT_PROGRESS, oninputData); 
 			nativeProcess.start(nativeProcessStartupInfo);
 			return true;

@@ -20,13 +20,14 @@ package com.Tutorial.model.objects
 		private var _barIcon:String;
 		private var _thumbnailIcon:String;
 		
-		public var children:ArrayCollection;
-		public var subTopics:ArrayCollection;
+		//this is the variable which conatins the child objects other than subtopics
+		public var children:ArrayCollection = new ArrayCollection();
+		public var subTopics:ArrayCollection = new ArrayCollection();
 		
 		public function DataEntity()
 		{
-			children = new ArrayCollection;
-			subTopics = new ArrayCollection;
+			children.removeAll();
+			subTopics.removeAll();
 			
 			_name = "";
 			_contentType = TutConstants.LEVELCONTENT0;
@@ -73,11 +74,11 @@ package com.Tutorial.model.objects
 		{
 			return _packageid;
 		}
-		public function get icon():String
+		public function get icon1():String
 		{
 			return _icon;
 		}
-		public function get barIcon():String
+		public function get barIcon1():String
 		{
 			return _barIcon;
 		}
@@ -118,11 +119,11 @@ package com.Tutorial.model.objects
 		{
 			_packageid = id;
 		}
-		public function set icon(icon:String):void
+		public function set icon1(icon:String):void
 		{
 			_icon = icon;
 		}
-		public function set barIcon(icon:String):void
+		public function set barIcon1(icon:String):void
 		{
 			_barIcon = icon;
 		}

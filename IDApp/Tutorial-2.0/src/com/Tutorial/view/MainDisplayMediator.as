@@ -110,7 +110,7 @@ package com.Tutorial.view
 					overlayDlg.x = Application.application.width/2 - 10;
 					overlayDlg.y = Application.application.height/2 - 10;*/
 					
-					overlayDlg.addEventListener(EffectEvent.EFFECT_END, removeWarningScreen);
+					overlayDlg.addEventListener(EffectEvent.EFFECT_END, removeWarningScreen, false, 0, true);
 					PopUpManager.addPopUp(overlayDlg, mainDisplay, false);
 					
 					break;

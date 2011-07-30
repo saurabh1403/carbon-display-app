@@ -1,7 +1,6 @@
 package com.Tutorial.view
 {
 	import com.Tutorial.ApplicationFacade;
-//	import com.Tutorial.business.IconUtility;
 	import com.Tutorial.business.TutConstants;
 	import com.Tutorial.business.TutUtilities;
 	import com.Tutorial.model.PackageProxy;
@@ -20,10 +19,14 @@ package com.Tutorial.view
 	import mx.controls.Spacer;
 	import mx.controls.Tree;
 	import mx.core.ClassFactory;
+	import mx.effects.Fade;
+	import mx.effects.Rotate;
 	import mx.events.TreeEvent;
 	
 	import org.puremvc.Tutorial.interfaces.INotification;
 	import org.puremvc.Tutorial.patterns.mediator.Mediator;
+	
+	import spark.effects.Move;
 	
 	public class NavigationPanelMediator extends Mediator
 	{
@@ -77,7 +80,7 @@ package com.Tutorial.view
 						var cb:CollapsibleComponent = new CollapsibleComponent;
 						cb.percentWidth = 100;
 						cb.name = "cb";
-						
+
 						var bt:Button = new Button;
 						bt.label = iter.current.name;
 						bt.name = "btn";
@@ -102,7 +105,7 @@ package com.Tutorial.view
 						//bt.setStyle("icon", ClassFactory(new Class(TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon)));
 						//bt.setStyle("icon", TutConstants.TEMP_HARDCODED_PATH + iter.current.barIcon);
 						//bt.setStyle("style", "customButton");
-						bt.addEventListener(MouseEvent.CLICK, btClickHandler);
+						bt.addEventListener(MouseEvent.CLICK, btClickHandler, false, 0, true);
 						
 						var vb:VBox = new VBox;
 						vb.percentHeight = 100;
@@ -120,8 +123,10 @@ package com.Tutorial.view
 								tree.dataProvider = iter.current.children;
 								
 								tree.labelField = "name";
+								tree.iconField = "icon";
 								tree.setStyle("defaultLeafIcon", leafIcon);
-								
+///								tree.itemRenderer = new ClassFactory(treeItemRenderer);
+
 								/*tree.setStyle("folderClosedIcon", iter.current.barIcon);
 								tree.setStyle("folderOpenIcon", );*/
 								
@@ -130,7 +135,7 @@ package com.Tutorial.view
 									compData:item.controls};
 								tree.itemRenderer = factory;*/
 								
-								tree.addEventListener(MouseEvent.CLICK, treeClickHandler);
+								tree.addEventListener(MouseEvent.CLICK, treeClickHandler, false, 0, true);
 								vb.addChild(tree);
 							}
 							else
@@ -145,6 +150,8 @@ package com.Tutorial.view
 						vb.visible = cb.bExpanded;
 						vb.includeInLayout = cb.bExpanded;
 						
+//						vb.setStyle("showEffect", Fade);
+						vb.setStyle("resizeEffect", Move);
 						cb.addChild(bt);
 						cb.addChild(vb);
 						
@@ -153,21 +160,25 @@ package com.Tutorial.view
 						
 						iter.moveNext();
 					}
+
+					// to make the first box open by default
 					if(((navigationPanelView as NavigationPanel).myVG as VBox).getChildren().length != 0)
 					{
 						((((navigationPanelView as NavigationPanel).myVG as VBox).getChildAt(0) as CollapsibleComponent).getChildByName("btn") as Button).dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 					}
+
 				}
 					break;
 				default:
 					break;
 			}
 		}
+
 		private function treeClickHandler(item:MouseEvent):void
 		{
 			if((item.currentTarget as Tree).selectedItem == null)
 				return;
-			
+
 			switch((item.currentTarget as Tree).selectedItem.contentType)
 			{
 				case TutConstants.LEVELCONTENT0:
@@ -192,10 +203,12 @@ package com.Tutorial.view
 					break;
 			}
 		}
+		
 		private function btClickHandler(ev:MouseEvent):void
 		{
 			var cb:CollapsibleComponent = (ev.currentTarget as Button).parent as CollapsibleComponent;
-			cb.bExpanded = !cb.bExpanded;
+//			cb.bExpanded = !cb.bExpanded;
+			cb.bExpanded = true;
 			
 			if((navigationPanelView.lastExpanded != null) && (navigationPanelView.lastExpanded != cb))
 			{
