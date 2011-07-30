@@ -46,7 +46,7 @@ package com.Tutorial.view
 					break;
 			}
 		}
-		
+
 		protected function get level2View():Level2View
 		{
 			return viewComponent as Level2View;

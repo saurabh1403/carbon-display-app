@@ -74,6 +74,15 @@ package com.Tutorial.business
 			}
 		}
 		
+		/**
+		 * 
+		 * @param pkid
+		 * @param arrC
+		 * @param xml
+		 * @param bConsiderLevel1 : this variable specifies whether the current level should be considered as pure level 1 (where there is no subtopics) or it should include subtopics also.
+		 * true value specifies that it should be a pure level 1
+		 * 
+		 */		
 		public static function populateStructures(pkid:String, arrC:ArrayCollection, xml:XML, bConsiderLevel1:Boolean = true):void
 		{
 			//3 level : section
@@ -98,9 +107,9 @@ package com.Tutorial.business
 				ent.keywords = xml.keywords;
 			
 			if(xml.child("icon").length() != 0)
-				ent.icon = TutConstants.TEMP_HARDCODED_PATH + xml.icon;
+				ent.icon1 = TutConstants.TEMP_HARDCODED_PATH + xml.icon;
 			if(xml.child("barIcon").length() != 0)
-				ent.barIcon = TutConstants.TEMP_HARDCODED_PATH + xml.barIcon;
+				ent.barIcon1 = TutConstants.TEMP_HARDCODED_PATH + xml.barIcon;
 			if(xml.child("thumbnailImage").length() != 0)
 				ent.thumbnailIcon = TutConstants.TEMP_HARDCODED_PATH + xml.thumbnailImage;
 			
@@ -109,7 +118,7 @@ package com.Tutorial.business
 				var index:int = xml.type.toString().lastIndexOf(".");
 				if(index == -1)
 				{
-					trace("invalid source file specified");
+					trace("invalid source file specified");			//this is wrong log
 				}
 				switch(xml.type.toString().substr(index+1).toLowerCase())
 				{

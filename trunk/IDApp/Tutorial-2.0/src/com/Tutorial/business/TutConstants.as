@@ -43,9 +43,6 @@ package com.Tutorial.business
 		public static const N_STOPCURRENTPLAYINGVIDEO:String = "N_StopCurrentPlayingVideo";
 		
 		//public static const N_LEVEL0GROUPCLICKED:String = 
-		
-		
-		
 		//Other Notifications
 		public static const N_ALLPKGDATARECEIVED:String = "N_AllPkgDataReceived";
 		

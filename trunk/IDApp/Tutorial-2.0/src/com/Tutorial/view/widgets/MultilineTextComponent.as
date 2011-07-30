@@ -18,11 +18,11 @@ package com.Tutorial.view.widgets
 			super();
 			focusEnabled = false;
 			tabFocusEnabled = false;
+			
 		}		
 		
 		override protected function measure():void
 		{
-			textField.multiline = true;
 			textField.wordWrap = true;
 			// causes scrolling problems, so disable for now: 
 			//textField.mouseWheelEnabled = true;
