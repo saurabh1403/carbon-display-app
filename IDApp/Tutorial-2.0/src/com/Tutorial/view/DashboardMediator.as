@@ -10,7 +10,7 @@ package com.Tutorial.view
 	
 	import org.puremvc.Tutorial.interfaces.INotification;
 	import org.puremvc.Tutorial.patterns.mediator.Mediator;
-	
+
 	public class DashboardMediator extends Mediator
 	{
 		public static const NAME:String = 'DashboardMediator';
@@ -43,25 +43,18 @@ package com.Tutorial.view
 						var proxy:PackageProxy = ApplicationFacade.getInstance().retrieveProxy(PackageProxy.NAME) as PackageProxy;
 						proxy.resetParams();
 						
+						//TODO: get more data about package from here
 						for(var i:int = 0; i < xml.packageList.pkg.length(); i++)
 						{							
 							var obj:Object = xml.packageList.pkg[i];
 							
 							var pkg:Package = new Package;
 							pkg.setMainParams(obj.Name.toString(), obj.packageId.toString(), obj.titleText.toString(), obj.imageIconPath.toString());
+
+							pkg.thumbnailIconPath = "imports/Accordion3D/assets/photo_" + (i+1).toString() + ".jpg";
 							
 							proxy.packages.addItem(pkg);
 						}
-						
-						/*for(var i:int = 0; i < xml.outputXml.packageList.pkg.length(); i++)
-						{							
-							var obj:Object = xml.outputXml.packageList.pkg[i];
-							
-							var pkg:Package = new Package;
-							pkg.setMainParams(obj.Name, obj.packageId, obj.titleText, obj.imageIconPath);
-							
-							proxy.packages.addItem(pkg);
-						}*/
 						
 						dashboardView.pkgColl = proxy.packages;
 						

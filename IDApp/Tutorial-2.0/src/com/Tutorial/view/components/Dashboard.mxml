@@ -4,41 +4,44 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="100%" height="100%"
 		 backgroundAlpha="0" xmlns:widgets="com.Tutorial.view.widgets.*"
+		 creationComplete="dashboard_creationComplete(event)" xmlns:components="com.Tutorial.view.components.*"
+		 xmlns:accordionLayout = "imports.Accordion3D.com.rialvalue.layouts.*"
+		 xmlns:accordion = "imports.Accordion3D.*"
 		 >
 	<!--backgroundColor="0x888888"-->
 	<fx:Script>
 		<![CDATA[
+
 			import com.Tutorial.ApplicationFacade;
+			import com.Tutorial.Events.PackageSelectEvent;
 			import com.Tutorial.business.NativeCommunicator;
 			import com.Tutorial.business.TutConstants;
 			import com.Tutorial.model.PackageProxy;
 			import com.Tutorial.model.objects.Package;
 			
+			import imports.Accordion3D.com.rialvalue.layouts.Accordion3DLayout;
+			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			[Bindable] 
+			private var packageMainIconPath:String = "";
 			
 			[Bindable]
 			public static var listHorizontalColumnCount:int = 2;
 			
-/* 			[Bindable]
-			private var arr:Array = new Array(
-				{title:"Maths", description:"testMaths", mainIconPath:"assets/icons/temp.png"},
-				{title:"Science", description:"testScience", mainIconPath:"assets/icons/temp.png"},
-				{title:"Social Science", description:"testSocialScience", mainIconPath:"assets/icons/temp.png"},
-				{title:"General Knowledge", description:"testGeneralKnowledge", mainIconPath:"assets/icons/temp.png"}
-			);
-			
-			private var tttt:ArrayCollection = new ArrayCollection(
-				new Array(
-					{title:"Maths", description:"testMaths", mainIconPath:"assets/icons/temp.png"},
-					{title:"Science", description:"testScience", mainIconPath:"assets/icons/temp.png"},
-					{title:"Social Science", description:"testSocialScience", mainIconPath:"assets/icons/temp.png"},
-					{title:"General Knowledge", description:"testGeneralKnowledge", mainIconPath:"assets/icons/temp.png"}
-				)
-			); */
-			
 			[Bindable]
 			public var pkgColl:ArrayCollection;
+			
+			[Bindable]
+			public var dataProvider:ArrayCollection;
+
+			private var currSelectedPkg:com.Tutorial.model.objects.Package = null;
+			
+			var currLayout:Accordion3DLayout = new Accordion3DLayout();
+
+			private var pkgProxy:PackageProxy = ApplicationFacade.getInstance().retrieveProxy(PackageProxy.NAME) as PackageProxy;
 			
 			protected function tileComponent_clickHandler(event:MouseEvent):void
 			{
@@ -61,8 +64,8 @@
 				}
 				tileComponent.selectedItem = null;
 			}
-
-
+			
+			
 			protected function leftBtn_clickHandler(event:MouseEvent):void
 			{
 				var pos:int = tileComponent.horizontalScrollPosition-1;
@@ -76,10 +79,10 @@
 					leftBtn.enabled = true;
 				
 				//if(pkgColl.length >= listHorizontalColumnCount)
-					rightBtn.enabled = true;
+				rightBtn.enabled = true;
 			}
-
-
+			
+			
 			protected function rightBtn_clickHandler(event:MouseEvent):void
 			{
 				var pos:int = tileComponent.horizontalScrollPosition+1;
@@ -93,7 +96,7 @@
 					rightBtn.enabled = true;
 				
 				//if(max >= pkgColl.length)
-					leftBtn.enabled = true;
+				leftBtn.enabled = true;
 				/*
 				// TODO Auto-generated method stub
 				var n:int = tileComponent.horizontalScrollPosition;
@@ -102,37 +105,72 @@
 				tileComponent.horizontalScrollPosition = (n % imgWid) + 1 < pkgColl.length - 1 ? ((n % imgWid) + 1)*imgWid : (pkgColl.length - 1) * imgWid;
 				*/
 			}
-
-
+			
+			
 			protected function leftBtn_mouseOverHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				if(leftBtn.enabled)
 					leftBtn.source = "/assets/icons/leftarrow-32_hover.png";
 			}
-
-
+			
+			
 			protected function leftBtn_mouseOutHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				leftBtn.source = "/assets/icons/leftarrow-32.png";
 			}
-
-
+			
+			
 			protected function rightBtn_mouseOverHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				if(rightBtn.enabled)
 					rightBtn.source = "/assets/icons/rightarrow-32_hover.png";
 			}
-
-
+			
+			
 			protected function rightBtn_mouseOutHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				rightBtn.source = "/assets/icons/rightarrow-32.png";
 			}
+			
+			protected function updatePackageThumbnails():void
+			{
+				this.addEventListener(PackageSelectEvent.eventName, newPackageSelected);
+				
+				dataProvider = new ArrayCollection();
+				dataProvider.disableAutoUpdate();
+				
+				for (var i:int = 1; i <= 6; i++)
+				{
+					dataProvider.addItem("imports/Accordion3D/assets/photo_" + i.toString() + ".jpg");
+				}
+				
+				dataProvider.enableAutoUpdate();
+				
+			}
 
+			protected function newPackageSelected(event:PackageSelectEvent):void
+			{
+				var tmpSelectedPkg = pkgProxy.getPkgOfSession(event.pkg_id);
+				if(tmpSelectedPkg != currSelectedPkg)
+				{
+					currSelectedPkg = tmpSelectedPkg;
+					packageMainIconPath = currSelectedPkg.mainIconPath;
+					currLayout.selectedIndex = pkgProxy.packages.getItemIndex(currSelectedPkg);
+//					Alert.show(event.pkg_id, "hello world");
+				}
+			}
+
+			protected function dashboard_creationComplete(event:FlexEvent):void
+			{
+				updatePackageThumbnails();
+				this.addEventListener(PackageSelectEvent.eventName, newPackageSelected);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -146,13 +184,18 @@
 						 text="Available Courses"
 						 tabFocusEnabled="false" selectable="false"/>
 				<widgets:LightHRule width="80%" id="lightrule"
-						strokeWidth="1" strokeColor="0xffffff" strokeOpacity=".4" />
+									strokeWidth="1" strokeColor="0xffffff" strokeOpacity=".4" />
 				<mx:Text width="70%" styleName="titleHeader"
 						 text="Please select a course"
 						 color="0xffc90e"
 						 tabFocusEnabled="false" selectable="false"/>
 				
 				<mx:Spacer height="5%"/>
+				
+				<!-- 3D accordion control -->
+				<components:PackageListAccordion3D id="pktAccordList"
+												   dataProvider="{pkgColl}"
+												   layout="{currLayout}"/>				
 				
 				<mx:TileList width="{lightrule.width}" height="100%" id="tileComponent"
 							 dataProvider="{pkgColl}"
