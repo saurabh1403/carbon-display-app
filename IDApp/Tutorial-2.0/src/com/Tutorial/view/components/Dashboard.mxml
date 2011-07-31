@@ -39,7 +39,7 @@
 
 			private var currSelectedPkg:com.Tutorial.model.objects.Package = null;
 			
-			var currLayout:Accordion3DLayout = new Accordion3DLayout();
+			public var currLayout:Accordion3DLayout = new Accordion3DLayout();
 
 			private var pkgProxy:PackageProxy = ApplicationFacade.getInstance().retrieveProxy(PackageProxy.NAME) as PackageProxy;
 			
@@ -195,7 +195,8 @@
 				<!-- 3D accordion control -->
 				<components:PackageListAccordion3D id="pktAccordList"
 												   dataProvider="{pkgColl}"
-												   layout="{currLayout}"/>				
+												   layout="{currLayout}"
+												   />				
 				
 				<mx:TileList width="{lightrule.width}" height="100%" id="tileComponent"
 							 dataProvider="{pkgColl}"

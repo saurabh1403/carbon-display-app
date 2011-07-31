@@ -36,8 +36,7 @@
 				</fx:Script>
 
 				<s:Graphic click="graphic2_clickHandler(event)"
-						   mouseOver="graphic2_clickHandler(event)"
-						   toolTip="{data.pkgName}">
+						   toolTip="{data.title}">
 					<s:BitmapImage 
 						width="{Number(180) }" height="{Number(180)}"
 						left="12" top="16"
