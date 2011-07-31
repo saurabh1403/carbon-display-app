@@ -11,6 +11,8 @@ package com.Tutorial.model.objects
 		public var title:String = "";
 		[Bindable] public var mainIconPath:String = "";			//this image is shown on the dashboard
 		[Bindable] public var thumbnailIconPath:String = "";
+		[Bindable] public var description = "";
+		public var pkgInstalledDir = "";
 		
 		public var bAlreadyPopulated:Boolean;			//once populated, no need to retrieve the complete data again
 		

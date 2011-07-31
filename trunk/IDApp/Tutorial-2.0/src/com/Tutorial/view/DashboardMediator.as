@@ -49,10 +49,15 @@ package com.Tutorial.view
 							var obj:Object = xml.packageList.pkg[i];
 							
 							var pkg:Package = new Package;
-							pkg.setMainParams(obj.Name.toString(), obj.packageId.toString(), obj.titleText.toString(), obj.imageIconPath.toString());
+							var pkgBasePath:String = obj.pkgInstalledDir.toString();
 
-							pkg.thumbnailIconPath = "imports/Accordion3D/assets/photo_" + (i+1).toString() + ".jpg";
-							
+							pkg.pkgInstalledDir = pkgBasePath;
+							pkg.setMainParams(obj.Name.toString(), obj.packageId.toString(), obj.titleText.toString(), pkgBasePath + obj.mainIconPath.toString());
+							pkg.description = obj.description.toString();
+							pkg.thumbnailIconPath = pkgBasePath + obj.thumbnailIconPath.toString();
+
+//							pkg.thumbnailIconPath = "imports/Accordion3D/assets/photo_" + (i+1).toString() + ".jpg";
+
 							proxy.packages.addItem(pkg);
 						}
 						
