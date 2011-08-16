@@ -16,6 +16,10 @@ package model
 		public var totalTimeTakenVal:int = 0;			//number of seconds
 		public var totalTimeTakenStr:String = "";		//this is the formatted string
 		public var averageQuesTime:Number = 0.0;		//total time divided by number of questions attempted
+		public var timeSpentOnCorrectQues:int = 0;
+		public var timeSpentOnIncorrectQues:int = 0;
+		public var timeSpentOnUnansweredQues:int = 0;
+		
 
 		//marks stats
 		public var totalMarks:int = 0;

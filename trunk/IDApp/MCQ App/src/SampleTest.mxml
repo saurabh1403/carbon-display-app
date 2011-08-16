@@ -4,6 +4,7 @@
 					   xmlns:mx="library://ns.adobe.com/flex/mx" 
 					   width="1020" height="750" xmlns:components="view.components.*"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
+					   showStatusBar="false"
 					   >
 	<fx:Script>
 		<![CDATA[
@@ -21,19 +22,27 @@
 			import view.TopLevelViews.TestRulesView;
 			import view.TopLevelViews.TestView;
 			import view.TopLevelViews.TestView2;
-			
+
 			public var testXmlPath:String = "D:\\test\\test.xml";
-			
+
 			public var testNumber:int = -1;
-			
+
+			//***************************to be called by the external module to init the test view*************
+			public function initWithData(baseFolderPath:String, levelXmlPath:String):void
+			{
+				showHomeDisplay(null);
+			}
+
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				MCQConstants.appWidth = this.width;
 				MCQConstants.appHeight = this.height;
-
-				showHomeDisplay(null);
+				
+				DataProcessor.instance.quesProxy.reset();
+				
+				initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
 			}
-			
+
 			protected function showHomeDisplay(event:Event):void
 			{
 				//reset all the variables here
@@ -45,9 +54,16 @@
 				DataProcessor.instance.quesProxy.reset();
 				var homeView:HomeDisplay = new HomeDisplay();
 				homeView.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
+				homeView.addEventListener(FlexEvent.CREATION_COMPLETE, homeViewCreationComplete, false, 0, true);
 
 				this.removeAllElements();
 				this.addElement(homeView);
+			}
+			
+			private function homeViewCreationComplete(event:Event):void
+			{
+				var homeView:HomeDisplay = event.target as HomeDisplay;
+				homeView.initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml); 
 			}
 
 			protected function testCompleted(event:TestResultEvent):void

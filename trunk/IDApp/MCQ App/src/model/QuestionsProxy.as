@@ -112,11 +112,27 @@ package model
 			for(var i:int = 0; i < testResult.totalQuestions; i++)
 			{
 				var curr_ques:Question = questions[i] as Question;
+				
+				//correct ques
 				if(curr_ques.userAnswerWeight == curr_ques.corrAnswerWeight)
 				{
 					testResult.totalCorrectQuestion++;
 					testResult.marksObtained += curr_ques.quesMark;
+					testResult.timeSpentOnCorrectQues += curr_ques.quesAttemptTime;
 				}
+				
+				//incorrect ques
+				else if(curr_ques.isQuesAttempted)
+				{
+					testResult.timeSpentOnIncorrectQues += curr_ques.quesAttemptTime;
+				}
+				
+				//unanswered ques
+				else
+				{
+					testResult.timeSpentOnUnansweredQues+= curr_ques.quesAttemptTime;
+				}
+				
 				testResult.totalMarks += curr_ques.quesMark;
 			}
 			
