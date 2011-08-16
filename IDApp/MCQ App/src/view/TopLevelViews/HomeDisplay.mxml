@@ -4,33 +4,83 @@
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
 				   width="100%" height="100%" backgroundColor="#BDBDB7" borderWeight="6"
 				   chromeColor="#BDBDBD" dropShadowVisible="false"
-				   
-				   >
+				   creationPolicy="all">
 	
 	<fx:Script>
 		<![CDATA[
 			import Controller.MCQConstants;
 			
 			import Events.TestSelectionEvent;
+			
+			import mx.collections.ArrayCollection;
 
+			private var xmlPathData:ArrayCollection = new ArrayCollection();
+			private var baseFolderPath:String = "";
 			//TODO: make here three buttons according to three levels
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				var cusEvent:TestSelectionEvent = new TestSelectionEvent(MCQConstants.testStartEventName);
-				cusEvent.testFolderPath = MCQConstants.testBaseFolder;
-				cusEvent.testXmlName = MCQConstants.testXmlName;
-				dispatchEvent(cusEvent);
+				cusEvent.testFolderPath = baseFolderPath;
+				var tarId:String = event.currentTarget.id as String;
+				switch(event.currentTarget.id as String)
+				{
+					case "l3Image":
+						cusEvent.testXmlName = xmlPathData[2];
+						this.dispatchEvent(cusEvent);
+						break;
+					case "l2Image":
+						cusEvent.testXmlName = xmlPathData[1];
+						this.dispatchEvent(cusEvent);
+						break;
+					case "l1Image":
+						cusEvent.testXmlName = xmlPathData[0];
+						this.dispatchEvent(cusEvent);
+						break;
+				}
 			}
 
 			public function disposeView():void
 			{
-				
+				xmlPathData.removeAll();
+				this.removeAllElements();
 			}
 
 			//this will take the levels infomation xml and will start the view then
-			public function initWithData(inXmlPath:String):void
+			public function initWithData(inBaseFolderPath:String, inXmlPath:String):void
 			{
+				baseFolderPath = inBaseFolderPath;
+				
+				var file:File = new File(inBaseFolderPath + inXmlPath);
+				file.resolvePath(inXmlPath);
+				
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.READ);
+				
+				var inXml:XML = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
+				
+				var levels:XMLList = inXml.levels.level;
+				var level_no:int = levels.length();
+				
+				switch(level_no)
+				{
+					case 3:
+						l3Image.visible = true;
+						l3Image.source = baseFolderPath + levels[2].imgSrcPath.toString();
+						xmlPathData.addItem(levels[2].levelTestXml.toString());
+						
+					case 2:
+						l2Image.visible = true;
+						l2Image.source = baseFolderPath + levels[1].imgSrcPath.toString();
+						xmlPathData.addItem(levels[1].levelTestXml.toString());
 
+					case 1:
+						l1Image.visible = true;
+						l1Image.source = baseFolderPath + levels[0].imgSrcPath.toString();
+						xmlPathData.addItem(levels[0].levelTestXml.toString());
+
+					default:
+							break;
+				}
 			}
 			
 		]]>
@@ -39,19 +89,26 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button left="50" width="162" height="61" label="Start Test"
-			  click="button1_clickHandler(event)" color="#DF5050" fontFamily="Verdana" fontSize="23"
-			  fontStyle="italic" fontWeight="bold" textDecoration="none" verticalCenter="20" visible="false"/>
-	<s:Button left="407" width="162" height="61" label="Start Test"
-			  click="button1_clickHandler(event)" color="#DF5050" fontFamily="Verdana" fontSize="23"
-			  fontStyle="italic" fontWeight="bold" textDecoration="none" verticalCenter="19" visible="false"/>
-	<s:Image left="50" width="200" height="200" click="button1_clickHandler(event)" smooth="true"
-			 smoothingQuality="high" source="@Embed('assets/Level1-new.jpg')" verticalCenter="-10"/>
-	<s:Image left="400" width="200" height="200" click="button1_clickHandler(event)"
-			 source="@Embed('assets/Level2-new.jpg')" verticalCenter="-10"/>
 	<s:Label left="50" top="50" width="80%" height="10%" fontFamily="Times New Roman" fontSize="29"
 			 fontStyle="italic" fontWeight="normal" lineThrough="false" text="Choose the test level"
-			 textAlign="left" textDecoration="none" verticalAlign="middle"/>
+			 textAlign="left" textDecoration="none" verticalAlign="middle" />
+	<s:HGroup left="0" width="100%" height="40%" verticalCenter="0">
+		<s:Spacer width="50%"/>
+		
+	<s:Image id="l1Image" width="100%" height="100%" click="button1_clickHandler(event)" smooth="true"
+			 smoothingQuality="high" verticalCenter="-10" visible="false"/>
+		<s:Spacer width="50%"/>
+
+	<s:Image id="l2Image" width="100%" height="100%" click="button1_clickHandler(event)"
+			 verticalCenter="-10" visible="false"/>
+		<s:Spacer width="50%"/>
+
+	<s:Image id="l3Image" width="100%" height="100%" click="button1_clickHandler(event)"
+				 verticalCenter="-10" visible="false"/>
+		<s:Spacer width="50%"/>
+
+	
+	</s:HGroup>
 	
 	
 </s:BorderContainer>

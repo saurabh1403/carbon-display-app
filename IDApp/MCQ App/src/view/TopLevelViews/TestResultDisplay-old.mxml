@@ -3,26 +3,16 @@
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
 				   xmlns:components="view.components.*"
-				   width="100%" height="100%" backgroundColor="#4A4849"
+				   width="100%" height="100%" backgroundColor="#595656"
 				   contentBackgroundColor="#706C6C"
-				   xmlns:rs="imports.PageFlip.com.rubenswieringa.book.*"
-				   borderVisible="true" borderWeight="1"
-				   creationComplete="bordercontainer1_creationCompleteHandler(event)" 
-				   xmlns:ResultPageRelated="view.components.ResultPageRelated.*">
+				   borderVisible="true" borderWeight="1" xmlns:ResultPageRelated="view.components.ResultPageRelated.*">
 	
-	<fx:Style source="Styles/MCQStyles.css">
-		
-	</fx:Style>
-
 	<fx:Script>
 		<![CDATA[
 			import Controller.DataProcessor;
 			import Controller.MCQConstants;
 			
 			import Events.TestSelectionEvent;
-			
-			import imports.PageFlip.com.rubenswieringa.book.*;
-			import imports.PageFlip.com.rubenswieringa.book.BookEvent;
 			
 			import model.Question;
 			import model.QuestionsProxy;
@@ -36,12 +26,8 @@
 			import mx.charts.series.items.ColumnSeriesItem;
 			import mx.collections.ArrayCollection;
 			import mx.collections.IViewCursor;
-			import mx.controls.Alert;
-			import mx.events.FlexEvent;
 			import mx.events.IndexChangedEvent;
 			import mx.utils.object_proxy;
-			
-			import spark.components.Application;
 			
 			public var pieChartData:ChartBase  = new ChartBase();
 			
@@ -55,14 +41,6 @@
 			[Bindable]
 			private var timeStatBarData:ArrayCollection = new ArrayCollection();
 
-			[Bindable]
-			private var isFirstPageBeingShown:Boolean = true;		//this shows whether first page is being shown or not. and it will control the prev button visibility
-			
-			[Bindable]
-			private var isLastPageBeingShown:Boolean = false;
-			
-			private const total_pages:int = 6;			//set this equal to the number of pages
-			
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				//set the data for pie chart here
@@ -87,6 +65,24 @@
 			}
 
 
+			private function clickHandler(event:Event):void
+			{
+				if(toggle)
+				{
+					toggle = false;
+					ps.explodeRadius=.05;
+					event.target.percentWidth = 80;
+					event.target.percentHeight = 80;
+				}
+				else
+				{
+					event.target.percentWidth = 70;
+					event.target.percentHeight = 60;
+					toggle = true;
+					ps.explodeRadius = 0;
+				}
+			}
+			
 			private function processQuesStatData(quesProxy:QuestionsProxy):void
 			{
 				quesStatPieData.removeAll();
@@ -138,25 +134,17 @@
 			
 			protected function processView():void
 			{
-				if(parseInt(testResult.percentObtained) > 80)
+				if(parseInt(testResult.percentObtained) > 60)
 				{
-					frontPage.performanceLabel.text = "Your Performance is Good.";
-					frontPage.performanceBar.setStyle("backgroundColor", 0x7eb874);
-					frontPage.performanceLevel = 1;
+					performanceLabel.text = "Your Performance is Good.";
+					performanceBar.setStyle("backgroundColor", 0x76D13D);
+					performanceIcon.source = "assets/thumbsUp.jpg";
 				}
-
-				else if(parseInt(testResult.percentObtained) > 50)
-				{
-					frontPage.performanceLabel.text = "You have average performance.";
-					frontPage.performanceBar.setStyle("backgroundColor", 0xdad853);
-					frontPage.performanceLevel = 2;
-				}
-				
 				else
 				{
-					frontPage.performanceLabel.text = "You have low performance.";
-					frontPage.performanceBar.setStyle("backgroundColor", 0xd66556);
-					frontPage.performanceLevel = 3;
+					performanceLabel.text = "Your Performance is Poor.";
+					performanceBar.setStyle("backgroundColor", 0xF01D32);
+					performanceIcon.source = "assets/thumbsDown.jpg";
 				}
 				
 			}
@@ -175,7 +163,7 @@
 				}
 			}
 			
-			protected function retakeButtonClicked(event:Event):void
+			protected function testRetakeButtonClicked(event:Event):void
 			{
 				var quesProxy:QuestionsProxy = DataProcessor.instance.quesProxy;
 				
@@ -185,68 +173,19 @@
 				dispatchEvent(newEvent);
 			}
 
-			protected function reviewButtonClicked(event:Event):void
+			protected function testReviewButtonClicked(event:Event):void
 			{
 				var newEvent:Event = new Event(MCQConstants.testReviewEventName);
 				dispatchEvent(newEvent);
 			}
 			
-			protected function quitButtonClicked(event:Event):void
+			protected function testQuitButtonClicked(event:Event):void
 			{
 				var newEvent:Event = new Event(MCQConstants.testQuitEventName);
 				dispatchEvent(newEvent);
 			}
 
-			protected function nextPageButtonClicked(event:Event):void
-			{
-				resultBook.nextPage();
-			}
 			
-			protected function prevPageButtonClicked(event:Event):void
-			{
-				resultBook.prevPage();
-			}
-			
-			protected function resultBookStatsuChanged(event:BookEvent):void
-			{
-			
-				if(resultBook.currentPage == -1)
-				{
-					prevPageButton.visible = false;
-//					isFirstPageBeingShown = true;
-				}
-
-				else if(resultBook.currentPage == total_pages - 1)
-				{
-					nextPageButton.visible = false;
-//					isLastPageBeingShown = true;
-				}
-
-				else
-				{
-					nextPageButton.visible = true;
-					prevPageButton.visible = true;
-//					isFirstPageBeingShown = false;
-//					isLastPageBeingShown = false;
-				}
-			}
-
-			protected function bordercontainer1_creationCompleteHandler(event:FlexEvent):void
-			{
-				resultBook.addEventListener(BookEvent.PAGE_TURNED, resultBookStatsuChanged);
-			}
-			
-			protected function showPerformanceImproveTip(event:Event):void
-			{
-				//TODO
-				Alert.show("Work Hard and concentrate more to improve the score", "Golden Tips"); 
-			}
-			
-			protected function showTimeStatHelpLink(event:Event):void
-			{
-				//TODO:
-			}
-
 		]]>
 	</fx:Script>
 	
@@ -264,6 +203,7 @@
 	</fx:Style>
 	
 	<s:states>
+		<s:State name="marksStats"/>
 		<s:State name="quesStat"/>
 	</s:states>
 	
@@ -273,75 +213,7 @@
 		<s:SolidColorStroke id="s1" color="#79B553" weight="2"/>
 	</fx:Declarations>
 	
-	<ResultPageRelated:ResultSuggestionPage width="{MCQConstants.appWidth * 0.4}"
-											height="{MCQConstants.appHeight * 0.8}"
-											horizontalCenter="{MCQConstants.appWidth * (-0.2)}"
- top="40"/>
-	
-	<rs:Book id="resultBook" visible="true" width="{MCQConstants.appWidth * 0.8}"
-			 height="{MCQConstants.appHeight * 0.8}" easing="0.7" flipOnClick="true"
-			 horizontalCenter="0" sideFlip="true" top="40">
-
-		<!--rs:Page backgroundAlpha="1" ></rs:Page-->
-		
-		<!--rs:Page backgroundAlpha="1" >
-			<ResultPageRelated:ResultSuggestionPage />
-		</rs:Page-->
-
-		<rs:Page hard="true">
-			<ResultPageRelated:ResultFrontPage 
-				id="frontPage" 
-				width="100%" height="100%"
-				nextPageClicked="nextPageButtonClicked(event)"
-				performanceImproveLinkClicked="showPerformanceImproveTip(event)"
-				/>			
-		</rs:Page>
-			
-		<rs:Page>
-			<ResultPageRelated:marksStatsPage id="markStatPage"/>
-		</rs:Page>
-		
-		<rs:Page>
-			<ResultPageRelated:ResultPieChart id="marksPieChartPage"/>
-		</rs:Page>
-		
-		<rs:Page>
-			<ResultPageRelated:timeStatsPage 
-				id="timeStatPage"
-				timeStatsHelpLinkClicked="showTimeStatHelpLink(event)"							 
-				/>
-		</rs:Page>
-		
-		<rs:Page>
-			<ResultPageRelated:ResultBarGraph id="timeBarGraphPage"/>
-		</rs:Page>
-		
-		<rs:Page>
-			<ResultPageRelated:ResultEndPage />
-		</rs:Page>
-
-	</rs:Book>
-	
-	<s:Button bottom="20" width="15%" height="5%" label="Retake Test" horizontalCenter="-100"
-			  click="retakeButtonClicked(event)"/>
-	
-	<s:Button bottom="20" width="15%" height="5%" label="Review Test" horizontalCenter="100"
-			  click="reviewButtonClicked(event)"/>
-	
-	<s:Button id="quitbutton" right="10" top="10" width="40" height="40" label="Button"
-			  skinClass="skins.roundButtonSkin"
-			  click="quitButtonClicked(event)"/>
-
-	<s:Button id="nextPageButton" visible="true" right="10" width="50" height="50"
-			  label="Next" click="nextPageButtonClicked(event)" skinClass="skins.roundButtonSkin"
-			  icon="@Embed(source='assets/nextIcon.swf')"
-			  verticalCenter="0"/>
-	
-	<s:Button id="prevPageButton" visible="false" left="10" width="50" height="50"
-			  label="Prev" click="prevPageButtonClicked(event)" skinClass="skins.roundButtonSkin"
-			  verticalCenter="0"/>
-	
-	<!--s:BorderContainer right="20" top="10" bottom="20" height="100%"
+	<s:BorderContainer right="20" top="10" bottom="20" height="100%"
 					   backgroundAlpha="0.0" backgroundColor="#797777" borderVisible="false"
 					   borderWeight="3" dropShadowVisible="false"
 					   width="50%">
@@ -432,10 +304,10 @@
 					  color="#FFFFFF" cornerRadius="17" horizontalCenter="0" resizeToContent="true"
 					  symbolColor.marksStats="#FFFFFF">
 			<s:NavigatorContent height="100%" width="100%" label="marks Statistics">
-				<components:marksStatsView testResult="{testResult}" id="marksResultView" width="100%" height="100%"/>
+				<ResultPageRelated:marksStatsView testResult="{testResult}" id="marksResultView" width="100%" height="100%"/>
 			</s:NavigatorContent>
 			<s:NavigatorContent height="100%" width="100%" label="Question Statistics">
-				<components:timeStatsView testResult="{testResult}" id="timeResultView" width="100%" height="100%"/> 
+				<ResultPageRelated:timeStatsView testResult="{testResult}" id="timeResultView" width="100%" height="100%"/> 
 			</s:NavigatorContent>
 		</mx:Accordion>
 		
@@ -448,6 +320,6 @@
 				  fontSize="15" fontStyle="italic" fontWeight="bold"
 				  right="30" bottom="30"/>
 		<s:Button x="148" y="10" label="Quit" click="testQuitButtonClicked(event)"/>
-	</s:BorderContainer-->
+	</s:BorderContainer>
 
 </s:BorderContainer>

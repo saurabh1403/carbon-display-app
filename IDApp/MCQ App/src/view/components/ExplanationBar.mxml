@@ -4,7 +4,8 @@
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
 				   borderAlpha="0.61" borderColor="#2A2A2A" 
 				   borderWeight="8" cornerRadius="15"
-				   dropShadowVisible="true">
+				   dropShadowVisible="true"
+				   toolTip="click to expand the explanation">
 
 	<s:layout>
 		<s:BasicLayout/>
