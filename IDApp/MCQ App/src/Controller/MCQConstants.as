@@ -27,6 +27,13 @@ package Controller
 		static public const testViewStartEventName:String = "testViewStart";
 		static public const testQuitEventName:String = "quiteTest";
 
+		//views name 
+		static public const HomeDisplayView:String = "HomeDisplay";
+		static public const TestRulesView:String = "testRulesView";
+		static public const TestDisplayView:String = "testView";
+		static public const TestResultView:String = "testResultView";
+		
+		
 		//choices type
 		static public const radioTypeQues:String = "Radio";
 		static public const checkBoxTypeQues:String = "CheckBox";

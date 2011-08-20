@@ -16,6 +16,13 @@
 
 			private var xmlPathData:ArrayCollection = new ArrayCollection();
 			private var baseFolderPath:String = "";
+		
+			public function resetView():void
+			{
+				xmlPathData.removeAll();
+				baseFolderPath = "";
+			}
+			
 			//TODO: make here three buttons according to three levels
 			protected function button1_clickHandler(event:MouseEvent):void
 			{

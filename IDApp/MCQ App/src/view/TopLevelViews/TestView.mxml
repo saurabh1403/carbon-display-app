@@ -4,7 +4,8 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:components="view.components.*"
 		 width="100%" height="100%" currentState="TestMode"
-		 creationComplete="group1_creationCompleteHandler(event)" xmlns:GeneralComponents="view.components.GeneralComponents.*"
+		 creationComplete="group1_creationCompleteHandler(event)" 
+		 xmlns:GeneralComponents="view.components.GeneralComponents.*"
 		 >
 	
 	<fx:Script>
@@ -53,31 +54,67 @@
 			private var secondsLeft:int = 0;			
 			private var hourLeft:int = 0;
 			private var minuteLeft:int = 0;
-
+			
 			private var currQues:Question = null;
 			
 			private var isExplanationExpanded:Boolean = false;
 			
+			public function resetView():void
+			{
+				currQuesNumber = 0;
+				totalQuesCount = 0;
+				
+				quesAttemptedTrack;
+				quesAttempted = 0;
+				
+				currQuesMark = "";
+				timePassed = "";
+				
+				timeLeft = "";		//time which is left to complete the test
+				
+				quesAttemptedTrack = null;
+				quesAttemptedTrack = new Dictionary();
+				
+				currViewTimer.reset();
+				
+				currQuesTimer.reset();
+				
+				//timer related 
+				secondsPassed = 0;			
+				hourPassed = 0;
+				minutePassed = 0;
+				
+				secondsLeft = 0;			
+				hourLeft = 0;
+				minuteLeft = 0;
+				
+				currQues = null;
+				
+				isExplanationExpanded = false;
+				
+				initView();
+			}
+			
 			protected function FinishHandler(event:MouseEvent):void
 			{
 				var resEvent:TestResultEvent = new TestResultEvent(MCQConstants.testCompletedEventName);
-
+				
 				if(currentState == "TestMode")
 				{
 					currQuesDone();
-
+					
 					resEvent.hourPassed = this.hourPassed;
 					resEvent.minutePassed = this.minutePassed;
 					resEvent.secondsPassed = this.secondsPassed;
-
+					
 					resEvent.quesAttempted = this.quesAttempted;
 					resEvent.totalQuesCount = this.totalQuesCount;
 					resEvent.totalTimeTaken = this.timePassed;
-
+					
 					resEvent.isTestMode = true;
 					
 				}
-				
+					
 				else
 				{
 					resEvent.isTestMode = false;
@@ -94,7 +131,7 @@
 				detailView.setCurrentState("TextState");
 				detailView.width = MCQConstants.appWidth - 40;
 				detailView.height = MCQConstants.appHeight - 40;
-
+				
 				PopUpManager.addPopUp(detailView, this, true);
 				PopUpManager.centerPopUp(detailView);
 			}
@@ -124,7 +161,7 @@
 				timeLeft = formatTime(hourLeft) + ":" + formatTime(minuteLeft) + ":" + formatTime(secondsLeft);
 				
 				timerHandlerCountUp(event);
-
+				
 			}
 			
 			protected function promptTimeOut():void
@@ -156,7 +193,7 @@
 				
 				//format the string
 				timePassed = formatTime(hourPassed) + ":" + formatTime(minutePassed) + ":" + formatTime(secondsPassed);
-					
+				
 			}
 			
 			protected function formatTime(i:int):String
@@ -173,7 +210,6 @@
 			
 			public function initView(curState:String = "TestMode"):void
 			{
-//				this.setCurrentState(curState);
 				currViewTimer.start();
 				
 				var quesProxy:QuestionsProxy = DataProcessor.instance.quesProxy;
@@ -189,6 +225,7 @@
 				diagram.addEventListener(MCQConstants.diagramClickEventName, diagClicked, false, 0, true);
 				
 				choiceBox.setCurrentState(currentState);
+				choiceBox.initRadioButtons();
 				
 				populateDataOnScreen(currQues);
 				
@@ -197,7 +234,7 @@
 					quesProgress.setProgress(quesAttempted, totalQuesCount);
 					quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
 					currViewTimer.addEventListener(TimerEvent.TIMER, timerHandlerCountDown, false, 0, true);
-
+					
 					secondsLeft = 0;
 					minuteLeft = quesProxy.testTotalTime % 60;
 					hourLeft = quesProxy.testTotalTime / 60;
@@ -207,15 +244,14 @@
 					//TODO: it is not working
 					initQuesBoxButtonsInReviewMode();
 				}
-
+				
 			}
-
+			
 			public function disposeView():void
 			{
 				this.removeAllElements();
-				
 			}
-
+			
 			protected function diagClicked(event:Event):void
 			{
 				var diagOverlay:DetailOverlay = new DetailOverlay();
@@ -228,7 +264,7 @@
 				
 				PopUpManager.addPopUp(diagOverlay, this, true);
 				PopUpManager.centerPopUp(diagOverlay);
-
+				
 			}
 			
 			//this commits all the data for the current question
@@ -246,13 +282,13 @@
 				
 				if(currQues.isQuesMarkedForReview)
 					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesReviewState"] as int);
-				
+					
 				else if(currQues.isQuesAttempted)
 					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesAttempted"] as int);
-
+					
 				else
 					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
-
+				
 				//update the progress bar
 				quesProgress.setProgress(quesAttempted, totalQuesCount);
 				quesProgress.label = quesAttempted.toString() + "/" + totalQuesCount.toString() + " completed";
@@ -292,13 +328,13 @@
 				
 				if(currentState == "TestMode")
 					currQuesDone();
-
-//				else
-//					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
-
+				
+				//				else
+				//					quesBox.setButtonColor(currQuesNumber,MCQConstants.quesStateColor["quesUnAttempted"] as int);
+				
 				if(event.target.id == "nextButton")
 					currQuesNumber = ((currQuesNumber + 1) % totalQuesCount);
-
+					
 				else if(event.target.id == "prevButton")
 				{
 					if(currQuesNumber == 0)
@@ -306,7 +342,7 @@
 					else
 						currQuesNumber = (currQuesNumber - 1);
 				}
-
+					
 				else
 				{
 					var newEvent:QuesButtClickEvent = event as QuesButtClickEvent;
@@ -329,7 +365,7 @@
 					quesReviewCheckBox.selected = (_currQues.isQuesMarkedForReview);
 					quesBox.setButtonColor(currQuesNumber, MCQConstants.quesStateColor["currQuesSelected"] as int);
 				}
-				
+					
 				else
 				{
 					isExplanationExpanded = false;
@@ -361,7 +397,7 @@
 				{
 					currQues.isQuesMarkedForReview = true;
 				}
-				
+					
 				else
 				{
 					currQues.isQuesMarkedForReview = false;
@@ -387,10 +423,9 @@
 					quesExplanation.percentHeight = 60;
 					isExplanationExpanded = true;
 				}
-
+				
 			}
-			
-			
+
 		]]>
 	</fx:Script>
 	<s:states>
@@ -412,16 +447,16 @@
 		</components:choicesBox>
 		<s:RichText id="quesStatement" left="20" top="40" width="90%" height="15%"
 					chromeColor="#FCFBFB" color="#678C60" fontFamily="Verdana"
-					 paddingBottom="10" paddingTop="10" text="Sample statement"
+					paddingBottom="10" paddingTop="10" text="Sample statement"
 					textAlign="left" verticalAlign="top"
 					fontSize="18" fontWeight="normal"/>
 		<GeneralComponents:DiagramDisplayer id="diagram" right="10" top="120" width="25%" height="40%"
-									 />
+											/>
 		<components:ExplanationBar id="quesExplanation" includeIn="ReviewMode" bottom="20"
 								   width="70%" height="13%" horizontalCenter="0"
 								   click="expandExplanation(event)">
 		</components:ExplanationBar>
-		
+
 		<s:Button id="nextButton" right="10" bottom="20" width="7%" height="7%" label="Next"
 				  click="quesChangedEventHandler(event)"
 				  chromeColor.TestMode="#DD9C9C"/>
@@ -435,7 +470,7 @@
 		<s:Button includeIn="TestMode" right="0" top="0" width="10%" height="4%" label="Quit"
 				  click="testQuitButtonClicked(event)"
 				  />
-		
+
 		<!--s:Button click="currentState = 'ReviewMode'" x="300" y="200"/-->
 	</s:BorderContainer>
 	<s:Panel right="6" top="10" bottom="10" width="20%">

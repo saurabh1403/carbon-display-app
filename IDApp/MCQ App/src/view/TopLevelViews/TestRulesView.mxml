@@ -24,7 +24,7 @@
 				
 			}
 			
-			protected function bordercontainer1_initializeHandler(event:FlexEvent):void
+			public function resetView():void
 			{
 				var quesProxy:QuestionsProxy = DataProcessor.instance.quesProxy;
 				
@@ -38,9 +38,14 @@
 				
 				subjectLabel.text = quesProxy.testSubjectName;
 				testLabel.text = quesProxy.testTitle;
-				
-			}
 
+			}
+			
+			protected function bordercontainer1_initializeHandler(event:FlexEvent):void
+			{
+				resetView();
+			}
+			
 			
 			protected function testStartClicked(event:Event):void
 			{

@@ -23,6 +23,8 @@
 			import view.TopLevelViews.TestView;
 			import view.TopLevelViews.TestView2;
 			
+			var topLevelView:Dictionary = new Dictionary();
+			
 			public var testXmlPath:String = "D:\\test\\test.xml";
 			
 			public var testNumber:int = -1;
@@ -43,23 +45,42 @@
 				initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
 			}
 			
-			protected function showHomeDisplay(event:Event):void
+		   	protected function showHomeDisplay(event:Event):void
 			{
 				//reset all the variables here
 				if(event !=null)
 				{
-					event.target.disposeView();
+//					event.target.disposeView();
 				}
 				
 				DataProcessor.instance.quesProxy.reset();
-				var homeView:HomeDisplay = new HomeDisplay();
-				homeView.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
-				homeView.addEventListener(FlexEvent.CREATION_COMPLETE, homeViewCreationComplete, false, 0, true);
+				
+				if(topLevelView[MCQConstants.HomeDisplayView] == null)
+				{
+					var hD:HomeDisplay = new HomeDisplay();
+					topLevelView[MCQConstants.HomeDisplayView] = hD;
+					hD.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
+					hD.addEventListener(FlexEvent.CREATION_COMPLETE, homeViewCreationComplete, false, 0, true);
+				}
+				else
+				{
+					(topLevelView[MCQConstants.HomeDisplayView] as HomeDisplay).resetView();
+					(topLevelView[MCQConstants.HomeDisplayView] as HomeDisplay).initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
+				}
 				
 				this.removeAllElements();
-				this.addElement(homeView);
+				this.addElement(topLevelView[MCQConstants.HomeDisplayView] as HomeDisplay);
 			}
 			
+			public function disposeView():void
+			{
+				for (var key:String in topLevelView)
+				{
+					topLevelView[key]= null;
+					delete topLevelView[key];
+				}
+			}
+
 			private function homeViewCreationComplete(event:Event):void
 			{
 				var homeView:HomeDisplay = event.target as HomeDisplay;
@@ -72,19 +93,28 @@
 				{
 					if(event.isTestMode)
 						DataProcessor.instance.quesProxy.processQuestionsStats(event);
-					
-					var testResult:TestResultDisplay = new TestResultDisplay(); 
-					
-					testResult.addEventListener(MCQConstants.testReviewEventName, startTestInReviewMode, false, 0, true);
-					testResult.addEventListener(MCQConstants.testViewStartEventName, startTest, false, 0, true);
-					testResult.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+
+					if(topLevelView[MCQConstants.TestResultView] == null)
+					{
+						var testResult:TestResultDisplay = new TestResultDisplay();
+						topLevelView[MCQConstants.TestResultView] = testResult;
+
+						testResult.addEventListener(MCQConstants.testReviewEventName, startTestInReviewMode, false, 0, true);
+						testResult.addEventListener(MCQConstants.testViewStartEventName, startTest, false, 0, true);
+						testResult.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+					}
+					else
+					{
+						(topLevelView[MCQConstants.TestResultView] as TestResultDisplay).resetView();
+					}
 					
 					this.removeAllElements();
-					this.addElement(testResult);
-					testResult.processData(DataProcessor.instance.quesProxy);
+					this.addElement(topLevelView[MCQConstants.TestResultView]);
+					(topLevelView[MCQConstants.TestResultView] as TestResultDisplay).processData(DataProcessor.instance.quesProxy);
+
 				}
 			}
-			
+
 			//TODO:
 			protected function showErrorMsg():void
 			{
@@ -96,26 +126,33 @@
 			{
 				if(event !=null)
 				{
-					event.target.disposeView();
+//					event.target.disposeView();
 				}
+
 				else
 				{
 					showErrorMsg();
 					return;
 				}
-				
-				var newTest:TestRulesView = new TestRulesView();
-				
+			
 				DataProcessor.instance.quesProxy.initProxyWithXml(event.testFolderPath, event.testXmlName);
 				testNumber = event.testNumber;
+
+				if(topLevelView[MCQConstants.TestRulesView] == null)
+				{
+					var testRules:TestRulesView = new TestRulesView();
+					topLevelView[MCQConstants.TestRulesView] = testRules;
+					
+					testRules.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
+					testRules.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+				else
+				{
+					(topLevelView[MCQConstants.TestRulesView] as TestRulesView).resetView();
+				}
 				
-				newTest.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
-				newTest.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
-				
-				//get the test number here and then start the test
 				this.removeAllElements();
-				
-				this.addElement(newTest);
+				this.addElement(topLevelView[MCQConstants.TestRulesView]);
 			}
 			
 			//just for testing
@@ -132,38 +169,65 @@
 			{
 				if(event !=null)
 				{
-					event.target.disposeView();
+//					event.target.disposeView();
 				}
 				event = null;
 				
-				var testView:TestView = new TestView();
 				
-				testView.setCurrentState("TestMode");
+				if(topLevelView[MCQConstants.TestDisplayView] == null)
+				{
+					var currTestView:TestView = new TestView();
+					topLevelView[MCQConstants.TestDisplayView] = currTestView;
+					currTestView.setCurrentState("TestMode");
+					
+					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
 				
-				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
-				testView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				else
+				{
+					(topLevelView[MCQConstants.TestDisplayView] as TestView).setCurrentState("TestMode");
+					(topLevelView[MCQConstants.TestDisplayView] as TestView).resetView();
+				}
+
 				this.removeAllElements();
-				this.addElement(testView);
-				
+				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
 			}
 			
 			protected function startTestInReviewMode(event:Event):void
 			{
 				if(event !=null)
 				{
-					event.target.disposeView();
+//					event.target.disposeView();
 				}
+
 				event = null;
 				
 				this.removeAllElements();
-				var testView:TestView = new TestView();
-				testView.setCurrentState("ReviewMode");
-				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
-				this.addElement(testView);
+				
+				if(topLevelView[MCQConstants.TestDisplayView] == null)
+				{
+					var currTestView:TestView = new TestView();
+					topLevelView[MCQConstants.TestDisplayView] = currTestView;
+					currTestView.setCurrentState("ReviewMode");
+					
+					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+				
+				else
+				{
+					(topLevelView[MCQConstants.TestDisplayView] as TestView).setCurrentState("ReviewMode");
+					(topLevelView[MCQConstants.TestDisplayView] as TestView).resetView();
+				}
+				
+				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
 			}
 			
 		]]>
 	</fx:Script>
+	
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
