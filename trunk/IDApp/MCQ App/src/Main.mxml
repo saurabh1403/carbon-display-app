@@ -22,17 +22,17 @@
 			import view.TopLevelViews.TestRulesView;
 			import view.TopLevelViews.TestView;
 			import view.TopLevelViews.TestView2;
-
+			
 			public var testXmlPath:String = "D:\\test\\test.xml";
-
+			
 			public var testNumber:int = -1;
-
+			
 			//***************************to be called by the external module to init the test view*************
 			public function initWithData(baseFolderPath:String, levelXmlPath:String):void
 			{
 				showHomeDisplay(null);
 			}
-
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				MCQConstants.appWidth = this.width;
@@ -42,7 +42,7 @@
 				
 				initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
 			}
-
+			
 			protected function showHomeDisplay(event:Event):void
 			{
 				//reset all the variables here
@@ -50,12 +50,12 @@
 				{
 					event.target.disposeView();
 				}
-
+				
 				DataProcessor.instance.quesProxy.reset();
 				var homeView:HomeDisplay = new HomeDisplay();
 				homeView.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
 				homeView.addEventListener(FlexEvent.CREATION_COMPLETE, homeViewCreationComplete, false, 0, true);
-
+				
 				this.removeAllElements();
 				this.addElement(homeView);
 			}
@@ -65,7 +65,7 @@
 				var homeView:HomeDisplay = event.target as HomeDisplay;
 				homeView.initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml); 
 			}
-
+			
 			protected function testCompleted(event:TestResultEvent):void
 			{
 				if(event!=null)
@@ -91,7 +91,7 @@
 				//show error dialogue here
 				
 			}
-
+			
 			protected function startTest(event:TestSelectionEvent):void
 			{
 				if(event !=null)
@@ -103,30 +103,31 @@
 					showErrorMsg();
 					return;
 				}
-
+				
 				var newTest:TestRulesView = new TestRulesView();
-
+				
 				DataProcessor.instance.quesProxy.initProxyWithXml(event.testFolderPath, event.testXmlName);
 				testNumber = event.testNumber;
-
+				
 				newTest.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
 				newTest.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
-
+				
 				//get the test number here and then start the test
 				this.removeAllElements();
-
+				
 				this.addElement(newTest);
 			}
-
+			
+			//just for testing
 			protected function startTestView2(event:Event):void
 			{
 				var testView2:TestView2 = new TestView2();
 				testView2.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
 				this.removeAllElements();
 				this.addElement(testView2);
-
+				
 			}
-
+			
 			protected function startTestView(event:Event):void
 			{
 				if(event !=null)
@@ -134,18 +135,18 @@
 					event.target.disposeView();
 				}
 				event = null;
-
+				
 				var testView:TestView = new TestView();
 				
 				testView.setCurrentState("TestMode");
-
+				
 				testView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
 				testView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
 				this.removeAllElements();
 				this.addElement(testView);
-
+				
 			}
-
+			
 			protected function startTestInReviewMode(event:Event):void
 			{
 				if(event !=null)
@@ -153,7 +154,7 @@
 					event.target.disposeView();
 				}
 				event = null;
-
+				
 				this.removeAllElements();
 				var testView:TestView = new TestView();
 				testView.setCurrentState("ReviewMode");

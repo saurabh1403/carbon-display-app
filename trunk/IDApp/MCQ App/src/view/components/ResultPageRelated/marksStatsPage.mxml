@@ -10,14 +10,30 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import model.QuestionsProxy;
 			private const leftPaddingSpace:int = 40;
 			private const centrePaddingSpace:int = 70;
+			
+			public function updateView(quesProxy:QuestionsProxy):void
+			{
+				total_ques.text = quesProxy.testResult.totalQuestions.toString();
+				corr_ques.text = quesProxy.testResult.totalCorrectQuestion.toString();
+				wrong_ques.text = (quesProxy.testResult.totalQuesAttempted - quesProxy.testResult.totalCorrectQuestion).toString();
+				unattempted_ques.text = (quesProxy.testResult.totalQuestions - quesProxy.testResult.totalQuesAttempted).toString();
+				
+				total_marks.text = quesProxy.testResult.totalMarks.toString();
+				marks_obtained.text = quesProxy.testResult.marksObtained.toString();
+				percentage.text = quesProxy.testResult.percentObtained + " %";
+				grade.text = quesProxy.testResult.gradeObtained;
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<s:Image 
 		width="100%" height="100%"
-		source="@Embed('assets/old_paper1.jpg')"
+		source="@Embed('assets/old-paper1.jpg')"
 		smooth="true"
 		smoothingQuality="high"
 		scaleMode="stretch"

@@ -122,6 +122,8 @@
 				
 				//format the string
 				timeLeft = formatTime(hourLeft) + ":" + formatTime(minuteLeft) + ":" + formatTime(secondsLeft);
+				
+				timerHandlerCountUp(event);
 
 			}
 			
@@ -207,7 +209,7 @@
 				}
 
 			}
-			
+
 			public function disposeView():void
 			{
 				this.removeAllElements();
