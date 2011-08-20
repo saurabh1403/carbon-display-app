@@ -29,9 +29,9 @@
 			
 			[Bindable]
 			public var isImgVisible:Boolean;
-
+			
 			[Bindable]
-			public var imgSource:String;
+			public var isChoiceRight:Boolean;
 
 			//this should be called first when this view is getting created
 			public function initView(curState:String = "TestMode"):void
@@ -54,11 +54,12 @@
 						rad.selected = true;
 						isImgVisible = true;
 						
-						if(isCorrectAnswer)
-							imgSource = "assets/Ok-icon.png";
-						
-						else
-							imgSource = "assets/Quit-icon.png";
+						isChoiceRight = isCorrectAnswer;
+//						if(isCorrectAnswer)
+//							imgSource = "assets/Ok-icon.png";
+//						
+//						else
+//							imgSource = "assets/Quit-icon.png";
 					}
 					
 					else
@@ -67,7 +68,8 @@
 						if(isCorrectAnswer)
 						{
 							isImgVisible = true;
-							imgSource = "assets/Ok-icon.png";
+							isChoiceRight = true;
+//							imgSource = "assets/Ok-icon.png";
 						}
 						else
 						{
@@ -108,12 +110,22 @@
 				   fontStyle="normal" skinClass="skins.CustomMultilineRadioButtonSkin"
 				   left="0" fontSize="12" verticalCenter="0"/>
 	<s:Spacer width="3%" includeIn="ReviewMode"/>
-	<s:Image id="img" scaleMode="stretch"
+	<s:Image id="ok_img" scaleMode="stretch"
 			 includeIn="ReviewMode"
 			 smooth="true" smoothingQuality="high"
 			 width="25" height="20"
-			 visible="{isImgVisible}"
-			 source="{imgSource}"
+			 visible="{isImgVisible &amp;&amp; isChoiceRight}"
+			 includeInLayout="{isImgVisible &amp;&amp; isChoiceRight}"
+			 source="@Embed('assets/Ok-icon.png')"
+			 />
+
+	<s:Image id="wrong_img" scaleMode="stretch"
+			 includeIn="ReviewMode"
+			 smooth="true" smoothingQuality="high"
+			 width="25" height="20"
+			 source="@Embed('assets/Quit-icon.png')"
+			 visible="{isImgVisible &amp;&amp; !isChoiceRight}"
+			 includeInLayout="{isImgVisible &amp;&amp; !isChoiceRight}"
 			 />
 
 </s:Group>

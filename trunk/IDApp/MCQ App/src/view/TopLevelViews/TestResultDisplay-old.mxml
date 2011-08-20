@@ -5,7 +5,8 @@
 				   xmlns:components="view.components.*"
 				   width="100%" height="100%" backgroundColor="#595656"
 				   contentBackgroundColor="#706C6C"
-				   borderVisible="true" borderWeight="1" xmlns:ResultPageRelated="view.components.ResultPageRelated.*">
+				   borderVisible="true" borderWeight="1" 
+				   xmlns:ResultPageRelated="view.components.ResultPageRelated.*">
 	
 	<fx:Script>
 		<![CDATA[
