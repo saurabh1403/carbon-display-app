@@ -1,8 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:effects="imports.DrillDownCharts.qs.charts.effects.*"
+		 xmlns:local="imports.DrillDownCharts.*"
+		 width="100%" height="100%"
+		 creationComplete="group1_creationCompleteHandler(event)"
+		 >
+	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<effects:DrillDownEffect id="effD" duration="1500"  effectEnd="chart.mouseChildren = true;" />
+		<effects:DrillUpEffect id="effU" duration="1500" effectEnd="chart.mouseChildren = true;" />
 	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.charts.ChartItem;
+			import mx.charts.chartClasses.ChartBase;
+			import mx.charts.chartClasses.Series;
+			import mx.charts.events.ChartItemEvent;
+			import mx.events.FlexEvent;
+			
+			private var min:Number = 0;
+			private var max:Number = 100;
+			private var chart:ChartBase;
+			private var series:Series;
+			
+			private var rootNode:XML = <root value='' name="root" />;
+			
+			public function catLabel(value:XML,field:String,index:Number,percent:Number):String
+			{
+				return value.@label;
+			}
+			
+			public function changeChartType():void
+			{
+				chart = columnChart;
+				series = columnSeries;
+				chart.setStyle("showDataEffect",null);
+				chart.dataProvider = genDataFrom(rootNode);					
+			}
+			
+			public function genDataFrom(node:XML):XMLList
+			{
+				var count:Number = Math.round(Math.random()*26 +2);
+				var aCharCode:Number = ("A").charCodeAt(0);
+				var children:XMLList = rootNode.children();
+				if(children.length() == 0)
+				{
+					var rootLabel:String = node.@label;
+					for(var i:int = 0;i < count;i++)
+					{
+						rootNode.appendChild( <node label={rootLabel + "." +  String.fromCharCode(aCharCode+i)}
+							name={rootLabel + "." + String.fromCharCode(aCharCode+i)} value={Math.random()*100} /> );
+					}
+				}
+				return node.children();
+			}
+			
+			
+			public function drillDown(e:ChartItemEvent):void
+			{
+				chart.mouseChildren = false;
+				effD.drillFromIndex = e.hitData.chartItem.index;
+				series.setStyle("showDataEffect",effD);		
+				rootNode = XML(e.hitData.chartItem.item);
+				chart.dataProvider = genDataFrom(rootNode);					
+			}
+			public function drillUp():void
+			{
+				if (rootNode.parent() == null)
+					return;
+				
+				drillUpTo(rootNode.parent());
+			}
+			public function drillUpTo(node:XML):void
+			{
+				if(rootNode == node)
+					return;
+				
+				while(rootNode.parent() != node)
+					rootNode = rootNode.parent();
+				
+				chart.mouseChildren = false;
+				series.setStyle("showDataEffect",effU);
+				effU.drillToIndex = rootNode.childIndex();		
+				rootNode = rootNode.parent();
+				chart.dataProvider = genDataFrom(rootNode);					
+			}
+
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				changeChartType();
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:Image 
+		width="100%" height="100%"
+		source="@Embed('assets/old-paper2.jpg')"
+		smooth="true"
+		smoothingQuality="high"
+		scaleMode="stretch"
+		/>
+	
+	<s:Label top="35" color="#242323" fontFamily="Arial"
+			 fontSize="22" fontStyle="italic" horizontalCenter="0"
+			 text="Time Statistics" textAlign="center" textDecoration="underline"
+			 verticalAlign="middle" fontWeight="bold"/>
+	
+	<s:BorderContainer horizontalCenter="0" verticalCenter="20" width="95%" height="65%" creationPolicy="auto">
+
+	<mx:HRule strokeWidth="1" strokeColor="#FFFFFF" width="100%" />
+	<mx:HBox width="100%">
+			<mx:VBox width="100%" height="100%">			
+				<mx:ColumnChart width="100%" height="100%" id = "columnChart"
+								color="#FFFFFF"
+								itemClick="drillDown(event);" 
+								gutterLeft="40" gutterBottom="40" gutterRight="40"
+								>
+					<mx:fill>
+						<mx:SolidColor color="#000000" />
+					</mx:fill>
+					<mx:horizontalAxisRenderers>
+						<mx:AxisRenderer tickLength="2" axis="{hAxis}">
+							<mx:axisStroke>
+								<mx:Stroke weight="1" color="#FFFFFF" />
+							</mx:axisStroke>			
+							<mx:tickStroke>
+								<mx:Stroke weight="1" color="#FFFFFF" />						
+							</mx:tickStroke>		
+						</mx:AxisRenderer>
+					</mx:horizontalAxisRenderers>
+					<!--mx:verticalAxisRenderers>
+					<mx:AxisRenderer tickLength="2">
+					<mx:axisStroke>
+					<mx:Stroke weight="1" color="#FFFFFF" />
+					</mx:axisStroke>			
+					<mx:tickStroke>
+					<mx:Stroke weight="1" color="#FFFFFF" />						
+					</mx:tickStroke>		
+					</mx:AxisRenderer>				
+					</mx:verticalAxisRenderers-->
+					<mx:horizontalAxis>
+						<mx:CategoryAxis id="hAxis" categoryField="@label" />
+					</mx:horizontalAxis>
+					<mx:series>
+						<mx:ColumnSeries id="columnSeries" yField="@value">
+							<mx:itemRenderer>
+								<fx:Component>
+									<local:RollOverBoxItemRenderer color="#FFFFFF" overColor="#BBBBBB" downColor="#888888" />
+								</fx:Component>
+							</mx:itemRenderer>
+						</mx:ColumnSeries>
+					</mx:series>
+				</mx:ColumnChart>
+			</mx:VBox>
+	</mx:HBox>
+	<mx:HRule strokeWidth="1" strokeColor="#FFFFFF" width="100%"/>
+	<mx:HBox width="100%">
+	</mx:HBox>
+	</s:BorderContainer>
+
 </s:Group>

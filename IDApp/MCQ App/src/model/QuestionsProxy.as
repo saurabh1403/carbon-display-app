@@ -105,7 +105,7 @@ package model
 
 			testResult.totalTimeTakenVal = resData.hourPassed * 3600 + resData.minutePassed *60 + resData.secondsPassed;
 			testResult.totalQuestions = resData.totalQuesCount;
-			testResult.totalTimeTakenStr = resData.totalTimeTaken;
+			testResult.totalTimeTakenStr = resData.totalTimeTaken ;
 
 			testResult.totalQuesAttempted = resData.quesAttempted;
 
@@ -138,9 +138,28 @@ package model
 			
 			var numFormat:flash.globalization.NumberFormatter = new flash.globalization.NumberFormatter("en_US");
 			numFormat.fractionalDigits = 2;
+
+			var percent:Number = (testResult.marksObtained *100/ testResult.totalMarks);
 			
-			testResult.percentObtained = numFormat.formatNumber((testResult.marksObtained * 100 )/ testResult.totalMarks);
+			testResult.percentObtained = numFormat.formatNumber(percent);
 			
+			if(percent > 90)
+				testResult.gradeObtained = "A+";
+			
+			else if(percent > 80)
+				testResult.gradeObtained = "A";
+			
+			else if(percent > 70)
+				testResult.gradeObtained  = "B+";
+			
+			else if (percent > 60)
+				testResult.gradeObtained = "B";
+			
+			else if(percent > 40)
+				testResult.gradeObtained = "C";
+			
+			else
+				testResult.gradeObtained = "F (fail)";
 			
 			trace("here");
 		}

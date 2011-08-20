@@ -25,6 +25,7 @@ package model
 		public var totalMarks:int = 0;
 		public var marksObtained:int = 0;
 		public var percentObtained:String = "";
+		public var gradeObtained:String = "";
 
 		public function resetStats():void
 		{

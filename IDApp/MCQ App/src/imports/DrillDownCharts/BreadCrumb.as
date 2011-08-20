@@ -1,4 +1,4 @@
-package
+package imports.DrillDownCharts
 {
 	import mx.containers.HBox;
 	import mx.controls.LinkButton;

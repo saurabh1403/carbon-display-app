@@ -14,8 +14,19 @@
 
 	<fx:Script>
 		<![CDATA[
+			import model.QuestionsProxy;
 			private const leftPaddingSpace:int = 20;
 			private const centrePaddingSpace:int = 90;
+			
+			public function updateView(quesProxy:QuestionsProxy):void
+			{
+				total_ques.text = quesProxy.testResult.totalTimeTakenStr  + " sec";
+				corr_ques.text = quesProxy.testResult.timeSpentOnCorrectQues.toString()+ " sec";
+				wrong_ques.text = quesProxy.testResult.timeSpentOnIncorrectQues.toString()+ " sec";
+				unattempted_ques.text = quesProxy.testResult.timeSpentOnUnansweredQues.toString()+ " sec";
+				average_time.text = (quesProxy.testResult.totalTimeTakenVal/quesProxy.testResult.totalQuesAttempted).toString()+ " sec";
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -36,10 +47,11 @@
 				 horizontalCenter="-50" lineThrough="false" text="Time Statistics"
 				 textDecoration="underline"/>
 		<s:Spacer height="5%"/>
-
-		<s:HGroup>			
-		<s:RichText left="{leftPaddingSpace}" fontSize="15" fontStyle="italic" fontWeight="bold"
-					text="Time Spent On " />
+		
+		<s:HGroup verticalAlign="top" width="100%">		
+			<s:Spacer width="{leftPaddingSpace}"/>
+			<s:RichText fontSize="15" fontStyle="italic" fontWeight="bold"
+						text="Time Spent On " />
 		</s:HGroup>
 		
 		<s:BorderContainer width="100%" backgroundAlpha="0.0" backgroundColor="#989696"
@@ -65,7 +77,7 @@
 						fontWeight="bold" horizontalCenter="{centrePaddingSpace}" text="sdsd"/>
 			<s:RichText id="unattempted_ques" top="140" color="#F1FA67" fontSize="17" fontStyle="italic"
 						fontWeight="bold" horizontalCenter="{centrePaddingSpace}" text="sdsd"/>
-			<s:RichText id="unattempted_ques1" top="200" color="#1480DB" fontSize="17" fontStyle="italic"
+			<s:RichText id="average_time" top="200" color="#1480DB" fontSize="17" fontStyle="italic"
 						fontWeight="bold" horizontalCenter="{centrePaddingSpace}" text="sdsd"/>
 			
 		</s:BorderContainer>
