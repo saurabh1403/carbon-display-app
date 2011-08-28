@@ -31,7 +31,7 @@
 			private var nCounter:int = 0;
 			
 			public static var _appInstance:Tutorial;	
-
+			
 			protected function windowedapplication1_applicationCompleteHandler(event:FlexEvent):void
 			{				
 				_appInstance = this;
@@ -75,19 +75,19 @@
 				
 				timer.stop();
 			}
-
-
+			
+			
 			protected function windowedapplication1_activateHandler(event:Event):void
 			{
 				//add functionality to handle any case where user brings the focus back to this application
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_WINDOWACTIVATED);
 			}
-
+			
 			protected function image1_creationCompleteHandler(event:FlexEvent):void
 			{
 				//this.visible = true;
 			}
-
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				var splashScreen:NativeWindow = this.nativeWindow;
@@ -96,13 +96,13 @@
 				splashScreen.y = (Screen.mainScreen.visibleBounds.height -
 					splashScreen.height) / 2; 
 			}
-
-
+			
+			
 			protected function image1_clickHandler(event:MouseEvent):void
 			{
 				//proceedToMainView();
 			}
-
+			
 			public function proceedToMainView():void
 			{
 				myCan.visible = false;
@@ -121,7 +121,7 @@
 				splashScreen.y = (Screen.mainScreen.visibleBounds.height -
 					splashScreen.height) / 2;
 			}
-
+			
 			protected function windowedapplication1_closeHandler(event:Event):void
 			{
 				if(NativeCommunicator.instance.bNativeLaunched)
@@ -129,7 +129,7 @@
 					NativeCommunicator.closeNativeSession();
 				}
 			}
-
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -153,15 +153,15 @@
 			</mx:HBox>
 			<mx:Spacer height="100%"/>
 		</mx:VBox>
-
-<!--		<mx:Tree width="100%" height="100%"
-				 dataProvider="{temp}"
-				 depth="1"
-				 labelField="name"
-				 defaultLeafIcon="{tIcon}"
-				 />-->
+		
+		<!--		<mx:Tree width="100%" height="100%"
+		dataProvider="{temp}"
+		depth="1"
+		labelField="name"
+		defaultLeafIcon="{tIcon}"
+		/>-->
 	</mx:Canvas>
-
+	
 	<components:MainDisplay id="mainDisplay" height="100%" width="100%" visible="false" includeInLayout="false"
 							backgroundColor="0x888888"/>
 </s:WindowedApplication>

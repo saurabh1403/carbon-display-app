@@ -66,8 +66,8 @@ package com.Tutorial.view
 						if(Dashboard.listHorizontalColumnCount >= dashboardView.pkgColl.length)
 						{
 							//no need for left and right arrows
-							dashboardView.leftBtn.visible = false;
-							dashboardView.rightBtn.visible = false;
+//							dashboardView.leftBtn.visible = false;
+//							dashboardView.rightBtn.visible = false;
 						}
 						
 						Tutorial._appInstance.proceedToMainView();
