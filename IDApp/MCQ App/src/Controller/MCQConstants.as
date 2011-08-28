@@ -41,6 +41,9 @@ package Controller
 
 		static public const primeNumberArray:Array = new Array(2, 3, 5, 7, 11, 13, 17);
 		
+		//configurations
+		static public const isBgImageVisible:Boolean = false;
+		
 		//application wise constants
 		[Bindable]
 		static public var appWidth:int = 0;

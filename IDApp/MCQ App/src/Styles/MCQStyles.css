@@ -53,3 +53,13 @@ rs|Button.book {
 	fontFamily: 'Trebuchet MS';
 	fontSize: 13;
 }
+
+.testViewPanel
+{
+	cornerRadius: 7;
+	borderVisible: true;
+	dropShadowVisible: true;
+	borderColor: #000000;
+}
+
+

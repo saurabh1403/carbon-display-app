@@ -45,26 +45,24 @@
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				//set the data for pie chart here
-				
 			}
-			
+
 			private function displayQuestionStat(data:Object, field:String, index:Number, percentValue:Number):String {
 				var temp:String= (" " + percentValue).toString().substr(0,6);
 				return data.quesState + ": " + data.number + '\n(' + temp + "%)";
 			}
-			
+
 			private function displayTimeLabel(item:HitData):String
 			{
 				var item1:ColumnSeriesItem = item.chartItem as ColumnSeriesItem;
 				
 				return ("Q" + item1.item.quesNumber + " : " + item1.item.quesTime + " sec");
 			}
-			
+
 			public function disposeView():void
 			{
-				
-			}
 
+			}
 
 			private function clickHandler(event:Event):void
 			{
@@ -97,12 +95,12 @@
 				tempObj["quesState"] = "Wrong"; 
 				tempObj["number"] = testResult.totalQuesAttempted - testResult.totalCorrectQuestion;
 				quesStatPieData.addItem(tempObj);
-
+				
 				tempObj = new Object();
 				tempObj["quesState"] = "Unattempted"; 
 				tempObj["number"] = testResult.totalQuestions - testResult.totalQuesAttempted;
 				quesStatPieData.addItem(tempObj);
-
+				
 			}
 			
 			protected function  processTimeStatData(quesProxy:QuestionsProxy):void
@@ -118,12 +116,12 @@
 					tempObj["quesNumber"] = i; 
 					tempObj["quesTime"] = (ptr.current as Question).quesAttemptTime;
 					timeStatBarData.addItem(tempObj);
-
+					
 					i++;
 					ptr.moveNext();
 				}
 			}
-
+			
 			//TODO: currently it takes data from proxy. Make it take a parameter as test result data object
 			public function processData(quesProxy:QuestionsProxy):void
 			{
@@ -149,13 +147,13 @@
 				}
 				
 			}
-
+			
 			protected function navigatorcontent1_clickHandler(event:IndexChangedEvent):void
 			{
 				if(event.newIndex == 0)
 				{
 					currentState = "marksStats";
-
+					
 				}
 				else
 				{
@@ -173,7 +171,7 @@
 				newEvent.testXmlName = quesProxy.testXmlName;
 				dispatchEvent(newEvent);
 			}
-
+			
 			protected function testReviewButtonClicked(event:Event):void
 			{
 				var newEvent:Event = new Event(MCQConstants.testReviewEventName);
@@ -185,7 +183,7 @@
 				var newEvent:Event = new Event(MCQConstants.testQuitEventName);
 				dispatchEvent(newEvent);
 			}
-
+			
 			
 		]]>
 	</fx:Script>
@@ -322,5 +320,5 @@
 				  right="30" bottom="30"/>
 		<s:Button x="148" y="10" label="Quit" click="testQuitButtonClicked(event)"/>
 	</s:BorderContainer>
-
+	
 </s:BorderContainer>
