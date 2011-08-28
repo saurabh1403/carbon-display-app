@@ -31,8 +31,15 @@ package Controller
 		static public const HomeDisplayView:String = "HomeDisplay";
 		static public const TestRulesView:String = "testRulesView";
 		static public const TestDisplayView:String = "testView";
+		static public const TestHtmlDisplayView:String = "testViewHtml";
 		static public const TestResultView:String = "testResultView";
 		
+		//test types
+		static public const textContentType:int = 0;
+		static public const htmlContentType:int = 1;
+		
+		//test state
+		static public var testState:int = textContentType;
 		
 		//choices type
 		static public const radioTypeQues:String = "Radio";
@@ -52,10 +59,10 @@ package Controller
 		static public var appHeight:int = 0;
 		
 		//TODO: change this according to package content. just for testing here
-		static public var testBaseFolder:String = "D:\\test\\"; 		// this is the base folder in which all the resources are kept
+		static public var testBaseFolder:String = "D:/test1/"; 		// this is the base folder in which all the resources are kept
 		static public var testXmlName:String = "test.xml";
 		static public var levelXml:String = "testLevel.xml";
-		static public const OSSlash:String = "\\";
+		static public const OSSlash:String = "/";
 		
 		public function MCQConstants():void
 		{

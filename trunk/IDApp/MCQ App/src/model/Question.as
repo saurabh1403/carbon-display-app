@@ -17,6 +17,8 @@ package model
 		
 		public var quesType:String = MCQConstants.radioTypeQues;
 		
+		public var _htmlContentPath:String = "";
+		
 		//each choices have a prime number associated with it.
 		public var choices:ArrayCollection;			//this is the array collection of choice object which has three things - statement(string), user answer(bool), correct answer (bool)
 		
@@ -54,6 +56,11 @@ package model
 			if(inXmlNode.imagePath != null && inXmlNode.imagePath.toString() != "")
 			{
 				_imagePath = MCQConstants.testBaseFolder + inXmlNode.imagePath.toString();
+			}
+			
+			if(inXmlNode.htmlContent != null && inXmlNode.htmlContent.toString()!="")
+			{
+				_htmlContentPath = MCQConstants.testBaseFolder + inXmlNode.htmlContent.toString();
 			}
 			
 			var choiceList:XMLList = inXmlNode.choices.choice;
