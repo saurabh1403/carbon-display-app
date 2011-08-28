@@ -6,7 +6,8 @@
 		   contentBackgroundAlpha="0.71" contentBackgroundColor="#F2D7D7"
 		   creationCompleteEffect="Fade" dropShadowVisible="true" hideEffect="Fade"
 		   backgroundAlpha.ImageState="0.0"
-		   backgroundColor.ImageState="#DFDCDC" contentBackgroundColor.ImageState="#FEFEFE">
+		   backgroundColor.ImageState="#DFDCDC" contentBackgroundColor.ImageState="#FEFEFE"
+		   >
 	
 	<fx:Script>
 		<![CDATA[

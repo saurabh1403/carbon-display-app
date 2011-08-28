@@ -14,10 +14,9 @@
 		<s:RadioButtonGroup id="radiogroup1"/>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
+
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="left" paddingBottom="15" paddingLeft="5" paddingRight="5"
-						  paddingTop="10"
 						  gap="15">
 		</s:VerticalLayout>
 	</s:layout>
