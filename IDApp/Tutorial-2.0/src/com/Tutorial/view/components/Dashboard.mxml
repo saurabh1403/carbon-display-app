@@ -29,6 +29,12 @@
 			private var packageMainIconPath:String = "";
 			
 			[Bindable]
+			private var packageTitleString:String = "";
+			
+			[Bindable]
+			private var packageDescription:String = "";
+			
+			[Bindable]
 			public static var listHorizontalColumnCount:int = 2;
 			
 			[Bindable]
@@ -43,30 +49,55 @@
 
 			private var pkgProxy:PackageProxy = ApplicationFacade.getInstance().retrieveProxy(PackageProxy.NAME) as PackageProxy;
 			
-			protected function tileComponent_clickHandler(event:MouseEvent):void
+			protected function packageSessionStarted(event:MouseEvent):void
 			{
-				if(tileComponent.selectedItem == null)
-					return;
-				
+
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_CREATENAVPANEL);
 				ApplicationFacade.getInstance().sendNotification(TutConstants.N_SETNAVPANELVISIBILITY, "true");
 				
 				//1. start session based on the content user selected
 				//2. make a call to get session data
-				var proxy:PackageProxy = ApplicationFacade.getInstance().retrieveProxy(PackageProxy.NAME) as PackageProxy;
-				var pkg:com.Tutorial.model.objects.Package = proxy.getPkgOfSession(tileComponent.selectedItem.pkgID);
 				
-				if(!pkg.bAlreadyPopulated)
-					NativeCommunicator.instance.startSession(tileComponent.selectedItem.pkgID);
+				if(!currSelectedPkg.bAlreadyPopulated)
+				{
+					NativeCommunicator.instance.startSession(currSelectedPkg.pkgID);
+				}
+
 				else
 				{
-					ApplicationFacade.getInstance().sendNotification(TutConstants.N_PARAMSCONFIGURED, tileComponent.selectedItem.pkgID);
+					ApplicationFacade.getInstance().sendNotification(TutConstants.N_PARAMSCONFIGURED, currSelectedPkg.pkgID);
 				}
-				tileComponent.selectedItem = null;
+				
 			}
 			
 			
-			protected function leftBtn_clickHandler(event:MouseEvent):void
+//			protected function tileComponent_clickHandler(event:MouseEvent):void
+//			{
+//				if(tileComponent.selectedItem == null)
+//					return;
+//				
+//				ApplicationFacade.getInstance().sendNotification(TutConstants.N_CREATENAVPANEL);
+//				ApplicationFacade.getInstance().sendNotification(TutConstants.N_SETNAVPANELVISIBILITY, "true");
+//				
+//				//1. start session based on the content user selected
+//				//2. make a call to get session data
+//				var proxy:PackageProxy = ApplicationFacade.getInstance().retrieveProxy(PackageProxy.NAME) as PackageProxy;
+//				var pkg:com.Tutorial.model.objects.Package = proxy.getPkgOfSession(tileComponent.selectedItem.pkgID);
+//				
+//				if(!pkg.bAlreadyPopulated)
+//				{
+//					NativeCommunicator.instance.startSession(tileComponent.selectedItem.pkgID);
+//				}
+//
+//				else
+//				{
+//					ApplicationFacade.getInstance().sendNotification(TutConstants.N_PARAMSCONFIGURED, tileComponent.selectedItem.pkgID);
+//				}
+//				tileComponent.selectedItem = null;
+//			}
+//			
+			
+/*			protected function leftBtn_clickHandler(event:MouseEvent):void
 			{
 				var pos:int = tileComponent.horizontalScrollPosition-1;
 				var min:int = 0;
@@ -82,8 +113,8 @@
 				rightBtn.enabled = true;
 			}
 			
-			
-			protected function rightBtn_clickHandler(event:MouseEvent):void
+			*/
+/*			protected function rightBtn_clickHandler(event:MouseEvent):void
 			{
 				var pos:int = tileComponent.horizontalScrollPosition+1;
 				var max:int = tileComponent.maxHorizontalScrollPosition;
@@ -103,11 +134,11 @@
 				var imgWid:int = tileComponent.width/2;
 				
 				tileComponent.horizontalScrollPosition = (n % imgWid) + 1 < pkgColl.length - 1 ? ((n % imgWid) + 1)*imgWid : (pkgColl.length - 1) * imgWid;
-				*/
+				
 			}
 			
-			
-			protected function leftBtn_mouseOverHandler(event:MouseEvent):void
+		*/	
+/*			protected function leftBtn_mouseOverHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
 				if(leftBtn.enabled)
@@ -135,6 +166,7 @@
 				// TODO Auto-generated method stub
 				rightBtn.source = "/assets/icons/rightarrow-32.png";
 			}
+			*/
 			
 			protected function updatePackageThumbnails():void
 			{
@@ -159,10 +191,12 @@
 				{
 					currSelectedPkg = tmpSelectedPkg;
 					packageMainIconPath = currSelectedPkg.mainIconPath;
+					packageTitleString = currSelectedPkg.title;
+					packageDescription = currSelectedPkg.description;
 					currLayout.selectedIndex = pkgProxy.packages.getItemIndex(currSelectedPkg);
-//					Alert.show(event.pkg_id, "hello world");
 				}
 			}
+			
 
 			protected function dashboard_creationComplete(event:FlexEvent):void
 			{
@@ -198,22 +232,46 @@
 												   layout="{currLayout}"
 												   />				
 				
-				<mx:TileList width="{lightrule.width}" height="100%" id="tileComponent"
-							 dataProvider="{pkgColl}"
-							 itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
-							 click="tileComponent_clickHandler(event)"
-							 borderStyle="none" horizontalScrollPolicy="off"
-							 columnCount="{listHorizontalColumnCount}" maxColumns="{listHorizontalColumnCount}"
-							 selectionColor="0x404040"
-							 rollOverColor="0xffc90e"
-							 />
+				<!--mx:TileList width="{lightrule.width}" height="100%" id="tileComponent"
+				dataProvider="{pkgColl}"
+				itemRenderer="com.Tutorial.view.components.renderers.courseLayoutIRenderer"
+				click="tileComponent_clickHandler(event)"
+				borderStyle="none" horizontalScrollPolicy="off"
+				columnCount="{listHorizontalColumnCount}" maxColumns="{listHorizontalColumnCount}"
+				selectionColor="0x404040"
+				rollOverColor="0xffc90e"
+				/-->
+				<mx:HBox width="100%">
+					
+					<s:Image source="{packageMainIconPath}" visible="{packageMainIconPath.length != 0}" smooth="true"
+							 smoothingQuality="high" width="200" height="350"/>
+					<s:Spacer width="20"/>
+					
+					<mx:VBox width="100%">
+						<s:Label color="#FEFEFE" fontSize="20" fontWeight="bold"
+								 text="{packageTitleString}"/>
+						<s:Spacer height="20"/>
+						<s:RichText color="#F7F1F1" fontSize="14" fontStyle="italic"
+									text="{packageDescription}" textAlign="left"/>
+						<s:Spacer height="170"/>
+						
+						<mx:HBox width="100%">
+							<s:Spacer width="80%"/>
+							
+						<s:Button width="20%" label="Start Learning" chromeColor="#A0C86B"
+								  click="packageSessionStarted(event)" visible="{packageMainIconPath.length != 0}"/>
+						</mx:HBox>
+
+					</mx:VBox>
+				
+				</mx:HBox>
 				
 				<mx:Spacer width="10%"/>
 			</mx:VBox>
 			<mx:Spacer width="10%"/>
 		</mx:HBox>
 		
-		<mx:HBox width="100%" height="0"
+		<!--mx:HBox width="100%" height="0"
 				 visible="false" includeInLayout="false">
 			<mx:Spacer width="10%"/>
 			
@@ -245,7 +303,7 @@
 			</mx:VBox>
 			
 			<mx:Spacer width="10%"/>
-		</mx:HBox>
+		</mx:HBox-->
 		<mx:Spacer height="10%"/>
 	</mx:VBox>
 	
