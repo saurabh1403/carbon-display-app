@@ -70,7 +70,7 @@
 		]]>
 	</fx:Script>
 	
-	<s:Panel width="80%" height="60%" backgroundAlpha="1.0" backgroundColor="#656161"
+	<s:Panel width="75%" height="65%" backgroundAlpha="1.0" backgroundColor="#656161"
 			 borderColor="#6A6464" borderVisible="true" chromeColor="#6C6B6B"
 			 contentBackgroundAlpha="1.0" contentBackgroundColor="#646060" cornerRadius="19"
 			 dropShadowVisible="true" horizontalCenter="0" verticalCenter="0">

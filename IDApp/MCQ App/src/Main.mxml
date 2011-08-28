@@ -22,6 +22,7 @@
 			import view.TopLevelViews.TestRulesView;
 			import view.TopLevelViews.TestView;
 			import view.TopLevelViews.TestView2;
+			import view.TopLevelViews.TestViewHtml;
 			
 			var topLevelView:Dictionary = new Dictionary();
 			
@@ -138,46 +139,71 @@
 				DataProcessor.instance.quesProxy.initProxyWithXml(event.testFolderPath, event.testXmlName);
 				testNumber = event.testNumber;
 
+				var testRules:TestRulesView = null;
+
 				if(topLevelView[MCQConstants.TestRulesView] == null)
 				{
-					var testRules:TestRulesView = new TestRulesView();
+					testRules = new TestRulesView();
 					topLevelView[MCQConstants.TestRulesView] = testRules;
 					
-					testRules.addEventListener(MCQConstants.testViewStartEventName, startTestView, false, 0, true);
+					testRules.addEventListener(MCQConstants.testViewStartEventName, startTestView);
 					testRules.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
 				}
 				else
 				{
-					(topLevelView[MCQConstants.TestRulesView] as TestRulesView).resetView();
+					testRules = (topLevelView[MCQConstants.TestRulesView] as TestRulesView);
+					testRules.resetView();
 				}
 				
 				this.removeAllElements();
 				this.addElement(topLevelView[MCQConstants.TestRulesView]);
-			}
-			
-			//just for testing
-			protected function startTestView2(event:Event):void
-			{
-				var testView2:TestView2 = new TestView2();
-				testView2.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
-				this.removeAllElements();
-				this.addElement(testView2);
-				
+				testRules = null;
 			}
 			
 			protected function startTestView(event:Event):void
 			{
-				if(event !=null)
+				if(MCQConstants.testState = MCQConstants.htmlContentType)
 				{
-//					event.target.disposeView();
+					startTestHtmlView(null);
 				}
-				event = null;
-				
-				
+				else
+				{
+					startTestTextView(null);
+				}
+			}
+			
+			protected function startTestTextView(event:Event):void
+			{
+				var currTestView = null;
 				if(topLevelView[MCQConstants.TestDisplayView] == null)
 				{
-					var currTestView:TestView = new TestView();
+					currTestView = new TestView();
 					topLevelView[MCQConstants.TestDisplayView] = currTestView;
+					currTestView.setCurrentState("TestMode");
+					
+					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+					
+				else
+				{
+					currTestView = (topLevelView[MCQConstants.TestDisplayView] as TestView);
+					currTestView.setCurrentState("TestMode");
+					currTestView.resetView();
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
+				currTestView = null;
+			}
+			
+			protected function startTestHtmlView(event:Event):void
+			{
+				var currTestView:TestViewHtml = null;
+				if(topLevelView[MCQConstants.TestHtmlDisplayView] == null)
+				{
+					currTestView = new TestViewHtml();
+					topLevelView[MCQConstants.TestHtmlDisplayView] = currTestView;
 					currTestView.setCurrentState("TestMode");
 					
 					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
@@ -186,23 +212,30 @@
 				
 				else
 				{
-					(topLevelView[MCQConstants.TestDisplayView] as TestView).setCurrentState("TestMode");
-					(topLevelView[MCQConstants.TestDisplayView] as TestView).resetView();
+					currTestView = (topLevelView[MCQConstants.TestHtmlDisplayView] as TestViewHtml);
+					currTestView.setCurrentState("TestMode");
+					currTestView.resetView();
 				}
-
+				
 				this.removeAllElements();
-				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
+				this.addElement(topLevelView[MCQConstants.TestHtmlDisplayView]);
+				currTestView = null;
 			}
 			
 			protected function startTestInReviewMode(event:Event):void
 			{
-				if(event !=null)
+				if(MCQConstants.testState = MCQConstants.htmlContentType)
 				{
-//					event.target.disposeView();
+					startHTMLTestInReviewMode(null);
 				}
-
-				event = null;
-				
+				else
+				{
+					startTextTestInReviewMode(null);
+				}
+			}
+			
+			protected function startTextTestInReviewMode(event:Event):void
+			{
 				this.removeAllElements();
 				
 				if(topLevelView[MCQConstants.TestDisplayView] == null)
@@ -214,7 +247,7 @@
 					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
 					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
 				}
-				
+					
 				else
 				{
 					(topLevelView[MCQConstants.TestDisplayView] as TestView).setCurrentState("ReviewMode");
@@ -222,6 +255,30 @@
 				}
 				
 				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
+			}
+			
+			protected function startHTMLTestInReviewMode(event:Event):void
+			{
+				
+				this.removeAllElements();
+				
+				if(topLevelView[MCQConstants.TestHtmlDisplayView] == null)
+				{
+					var currTestView:TestViewHtml = new TestViewHtml();
+					topLevelView[MCQConstants.TestHtmlDisplayView] = currTestView;
+					currTestView.setCurrentState("ReviewMode");
+					
+					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+					
+				else
+				{
+					(topLevelView[MCQConstants.TestHtmlDisplayView] as TestViewHtml).setCurrentState("ReviewMode");
+					(topLevelView[MCQConstants.TestHtmlDisplayView] as TestViewHtml).resetView();
+				}
+				
+				this.addElement(topLevelView[MCQConstants.TestHtmlDisplayView]);
 			}
 			
 		]]>
