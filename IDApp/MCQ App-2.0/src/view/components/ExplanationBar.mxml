@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   borderAlpha="0.61" borderColor="#2A2A2A" 
+				   borderWeight="8" cornerRadius="15"
+				   dropShadowVisible="true"
+				   toolTip="click to expand the explanation">
+
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+
+	<fx:Script>
+		<![CDATA[
+
+			public var explanationString:String = "Explanation: \n\n";
+
+			[Bindable]
+			public var explanationText:String = "";
+			
+			[Bindable]
+			public var isContentHtml:Boolean = false;
+			
+			[Bindable]
+			public var htmlContentPath:String = "";
+
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<s:State name="collapsed"/>
+		<s:State name="expanded"/>
+	</s:states>
+
+	<s:RichText width="100%" height="100%" chromeColor="#FCF8F8" color="#767474" fontFamily="Verdana"
+				fontSize="13" horizontalCenter="0" paddingBottom="10" paddingLeft="10"
+				paddingRight="10" paddingTop="10" text="{explanationString + explanationText}"
+				textAlign="left" verticalCenter="0"
+				verticalAlign.collapsed="top"
+				visible="{!isContentHtml}" includeInLayout="{!isContentHtml}"/>
+	
+	<mx:HTML visible="{isContentHtml}" width="100%" height="100%" chromeColor="#FCF8F8"
+			 color="#767474" fontFamily="Verdana" fontSize="13" horizontalCenter="0"
+			 includeInLayout="{isContentHtml}" location="{htmlContentPath}" paddingBottom="10"
+			 paddingLeft="10" paddingRight="10" paddingTop="10" paintsDefaultBackground="false"
+			 textAlign="left" verticalCenter="0"
+			 dropShadowVisible.collapsed="false"
+			 tabEnabled="false" tabChildren="false" focusEnabled="false" mouseChildren.collapsed="false"
+			 verticalScrollPolicy.collapsed = "off"/>
+</s:BorderContainer>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:effects="imports.DrillDownCharts.qs.charts.effects.*"
+		 xmlns:local="imports.DrillDownCharts.*"
+		 width="100%" height="100%"
+		 creationComplete="group1_creationCompleteHandler(event)"
+		 >
+	
+	<fx:Declarations>
+		<effects:DrillDownEffect id="effD" duration="1500"  effectEnd="chart.mouseChildren = true;" />
+		<effects:DrillUpEffect id="effU" duration="1500" effectEnd="chart.mouseChildren = true;" />
+		<mx:SolidColor id="sc2" color="#68E31B" alpha=".8"/>
+		<s:SolidColorStroke id="s1" color="#79B553" weight="2"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import model.Question;
+			import model.QuestionsProxy;
+			
+			import mx.charts.ChartItem;
+			import mx.charts.HitData;
+			import mx.charts.chartClasses.ChartBase;
+			import mx.charts.chartClasses.Series;
+			import mx.charts.events.ChartItemEvent;
+			import mx.charts.series.items.ColumnSeriesItem;
+			import mx.collections.ArrayCollection;
+			import mx.collections.IViewCursor;
+			import mx.events.FlexEvent;
+			
+			private var min:Number = 0;
+			private var max:Number = 100;
+			private var chart:ChartBase;
+			private var series:Series;
+			
+			private var rootNode:XML = <root value='' name="root" />;
+			
+			[Bindable]
+			private var timeStatBarData:ArrayCollection = new ArrayCollection();
+			
+			public function catLabel(value:XML,field:String,index:Number,percent:Number):String
+			{
+				return value.@label;
+			}
+			
+			public function changeChartType():void
+			{
+				//				chart = columnChart;
+				//				series = columnSeries;
+				chart.setStyle("showDataEffect",null);
+				//				chart.dataProvider = genDataFrom(rootNode);					
+				chart.dataProvider = timeStatBarData;
+			}
+			
+			public function genDataFrom(node:XML):XMLList
+			{
+				var count:Number = Math.round(Math.random()*26 +2);
+				var aCharCode:Number = ("A").charCodeAt(0);
+				var children:XMLList = rootNode.children();
+				if(children.length() == 0)
+				{
+					var rootLabel:String = node.@label;
+					for(var i:int = 0;i < count;i++)
+					{
+						rootNode.appendChild( <node label={rootLabel + "." +  String.fromCharCode(aCharCode+i)}
+							name={rootLabel + "." + String.fromCharCode(aCharCode+i)} value={Math.random()*100} /> );
+					}
+				}
+				return node.children();
+			}
+			
+			public function drillDown(e:ChartItemEvent):void
+			{
+				chart.mouseChildren = false;
+				effD.drillFromIndex = e.hitData.chartItem.index;
+				series.setStyle("showDataEffect",effD);
+				
+				rootNode = XML(e.hitData.chartItem.item);
+				//				chart.dataProvider = genDataFrom(rootNode);					
+				chart.dataProvider = timeStatBarData;
+			}
+			
+			public function updateView(quesProxy:QuestionsProxy):void
+			{
+				timeStatBarData.removeAll();
+				
+				var i:int = 1;
+				var ptr:IViewCursor = quesProxy.questions.createCursor();
+				while(!ptr.afterLast)
+				{
+					var tempObj:Object = new Object();
+					var qTime:int = (ptr.current as Question).quesAttemptTime ;
+					tempObj["quesNumber"] = i; 
+					tempObj["quesTime"] = (ptr.current as Question).quesAttemptTime;
+					timeStatBarData.addItem(tempObj);
+					i++;
+					ptr.moveNext();
+				}
+				
+			}
+			
+			private function displayTimeLabel(item:HitData):String
+			{
+				var item1:ColumnSeriesItem = item.chartItem as ColumnSeriesItem;
+				return ("Q" + item1.item.quesNumber + " : " + item1.item.quesTime + " sec");
+			}
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				//				changeChartType();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Image 
+		width="100%" height="100%"
+		source="@Embed('assets/old-paper2.jpg')"
+		smooth="true"
+		smoothingQuality="high"
+		scaleMode="stretch"
+		/>
+	
+	<s:Label top="35" color="#242323" fontFamily="Arial"
+			 fontSize="22" fontStyle="italic" horizontalCenter="0"
+			 text="Time Statistics" textAlign="center" textDecoration="underline"
+			 verticalAlign="middle" fontWeight="bold"/>
+	
+	
+	<mx:HRule strokeWidth="1" strokeColor="#FFFFFF" width="100%" />
+	
+	<mx:ColumnChart id="timeStatGraph" width="95%" height="60%"
+					dataProvider="{timeStatBarData}" horizontalCenter="0"
+					showDataTips="true" verticalCenter="0"
+					dataTipFunction="displayTimeLabel">
+		<mx:horizontalAxis>
+			<mx:LinearAxis
+				title="Question Number"/>
+		</mx:horizontalAxis>
+		<mx:verticalAxis>
+			<mx:LinearAxis
+				title="Time Taken (in sec)"
+				/>
+			
+		</mx:verticalAxis>
+		<mx:series>
+			<mx:ColumnSeries id="cs" displayName="Question Time"
+							 yField="quesTime"
+							 xField="quesNumber"
+							 columnWidthRatio="0.9"
+							 fill="{sc2}"
+							 stroke="{s1}"/>
+		</mx:series>	
+	</mx:ColumnChart>
+	<mx:Legend left="30" bottom="20" width="60%" height="10%"
+			   dataProvider="{timeStatGraph}" fontSize="18"/>
+	
+	<!--mx:HBox width="100%">
+	<mx:VBox width="100%" height="100%">			
+	<mx:ColumnChart width="100%" height="100%" id = "columnChart"
+	color="#FFFFFF"
+	itemClick="drillDown(event);" 
+	gutterLeft="40" gutterBottom="40" 
+	gutterRight="40"
+	dataTipFunction="displayTimeLabel"
+	>
+	<mx:fill>
+	<mx:SolidColor color="#000000" />
+	</mx:fill>
+	<mx:horizontalAxisRenderers>
+	<mx:AxisRenderer tickLength="2" axis="{hAxis}">
+	<mx:axisStroke>
+	<mx:Stroke weight="1" color="#FFFFFF" />
+	</mx:axisStroke>			
+	<mx:tickStroke>
+	<mx:Stroke weight="1" color="#FFFFFF" />						
+	</mx:tickStroke>		
+	</mx:AxisRenderer>
+	</mx:horizontalAxisRenderers>
+	<mx:horizontalAxis>
+	<mx:LinearAxis id="hAxis"
+	title="Question Number"/>
+	</mx:horizontalAxis>
+	<mx:verticalAxis>
+	<mx:LinearAxis
+	title="Time Taken (in sec)"/>
+	</mx:verticalAxis>
+	
+	<mx:series>
+	<mx:ColumnSeries id="columnSeries" yField="@value">
+	<mx:itemRenderer>
+	<fx:Component>
+	<local:RollOverBoxItemRenderer color="#FFFFFF" overColor="#BBBBBB" downColor="#888888" />
+	</fx:Component>
+	</mx:itemRenderer>
+	</mx:ColumnSeries>
+	</mx:series>
+	</mx:ColumnChart>
+	</mx:VBox>
+	</mx:HBox-->
+	
+	<mx:HRule strokeWidth="1" strokeColor="#FFFFFF" width="100%"/>
+	
+</s:Group>
