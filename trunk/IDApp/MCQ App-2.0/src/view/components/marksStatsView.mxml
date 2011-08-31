@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="view.components.*"
+				   >
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import model.TestResultData;
+
+			[Bindable]
+			public var testResult:TestResultData;
+		]]>
+	</fx:Script>
+	
+	<components:TestResultGrid  height="80" width="80%" dataName="Total Marks" dataValue="{testResult.totalMarks.toString()}" />
+	<components:TestResultGrid 	height="80" width="80%" dataName="Marks Scored" dataValue="{testResult.marksObtained.toString()}" />
+	<components:TestResultGrid  height="80" width="80%" dataName="Percentage (%)" dataValue="{testResult.percentObtained.toString()} %" />
+	<components:TestResultGrid  height="80" width="80%" dataName="Total Time" dataValue="{testResult.totalTimeTakenStr}" />
+</s:BorderContainer>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   width="100%" height="100%" backgroundColor="#1D6F79" borderWeight="6"
+				   chromeColor="#BDBDBD" dropShadowVisible="false"
+				   creationPolicy="all">
+	
+	<fx:Script>
+		<![CDATA[
+			import Controller.MCQConstants;
+			
+			import Events.TestSelectionEvent;
+			
+			import mx.collections.ArrayCollection;
+
+			private var xmlPathData:ArrayCollection = new ArrayCollection();
+			private var baseFolderPath:String = "";
+			
+			private var levelXml:XML;
+		
+			public function resetView():void
+			{
+				xmlPathData.removeAll();
+				baseFolderPath = "";
+			}
+			
+			private function findTestType(inTypeStr:String):int
+			{
+				var retVal:int;
+				
+				switch(inTypeStr)
+				{
+					case "html":
+						MCQConstants.testState = MCQConstants.htmlContentType;
+						retVal = MCQConstants.htmlContentType;
+						break;
+					case "text":
+					default:
+						MCQConstants.testState = MCQConstants.textContentType;
+						retVal = MCQConstants.textContentType;
+						break;
+				}
+
+				return retVal;
+
+			}
+
+			//TODO: make here three buttons according to three levels
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				var cusEvent:TestSelectionEvent = new TestSelectionEvent(MCQConstants.testStartEventName);
+				cusEvent.testFolderPath = baseFolderPath;
+				var tarId:String = event.currentTarget.id as String;
+				switch(event.currentTarget.id as String)
+				{
+					case "l3Image":
+//						cusEvent.testXmlName = xmlPathData[2];
+						cusEvent.testXmlName = levelXml.levels.level[2].levelTestXml.toString();
+//						cusEvent.testType = findTestType(levelXml.levels.level[2].type.toString());
+						this.dispatchEvent(cusEvent);
+						break;
+					case "l2Image":
+						cusEvent.testXmlName = levelXml.levels.level[1].levelTestXml.toString();
+//						cusEvent.testType = findTestType(levelXml.levels.level[1].type.toString());
+						this.dispatchEvent(cusEvent);
+						break;
+					case "l1Image":
+						cusEvent.testXmlName = levelXml.levels.level[0].levelTestXml.toString();
+//						cusEvent.testType = findTestType(levelXml.levels.level[0].type.toString());
+						this.dispatchEvent(cusEvent);
+						break;
+				}
+			}
+
+			public function disposeView():void
+			{
+				xmlPathData.removeAll();
+				this.removeAllElements();
+			}
+
+			//this will take the levels infomation xml and will start the view then
+			public function initWithData(inBaseFolderPath:String, inXmlPath:String):void
+			{
+				baseFolderPath = inBaseFolderPath;
+				
+				var file:File = new File(inBaseFolderPath + inXmlPath);
+				file.resolvePath(inXmlPath);
+				
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.READ);
+				
+				levelXml = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
+				
+				var levels:XMLList = levelXml.levels.level;
+				var level_no:int = levels.length();
+				
+				switch(level_no)
+				{
+					case 3:
+						l3Image.visible = true;
+						l3Image.source = baseFolderPath + levels[2].imgSrcPath.toString();
+						xmlPathData.addItem(levels[2].levelTestXml.toString());
+						
+					case 2:
+						l2Image.visible = true;
+						l2Image.source = baseFolderPath + levels[1].imgSrcPath.toString();
+						xmlPathData.addItem(levels[1].levelTestXml.toString());
+
+					case 1:
+						l1Image.visible = true;
+						l1Image.source = baseFolderPath + levels[0].imgSrcPath.toString();
+						xmlPathData.addItem(levels[0].levelTestXml.toString());
+
+					default:
+							break;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:VGroup width="100%" height="100%">
+	<s:Label left="64" top="6" width="80%" height="10%" fontFamily="Times New Roman" fontSize="29"
+			 fontStyle="italic" fontWeight="normal" lineThrough="false" text="Choose the test level"
+			 textAlign="left" textDecoration="none" verticalAlign="middle" />
+		
+		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="50"
+				  paddingTop="20" verticalAlign="middle">
+			<s:Image id="l1Image" width="100%" height="100%" click="button1_clickHandler(event)" smooth="true"
+					 smoothingQuality="high" verticalCenter="-10" visible="false"/>
+			<s:Spacer width="50%"/>
+
+		</s:HGroup>
+		
+		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="50" paddingRight="50"
+				  paddingTop="20">
+			<s:Image id="l2Image" width="100%" height="100%" click="button1_clickHandler(event)"
+					 verticalCenter="-10" visible="false"/>
+			<s:Spacer width="50%"/>
+		</s:HGroup>
+		
+		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="50"
+				  paddingTop="20">
+			<s:Image id="l3Image" width="100%" height="100%" click="button1_clickHandler(event)"
+					 verticalCenter="-10" visible="false"/>
+			<s:Spacer width="50%"/>
+		</s:HGroup>
+	</s:VGroup>
+	
+	
+</s:BorderContainer>
