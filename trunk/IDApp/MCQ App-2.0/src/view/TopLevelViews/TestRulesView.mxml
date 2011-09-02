@@ -2,10 +2,10 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
-				   width="100%" height="100%" backgroundColor="#515050" borderWeight="6"
+				   width="100%" height="100%" backgroundColor="#878383" borderWeight="4"
 				   chromeColor="#E46C6C" contentBackgroundColor="#A9A4A4"
 				   creationComplete="bordercontainer1_initializeHandler(event)"
-				   creationPolicy="all">
+				   creationPolicy="all" borderVisible="true">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -18,6 +18,8 @@
 			import model.QuestionsProxy;
 			
 			import mx.events.FlexEvent;
+			
+			import skins.TransparentButtonSkin;
 			
 			public function pickTest(testNumber:int):void
 			{
@@ -70,18 +72,27 @@
 		]]>
 	</fx:Script>
 	
-	<s:Panel width="75%" height="65%" backgroundAlpha="1.0" backgroundColor="#656161"
-			 borderColor="#6A6464" borderVisible="true" chromeColor="#6C6B6B"
+	<s:Panel width="80%" height="60%" backgroundAlpha="1.0"
+			 borderColor="#6A6464" borderVisible="true" chromeColor="#020202"
 			 contentBackgroundAlpha="1.0" contentBackgroundColor="#646060" cornerRadius="19"
-			 dropShadowVisible="true" horizontalCenter="0" verticalCenter="0">
-		<s:Button bottom="30" width="40" height="40" label="Start" click="testStartClicked(event)"
+			 dropShadowVisible="true" horizontalCenter="0" verticalCenter="0"
+			 title="hello world"
+			 fontSize="14" fontFamily="Arial" fontWeight="normal" fontStyle="normal" textDecoration="none" lineThrough="false" textAlign="center">
+				
+		<s:Button bottom="30" width="43" height="43" label="Start" click="testStartClicked(event)"
 				  color="#DF5050" fontFamily="Verdana" fontSize="23" fontStyle="italic"
 				  fontWeight="bold" horizontalCenter="-50" icon="@Embed('assets/Ok-icon.png')"
-				  skinClass="skins.ButtonSelectSkin" textDecoration="none"/>
-		<s:Button bottom="30" width="40" height="40" label="Quit" click="testQuitClicked(event)"
+				  textDecoration="none"
+				  skinClass="skins.TransparentButtonSkin"
+				  />
+		
+		<s:Button bottom="30" width="43" height="43" label="Quit" click="testQuitClicked(event)"
 				  color="#DF5050" fontFamily="Verdana" fontSize="23" fontStyle="italic"
 				  fontWeight="bold" horizontalCenter="50" icon="@Embed('assets/Quit-icon.png')"
-				  textDecoration="none"/>
+				  textDecoration="none"
+				  skinClass="skins.TransparentButtonSkin"
+				  />
+		
 		<s:Label id="timeLabel" left="30" top="10" width="119" height="22" color="#FDFBFB" fontSize="12"
 				 fontWeight="bold" textAlign="left"
 				 verticalAlign="middle"/>

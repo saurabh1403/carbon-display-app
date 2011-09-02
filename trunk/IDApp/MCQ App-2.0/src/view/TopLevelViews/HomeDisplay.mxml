@@ -2,9 +2,9 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
-				   width="100%" height="100%" backgroundColor="#1D6F79" borderWeight="6"
+				   width="100%" height="100%" backgroundColor="#1E5A61" borderWeight="6"
 				   chromeColor="#BDBDBD" dropShadowVisible="false"
-				   creationPolicy="all">
+				   creationPolicy="all" xmlns:widgets="view.widgets.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -12,17 +12,34 @@
 			
 			import Events.TestSelectionEvent;
 			
+			import mx.binding.utils.BindingUtils;
 			import mx.collections.ArrayCollection;
-
+			import mx.controls.Alert;
+			import mx.logging.Log;
+			
 			private var xmlPathData:ArrayCollection = new ArrayCollection();
 			private var baseFolderPath:String = "";
 			
 			private var levelXml:XML;
-		
+			
+			[Bindable]
+			private var isLevel1Visible:Boolean = false;
+			
+			[Bindable]
+			private var isLevel2Visible:Boolean = false;
+			
+			[Bindable]
+			private var isLevel3Visible:Boolean = false;
+			
+			
 			public function resetView():void
 			{
 				xmlPathData.removeAll();
 				baseFolderPath = "";
+				
+				isLevel1Visible = false;
+				isLevel2Visible = false;
+				isLevel3Visible = false
 			}
 			
 			private function findTestType(inTypeStr:String):int
@@ -41,11 +58,11 @@
 						retVal = MCQConstants.textContentType;
 						break;
 				}
-
+				
 				return retVal;
-
+				
 			}
-
+			
 			//TODO: make here three buttons according to three levels
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
@@ -54,31 +71,27 @@
 				var tarId:String = event.currentTarget.id as String;
 				switch(event.currentTarget.id as String)
 				{
-					case "l3Image":
-//						cusEvent.testXmlName = xmlPathData[2];
+					case "l3Start":
 						cusEvent.testXmlName = levelXml.levels.level[2].levelTestXml.toString();
-//						cusEvent.testType = findTestType(levelXml.levels.level[2].type.toString());
 						this.dispatchEvent(cusEvent);
 						break;
-					case "l2Image":
+					case "l2Start":
 						cusEvent.testXmlName = levelXml.levels.level[1].levelTestXml.toString();
-//						cusEvent.testType = findTestType(levelXml.levels.level[1].type.toString());
 						this.dispatchEvent(cusEvent);
 						break;
-					case "l1Image":
+					case "l1Start":
 						cusEvent.testXmlName = levelXml.levels.level[0].levelTestXml.toString();
-//						cusEvent.testType = findTestType(levelXml.levels.level[0].type.toString());
 						this.dispatchEvent(cusEvent);
 						break;
 				}
 			}
-
+			
 			public function disposeView():void
 			{
 				xmlPathData.removeAll();
 				this.removeAllElements();
 			}
-
+			
 			//this will take the levels infomation xml and will start the view then
 			public function initWithData(inBaseFolderPath:String, inXmlPath:String):void
 			{
@@ -98,59 +111,164 @@
 				switch(level_no)
 				{
 					case 3:
-						l3Image.visible = true;
+						isLevel3Visible = true;
 						l3Image.source = baseFolderPath + levels[2].imgSrcPath.toString();
+						l3Title.text = levels[2].label.toString();
+						l3Description.text = levels[2].Description.toString();
 						xmlPathData.addItem(levels[2].levelTestXml.toString());
 						
 					case 2:
-						l2Image.visible = true;
+						isLevel2Visible = true;
 						l2Image.source = baseFolderPath + levels[1].imgSrcPath.toString();
+						l2Title.text = levels[1].label.toString();
+						l2Description.text = levels[1].Description.toString();
 						xmlPathData.addItem(levels[1].levelTestXml.toString());
-
+						
 					case 1:
-						l1Image.visible = true;
+						isLevel1Visible = true;
 						l1Image.source = baseFolderPath + levels[0].imgSrcPath.toString();
+						l1Title.text = levels[0].label.toString();
+						l1Description.text = levels[0].Description.toString();
 						xmlPathData.addItem(levels[0].levelTestXml.toString());
-
+						
 					default:
-							break;
+						break;
 				}
 			}
 			
 		]]>
 	</fx:Script>
-
+	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-
-	<s:VGroup width="100%" height="100%">
-	<s:Label left="64" top="6" width="80%" height="10%" fontFamily="Times New Roman" fontSize="29"
-			 fontStyle="italic" fontWeight="normal" lineThrough="false" text="Choose the test level"
-			 textAlign="left" textDecoration="none" verticalAlign="middle" />
+	
+	<s:VGroup width="100%" height="100%" verticalAlign="middle"
+			  horizontalAlign="center">
 		
-		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="50"
-				  paddingTop="20" verticalAlign="middle">
-			<s:Image id="l1Image" width="100%" height="100%" click="button1_clickHandler(event)" smooth="true"
-					 smoothingQuality="high" verticalCenter="-10" visible="false"/>
-			<s:Spacer width="50%"/>
-
+		<s:Spacer height="10"/>
+		<s:Label left="64" top="6" height="10%" fontFamily="Times New Roman" fontSize="29"
+				 fontStyle="italic" fontWeight="normal" lineThrough="false" text="Choose the test level"
+				 textAlign="justify" textDecoration="none" verticalAlign="middle" horizontalCenter="0"
+				 visible="false" includeInLayout="false"/>
+		
+		
+		<s:HGroup width="90%" paddingBottom="20" paddingLeft="0" paddingRight="20"
+				  paddingTop="20" gap="5"
+				  verticalAlign="top"
+				  visible="{isLevel1Visible}" includeInLayout="{isLevel1Visible}"
+				  >
+			
+			<s:Image id="l1Image" width="180" height="190" 
+					 smooth="true"
+					 smoothingQuality="high"
+					 scaleMode="stretch"
+					 />
+			<s:Spacer width="20"/>
+			
+			<s:VGroup width="100%" height="100%" verticalAlign="top" >
+				<s:Label id="l1Title" color="#FEFEFE" 
+						 fontSize="20" fontWeight="bold"
+						 />
+				<s:Spacer height="10"/>
+				<s:RichText id="l1Description" 
+							color="#F7F1F1" fontSize="14" fontStyle="italic"
+							textAlign="left" />
+				<s:Spacer height="100%"/>
+				<s:HGroup width="100%" >
+					<s:Spacer width="55%"/>
+					<widgets:StartButton id="l1Start" width="140" height="45" buttonText="Start"
+										 startColor="0xE0601B"
+										 endColor="0xF2FA07"
+										 click="button1_clickHandler(event)"
+										 />
+				</s:HGroup>
+			</s:VGroup>
 		</s:HGroup>
 		
-		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="50" paddingRight="50"
-				  paddingTop="20">
-			<s:Image id="l2Image" width="100%" height="100%" click="button1_clickHandler(event)"
-					 verticalCenter="-10" visible="false"/>
-			<s:Spacer width="50%"/>
-		</s:HGroup>
+		<s:BorderContainer backgroundAlpha="0.0" 
+						   dropShadowVisible="true" 
+						   borderWeight="0"
+						   borderVisible="false"
+						   width="90%"
+						   horizontalCenter="0"
+						   cornerRadius="5"
+						   >
+			
+			<s:backgroundFill>
+				<!-- 0 rotation creates left to right gradient -->
+				<s:LinearGradient rotation="0">
+					<s:GradientEntry color="#3E7980"/>
+					<s:GradientEntry color="#1E5A61"/>
+				</s:LinearGradient>
+			</s:backgroundFill>
+			
+			<s:HGroup width="100%" paddingBottom="20" paddingLeft="30" paddingRight="20"
+					  paddingTop="20" gap="5"
+					  verticalAlign="top"
+					  visible="{isLevel1Visible}" includeInLayout="{isLevel1Visible}"
+					  >
+				
+				<s:VGroup width="100%" height="100%" verticalAlign="top" >
+					<s:Label id="l2Title" color="#FEFEFE" 
+							 fontSize="20" fontWeight="bold"
+							 />
+					<s:Spacer height="10"/>
+					<s:RichText id="l2Description" 
+								color="#F7F1F1" fontSize="14" fontStyle="italic"
+								textAlign="left" />
+					<s:Spacer height="100%"/>
+					<s:HGroup width="100%" >
+						<widgets:StartButton id="l2Start" width="150" height="45" 
+											 buttonText="Start"
+											 startColor="0x829946"
+											 endColor="0xFCFC03"
+											 click="button1_clickHandler(event)"
+											 />
+						<s:Spacer width="60%"/>
+					</s:HGroup>
+				</s:VGroup>
+				<s:Spacer width="20"/>
+				<s:Image id="l2Image" width="180" height="190" 
+						 smooth="true"
+						 smoothingQuality="high"
+						 scaleMode="stretch"
+						 />
+				<s:Spacer width="20"/>
+			</s:HGroup>
+		</s:BorderContainer>
 		
-		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="50"
-				  paddingTop="20">
-			<s:Image id="l3Image" width="100%" height="100%" click="button1_clickHandler(event)"
-					 verticalCenter="-10" visible="false"/>
-			<s:Spacer width="50%"/>
+		<s:HGroup width="90%" paddingBottom="20" paddingLeft="0" paddingRight="20"
+				  paddingTop="20" gap="5"
+				  verticalAlign="top"
+				  visible="{isLevel3Visible}" includeInLayout="{isLevel3Visible}"
+				  >
+			
+			<s:Image id="l3Image" width="180" height="190" 
+					 smooth="true"
+					 smoothingQuality="high"
+					 scaleMode="stretch"
+					 />
+			<s:Spacer width="20"/>
+			
+			<s:VGroup width="100%" height="100%" verticalAlign="top" >
+				<s:Label id="l3Title" color="#FEFEFE" 
+						 fontSize="20" fontWeight="bold"
+						 />
+				<s:Spacer height="10"/>
+				<s:RichText id="l3Description" 
+							color="#F7F1F1" fontSize="14" fontStyle="italic"
+							textAlign="left" />
+				<s:Spacer height="100%"/>
+				<s:HGroup width="100%" >
+					<s:Spacer width="55%"/>
+					<widgets:StartButton id="l3Start" width="140" height="45" buttonText="Start"
+										 startColor="0xF22E1F"
+										 endColor="0xF2BA1F"
+										 click="button1_clickHandler(event)"
+										 />
+				</s:HGroup>
+			</s:VGroup>
 		</s:HGroup>
 	</s:VGroup>
-	
 	
 </s:BorderContainer>

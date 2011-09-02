@@ -33,6 +33,10 @@ package model
 			totalQuesAttempted = 0;
 			totalQuestions = 0;
 			
+			timeSpentOnCorrectQues = 0;
+			timeSpentOnIncorrectQues = 0;
+			timeSpentOnUnansweredQues = 0;
+			
 			totalMarks = 0;
 			marksObtained = 0;
 			percentObtained = "";
