@@ -35,7 +35,7 @@
 					"3. No questions will be allowed after the time out.\n";
 				
 				
-				timeLabel.text = "Total Time : " + quesProxy.testTotalTime.toString();
+				timeLabel.text = "Total Time : " + quesProxy.testTotalTime.toString() + " min";
 				marksLabel.text = "Total Marks : " + quesProxy.testTotalMarks.toString();
 				
 				mainPanel.title = quesProxy.testSubjectName;
@@ -132,6 +132,9 @@
 						  textDecoration="none"
 						  chromeColor="#3AB83D"
 						  skinClass="skins.TransparentButtonSkin"
+						  useHandCursor="true"
+						  buttonMode="true"
+						  mouseChildren="false"
 						  />
 				
 				<s:Spacer width="40"/>
@@ -142,6 +145,9 @@
 						  textDecoration="none"
 						  chromeColor="#D5AEAE"
 						  skinClass="skins.TransparentButtonSkin"
+						  useHandCursor="true"
+						  buttonMode="true"
+						  mouseChildren="false"
 						  />
 				
 			</s:HGroup>

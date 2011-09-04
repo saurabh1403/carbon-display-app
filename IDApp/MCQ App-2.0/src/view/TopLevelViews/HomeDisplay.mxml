@@ -152,13 +152,13 @@
 				 visible="false" includeInLayout="false"/>
 		
 		
-		<s:HGroup width="90%" paddingBottom="20" paddingLeft="0" paddingRight="20"
+		<s:HGroup width="90%" height="100%" paddingBottom="20" paddingLeft="0" paddingRight="20"
 				  paddingTop="20" gap="5"
 				  verticalAlign="top"
-				  visible="{isLevel1Visible}" includeInLayout="{isLevel1Visible}"
+				  visible="{isLevel1Visible}"
 				  >
 			
-			<s:Image id="l1Image" width="180" height="190" 
+			<s:Image id="l1Image" width="25%" height="100%" maxHeight="250" 
 					 smooth="true"
 					 smoothingQuality="high"
 					 scaleMode="stretch"
@@ -192,6 +192,7 @@
 						   width="90%"
 						   horizontalCenter="0"
 						   cornerRadius="5"
+						   height="100%"
 						   >
 			
 			<s:backgroundFill>
@@ -202,7 +203,7 @@
 				</s:LinearGradient>
 			</s:backgroundFill>
 			
-			<s:HGroup width="100%" paddingBottom="20" paddingLeft="30" paddingRight="20"
+			<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="20"
 					  paddingTop="20" gap="5"
 					  verticalAlign="top"
 					  visible="{isLevel1Visible}" includeInLayout="{isLevel1Visible}"
@@ -228,7 +229,7 @@
 					</s:HGroup>
 				</s:VGroup>
 				<s:Spacer width="20"/>
-				<s:Image id="l2Image" width="180" height="190" 
+				<s:Image id="l2Image" width="25%" height="100%" maxHeight="250" 
 						 smooth="true"
 						 smoothingQuality="high"
 						 scaleMode="stretch"
@@ -237,13 +238,13 @@
 			</s:HGroup>
 		</s:BorderContainer>
 		
-		<s:HGroup width="90%" paddingBottom="20" paddingLeft="0" paddingRight="20"
+		<s:HGroup width="90%" paddingBottom="20" height="100%" paddingLeft="0" paddingRight="20"
 				  paddingTop="20" gap="5"
 				  verticalAlign="top"
 				  visible="{isLevel3Visible}" includeInLayout="{isLevel3Visible}"
 				  >
 			
-			<s:Image id="l3Image" width="180" height="190" 
+			<s:Image id="l3Image" width="25%" height="100%" maxHeight="250"  
 					 smooth="true"
 					 smoothingQuality="high"
 					 scaleMode="stretch"

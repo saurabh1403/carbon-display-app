@@ -21,11 +21,9 @@
 	<s:Image 
 		width="100%" height="100%"
 		source="@Embed('assets/old-paper_3.jpg')"
-		smooth="true"
-		smoothingQuality="high"
 		scaleMode="stretch"
 		/>
-	
+		
 	<s:VGroup horizontalCenter="0" width="100%" height="100%" horizontalAlign="center" paddingTop="30" paddingBottom="20" paddingLeft="10" paddingRight="10">
 	<s:Label top="35" color="#514E50" fontFamily="Arial"
 			 fontSize="22" fontStyle="italic" horizontalCenter="0"
@@ -38,6 +36,5 @@
 					 fontStyle="italic" fontFamily="Verdana" fontSize="15" fontWeight="normal" color="#6F6A6A"/>
 	
 	</s:VGroup>
-
 
 </s:Group>

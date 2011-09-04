@@ -18,8 +18,6 @@
 	<s:Image 
 		width="100%" height="100%"
 		source="@Embed('assets/old-paper_3.jpg')"
-		smooth="true"
-		smoothingQuality="high"
 		scaleMode="stretch"
 		/>
 
