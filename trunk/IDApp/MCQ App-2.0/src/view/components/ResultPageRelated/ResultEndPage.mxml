@@ -10,8 +10,6 @@
 		width="100%"
 		height="100%"
 		source="@Embed('assets/Book-Endcover.jpg')"
-			 smooth="true"
-			 smoothingQuality="high"
 			 scaleMode="stretch"
 			 />
 </s:Group>

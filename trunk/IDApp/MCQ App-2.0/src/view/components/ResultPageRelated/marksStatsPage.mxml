@@ -34,9 +34,8 @@
 	<s:Image 
 		width="100%" height="100%"
 		source="@Embed('assets/old-paper1.jpg')"
-		smooth="true"
-		smoothingQuality="high"
 		scaleMode="stretch"
+		smooth="true"
 		/>
 	
 	<s:VGroup y="0" width="100%" height="100%" horizontalAlign="center" horizontalCenter="0"

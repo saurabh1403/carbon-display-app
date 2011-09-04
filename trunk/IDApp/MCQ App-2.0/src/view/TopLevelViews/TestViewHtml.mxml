@@ -5,7 +5,8 @@
 		 xmlns:components="view.components.*"
 		 width="100%" height="100%" currentState="TestMode"
 		 creationComplete="group1_creationCompleteHandler(event)" 
-		 xmlns:GeneralComponents="view.components.GeneralComponents.*" xmlns:widgets="view.widgets.*"
+		 xmlns:GeneralComponents="view.components.GeneralComponents.*" 
+		 xmlns:widgets="view.widgets.*"
 		 >
 	
 	<fx:Script>
@@ -50,6 +51,9 @@
 			
 			[Bindable]
 			private var htmlAvailable:Boolean = false;
+			
+			[Bindable]
+			private var isTestCompleted:Boolean = false; 
 			
 			//timer related 
 			private var secondsPassed:int = 0;			
@@ -100,12 +104,15 @@
 				
 				isExplanationExpanded = false;
 				
+				isTestCompleted = false;
 				initView();
 			}
 			
 			protected function FinishHandler(event:MouseEvent):void
 			{
 				var resEvent:TestResultEvent = new TestResultEvent(MCQConstants.testCompletedEventName);
+				
+				isTestCompleted = true;
 				
 				if(currentState == "TestMode")
 				{
@@ -498,8 +505,10 @@
 						 paddingBottom="10" paddingTop="10"
 						 includeInLayout="{htmlAvailable}"
 						 visible="{htmlAvailable}"
-						 tabEnabled="false" tabChildren="false" focusEnabled="false" mouseChildren="false">
+						 tabEnabled="false" tabChildren="false" 
+						 focusEnabled="false" mouseChildren="false">
 				</mx:HTML>
+				
 				<s:RichText id="quesTextStatement" visible="{!htmlAvailable}" left="20" top="40"
 							width="90%" chromeColor="#FCFBFB" color="#678C60"
 							fontFamily="Verdana" fontSize="18" fontWeight="normal"
@@ -513,7 +522,9 @@
 										   top="120">
 					</components:choicesBox>
 					<s:Spacer width="5%"/>
-					<GeneralComponents:DiagramDisplayer id="diagram" right="10" top="120" width="28%" height="180"
+					<GeneralComponents:DiagramDisplayer id="diagram" right="10" top="120" width="28%" height="80%"
+														maxHeight="240"
+														maxWidth="180"
 														/>
 				</s:HGroup>
 				
@@ -527,23 +538,31 @@
 			<s:Button id="nextButton" right="15" bottom="20" width="55" height="55" label="Next"
 					  click="quesChangedEventHandler(event)"
 					  skinClass="skins.roundButtonSkin"
-					  icon="@Embed('assets/Button-next.png')"/>
+					  icon="@Embed('assets/Button-next.png')"
+					  useHandCursor="true"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  />
 			
 			<s:Button id="prevButton" width="55" height="55" label="Previous"
 					  click="quesChangedEventHandler(event)"
 					  left="15" bottom="20"
 					  skinClass="skins.roundButtonSkin"
 					  icon="@Embed('assets/Button-Prev.png')"
+					  useHandCursor="true"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  
 					  />
 			
 			<s:CheckBox id="quesReviewCheckBox" includeIn="TestMode" bottom="20" height="5%"
 						label="Mark For Review Later" click="reviewCheckBoxClickHandler(event)"
-						fontStyle="italic" horizontalCenter="0" textDecoration="underline"/>
-			<s:Button includeIn="TestMode" right="5" top="0" width="45" height="45" label="Quit"
-					  click="testQuitButtonClicked(event)"
-					  icon="@Embed('assets/exit2.png')"
-					  skinClass="skins.TransparentRoundButtonSkin"
-					  />
+						fontSize="15" fontStyle="italic" horizontalCenter="0"
+						textDecoration="underline"/>
+			<s:Button includeIn="TestMode" right="5" top="1" width="45" height="45" label="Quit"
+					  buttonMode="true" click="testQuitButtonClicked(event)"
+					  icon="@Embed('assets/Home.png')" mouseChildren="false"
+					  skinClass="skins.TransparentRoundButtonSkin" useHandCursor="true"/>
 			
 			<!--s:Button click="currentState = 'ReviewMode'" x="300" y="200"/-->
 		</s:BorderContainer>
@@ -553,38 +572,69 @@
 				 backgroundColor="#4F674C" chromeColor="#4F674C">
 			
 			<s:BorderContainer width="100%" height="100%"
-							   backgroundColor.TestMode="#2C2B2B">
+							   backgroundColor="#2C2B2B">
 				
-				<s:Button bottom="20" width="50%" height="5%" label="Done" click="FinishHandler(event)"
-						  horizontalCenter="0"
-						  bottom.TestMode="20" horizontalCenter.TestMode="0"/>
+				<s:VGroup width="100%" height="100%"
+						  verticalAlign="top" horizontalAlign="center">
+					
+					<s:Spacer height="20"/>
+					<widgets:HelpButton top="25" width="70%" height="40" borderColor="#EC5A0B"
+										borderVisible="false" borderWeight="2" buttonText="Help"
+										chromeColor="#F8FBF8" click="HelpClickHandler(event)"
+										horizontalCenter="0"
+										cornerRadius="3"/>
+					
+					<s:Spacer height="5%" maxHeight="20"/>
+					
+					<components:questionsButtBox id="quesBox" width="95%" height="20%"
+												 top="85" horizontalCenter="0">
+						
+					</components:questionsButtBox>
+					
+					<s:Spacer height="10%"/>
+					
+					<s:Label width="80%" height="7%" fontFamily="Verdana"
+							 fontSize="23" fontWeight="normal"
+							 text="Marks : {currQuesMark}" verticalAlign="justify"
+							 color="#F9F9F6" fontStyle="italic"
+							 textAlign="left"/>
+					
+					<s:Spacer height="10%"/>
+
+					<mx:ProgressBar id="quesProgress" includeIn="TestMode" width="80%" height="36"
+									chromeColor="#A0E631" color="#E9E8AF" fontSize="13"
+									fontStyle="italic" fontWeight="normal" horizontalCenter="0"
+									minimum="0" mode="manual" verticalCenter="90"/>
+										
+					<s:Spacer height="15%"/>
+					
+					<s:BorderContainer includeIn="TestMode" width="80%" height="15%"
+									   backgroundColor="#2C2B2B" borderWeight="3" cornerRadius="8"
+									   dropShadowVisible="true" horizontalCenter="0">
+						<s:RichText id="timer" color="#F9FBF9" fontSize="19" fontWeight="bold" horizontalCenter="0"
+									text="{timeLeft}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
+					</s:BorderContainer>
+
+					<s:Spacer height="10%"/>
+					
+					<s:Button width="70%" height="8%" label="Done" click="FinishHandler(event)"
+							  minHeight="30"
+							  horizontalCenter="0"
+							  chromeColor="#F69204" color="#000000"
+							  focusColor="#4385C2" fontSize="18"
+							  fontStyle="normal" fontWeight="normal" 
+							  visible="{!isTestCompleted}" includeInLayout="{!isTestCompleted}"
+							  />
+
+					<mx:Image width="25%" height="5%" 
+						source="@Embed('/assets/SpinnerDark16.swf')" 
+						visible="{isTestCompleted}" includeInLayout="{isTestCompleted}"
+						/>
+
+					<s:Spacer height="20"/>
+					
+				</s:VGroup>
 				
-				<s:Button top="20" width="50%" height="5%" label="Help"
-						  horizontalCenter="0"
-						  click="HelpClickHandler(event)"
-						  visible="false"
-						  />
-				<widgets:HelpButton top="25" width="70%" height="40" borderColor="#EC5A0B"
-									borderVisible="false" borderWeight="2" buttonText="Help"
-									chromeColor="#F8FBF8" click="HelpClickHandler(event)"
-									horizontalCenter="0"
-									cornerRadius.TestMode="8"/>
-				
-				<components:questionsButtBox id="quesBox" width="95%" height="20%"
-											 top="85" horizontalCenter="0">
-				</components:questionsButtBox>
-				<s:BorderContainer includeIn="TestMode" bottom="80" width="80%" height="80" borderWeight="3"
-								   cornerRadius="8" horizontalCenter="0">
-					<s:RichText id="timer" color="#54AD69" fontSize="19" fontWeight="bold" horizontalCenter="0"
-								text="{timeLeft}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
-				</s:BorderContainer>
-				<mx:ProgressBar id="quesProgress" includeIn="TestMode" width="80%" height="36"
-								horizontalCenter="0" verticalCenter="90" minimum="0" mode="manual"/>
-				<s:Label height="7%" color="#419194"
-						 fontStyle="italic" text="Marks : {currQuesMark}"
-						 width="80%" fontFamily="Verdana" fontSize="23"
-						 fontWeight="normal" horizontalCenter="0" textAlign="left"
-						 verticalAlign="justify" verticalCenter="-20"/>
 			</s:BorderContainer>
 			
 		</s:Panel>

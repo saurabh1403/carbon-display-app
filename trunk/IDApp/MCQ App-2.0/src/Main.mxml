@@ -2,7 +2,7 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" 
-					   width="1020" height="650" xmlns:components="view.components.*"
+					   width="1020" height="750" xmlns:components="view.components.*"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   showStatusBar="false"
 					   
@@ -23,11 +23,11 @@
 			import view.TopLevelViews.HomeDisplay;
 			import view.TopLevelViews.TestResultDisplay;
 			import view.TopLevelViews.TestRulesView;
-			import view.TopLevelViews.TestView;
-			import view.TopLevelViews.TestView2;
+//			import view.TopLevelViews.TestView;
+//			import view.TopLevelViews.TestView2;
 			import view.TopLevelViews.TestViewHtml;
 			
-			var topLevelView:Dictionary = new Dictionary();
+			private var topLevelView:Dictionary = new Dictionary();
 			
 			public var testXmlPath:String = "D:\\test\\test.xml";
 			
@@ -114,19 +114,32 @@
 						testResult.addEventListener(MCQConstants.testReviewEventName, startTestInReviewMode, false, 0, true);
 						testResult.addEventListener(MCQConstants.testViewStartEventName, startTest, false, 0, true);
 						testResult.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+//						testResult.addEventListener(FlexEvent.CREATION_COMPLETE, resultScreenCompleted, false, 0, true);
 					}
 					else
 					{
 						testResult = (topLevelView[MCQConstants.TestResultView] as TestResultDisplay);
 						testResult.resetView();
 					}
-					
+
 					this.removeAllElements();
 					this.addElement(testResult);
 					testResult.processData(DataProcessor.instance.quesProxy);
+					
+//					testResult.validateNow();
 					testResult = null;
 					
 				}
+			}
+
+			protected function resultScreenCompleted(event:Event):void
+			{
+				var testResult:TestResultDisplay = event.target as TestResultDisplay
+				this.removeAllElements();
+				this.addElement(testResult);
+				testResult.processData(DataProcessor.instance.quesProxy);
+				testResult = null;
+
 			}
 			
 			//TODO:
@@ -187,11 +200,11 @@
 				}
 				else
 				{
-					startTestTextView(null);		//this will never come
+//					startTestTextView(null);		//this will never come
 				}
 			}
 			
-			protected function startTestTextView(event:Event):void
+/*			protected function startTestTextView(event:Event):void
 			{
 				var currTestView = null;
 				if(topLevelView[MCQConstants.TestDisplayView] == null)
@@ -214,7 +227,7 @@
 				this.removeAllElements();
 				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
 				currTestView = null;
-			}
+			}*/
 			
 			protected function startTestHtmlView(event:Event):void
 			{
@@ -249,11 +262,11 @@
 				}
 				else
 				{
-					startTextTestInReviewMode(null);			//this will never come now
+//					startTextTestInReviewMode(null);			//this will never come now
 				}
 			}
 			
-			protected function startTextTestInReviewMode(event:Event):void
+/*			protected function startTextTestInReviewMode(event:Event):void
 			{
 				this.removeAllElements();
 				
@@ -275,6 +288,7 @@
 				
 				this.addElement(topLevelView[MCQConstants.TestDisplayView]);
 			}
+			*/
 			
 			protected function startHTMLTestInReviewMode(event:Event):void
 			{
