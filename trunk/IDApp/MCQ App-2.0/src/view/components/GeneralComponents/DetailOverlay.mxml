@@ -37,7 +37,7 @@
 				fontFamily="Verdana" fontSize="28" fontWeight="normal" horizontalCenter="0"
 				text="{overlayText}" textAlign="center" verticalAlign="middle" verticalCenter="-20"/>
 	<s:Button includeIn="TextState" bottom="10" width="12%" height="7%"
-			  label="Button" click="clickHandler(event)" horizontalCenter="0"/>
+			  label="Ok" click="clickHandler(event)" horizontalCenter="0"/>
 	
 	<s:Image id="diagImage" includeIn="ImageState" width="75%" height="90%" backgroundAlpha="0.94"
 			 backgroundColor="#FBF7F7" chromeColor="#DEDADA" click="clickHandler(event)"
