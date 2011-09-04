@@ -112,7 +112,7 @@
     
     <!-- layer 2: fill -->
     <!--- @private -->
-    <s:Ellipse id="fill" left="1" right="1" top="1" bottom="1">
+    <s:Ellipse id="fill" left="1" right="1" top="1" bottom="1" visible="false">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xFFFFFF" 
@@ -129,7 +129,7 @@
 
     <!-- layer 3: fill lowlight -->
     <!--- @private -->
-    <s:Ellipse id="lowlight" left="1" right="1" top="1" bottom="1" >
+    <s:Ellipse id="lowlight" left="1" right="1" top="1" bottom="1" visible="false">
         <s:fill>
             <s:LinearGradient rotation="270">
                 <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
@@ -141,7 +141,7 @@
     
     <!-- layer 4: fill highlight -->
     <!--- @private -->
-    <s:Ellipse id="highlight" left="1" right="1" top="1" bottom="1" >
+    <s:Ellipse id="highlight" left="1" right="1" top="1" bottom="1" visible="false" >
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xFFFFFF"
@@ -163,9 +163,9 @@
     
     <!-- layer 5: highlight stroke (all states except down) -->
     <!--- @private -->
-    <s:Ellipse id="highlightStroke" left="1" right="1" top="1" bottom="1"  excludeFrom="down" visible="false">
+    <s:Ellipse id="highlightStroke" left="1" right="1" top="1" bottom="1"  includeIn="over" >
         <s:stroke>
-            <s:LinearGradientStroke rotation="90" weight="1">
+            <s:LinearGradientStroke rotation="90" weight="2">
                 <s:GradientEntry color="0xFFFFFF" alpha.over="0.22" ratio="0.3"/>
                 <s:GradientEntry color="0xD8D8D8" alpha.over="0.22" ratio="0.9"/>
             </s:LinearGradientStroke>

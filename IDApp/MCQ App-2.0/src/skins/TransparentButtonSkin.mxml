@@ -163,7 +163,7 @@
     
     <!-- layer 5: highlight stroke (all states except down) -->
     <!--- @private -->
-    <s:Rect id="highlightStroke" left="1" right="1" top="0" bottom="1" radiusX="2" includeIn="over" visible="false">
+    <s:Rect id="highlightStroke" left="1" right="1" top="0" bottom="1" radiusX="2" excludeFrom="down" >
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0xFFFFFF" alpha.over="0.42" />
