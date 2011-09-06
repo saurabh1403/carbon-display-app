@@ -2,11 +2,12 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx" 
-					   width="1020" height="750" xmlns:components="view.components.*"
+					   xmlns:components="view.components.*"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   showStatusBar="false"
-					   
+					   maxWidth="1020" maxHeight="750"
 					   >
+
 	<fx:Script>
 		<![CDATA[
 			import Controller.DataProcessor;
@@ -33,6 +34,11 @@
 			
 			public var testNumber:int = -1;
 			
+			private var thisWidth:int = 1020;
+			
+			private var thisHeight:int = 720;
+			
+			private const _aspectRatio:Number = 1.4;
 			//***************************to be called by the external module to init the test view*************
 			public function initWithData(baseFolderPath:String, levelXmlPath:String):void
 			{
@@ -41,8 +47,17 @@
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
-				MCQConstants.appWidth = this.width;
-				MCQConstants.appHeight = this.height;
+				thisHeight = Capabilities.screenResolutionY *0.9;
+				thisWidth = thisHeight * _aspectRatio;
+				
+				nativeWindow.width = thisWidth;
+				nativeWindow.height = thisHeight;
+				
+				nativeWindow.x = (Capabilities.screenResolutionX - nativeWindow.width) / 2;
+				nativeWindow.y = (Capabilities.screenResolutionY - nativeWindow.height) / 2 - 20;
+
+				MCQConstants.appWidth = nativeWindow.width;
+				MCQConstants.appHeight = nativeWindow.height;
 				
 				DataProcessor.instance.quesProxy.reset();
 				

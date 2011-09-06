@@ -4,7 +4,10 @@
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
 				   width="100%" height="100%" backgroundColor="#1E5A61" borderWeight="6"
 				   chromeColor="#BDBDBD" dropShadowVisible="false"
-				   creationPolicy="all" xmlns:widgets="view.widgets.*">
+				   creationPolicy="all" xmlns:widgets="view.widgets.*"
+				   showEffect="{wipeRight}"
+				   hideEffect="{wipeLeft}"
+				   >
 	
 	<fx:Script>
 		<![CDATA[
@@ -67,19 +70,22 @@
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				var cusEvent:TestSelectionEvent = new TestSelectionEvent(MCQConstants.testStartEventName);
-				cusEvent.testFolderPath = baseFolderPath;
+				cusEvent.testFolderPath = baseFolderPath + MCQConstants.OSSlash;
 				var tarId:String = event.currentTarget.id as String;
 				switch(event.currentTarget.id as String)
 				{
 					case "l3Start":
+						cusEvent.testFolderPath += levelXml.levels.level[2].levelTestBasePath.toString();
 						cusEvent.testXmlName = levelXml.levels.level[2].levelTestXml.toString();
 						this.dispatchEvent(cusEvent);
 						break;
 					case "l2Start":
+						cusEvent.testFolderPath += levelXml.levels.level[1].levelTestBasePath.toString();
 						cusEvent.testXmlName = levelXml.levels.level[1].levelTestXml.toString();
 						this.dispatchEvent(cusEvent);
 						break;
 					case "l1Start":
+						cusEvent.testFolderPath += levelXml.levels.level[0].levelTestBasePath.toString();
 						cusEvent.testXmlName = levelXml.levels.level[0].levelTestXml.toString();
 						this.dispatchEvent(cusEvent);
 						break;
@@ -97,8 +103,9 @@
 			{
 				baseFolderPath = inBaseFolderPath;
 				
-				var file:File = new File(inBaseFolderPath + inXmlPath);
-				file.resolvePath(inXmlPath);
+//				var file:File = new File(inBaseFolderPath + inXmlPath);
+				var file:File = File.applicationDirectory;
+				file = file.resolvePath(inBaseFolderPath + inXmlPath);
 				
 				var fileStream:FileStream = new FileStream();
 				fileStream.open(file, FileMode.READ);
@@ -140,6 +147,8 @@
 	</fx:Script>
 	
 	<fx:Declarations>
+		<s:Wipe direction="left" duration="500" id="wipeLeft"/>
+		<s:Wipe direction="right" duration="500" id="wipeRight"/>
 	</fx:Declarations>
 	
 	<s:VGroup width="100%" height="100%" verticalAlign="middle"
@@ -271,5 +280,8 @@
 			</s:VGroup>
 		</s:HGroup>
 	</s:VGroup>
+	<s:Label right="10" top="5" color="#FDA803" fontStyle="italic" fontWeight="bold" text="{MCQConstants.copyrightInfo}"/>
+	
+	
 	
 </s:BorderContainer>
