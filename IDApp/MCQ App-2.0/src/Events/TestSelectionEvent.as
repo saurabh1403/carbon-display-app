@@ -10,7 +10,6 @@ package Events
 
 		public var testFolderPath:String = "";
 		public var testXmlName:String = "";
-		public var testType:int = MCQConstants.textContentType;
 
 		public function TestSelectionEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

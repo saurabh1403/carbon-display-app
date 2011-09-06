@@ -50,23 +50,23 @@ package model
 			return (userAnswerWeight == corrAnswerWeight);
 		}
 		
-		public function initQuestion(inXmlNode:XML):void
+		public function initQuestion(inXmlFolderPath:String, inXmlNode:XML):void
 		{
 			quesStatement = inXmlNode.statement.toString();
 			
 			if(inXmlNode.imagePath != null && inXmlNode.imagePath.toString() != "")
 			{
-				_imagePath = MCQConstants.testBaseFolder + inXmlNode.imagePath.toString();
+				_imagePath = inXmlFolderPath + inXmlNode.imagePath.toString();
 			}
 			
 			if(inXmlNode.htmlContent != null && inXmlNode.htmlContent.toString()!="")
 			{
-				_htmlContentPath = MCQConstants.testBaseFolder + inXmlNode.htmlContent.toString();
+				_htmlContentPath = inXmlFolderPath + inXmlNode.htmlContent.toString();
 			}
 			
 			if(inXmlNode.htmlExplanation != null && inXmlNode.htmlExplanation.toString()!="")
 			{
-				_htmlExplanationContentPath = MCQConstants.testBaseFolder + inXmlNode.htmlExplanation.toString();
+				_htmlExplanationContentPath = inXmlFolderPath + inXmlNode.htmlExplanation.toString();
 			}
 			
 			var choiceList:XMLList = inXmlNode.choices.choice;

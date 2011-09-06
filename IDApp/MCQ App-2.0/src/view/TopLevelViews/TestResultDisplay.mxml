@@ -342,6 +342,7 @@
 			  mouseChildren="false"
 			  />
 	
-	
+	<s:Label left="10" top="5" color="#C0BEB9" fontStyle="italic" fontWeight="bold"
+			 text="{MCQConstants.copyrightInfo}"/>
 	
 </s:BorderContainer>

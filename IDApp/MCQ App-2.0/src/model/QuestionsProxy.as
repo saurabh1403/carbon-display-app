@@ -54,6 +54,13 @@ package model
 
 		}
 
+		/**
+		 * 
+		 * @param inXmlFolderPath: the path where the test xml is present. it has slash at the end itself
+		 * @param inXmlName: the xml name
+		 * @return 
+		 * 
+		 */		
 		public function initProxyWithXml(inXmlFolderPath:String, inXmlName:String):Boolean
 		{
 			reset();
@@ -61,10 +68,13 @@ package model
 			testXmlName = inXmlName;
 			testBaseFolderPath = inXmlFolderPath;
 			
-			var xmlFullPath:String = inXmlFolderPath + MCQConstants.OSSlash + inXmlName;
-			
-			var file:File = new File(xmlFullPath);
-			file.resolvePath(xmlFullPath);
+			var xmlFullPath:String = inXmlFolderPath + inXmlName;
+//			
+//			var file:File = new File(xmlFullPath);
+//			file.resolvePath(xmlFullPath);
+
+			var file:File = File.applicationDirectory;
+			file = file.resolvePath(xmlFullPath);
 
 			var fileStream:FileStream = new FileStream();
 			fileStream.open(file, FileMode.READ);
@@ -75,7 +85,7 @@ package model
 			for(var i:int = 0; i < ques.length(); i++)
 			{
 				var ques_obj:Question = new Question();
-				ques_obj.initQuestion(ques[i]);
+				ques_obj.initQuestion(inXmlFolderPath, ques[i]);
 				testTotalMarks += parseInt(ques[i].mark.toString());
 				questions.addItem(ques_obj);
 			}

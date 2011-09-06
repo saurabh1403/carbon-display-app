@@ -7,6 +7,8 @@
 		 creationComplete="group1_creationCompleteHandler(event)" 
 		 xmlns:GeneralComponents="view.components.GeneralComponents.*" 
 		 xmlns:widgets="view.widgets.*"
+		 showEffect="{wipeRight}"
+		 hideEffect="{wipeLeft}"
 		 >
 	
 	<fx:Script>
@@ -68,7 +70,7 @@
 			
 			private var isExplanationExpanded:Boolean = false;
 			
-			private const whiteGradientColor:Array = new Array(new GradientEntry(0xFFFFFF),new GradientEntry(0xFFFFFF));
+			private const whiteGradientColor:Array = new Array(new GradientEntry(0xFFFFFF),new GradientEntry(0xFFFFFF),new GradientEntry(0xEACEED));
 			private const coloredGradientColor:Array = new Array(new GradientEntry(0xFFFFFF),new GradientEntry(0xEACEED));
 			
 			public function resetView():void
@@ -474,7 +476,8 @@
 	<fx:Style source="Styles/MCQStyles.css"/>
 	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Wipe direction="left" duration="500" id="wipeLeft"/>
+		<s:Wipe direction="right" duration="500" id="wipeRight"/>
 	</fx:Declarations>
 	
 	<s:layout>
@@ -570,7 +573,10 @@
 					  icon="@Embed('assets/Home.png')" mouseChildren="false"
 					  skinClass="skins.TransparentRoundButtonSkin" useHandCursor="true"/>
 			
-			<!--s:Button click="currentState = 'ReviewMode'" x="300" y="200"/-->
+			<s:Label right="10" color="#FDA803" fontStyle="italic" fontWeight="bold"
+					 text="{MCQConstants.copyrightInfo}"
+					 top.ReviewMode="5"
+					 right.TestMode="10" bottom.TestMode="5" color.TestMode="#38393A"/>
 		</s:BorderContainer>
 		<s:Panel right="6" top="10" bottom="10" width="20%" borderAlpha="1.0" borderColor="#191EE6"
 				 borderVisible="false" cornerRadius="16"
@@ -592,7 +598,7 @@
 					
 					<s:Spacer height="5%" maxHeight="20"/>
 					
-					<components:questionsButtBox id="quesBox" width="95%" height="20%"
+					<components:questionsButtBox id="quesBox" width="95%"
 												 top="85" horizontalCenter="0">
 						
 					</components:questionsButtBox>
@@ -606,12 +612,12 @@
 							 textAlign="left"/>
 					
 					<s:Spacer height="10%"/>
-
+					
 					<mx:ProgressBar id="quesProgress" includeIn="TestMode" width="80%" height="36"
 									chromeColor="#A0E631" color="#E9E8AF" fontSize="13"
 									fontStyle="italic" fontWeight="normal" horizontalCenter="0"
 									minimum="0" mode="manual" verticalCenter="90"/>
-										
+					
 					<s:Spacer height="15%"/>
 					
 					<s:BorderContainer includeIn="TestMode" width="80%" height="15%"
@@ -621,7 +627,7 @@
 						<s:RichText id="timer" color="#F9FBF9" fontSize="19" fontWeight="bold" horizontalCenter="0"
 									text="{timeLeft}" textAlign="center" verticalAlign="middle" verticalCenter="0"/>
 					</s:BorderContainer>
-
+					
 					<s:Spacer height="10%"/>
 					
 					<s:Button width="70%" height="8%" label="Done" click="FinishHandler(event)"
@@ -633,12 +639,12 @@
 							  fontStyle="normal" fontWeight="normal" 
 							  visible="{!isTestCompleted}" includeInLayout="{!isTestCompleted}"
 							  />
-
+					
 					<mx:Image width="25%" height="5%" 
-						source="@Embed('/assets/SpinnerDark16.swf')" 
-						visible="{isTestCompleted}" includeInLayout="{isTestCompleted}"
-						/>
-
+							  source="@Embed('/assets/SpinnerDark16.swf')" 
+							  visible="{isTestCompleted}" includeInLayout="{isTestCompleted}"
+							  />
+					
 					<s:Spacer height="20"/>
 					
 				</s:VGroup>

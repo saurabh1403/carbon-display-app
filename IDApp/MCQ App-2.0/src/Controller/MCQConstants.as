@@ -50,6 +50,7 @@ package Controller
 		
 		//configurations
 		static public const isBgImageVisible:Boolean = false;
+		static public const copyrightInfo:String = "Gurukul Classes (c). All rights reserved. ";
 		
 		//application wise constants
 		[Bindable]
@@ -59,7 +60,8 @@ package Controller
 		static public var appHeight:int = 0;
 		
 		//TODO: change this according to package content. just for testing here
-		static public var testBaseFolder:String = "D:/test1/"; 		// this is the base folder in which all the resources are kept
+//		static public var testBaseFolder:String = "D:/test1/"; 		// this is the base folder in which all the resources are kept
+		static public var testBaseFolder:String = 'data/'; 		// this is the base folder in which all the resources are kept
 		static public var testXmlName:String = "test.xml";
 		static public var levelXml:String = "testLevel.xml";
 		static public const OSSlash:String = "/";
