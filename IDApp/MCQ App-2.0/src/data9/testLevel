@@ -1,0 +1,33 @@
+<testLevel>
+	<levels>
+		<level>
+			<label>Science 9 - Fundamental unit of Life</label>
+			<imgSrcPath>Level1.jpg</imgSrcPath>
+			<!-- this path is relative to the path where the levelXml is present. If non-empty, then it should have a slash at the end. Note that slash should be a backward slash irrespective of the platform. This slash is same which is in web URLs-->
+			<levelTestBasePath>sc1/</levelTestBasePath>
+			<!-- this path is relative to the levelTestBasePath defined above-->
+			<levelTestXml>data1</levelTestXml>
+			<Description>This contains the multiple choice questions of chapter Fundamental Unit Of Life.
+The questions are based on the CBSE pattern. 
+			</Description>
+		</level>
+		<level>
+			<label>Science 9 - Matter in our Surrounding</label>
+			<imgSrcPath>Level2.jpg</imgSrcPath>
+			<levelTestBasePath>sc2/</levelTestBasePath>
+			<levelTestXml>data1</levelTestXml>
+			<Description>This contains the multiple choice questions of chapter Matter in our Surrounding.
+The questions are based on the CBSE pattern. 
+			</Description>
+		</level>
+		<level>
+			<label>Maths 9 - Real Numbers</label>
+			<imgSrcPath>Level3.png</imgSrcPath>
+			<levelTestBasePath>m3/</levelTestBasePath>
+			<levelTestXml>data1</levelTestXml>
+			<Description>This contains the multiple choice questions of chapter Real numbers.
+The questions are based on the CBSE pattern. You can use the extra sheets for doing the rough work.
+			</Description>
+		</level>
+	</levels>
+</testLevel>
