@@ -180,7 +180,8 @@
 				<s:Spacer height="10"/>
 				<s:RichText id="l1Description" 
 							color="#F7F1F1" fontSize="14" fontStyle="italic"
-							textAlign="left" />
+							textAlign="left" 
+							/>
 				<s:Spacer height="100%"/>
 				<s:HGroup width="100%" >
 					<s:Spacer width="55%"/>

@@ -23,7 +23,13 @@
   <buildTargets>
     <buildTarget buildTargetName="default">
       <airSettings airCertificatePath="D:/saurabhg/My extra/final MCQs/sign_cert.p12" airTimestamp="true" version="1">
-        <airExcludes/>
+        <airExcludes>
+          <pathEntry path="data10"/>
+          <pathEntry path="data"/>
+          <pathEntry path="assets/experiment"/>
+          <pathEntry path="Main-app - For 9th (Beta1).xml"/>
+          <pathEntry path="Main-app - For 10th (Beta1).xml"/>
+        </airExcludes>
       </airSettings>
       <actionScriptSettings version="1"/>
     </buildTarget>
