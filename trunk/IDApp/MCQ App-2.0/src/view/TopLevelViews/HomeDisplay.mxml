@@ -70,7 +70,7 @@
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				var cusEvent:TestSelectionEvent = new TestSelectionEvent(MCQConstants.testStartEventName);
-				cusEvent.testFolderPath = baseFolderPath + MCQConstants.OSSlash;
+				cusEvent.testFolderPath = baseFolderPath;
 				var tarId:String = event.currentTarget.id as String;
 				switch(event.currentTarget.id as String)
 				{
@@ -175,9 +175,8 @@
 			<s:Spacer width="20"/>
 			
 			<s:VGroup width="100%" height="100%" verticalAlign="top" >
-				<s:Label id="l1Title" color="#FEFEFE" 
-						 fontSize="20" fontWeight="bold"
-						 />
+				<s:Label id="l1Title" color="#FEFEFE" fontSize="17" fontWeight="bold"
+						 textAlign="left"/>
 				<s:Spacer height="10"/>
 				<s:RichText id="l1Description" 
 							color="#F7F1F1" fontSize="14" fontStyle="italic"
@@ -219,9 +218,8 @@
 					  >
 				
 				<s:VGroup width="100%" height="100%" verticalAlign="top" >
-					<s:Label id="l2Title" color="#FEFEFE" 
-							 fontSize="20" fontWeight="bold"
-							 />
+					<s:Label id="l2Title" color="#FEFEFE" fontSize="17" fontWeight="bold"
+							 textAlign="left"/>
 					<s:Spacer height="10"/>
 					<s:RichText id="l2Description" 
 								color="#F7F1F1" fontSize="14" fontStyle="italic"
@@ -261,9 +259,8 @@
 			<s:Spacer width="20"/>
 			
 			<s:VGroup width="100%" height="100%" verticalAlign="top" >
-				<s:Label id="l3Title" color="#FEFEFE" 
-						 fontSize="20" fontWeight="bold"
-						 />
+				<s:Label id="l3Title" color="#FEFEFE" fontSize="17" fontWeight="bold"
+						 textAlign="left"/>
 				<s:Spacer height="10"/>
 				<s:RichText id="l3Description" 
 							color="#F7F1F1" fontSize="14" fontStyle="italic"

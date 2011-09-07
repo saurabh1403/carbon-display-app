@@ -58,18 +58,18 @@ package Controller
 
 		[Bindable]
 		static public var appHeight:int = 0;
-		
+
 		//TODO: change this according to package content. just for testing here
 //		static public var testBaseFolder:String = "D:/test1/"; 		// this is the base folder in which all the resources are kept
-		static public var testBaseFolder:String = 'data/'; 		// this is the base folder in which all the resources are kept
+		static public var testBaseFolder:String = "data9/"; 		// this is the relative base folder in which all the resources are kept
 		static public var testXmlName:String = "test.xml";
-		static public var levelXml:String = "testLevel.xml";
+		static public var levelXml:String = "testLevel";
 		static public const OSSlash:String = "/";
-		
+
 		public function MCQConstants():void
 		{
 		}
-
+		
 		static public function resetMCQConstants():void
 		{
 			testBaseFolder = "";

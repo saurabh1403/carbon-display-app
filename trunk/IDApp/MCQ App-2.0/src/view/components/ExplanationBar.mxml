@@ -14,7 +14,7 @@
 	<fx:Script>
 		<![CDATA[
 
-			public var explanationString:String = "Explanation: \n\n";
+			public const explanationString:String = "Explanation: \n\n";
 
 			[Bindable]
 			public var explanationText:String = "";
@@ -35,20 +35,25 @@
 		<s:State name="collapsed"/>
 		<s:State name="expanded"/>
 	</s:states>
-
-	<s:RichText width="100%" height="100%" chromeColor="#FCF8F8" color="#767474" fontFamily="Verdana"
-				fontSize="13" horizontalCenter="0" paddingBottom="10" paddingLeft="10"
-				paddingRight="10" paddingTop="10" text="{explanationString + explanationText}"
-				textAlign="left" verticalCenter="0"
-				verticalAlign.collapsed="top"
-				visible="{!isContentHtml}" includeInLayout="{!isContentHtml}"/>
 	
-	<mx:HTML visible="{isContentHtml}" width="100%" height="100%" chromeColor="#FCF8F8"
-			 color="#767474" fontFamily="Verdana" fontSize="13" horizontalCenter="0"
-			 includeInLayout="{isContentHtml}" location="{htmlContentPath}" paddingBottom="10"
-			 paddingLeft="10" paddingRight="10" paddingTop="10" paintsDefaultBackground="false"
-			 textAlign="left" verticalCenter="0"
-			 dropShadowVisible.collapsed="false"
-			 tabEnabled="false" tabChildren="false" focusEnabled="false" mouseChildren.collapsed="false"
-			 verticalScrollPolicy.collapsed = "off"/>
+	<s:RichText 
+		width="100%" height="100%" chromeColor="#FCF8F8" color="#767474" fontFamily="Verdana"
+		fontSize="13" horizontalCenter="0" paddingBottom="10" paddingLeft="10"
+		paddingRight="10" paddingTop="10" text="{explanationString + explanationText}"
+		textAlign="left" verticalCenter="0"
+		verticalAlign.collapsed="top"
+		visible="{!isContentHtml}" includeInLayout="{!isContentHtml}"/>
+	
+	<mx:HTML
+		id="htmlText"
+		historyPosition="0"
+		visible="{isContentHtml}" width="100%" height="100%" chromeColor="#FCF8F8"
+		color="#767474" fontFamily="Verdana" fontSize="13" horizontalCenter="0"
+		includeInLayout="{isContentHtml}" location="{htmlContentPath}" paddingBottom="10"
+		paddingLeft="10" paddingRight="10" paddingTop="10" paintsDefaultBackground="false"
+		textAlign="left" verticalCenter="0"
+		dropShadowVisible.collapsed="false"
+		tabEnabled="false" tabChildren="false" focusEnabled="false" mouseChildren.collapsed="false"
+		verticalScrollPolicy.collapsed = "off"/>
+	
 </s:BorderContainer>

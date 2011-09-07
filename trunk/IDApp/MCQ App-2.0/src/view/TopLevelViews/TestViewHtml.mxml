@@ -107,6 +107,8 @@
 				isExplanationExpanded = false;
 				
 				isTestCompleted = false;
+				
+				
 				initView();
 			}
 			
@@ -392,6 +394,7 @@
 					{
 						quesExplanation.htmlContentPath = _currQues._htmlExplanationContentPath;
 						quesExplanation.isContentHtml = true;
+						quesExplanation.htmlText.reload();
 					}
 					else
 					{
@@ -406,6 +409,7 @@
 					quesStatement.location = _currQues._htmlContentPath;
 					htmlAvailable = true;
 					bgColor.entries = whiteGradientColor;
+					quesStatement.reload();
 					
 				}
 				else
