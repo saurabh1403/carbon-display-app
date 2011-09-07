@@ -61,7 +61,7 @@ package Controller
 
 		//TODO: change this according to package content. just for testing here
 //		static public var testBaseFolder:String = "D:/test1/"; 		// this is the base folder in which all the resources are kept
-		static public var testBaseFolder:String = "data9/"; 		// this is the relative base folder in which all the resources are kept
+		static public var testBaseFolder:String = "data10/"; 		// this is the relative base folder in which all the resources are kept
 		static public var testXmlName:String = "test.xml";
 		static public var levelXml:String = "testLevel";
 		static public const OSSlash:String = "/";
