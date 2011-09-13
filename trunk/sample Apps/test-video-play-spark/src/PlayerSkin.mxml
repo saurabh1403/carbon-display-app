@@ -142,7 +142,7 @@ in accordance with the terms of the license agreement accompanying it.
 					bottom.fullScreenStates="0" left.fullScreenStates="0" 
 					right.fullScreenStates="0" top.fullScreenStates="0">
 				<s:fill>
-					<s:SolidColor color="0x5A5C5A" />
+					<s:SolidColor color="0x343634" />
 				</s:fill>
 				<s:stroke>
 					<s:LinearGradientStroke weight="3" rotation="90">
@@ -162,14 +162,14 @@ in accordance with the terms of the license agreement accompanying it.
 								height="100%" width="100%"
 								visible="true"
 								focusEnabled="false"
-								scaleMode="none"
+								scaleMode="letterbox"
 								/>
 				
 				
+				<!-- scrubbar + the currentTime/duration labels -->
 				<s:Group height="100%" width="100%"
 						 maxHeight="30">
 					
-					<!-- scrubbar + the currentTime/duration labels -->
 					
 					<!-- background for scrubbar + the currentTime/duration -->
 					<s:Rect left="0" right="0" top="0" bottom="0">
@@ -334,6 +334,7 @@ in accordance with the terms of the license agreement accompanying it.
 				
 				
 			</s:VGroup>
+		
 			<!-- border -->
 			<s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="fullScreenStates" visible="false">
 				<s:stroke>
