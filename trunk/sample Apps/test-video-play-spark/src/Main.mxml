@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="1100" height="750"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import adobe.utils.CustomActions;
+			
+			import flash.display.DisplayObject;
+			
+			import mx.controls.Alert;
+			import mx.controls.VideoDisplay;
+			import mx.events.FlexEvent;
+			
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.media.MediaPlayerState;
+			
+			import spark.components.VideoDisplay;
+			import spark.components.VideoPlayer;
+			public var con:NetConnection;
+			
+			public var vidSrc:String = "assets/test1.flv";
+			
+			protected function testFn(event:Event):void
+			{
+				Alert.show("event achieved", "hello");
+			}
+			
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				vid.skin.addEventListener("testEvent", testFn, false, 0, true);
+				//				var vid:VideoPlayer = new VideoPlayer();
+				//				vid.width = 800;
+				//				vid.height = 600;
+				//				vid.source = "assets/v1.mp4";
+				//
+				//				vid.videoObject.smoothing = true;
+				//				vid.videoObject.deblocking = 0;
+				//								
+				//				this.addElement(vid);
+				
+				//				con = new NetConnection();
+				//				con.addEventListener(NetStatusEvent.NET_STATUS, f1);
+				//				con.connect(null);
+			}
+			
+			protected function f1(event:NetStatusEvent):void
+			{
+				var ns:NetStream = new NetStream(con);
+				
+				var vv:Video = new Video(1000, 900);
+				vv.smoothing = true;
+				vv.deblocking = 0;
+				vv.attachNetStream(ns);
+				
+				ns.play(vidSrc);
+			}
+			
+			protected function vid_mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+			{
+				//				return;
+				if(event.state == MediaPlayerState.READY)
+				{
+					vid.videoObject.smoothing = true;
+					vid.videoObject.deblocking = 0;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:HGroup left="15" right="10" top="10" bottom="10" width="100%" height="100%"
+			  contentBackgroundColor="#FDFCFC">
+		
+		<s:VGroup width="100%" height="100%">
+			
+			<s:Spacer height="10%"/>
+
+			<s:VideoPlayer id="vid" visible="true" left="10" top="10" width="100%" height="100%"
+						   maxWidth="1100" 
+						   mediaPlayerStateChange="vid_mediaPlayerStateChangeHandler(event)"
+						   skinClass="PlayerSkin"
+						   source="{vidSrc}"
+						   />
+			
+		</s:VGroup>
+		<s:Spacer width="15"/>
+		
+		<s:BorderContainer right="10" top="10" bottom="10" width="1%" dropShadowVisible="true" focusEnabled="false">
+			
+			<s:List id="subTopicsList" width="100%" height="100%" focusEnabled="false"></s:List>
+		</s:BorderContainer>
+	</s:HGroup>
+	
+</s:WindowedApplication>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the play/pause button of a Spark VideoPlayer component  
+      in the normal skin state. The normal skin state means the component is not in 
+      one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledStates="0.5">
+
+    <!-- host component -->
+    <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.ToggleButton")]
+    </fx:Metadata>
+    
+    <fx:Script fb:purpose="styling">
+        /* Define the skin elements that should not be colorized. */
+        static private const exclusions:Array = ["playSymbol", "pauseSymbol"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style.*/
+        static private const symbols:Array = [];
+        
+        /**
+         * @private
+         */
+        override public function get symbolItems():Array {return symbols};
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+    </fx:Script>
+    
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+    </s:states>
+        
+    <!-- layer 1: fill -->
+    <s:Ellipse left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xFFFFFF"
+                                 color.overStates="0xFFFFFF"
+                                 color.downStates="0xF7F0F0" />
+                <s:GradientEntry color="0xDCDCDC"
+                                 color.overStates="0x92B88C" 
+                                 color.downStates="0x7BA374"/>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Ellipse>
+    
+    <!-- layer 2: One pixel stroke inside border (exclude in downStates) -->
+    <s:Ellipse left="1" right="1" top="1" bottom="1">
+        <s:stroke>
+            <s:LinearGradientStroke weight="2" rotation="90">
+                <s:GradientEntry color="0x242323" color.overStates="0xACD9A3"/>
+                <s:GradientEntry color="0x3B3A39" color.overStates="0x96CF8A"/>
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Ellipse>
+    
+    <!-- layer 4: downstate inset border  (include only in downStates) -->
+    <s:Ellipse left="1" top="1" right="1" height="1" includeIn="downStates" visible="false" includeInLayout="false">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.4" />
+        </s:fill>
+    </s:Ellipse>
+    <s:Ellipse left="1" top="2" right="1" height="1" includeIn="downStates" visible="false" includeInLayout="false">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Ellipse>
+    <s:Ellipse left="1" top="1" bottom="1" width="1" includeIn="downStates" visible="false" includeInLayout="false">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Ellipse>
+    <s:Ellipse right="1" top="1" bottom="1" width="1" includeIn="downStates" visible="false" includeInLayout="false">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Ellipse>
+    
+    <!-- layer 5: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <s:Ellipse left="0" right="0" top="0" bottom="0" width="38" height="24" >
+        <s:stroke>
+            <s:SolidColorStroke color="0x131313" />
+        </s:stroke>
+    </s:Ellipse>
+    
+    <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol"
+			 left="1" top="1" right="1" bottom="1"
+			 >
+		<s:Image source="@Embed('assets/play.png')"
+				 smooth="true"
+				 smoothingQuality="high"
+				 scaleMode="stretch"
+				 width="90%" height="90%"
+				 horizontalCenter="0" verticalCenter="0"
+				 />
+
+	</s:Group>
+
+	<!--- Defines the play symbol. -->
+
+	<s:Group horizontalCenter="0" verticalCenter="0" 
+			 includeIn="selectedStates" id="pauseSymbol"
+			 left="1" top="1" right="1" bottom="1"
+			 >
+
+		<s:Image source="@Embed('assets/pause.png')"
+				 smooth="true"
+				 smoothingQuality="high"
+				 scaleMode="stretch"
+				 width="90%" height="90%"
+				 horizontalCenter="0" verticalCenter="0"
+				 />
+	</s:Group>
+
+    <!--- Defines the pause symbol. -->
+
+</s:SparkSkin>
