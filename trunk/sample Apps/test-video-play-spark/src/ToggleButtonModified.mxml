@@ -96,27 +96,6 @@
         </s:stroke>
     </s:Ellipse>
     
-    <!-- layer 4: downstate inset border  (include only in downStates) -->
-    <s:Ellipse left="1" top="1" right="1" height="1" includeIn="downStates" visible="false" includeInLayout="false">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.4" />
-        </s:fill>
-    </s:Ellipse>
-    <s:Ellipse left="1" top="2" right="1" height="1" includeIn="downStates" visible="false" includeInLayout="false">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.12" />
-        </s:fill>
-    </s:Ellipse>
-    <s:Ellipse left="1" top="1" bottom="1" width="1" includeIn="downStates" visible="false" includeInLayout="false">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.12" />
-        </s:fill>
-    </s:Ellipse>
-    <s:Ellipse right="1" top="1" bottom="1" width="1" includeIn="downStates" visible="false" includeInLayout="false">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.12" />
-        </s:fill>
-    </s:Ellipse>
     
     <!-- layer 5: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <s:Ellipse left="0" right="0" top="0" bottom="0" width="38" height="24" >

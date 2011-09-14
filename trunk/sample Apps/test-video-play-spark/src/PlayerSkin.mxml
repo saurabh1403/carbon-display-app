@@ -76,6 +76,20 @@ in accordance with the terms of the license agreement accompanying it.
 				this.dispatchEvent(new Event('testEvent'));
 			}
 			
+			protected function toggle_sound(event:Event):void
+			{
+				if (event.target.selected)
+				{
+					videoDisplay.volume = 0;                
+					volumeButton.toolTip = "Unmute";
+				}
+				else
+				{
+					videoDisplay.volume = (volumeSlider.value/100);                
+					volumeButton.toolTip =  "Mute";
+				}
+			}
+			
 		]]>
 		
 	</fx:Script>
@@ -163,6 +177,7 @@ in accordance with the terms of the license agreement accompanying it.
 								visible="true"
 								focusEnabled="false"
 								scaleMode="letterbox"
+								volume="{volumeSlider.value/100}"
 								/>
 				
 				
@@ -246,8 +261,9 @@ in accordance with the terms of the license agreement accompanying it.
 						</s:fill>
 					</s:Rect>
 					
+					<!-- the central controls of the video player -->
 					<s:Group horizontalCenter="0" verticalCenter="0" width="50%" minWidth="200" maxWidth="600"
-							 height="90%" maxHeight="70" >
+							 height="90%" maxHeight="70" minHeight="55" >
 						
 						<!--  border for the video main controls (pause/play/next etc.) -->
 						<s:Rect horizontalCenter="0" verticalCenter="0"
@@ -262,8 +278,8 @@ in accordance with the terms of the license agreement accompanying it.
 						
 						<!-- the central circular part -->
 						<s:Ellipse horizontalCenter="0" verticalCenter="0"
-								width="53" height="53"
-								>
+								   width="53" height="53"
+								   >
 							<s:stroke>
 								<s:SolidColorStroke color="0xDB8E35" weight="2"/>
 							</s:stroke>
@@ -283,7 +299,13 @@ in accordance with the terms of the license agreement accompanying it.
 							</s:fill>
 						</s:Rect>
 						
-							
+						<!--  prev item click button -->
+						<s:Button visible="true" width="40" height="32"
+								  click="fullScreenButton1_clickHandler(event)"
+								  horizontalCenter="-40" skinClass="prevVideoItemClickSkin"
+								  toolTip="Previous"
+								  verticalCenter="0"/>
+						
 						<!--- @copy spark.components.VideoPlayer#playPauseButton -->
 						<s:ToggleButton id="playPauseButton" left="10" bottom="0" width="50"
 										horizontalCenter="0" verticalCenter="0"
@@ -291,50 +313,56 @@ in accordance with the terms of the license agreement accompanying it.
 										focusOut="event.target.depth=0" layoutDirection="ltr"
 										skinClass="ToggleButtonModified"
 										/>
-
+						
 						<!--  next item click button -->
 						<s:Button visible="true" width="40" height="32"
 								  click="fullScreenButton1_clickHandler(event)"
 								  horizontalCenter="43" skinClass="nextVideoItemClickSkin"
-								  toolTip="Next "
+								  toolTip="Next"
 								  verticalCenter="0"/>
-
-						<!--  prev item click button -->
-						<s:Button visible="true" width="40" height="32"
-								  click="fullScreenButton1_clickHandler(event)"
-								  horizontalCenter="-40" skinClass="prevVideoItenClickSkin"
-								  verticalCenter="0"/>
-
 						
 						<!--- @copy spark.components.VideoPlayer#volumeBar -->
 						<s:VolumeBar id="volumeBar" snapInterval=".01" stepSize=".01" liveDragging="true"
-									 right="37" bottom="0" 
+									 right="10" 
+									 verticalCenter="0"
 									 layoutDirection="ltr"
 									 visible="false"
-									 focusEnabled="false"
+									 includeInLayout="false"
+									 focusEnabled="true"
 									 skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
 									 skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin"
 									 focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
 						
-						<!--- @copy spark.components.VideoPlayer#fullScreenButton -->
-						<s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
-								  skinClass="spark.skins.spark.mediaClasses.normal.FullScreenButtonSkin"
-								  skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.FullScreenButtonSkin"
-								  focusIn="event.target.depth=1" focusOut="event.target.depth=0" visible="false"
-								  focusEnabled="false"/>
+						<s:ToggleButton id="volumeButton" right="100" width="23" height="23"
+										click="toggle_sound(event)"
+										focusEnabled="true" focusIn="event.target.depth=1"
+										focusOut="event.target.depth=0" layoutDirection="ltr"
+										skinClass="volumeButtonSkinModified" verticalCenter="0"
+										/>
 						
-						<s:Button id="fullScreenButton1" label="test" right="0" bottom="0"
-								  click="fullScreenButton1_clickHandler(event)"
-								  visible="false"
-								  focusEnabled="false"
-								  />
+						<s:HSlider id="volumeSlider" right="20" width="70" dataTipPrecision="0"
+								   liveDragging="true" maximum="100" minimum="0"
+								   skinClass="volumeSliderSkinModified" snapInterval=".01"
+								   stepSize=".01" value="70" verticalCenter="0"
+								   change="{volumeButton.selected = false}"
+								   />
+						
 					</s:Group>
-
+					
+					<s:ToggleButton id="fullScreenButton1" width="30" right="15"
+									verticalCenter="0"
+									height="30" focusIn="event.target.depth=1"
+									focusOut="event.target.depth=0" layoutDirection="ltr"
+									skinClass="FullScreenButtonModified"
+									click="fullScreenButton1_clickHandler(event)"
+									toolTip="Toggle fullScreen Mode"
+									/>
+					
 				</s:Group>
 				
 				
 			</s:VGroup>
-		
+			
 			<!-- border -->
 			<s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="fullScreenStates" visible="false">
 				<s:stroke>
