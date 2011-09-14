@@ -120,6 +120,7 @@
 				C 10 30 10 0 0 0
 				Z
 				">
+
 			<!-- Define the border color of the arrow. -->
 			<s:stroke>
 				<s:SolidColorStroke weight="1" weight.over="2" weight.down="1" color="0x242323" color.down="0xFA922A" color.over="0xACD9A3"/>

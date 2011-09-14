@@ -28,7 +28,7 @@
 			
 			protected function testFn(event:Event):void
 			{
-				Alert.show("event achieved", "hello");
+//				Alert.show("event achieved", "hello");
 			}
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
