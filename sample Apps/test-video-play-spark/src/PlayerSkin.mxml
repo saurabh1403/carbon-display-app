@@ -39,6 +39,7 @@ in accordance with the terms of the license agreement accompanying it.
 	
 	<fx:Script fb:purpose="styling">
 		<![CDATA[
+			import Events.VideoPlayerEvent;
 			/* Define the skin elements that should not be colorized. */
 			static private const exclusions:Array = ["videoDisplay", "playPauseButton", "scrubBar", 
 				"currentTimeDisplay", "timeDivider", "durationDisplay", 
@@ -73,7 +74,21 @@ in accordance with the terms of the license agreement accompanying it.
 			
 			protected function fullScreenButton1_clickHandler(event:MouseEvent):void
 			{
-				this.dispatchEvent(new Event('testEvent'));
+				var newEvent:VideoPlayerEvent = new VideoPlayerEvent("testEvent");
+				
+				switch(event.target.id.toString())
+				{
+					case "fullScreenButton1":
+						newEvent.eventTargetComponent = "fullScreenButton";
+						newEvent.eventTargetValue = ((event.target as ToggleButton).selected) ? 1 : 0;
+						break;
+					
+					default:
+						break;
+						
+				}
+
+				this.dispatchEvent(newEvent);
 			}
 			
 			protected function toggle_sound(event:Event):void
@@ -176,7 +191,7 @@ in accordance with the terms of the license agreement accompanying it.
 								height="100%" width="100%"
 								visible="true"
 								focusEnabled="false"
-								scaleMode="letterbox"
+								scaleMode="stretch"
 								volume="{volumeSlider.value/100}"
 								/>
 				
@@ -243,7 +258,6 @@ in accordance with the terms of the license agreement accompanying it.
 				</s:Group>
 				
 				<!-- video player controls -->
-				<!-- actual controls with a maxWidth in non-fullScreen mode -->
 				<!--- @copy spark.components.VideoPlayer#playerControls -->
 				<s:Group bottom="0" horizontalCenter="0" left="0" right="0" 
 						 width="100%" height="100%"
@@ -299,6 +313,21 @@ in accordance with the terms of the license agreement accompanying it.
 							</s:fill>
 						</s:Rect>
 						
+						<!--  auto repeat button -->
+						<s:ToggleButton id="autoRepeatButton" left="40" width="26" height="27"
+										click="fullScreenButton1_clickHandler(event)"
+										focusEnabled="true" focusIn="event.target.depth=1"
+										toolTip="Toggle AutoRepeat"
+										focusOut="event.target.depth=0" layoutDirection="ltr"
+										skinClass="AutoRepeatButtonSkinModified" verticalCenter="0"/>
+						
+						<!--  stop button -->
+						<s:Button visible="true" left="100" width="27" height="29"
+								  click="{videoDisplay.stop()}"
+								  skinClass="stopButtonSkinModified"
+								  toolTip="Stop" verticalCenter="0"/>
+						
+						
 						<!--  prev item click button -->
 						<s:Button visible="true" width="40" height="32"
 								  click="fullScreenButton1_clickHandler(event)"
@@ -321,18 +350,6 @@ in accordance with the terms of the license agreement accompanying it.
 								  toolTip="Next"
 								  verticalCenter="0"/>
 						
-						<!--- @copy spark.components.VideoPlayer#volumeBar -->
-						<s:VolumeBar id="volumeBar" snapInterval=".01" stepSize=".01" liveDragging="true"
-									 right="10" 
-									 verticalCenter="0"
-									 layoutDirection="ltr"
-									 visible="false"
-									 includeInLayout="false"
-									 focusEnabled="true"
-									 skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
-									 skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin"
-									 focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
-						
 						<s:ToggleButton id="volumeButton" right="100" width="23" height="23"
 										click="toggle_sound(event)"
 										focusEnabled="true" focusIn="event.target.depth=1"
@@ -345,6 +362,7 @@ in accordance with the terms of the license agreement accompanying it.
 								   skinClass="volumeSliderSkinModified" snapInterval=".01"
 								   stepSize=".01" value="70" verticalCenter="0"
 								   change="{volumeButton.selected = false}"
+								   toolTip="Volume"
 								   />
 						
 					</s:Group>

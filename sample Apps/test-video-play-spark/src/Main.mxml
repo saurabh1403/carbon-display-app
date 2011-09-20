@@ -9,7 +9,11 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import Events.VideoPlayerEvent;
+			
 			import adobe.utils.CustomActions;
+			
+			import caurina.transitions.Tweener;
 			
 			import flash.display.DisplayObject;
 			
@@ -26,9 +30,36 @@
 			
 			public var vidSrc:String = "assets/test1.flv";
 			
-			protected function testFn(event:Event):void
+			protected function testFn(event:VideoPlayerEvent):void
 			{
-//				Alert.show("event achieved", "hello");
+				var videoWidth:uint = vid.width;
+				var videoHeight:uint = vid.height;
+				
+				switch(event.eventTargetComponent)
+				{
+					case "fullScreenButton":
+						
+						if(event.eventTargetValue == 0)
+						{
+							Tweener.addTween(this.vid, {width: 850, 
+								height: 650, time: 2});
+							currentState = "StandardScreenState";
+						}
+						else
+						{
+							Tweener.addTween(this.vid, {width: this.width - 20, 
+								horizontalCenter: 0, verticalCenter: 0, 
+								
+								transition: "easeOutQuad",
+								height: this.height - 20, time: 2});
+							currentState = "FullScreenState";
+						}
+					
+						break;
+					
+					default:
+						break;
+				}
 			}
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
@@ -74,24 +105,32 @@
 		]]>
 	</fx:Script>
 	
-	<s:HGroup left="15" right="10" top="10" bottom="10" width="100%" height="100%"
+	<s:states>
+		<s:State name="StandardScreenState"/>
+		<s:State name="FullScreenState" />
+	</s:states>
+	
+	<s:HGroup left="15" right="15" top="10" bottom="10" width="100%" height="100%"
 			  contentBackgroundColor="#FDFCFC">
 		
 		<s:VGroup width="100%" height="100%">
 			
-			<s:Spacer height="10%"/>
+			<s:Spacer height="10%" includeIn="StandardScreenState"/>
 
 			<s:VideoPlayer id="vid" visible="true" left="10" top="10" width="100%" height="100%"
-						   maxWidth="1100" 
+						   right.FullScreenState="10" bottom.FullScreenState="10"
+						   maxWidth.StandardScreenState="850" maxHeight.StandardScreenState="650" 
 						   mediaPlayerStateChange="vid_mediaPlayerStateChangeHandler(event)"
 						   skinClass="PlayerSkin"
 						   source="{vidSrc}"
 						   />
 			
 		</s:VGroup>
-		<s:Spacer width="15"/>
+		<s:Spacer width="15" includeIn="StandardScreenState"/>
 		
-		<s:BorderContainer right="10" top="10" bottom="10" width="1%" dropShadowVisible="true" focusEnabled="false">
+		<s:BorderContainer right="10" top="10" bottom="10" width="1%" dropShadowVisible="true" focusEnabled="false"
+						   includeIn="StandardScreenState"
+						   >
 			
 			<s:List id="subTopicsList" width="100%" height="100%" focusEnabled="false"></s:List>
 		</s:BorderContainer>

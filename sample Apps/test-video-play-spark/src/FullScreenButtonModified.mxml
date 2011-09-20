@@ -96,7 +96,7 @@
     
     <!-- layer 1: shadow -->
     <!--- @private -->
-    <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
+    <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2" includeIn="overStates">
         <s:fill>
             <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0x000000" 
@@ -109,6 +109,9 @@
                                    alpha.downStates="0.5" />
             </s:LinearGradient>
         </s:fill>
+		<s:filters>
+			<s:DropShadowFilter angle="90" color="0x93A1AC" distance="5"/>
+		</s:filters>
     </s:Rect>
     
     <!-- layer 2: fill -->
