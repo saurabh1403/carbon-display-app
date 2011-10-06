@@ -3,6 +3,7 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   width="1100" height="760"
+					   showStatusBar="false"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)" 
 					   stateChangeComplete="windowedapplication1_stateChangeCompleteHandler(event)"
 					   xmlns:view="view.*">
@@ -19,18 +20,22 @@
 					case "StandardScreenState":
 					{
 						VideoOptionPanel.visible = true;
-//						VideoOptionPanel.includeInLayout = true;
 						break;
 					}
 						
 					default:
 					{
 						VideoOptionPanel.visible = false;
-//						VideoOptionPanel.includeInLayout = false;
 						break;
 					}
 				}
 				
+			}
+			
+			//take the data entity object here
+			protected function updateView():void
+			{
+				//take action to update the option icons accordingly
 			}
 			
 		]]>
@@ -70,8 +75,9 @@
 			import spark.components.VideoPlayer;
 			public var con:NetConnection;
 			
-			public var vidSrc:String = "assets/test1.flv";
-			
+			public var vidSrc:String = "assets/test2.flv";
+			private const _aspectRatio:Number = 1.4;
+
 			protected function testFn(event:VideoPlayerEvent):void
 			{
 				var videoWidth:uint = vid.width;
@@ -89,11 +95,9 @@
 						}
 						else
 						{
-							Tweener.addTween(this.vid, {width: this.width - 20, 
-								horizontalCenter: 0, verticalCenter: 0, 
-								
+							Tweener.addTween(this.vid, {width: this.width - 30, 
 								transition: "easeOutQuad",
-								height: this.height - 20, time: 2});
+								height: this.height - 30, time: 2});
 							currentState = "FullScreenState";
 						}
 					
@@ -107,46 +111,36 @@
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				vid.skin.addEventListener("testEvent", testFn, false, 0, true);
-				//				var vid:VideoPlayer = new VideoPlayer();
-				//				vid.width = 800;
-				//				vid.height = 600;
-				//				vid.source = "assets/v1.mp4";
-				//
-				//				vid.videoObject.smoothing = true;
-				//				vid.videoObject.deblocking = 0;
-				//								
-				//				this.addElement(vid);
+				var thisHeight:int = Capabilities.screenResolutionY *0.9;
+				var thisWidth:int = thisHeight * _aspectRatio;
 				
-				//				con = new NetConnection();
-				//				con.addEventListener(NetStatusEvent.NET_STATUS, f1);
-				//				con.connect(null);
+				nativeWindow.width = thisWidth;
+				nativeWindow.height = thisHeight;
+				
+				nativeWindow.x = (Capabilities.screenResolutionX - nativeWindow.width) / 2;
+				nativeWindow.y = (Capabilities.screenResolutionY - nativeWindow.height) / 2 - 20;
+				
+//				vid.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,vid_mediaPlayerStateChangeHandler, false, 0, true);
+				vid.videoObject.smoothing = true;
+				vid.videoObject.deblocking = 0;
+//				this.invalidateDisplayList();
 			}
 			
-			protected function f1(event:NetStatusEvent):void
-			{
-				var ns:NetStream = new NetStream(con);
-				
-				var vv:Video = new Video(1000, 900);
-				vv.smoothing = true;
-				vv.deblocking = 0;
-				vv.attachNetStream(ns);
-				
-				ns.play(vidSrc);
-			}
 			
 			protected function vid_mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
 			{
-				//				return;
+				trace("in callback");
 				if(event.state == MediaPlayerState.READY)
 				{
 					vid.videoObject.smoothing = true;
 					vid.videoObject.deblocking = 0;
+					
+					vid.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,vid_mediaPlayerStateChangeHandler) ;
 				}
 			}
 			
 			protected function VideoOptionsPanelClicked(e:VideoOptionsClickEvent):void
 			{
-//				Alert.show("event achieved", "haha");
 				switch(e.eventTypeName)
 				{
 					case "OpenButton":
@@ -176,32 +170,44 @@
 		]]>
 	</fx:Script>
 	
-	
 	<s:states>
 		<s:State name="StandardScreenState"/>
 		<s:State name="FullScreenState" />
 	</s:states>
-	
 		
 	<s:HGroup left="15" right="15" top="10" bottom="10" width="100%" height="100%"
 			  contentBackgroundColor="#FDFCFC">
-		<s:VGroup width="100%" height="100%">
 
-			<s:Spacer height="10%" includeIn="StandardScreenState"/>
+		<s:VGroup id="vg" width.StandardScreenState="80%" width.FullScreenState="100%" height="100%" color="0x5e5e5c">
 
-			<s:VideoPlayer id="vid" visible="true" left="10" top="10" width="100%" height="100%"
+			<s:Spacer height="4%" includeIn="StandardScreenState" minHeight="40"/>
+	
+			<s:VideoPlayer id="vid" visible="true" width="100%" 
+
+						   height.FullScreenState="100%"
+						   height="90%"
+						   
+						   top.FullScreenState="10" left.FullScreenState="10"
 						   right.FullScreenState="10" bottom.FullScreenState="10"
+						   
+						   minWidth.StandardScreenState="850" minHeight.StandardScreenState="600"
 						   maxWidth.StandardScreenState="850" maxHeight.StandardScreenState="650" 
-						   mediaPlayerStateChange="vid_mediaPlayerStateChangeHandler(event)"
+
 						   skinClass="PlayerSkin"
 						   source="{vidSrc}"
 						   />
-			
-		</s:VGroup>
-		<s:Spacer width="15" includeIn="StandardScreenState"/>
-		
-		<s:BorderContainer right="10" top="10" bottom="10" width="1%" dropShadowVisible="true" focusEnabled="false"
+
+			<s:Spacer height="6%" includeIn="StandardScreenState"/>		
+<!--			<s:BorderContainer width="100%" height="2%" color="0x00df34"
+							   backgroundColor="#342F2F"
+							   includeInLayout="false"/>
+-->		</s:VGroup>
+
+		<s:Spacer width="5%" includeIn="StandardScreenState"/>
+
+		<s:BorderContainer top="10" bottom="10" width="15%" dropShadowVisible="true" focusEnabled="false"
 						   includeIn="StandardScreenState"
+						   maxWidth="100"
 						   >
 			
 			<s:List id="subTopicsList" width="100%" height="100%" focusEnabled="false"></s:List>
@@ -211,8 +217,8 @@
 	<view:videoOptionComp 
 		left="15"
 		id="VideoOptionPanel" y="-100" 
-		width="100%" height="150"
-		maxWidth.StandardScreenState="850"
+		width="85%" height="150"
+		maxWidth.StandardScreenState="900"
 		itemClickedEvent="VideoOptionsPanelClicked(event)"
 		showEffect="fadeInEffect"
 		hideEffect="fadeOutEffect"
