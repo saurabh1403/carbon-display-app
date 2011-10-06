@@ -23,20 +23,10 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default">
-      <airSettings airCertificatePath="" airTimestamp="true" version="1">
+      <airSettings airCertificatePath="C:/Users/saurgupt.ADOBENET/Desktop/my_cer.p12" airTimestamp="false" version="1">
         <airExcludes/>
       </airSettings>
       <actionScriptSettings version="1"/>
     </buildTarget>
   </buildTargets>
 </actionScriptProperties>
-
-
-
-
-
-
-
-
-
-

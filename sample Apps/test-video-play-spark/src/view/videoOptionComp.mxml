@@ -44,11 +44,47 @@
 	</s:states>
 
 	<!--Add the content of your sliding panel here  -->
+	
+	<s:HGroup top="5" width="100%">
+		<s:Spacer width="100%"/>
+			<s:Button width="90" height="90"
+					  skinClass="customIconButtonSkin"
+					  icon="@Embed('assets/print.png')"
+					  toolTip="Print Page"
+					  useHandCursor="true"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  />
+		
+		<s:Spacer width="100%"/>
 
-	<s:Button id="openButton" right="30" bottom="0" width="40" height="40" label="Open"
-					click="VideoOptionsPanelClicked(event)"
-					skinClass="TransparentRoundButtonSkin"
-					icon.Collapsed='assets/downArrow.png'
-					label.Expanded="Close" icon.Expanded="assets/upArrow.png"/>
+		<s:Button width="90" height="90"
+				  skinClass="customIconButtonSkin"
+				  icon="@Embed('assets/tell.png')"
+				  toolTip="Tell a friend"
+				  useHandCursor="true"
+				  buttonMode="true"
+				  mouseChildren="false"
+				  />
+		<s:Spacer width="100%"/>
+
+		<s:Button width="90" height="90"
+				  skinClass="customIconButtonSkin"
+				  icon="@Embed('assets/ask.png')"
+				  toolTip="Ask your doubts"
+				  useHandCursor="true"
+				  buttonMode="true"
+				  mouseChildren="false"
+				  />
+			<s:Spacer width="100%"/>
+			
+		<s:Spacer width="10%"/>
+	</s:HGroup>
+	
+	<s:Button id="openButton" right="35" bottom="0" width="40" height="40" label="Open"
+			  click="VideoOptionsPanelClicked(event)"
+			  skinClass="TransparentRoundButtonSkin"
+			  icon.Collapsed='assets/downArrow.png'
+			label.Expanded="Close" icon.Expanded="assets/upArrow.png"/>
 
 </s:SkinnableContainer>
