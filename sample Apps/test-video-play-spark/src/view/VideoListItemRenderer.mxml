@@ -68,7 +68,8 @@
 						visible="false" visible.hovered="true" 
 						top="3" left="3" bottom="3" right="3" />
 	</mx:Canvas>
-	<mx:Text width="100%" selectable="false" htmlText="{data.name}"/>
+	<mx:Text width="100%" htmlText="{data.name}" selectable="false"
+			 color="#FFFFFF"/>
 
 
 </s:ItemRenderer>

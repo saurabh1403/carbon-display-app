@@ -90,8 +90,8 @@
     <s:Ellipse left="1" right="1" top="1" bottom="1">
         <s:stroke>
             <s:LinearGradientStroke weight="2" rotation="90">
-                <s:GradientEntry color="0x242323" color.overStates="0xACD9A3"/>
-                <s:GradientEntry color="0x3B3A39" color.overStates="0x96CF8A"/>
+                <s:GradientEntry color="0x242323" color.overStates="0xFFFFF0"/>
+                <s:GradientEntry color="0x3B3A39" color.overStates="0xFFFFFF"/>
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Ellipse>

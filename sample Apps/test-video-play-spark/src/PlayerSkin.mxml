@@ -156,8 +156,8 @@ in accordance with the terms of the license agreement accompanying it.
 			right.fullScreenStates="0" top.fullScreenStates="0">
 		<s:fill>
 			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0xF7D305" color.fullScreenStates="0x1E1E1E" alpha.fullScreenStates="0.55"/>
-				<s:GradientEntry color="0xF7EF05" color.fullScreenStates="0x585858" alpha.fullScreenStates="0.55"/>
+				<s:GradientEntry color="0xFFFAD5" color.fullScreenStates="0x1E1E1E" alpha.fullScreenStates="0.55"/>
+				<s:GradientEntry color="0xFFFAD5" color.fullScreenStates="0x585858" alpha.fullScreenStates="0.55"/>
 			</s:LinearGradient>		
 		</s:fill>
 		<s:stroke>
@@ -192,7 +192,7 @@ in accordance with the terms of the license agreement accompanying it.
 					<s:LinearGradientStroke weight="3" rotation="90">
 						<s:GradientEntry color="0x000000" color.fullScreenStates="0xFFFFFF" alpha.fullScreenStates="0.12" />
 						<s:GradientEntry color="0x665959" color.fullScreenStates="0xFFFFFF" alpha.fullScreenStates="0.12" />
-						<s:GradientEntry color="0x2D8040" color.fullScreenStates="0xFFFFFF" alpha.fullScreenStates="0.09" />
+						<s:GradientEntry color="0x105B63" color.fullScreenStates="0xFFFFFF" alpha.fullScreenStates="0.09" />
 					</s:LinearGradientStroke>
 				</s:stroke>
 				
@@ -249,13 +249,13 @@ in accordance with the terms of the license agreement accompanying it.
 						
 						<s:Label id="currentTimeDisplay" color.fullScreenStates="0xFFFFFF" color="0xFAFAFA"
 								 focusEnabled="false"/>
-						
+				
 						<!--- @copy spark.components.VideoPlayer#scrubBar -->
 						<s:ScrubBar id="scrubBar" width="100%" liveDragging="true"
 									skinClass="ScrubBarSkinModified"
 									focusEnabled="false"
 									/>
-						
+					
 						<!-- spacer -->
 						<s:Rect width="8" height="1" />
 						
@@ -283,9 +283,9 @@ in accordance with the terms of the license agreement accompanying it.
 					<s:Rect left="0" right="0" top="0" bottom="0">
 						<s:fill>
 							<s:LinearGradient rotation="90">
-								<s:GradientEntry color="0x3D4F17"/>
-								<s:GradientEntry color="0x4C5736"/>
-								<s:GradientEntry color="0x4B543E"/>
+								<s:GradientEntry color="0x171515" alpha="1.0"/>
+								<s:GradientEntry color="0x171515" alpha="0.6"/>
+								<s:GradientEntry color="0x171515" alpha="1.0"/>
 							</s:LinearGradient>
 						</s:fill>
 					</s:Rect>
@@ -301,7 +301,7 @@ in accordance with the terms of the license agreement accompanying it.
 								topLeftRadiusX="20" topRightRadiusX="20"
 								>
 							<s:stroke>
-								<s:SolidColorStroke color="0xDB8E35" weight="2"/>
+								<s:SolidColorStroke color="0x141414" weight="2" alpha="0"/>
 							</s:stroke>
 						</s:Rect>
 						
@@ -310,10 +310,13 @@ in accordance with the terms of the license agreement accompanying it.
 								   width="53" height="53"
 								   >
 							<s:stroke>
-								<s:SolidColorStroke color="0xDB8E35" weight="2"/>
+								<s:SolidColorStroke color="0x141414" weight="2" alpha="0"/>
 							</s:stroke>
 							<s:fill>
-								<s:SolidColor color="0x3B3A39"/>
+								<s:LinearGradient rotation="90">
+									<s:GradientEntry color="0xFFD34E" alpha="1.0"/>
+									<s:GradientEntry color="0xF77417" alpha="1.0"/>
+								</s:LinearGradient>
 							</s:fill>
 						</s:Ellipse>
 						
@@ -324,7 +327,10 @@ in accordance with the terms of the license agreement accompanying it.
 								topLeftRadiusX="20" topRightRadiusX="20"
 								>
 							<s:fill>
-								<s:SolidColor color="0x3B3A39"/>
+								<s:LinearGradient rotation="90">
+									<s:GradientEntry color="0xFFD34E" alpha="1.0"/>
+									<s:GradientEntry color="0xF77417" alpha="1.0"/>
+								</s:LinearGradient>
 							</s:fill>
 						</s:Rect>
 						
@@ -341,7 +347,7 @@ in accordance with the terms of the license agreement accompanying it.
 								  click="{videoDisplay.stop()}"
 								  skinClass="stopButtonSkinModified"
 								  toolTip="Stop" verticalCenter="0"/>
-						
+					
 						
 						<!--  prev item click button -->
 						<s:Button visible="true" width="40" height="32"
@@ -349,7 +355,7 @@ in accordance with the terms of the license agreement accompanying it.
 								  horizontalCenter="-40" skinClass="prevVideoItemClickSkin"
 								  toolTip="Previous"
 								  verticalCenter="0"/>
-						
+					
 						<!--- @copy spark.components.VideoPlayer#playPauseButton -->
 						<s:ToggleButton id="playPauseButton" left="10" bottom="0" width="50"
 										horizontalCenter="0" verticalCenter="0"
@@ -357,7 +363,7 @@ in accordance with the terms of the license agreement accompanying it.
 										focusOut="event.target.depth=0" layoutDirection="ltr"
 										skinClass="ToggleButtonModified"
 										/>
-						
+					
 						<!--  next item click button -->
 						<s:Button visible="true" width="40" height="32"
 								  click="onNextItemClick(event)"
