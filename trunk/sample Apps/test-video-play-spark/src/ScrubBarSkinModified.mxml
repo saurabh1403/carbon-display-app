@@ -93,7 +93,7 @@
             <!-- fill -->
             <s:Rect left="1" right="1" top="1" bottom="1">
                 <s:fill>
-                    <s:SolidColor color="0x452D08" />
+                    <s:SolidColor color="0xFFFFF0" />
                 </s:fill>
             </s:Rect>
             
@@ -133,8 +133,8 @@
             <s:Rect left="1" right="1" top="1" bottom="1">
                 <s:fill>
                     <s:LinearGradient rotation="90">
-                        <s:GradientEntry color="0xff8b00"/>
-                        <s:GradientEntry color="0xF08607"/>
+                        <s:GradientEntry color="0x1B2B32"/>
+                        <s:GradientEntry color="0x1B2B32"/>
                     </s:LinearGradient>
                 </s:fill>
             </s:Rect>
@@ -143,7 +143,7 @@
             <s:Rect left="2" right="2" top="2" bottom="2">
                 <s:fill>
                     <s:LinearGradient rotation="90">
-                        <s:GradientEntry color="0xff6c00" alpha="0.85"/>
+                        <s:GradientEntry color="0x1B2B32" alpha="0.85"/>
                     </s:LinearGradient>
                 </s:fill>
             </s:Rect>
@@ -163,6 +163,6 @@
     <!--- A skin part that defines a button that can be dragged along the track to increase or decrease 
           the playhead location in the video.   -->
     <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
-              skinClass="spark.skins.spark.mediaClasses.normal.ScrubBarThumbSkin" />
+              skinClass="skins.ScrubBarThumbModifiedSkin" />
 
 </s:SparkSkin>

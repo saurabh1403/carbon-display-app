@@ -85,7 +85,7 @@
 					<s:TextInput id="email_id" width="300" height="30"/>
 					
 					<s:Spacer height="15"/>
-					<s:RichText text="Friend's Mobile Number(Optional)"
+					<s:RichText text="Friend's Mobile Number (Optional)"
 								color="#FEFEFE"/>
 					<s:Spacer height="3"/>
 					<s:TextInput id="mobile_no" width="200" height="30"/>

@@ -55,7 +55,7 @@ in accordance with the terms of the license agreement accompanying it.
 				useChromeColor = true;
 				super.initializationComplete();
 			}  
-			
+		
 			/**
 			 *  @private
 			 */
@@ -107,7 +107,10 @@ in accordance with the terms of the license agreement accompanying it.
 			
 			<!-- Define the border color of the arrow. -->
 			<s:stroke>
-				<s:SolidColorStroke weight="1" weight.over="2" weight.down="1" color="0x242323" color.down="0xFA922A" color.over="0xACD9A3"/>
+				<s:SolidColorStroke weight="1" 
+									weight.over="2" weight.down="1" 
+									color="0x242323" 
+									color.down="0x152737" color.over="0x682321"/>
 			</s:stroke>
 			<!-- Define the fill for the arrow. -->
 			<s:fill>
@@ -124,13 +127,13 @@ in accordance with the terms of the license agreement accompanying it.
 		<s:Image source="@Embed('assets/next.png')"
 				 smooth="true"
 				 smoothingQuality="high"
-				 horizontalCenter="3"
+				 horizontalCenter="1"
 				 verticalCenter="0"
-				 width="80%"
+				 width="60%"
 				 height="80%"
 				 scaleMode="stretch"
 				 />
-		
+
 	</s:Graphic>
 	
 	

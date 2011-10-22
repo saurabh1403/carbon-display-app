@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
 		 creationComplete="group1_creationCompleteHandler(event)"
@@ -32,6 +32,8 @@
 			effectEnd="aniSlide_effectEndHandler(event)">
 			<s:SimpleMotionPath property="y" valueFrom="{-learnMoreList.height}" valueTo="0" />
 		</s:Animate>
+		
+
 	</fx:Declarations>
 	
 	
@@ -262,7 +264,6 @@
 			protected function OnExploreClick(event:MouseEvent):void
 			{
 				navigateToURL(new URLRequest((videoItemsList[currSelectedItemIndex] as DataEntity)._webUrlLink));
-				showEff.play();
 			}
 			
 			protected function videoItemSelected(event:IndexChangeEvent):void
@@ -274,7 +275,6 @@
 				dispatchEvent(newEvent);
 				
 			}
-			
 		]]>
 	</fx:Script>
 	
@@ -282,6 +282,14 @@
 		<s:State name="StandardScreenState"/>
 		<s:State name="FullScreenState" />
 	</s:states>
+	
+	<s:backgroundFill>
+		
+		<s:LinearGradient rotation="90">
+			<s:GradientEntry color="0x5C5B5B"/>
+			<s:GradientEntry color="0x454343"/>
+		</s:LinearGradient>
+	</s:backgroundFill>
 	
 	<s:VGroup id="vg" 
 			  left.StandardScreenState="15" 
@@ -318,36 +326,33 @@
 			  includeIn="StandardScreenState"/>
 	
 	<!--HEADER - Learn More Button-->
-	<s:Button id="btnOpen"
-			  width="{bgList.width * 0.6}"
-			  top="10"
-			  right="{10 + bgList.width*0.2}"
-			  height="30"
-			  label="Explore More"
-			  buttonMode="true"
-			  click="OnExploreClick(event)" 
-			  skinClass="LearnMoreButtonSkin"
-			  includeIn="StandardScreenState"
-			  />
-	
+	<s:Button id="btnOpen" includeIn="StandardScreenState" right="{10}" top="10"
+			  width="{bgList.width * 0.8}" height="35" label="Explore More" buttonMode="true"
+			  click="OnExploreClick(event)"
+			  skinClass="skins.LearnMoreButtonSkin"/>
+
 	<!--Learn more expansion list-->
 	<view:LearnMoreItemsList id="learnMoreList" visible="false" includeInLayout="false"/>
 	
-	<s:BorderContainer id="bgList"
-					   width="20%"
-					   maxWidth="210"
-					   minWidth="80"
-					   bottom.StandardScreenState="30"
-					   bottom.FullScreenState="120"
-					   right="10"
-					   right.FullScreenState="30"
+	<s:BorderContainer id="bgList" right="10" width="20%" minWidth="80" maxWidth="210"
+					   borderVisible="true" borderWeight="1"
+					   borderColor="0x1B2B32"
+					   right.FullScreenState="30" top.FullScreenState="40"
+					   bottom.FullScreenState="120" rollOutEffect.FullScreenState="{fadeOutEffect}"
 					   rollOverEffect.FullScreenState="{fadeInEffect}"
-					   rollOutEffect.FullScreenState="{fadeOutEffect}"
-					   top.StandardScreenState="{vid.y + 10}" 
-					   top.FullScreenState="40"
-					   borderVisible="true"
-					   borderWeight="2"
+					   top.StandardScreenState="{vid.y + 10}" bottom.StandardScreenState="30"
+					   backgroundAlpha="1.0"
+					   contentBackgroundAlpha="1.0"
 					   >
+		
+		<s:backgroundFill>
+			<!-- 0 rotation creates left to right gradient -->
+			<s:LinearGradient rotation="90" id="bgColor"  >
+				<s:GradientEntry color="#2a2a2a"/>
+				<s:GradientEntry color="#363232"/>
+			</s:LinearGradient>
+		</s:backgroundFill>
+		
 		<s:layout>
 			<s:VerticalLayout/>
 		</s:layout>
@@ -362,6 +367,7 @@
 				itemRenderer="view.VideoListItemRenderer"
 				dataProvider="{videoItemsList}"
 				change="videoItemSelected(event)"
+				contentBackgroundAlpha="0"
 				>
 			
 		</s:List>
@@ -379,4 +385,4 @@
 		>
 	</view:videoOptionComp>
 	
-</s:Group>
+</s:BorderContainer>
