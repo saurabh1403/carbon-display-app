@@ -8,11 +8,15 @@
 					>
 	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
+	
+	<fx:Metadata>
+		[Event(name="itemClickedEvent", type="Events.VideoOptionsClickEvent")]
+	</fx:Metadata>
 	
 	<fx:Script>
 		<![CDATA[
+			import Events.GenericEvent;
 			import Events.VideoOptionsClickEvent;
 			
 			import mx.events.FlexEvent;
@@ -30,13 +34,42 @@
 				
 			}
 
+			protected function optionsButtonClicked(event:MouseEvent):void
+			{
+				var newev:VideoOptionsClickEvent = new VideoOptionsClickEvent("itemClickedEvent");
+				
+				switch(event.target.id.toString())
+				{
+					
+					case "printButton":
+					{
+						newev.eventTypeName = "print";
+						break;
+					}
+						
+					case "askButton":
+					{
+						newev.eventTypeName = "askExperts";
+						break;
+					}
+					
+					case "tellFriendButton":
+					{
+						newev.eventTypeName = "tellFriend";
+						break;
+					}
+						
+					default:
+					{
+						break;
+					}
+				}
+				dispatchEvent(newev);
+			}
+			
 		]]>
 	</fx:Script>
 
-	<fx:Metadata>
-		[Event(name="itemClickedEvent", type="Events.VideoOptionsClickEvent")]
-
-	</fx:Metadata>
 
 	<s:states>
 		<s:State name="Collapsed"/>
@@ -48,6 +81,7 @@
 	<s:HGroup top="5" width="100%">
 		<s:Spacer width="100%"/>
 			<s:Button width="90" height="90"
+					  id="printButton"
 					  skinClass="customIconButtonSkin"
 					  icon="@Embed('assets/print.png')"
 					  toolTip="Print Page"
@@ -55,11 +89,12 @@
 					  buttonMode="true"
 					  mouseChildren="false"
 					  includeIn="Expanded"
+					  click="optionsButtonClicked(event)"
 					  />
-		
 		<s:Spacer width="100%"/>
 
 		<s:Button width="90" height="90"
+				  id="tellFriendButton"
 				  skinClass="customIconButtonSkin"
 				  icon="@Embed('assets/tell.png')"
 				  toolTip="Tell a friend"
@@ -67,10 +102,12 @@
 				  buttonMode="true"
 				  mouseChildren="false"
 				  includeIn="Expanded"
+				  click="optionsButtonClicked(event)"
 				  />
 		<s:Spacer width="100%"/>
 
 		<s:Button width="90" height="90"
+				  id="askButton"
 				  skinClass="customIconButtonSkin"
 				  icon="@Embed('assets/ask.png')"
 				  toolTip="Ask your doubts"
@@ -78,6 +115,7 @@
 				  buttonMode="true"
 				  mouseChildren="false"
 				  includeIn="Expanded"
+				  click="optionsButtonClicked(event)"
 				  />
 			<s:Spacer width="100%"/>
 			
@@ -88,6 +126,6 @@
 			  click="VideoOptionsPanelClicked(event)"
 			  skinClass="TransparentRoundButtonSkin"
 			  icon.Collapsed='assets/downArrow.png'
-			label.Expanded="Close" icon.Expanded="assets/upArrow.png"/>
-
+			  label.Expanded="Close" icon.Expanded="assets/upArrow.png"/>
+	
 </s:SkinnableContainer>

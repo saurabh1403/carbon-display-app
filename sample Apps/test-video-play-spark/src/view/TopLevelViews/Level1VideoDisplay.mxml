@@ -11,8 +11,19 @@
 		<mx:Move id="panelIn" target="{VideoOptionPanel}" yTo="-100"
 				 duration="300" />
 		
-		<s:Fade id="fadeInEffect" duration="5000" alphaFrom="0" alphaTo="1"/>
-		<s:Fade id="fadeOutEffect" duration="5000" alphaFrom="1" alphaTo="0"/>
+		<s:Fade id="fadeInEffect" target="{bgList}" duration="1000" alphaFrom="0" alphaTo="1"/>
+		<s:Fade id="fadeOutEffect" target="{bgList}" duration="1000" alphaFrom="1" alphaTo="0"/>
+		
+		<s:Fade id="GeneralfadeInEffect" target="{VideoOptionPanel}" duration="1000" alphaFrom="0" alphaTo="1"/>
+		<s:Fade id="GeneralfadeOutEffect"  target="{VideoOptionPanel}" duration="1000" alphaFrom="1" alphaTo="0"/>
+		
+		<s:Parallel id="showEff" target="{vid}">
+			<s:Rotate3D angleZFrom="-180" angleZTo="0" />
+		</s:Parallel>
+		
+		<s:Parallel id="hideEff" target="{vid}">
+			<s:Rotate3D angleZFrom="0" angleZTo="-90" />
+		</s:Parallel>
 		
 		<s:Animate
 			id="aniSlide"
@@ -26,23 +37,29 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import Events.GenericEvent;
 			import Events.VideoOptionsClickEvent;
 			import Events.VideoPlayerEvent;
+			import Events.VideoSelectionChangeEvent;
 			
 			import adobe.utils.CustomActions;
 			
 			import caurina.transitions.Tweener;
 			
 			import flash.display.DisplayObject;
+			import flash.net.navigateToURL;
 			
+			import model.DataEntity;
 			import model.VideoPlayConstants;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.controls.VideoDisplay;
+			import mx.core.UIComponentCachePolicy;
 			import mx.effects.easing.*;
 			import mx.events.EffectEvent;
 			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
 			
 			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import org.osmf.media.MediaPlayerState;
@@ -50,13 +67,15 @@
 			import spark.components.VideoDisplay;
 			import spark.components.VideoPlayer;
 			import spark.events.IndexChangeEvent;
+			
+			import view.AskExpertsOverlay;
+			import view.TellFriendOverlay;
 			public var con:NetConnection;
 			
-			public var vidSrc:String = "assets/test1.flv";
 			private const _aspectRatio:Number = 1.4;
 			
 			[Bindable]
-			public var videoItemsList:ArrayCollection = new ArrayCollection();
+			public var videoItemsList:ArrayCollection
 			
 			[Embed(source="/assets/button_open.png", 
 			scaleGridTop="5", scaleGridBottom="35", 
@@ -73,6 +92,10 @@
 			
 			private var isLearnMoreListExpanded:Boolean = false;
 			
+			private var fadeTargetsList:Array = new Array("bgList");			//the targets list on which fade effect should be put when full screen mode is enabled
+			
+			private var currSelectedItemIndex:int = 0;
+			
 			protected function aniSlide_effectStartHandler(event:EffectEvent):void
 			{
 				learnMoreList.cacheAsBitmap = true;
@@ -83,7 +106,7 @@
 				learnMoreList.cacheAsBitmap = false;
 			}
 			
-			protected function testFn(event:VideoPlayerEvent):void
+			protected function onScreenStateChange(event:VideoPlayerEvent):void
 			{
 				var videoWidth:uint = vid.width;
 				var videoHeight:uint = vid.height;
@@ -96,7 +119,16 @@
 						{
 							//							Tweener.addTween(this.vid, {width: 850, 
 							//								height: 650, time: 2});
+							
+							fadeInEffect.end();
+							GeneralfadeInEffect.end();
+							fadeInEffect.play();
+							VideoOptionPanel.visible = true;
+							VideoOptionPanel.includeInLayout = true;
 							currentState = "StandardScreenState";
+							
+							subTopicsList.cacheAsBitmap = false;
+							
 						}
 							
 						else
@@ -104,7 +136,14 @@
 							//							Tweener.addTween(this.vid, {width: this.width, 
 							//								transition: "easeOutQuad",
 							//								height: this.height, time: 2});
+							fadeOutEffect.end();
+							GeneralfadeOutEffect.end();
+							fadeOutEffect.play();
+							VideoOptionPanel.visible = false;
+							VideoOptionPanel.includeInLayout = false;
 							currentState = "FullScreenState";
+							subTopicsList.cacheAsBitmap = true;
+							
 						}
 						
 						break;
@@ -114,17 +153,26 @@
 				}
 			}
 			
-			
-			protected function vid_mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
+			public function playCurrentSelectedVideo(selectionIndex:int):void
 			{
-				trace("in callback");
-				if(event.state == MediaPlayerState.READY)
-				{
-					vid.videoObject.smoothing = true;
-					vid.videoObject.deblocking = 0;
-					
-					vid.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE,vid_mediaPlayerStateChangeHandler) ;
-				}
+				subTopicsList.selectedIndex = selectionIndex;
+				vid.source = null;
+				//				vid.stop();
+				if(vid.videoObject)
+					vid.videoObject.clear();
+				vid.source = (videoItemsList[selectionIndex] as DataEntity).completeContentPath.toString();
+				vid.cachePolicy = UIComponentCachePolicy.OFF;
+				vid.videoDisplay.cachePolicy = UIComponentCachePolicy.OFF;
+				vid.videoObject.smoothing = true;
+				vid.videoObject.deblocking = 0;
+				vid.play();
+			}
+			
+			public function playThisDataEntity(inData:DataEntity):void
+			{
+				
+				
+				
 			}
 			
 			protected function VideoOptionsPanelClicked(e:VideoOptionsClickEvent):void
@@ -146,6 +194,30 @@
 						
 						break;
 					}
+					case "print":
+					{
+						
+						break;
+					}
+					case "askExperts":
+					{
+						var newPopUpAsk:AskExpertsOverlay = new AskExpertsOverlay;
+						newPopUpAsk.width = this.width * 0.8;
+						newPopUpAsk.height = this.height * 0.7;
+						PopUpManager.addPopUp(newPopUpAsk, this);
+						PopUpManager.centerPopUp(newPopUpAsk);
+						break;
+					}
+					case "tellFriend":
+					{
+						var newPopUp:TellFriendOverlay = new TellFriendOverlay;
+						newPopUp.width = this.width * 0.8;
+						newPopUp.height = this.height * 0.7;
+						PopUpManager.addPopUp(newPopUp, this);
+						PopUpManager.centerPopUp(newPopUp);
+						break;
+					}
+						
 						
 					default:
 					{
@@ -155,29 +227,51 @@
 				
 			}
 			
-			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			private function playPrevItem(ev:Event):void
 			{
-				vid.skin.addEventListener("testEvent", testFn, false, 0, true);
-				vid.videoObject.smoothing = true;
-				vid.videoObject.deblocking = 0;
+				if(currSelectedItemIndex == 0)
+					currSelectedItemIndex = videoItemsList.length - 1;
+				else
+					currSelectedItemIndex -=1;
+				
+				playCurrentSelectedVideo(currSelectedItemIndex);
+			}
+			
+			private function playNextItem(ev:Event):void
+			{
+				currSelectedItemIndex = (currSelectedItemIndex + 1)%videoItemsList.length;
+				playCurrentSelectedVideo(currSelectedItemIndex);
 				
 			}
 			
-			protected function handleLearnMoreListExpansion():void
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
+				vid.skin.addEventListener("screenStateChangeEvent", onScreenStateChange, false, 0, true);
+				vid.skin.addEventListener("previousItemPlayEvent", playPrevItem, false, 0, true);
+				vid.skin.addEventListener("nextItemPlayEvent", playNextItem, false, 0, true);
+				
+				var newEvent:VideoSelectionChangeEvent = new VideoSelectionChangeEvent(VideoPlayConstants.videoSelectChangeEvent);
+				currSelectedItemIndex = 0;
+				newEvent.selectedDataEntity = videoItemsList[0];
+				newEvent.selectedDataIndex = 0;
+				dispatchEvent(newEvent);
 				
 			}
 			
 			protected function OnExploreClick(event:MouseEvent):void
 			{
-				isLearnMoreListExpanded = !isLearnMoreListExpanded;
-				handleLearnMoreListExpansion();
-				
+				navigateToURL(new URLRequest((videoItemsList[currSelectedItemIndex] as DataEntity)._webUrlLink));
+				showEff.play();
 			}
 			
 			protected function videoItemSelected(event:IndexChangeEvent):void
 			{
-				
+				var newEvent:VideoSelectionChangeEvent = new VideoSelectionChangeEvent(VideoPlayConstants.videoSelectChangeEvent);
+				currSelectedItemIndex = event.newIndex;
+				newEvent.selectedDataEntity = videoItemsList[event.newIndex];
+				newEvent.selectedDataIndex = event.newIndex;
+				dispatchEvent(newEvent);
 				
 			}
 			
@@ -201,17 +295,18 @@
 		<s:Spacer height="4%" includeIn="StandardScreenState" minHeight="40"/>
 		
 		<s:VideoPlayer id="vid" visible="true"
-					   
+					   cachePolicy="off"
+					   cacheAsBitmap="true"
 					   height.FullScreenState="100%"
 					   height="90%"
 					   
+					   pauseWhenHidden="false"
 					   width.FullScreenState="100%"
 					   width.StandardScreenState="{vid.height * VideoPlayConstants._videoPlayerAspectRatio}"
 					   
-					   maxWidth.StandardScreenState="850" maxHeight.StandardScreenState="650" 
+					   maxWidth.StandardScreenState="900" maxHeight.StandardScreenState="700" 
 					   
 					   skinClass="PlayerSkin"
-					   source="{vidSrc}"
 					   />
 		
 		<s:Spacer height="6%" includeIn="StandardScreenState"/>		
@@ -224,12 +319,11 @@
 	
 	<!--HEADER - Learn More Button-->
 	<s:Button id="btnOpen"
-			  width="10%"
-			  minWidth="80"
-			  maxWidth="120"
+			  width="{bgList.width * 0.6}"
 			  top="10"
-			  right="20"
+			  right="{10 + bgList.width*0.2}"
 			  height="30"
+			  label="Explore More"
 			  buttonMode="true"
 			  click="OnExploreClick(event)" 
 			  skinClass="LearnMoreButtonSkin"
@@ -239,31 +333,33 @@
 	<!--Learn more expansion list-->
 	<view:LearnMoreItemsList id="learnMoreList" visible="false" includeInLayout="false"/>
 	
-	<s:BorderContainer 
-		id="bgList"
-		width="20%"
-		maxWidth="180"
-		minWidth="80"
-		bottom.StandardScreenState="30"
-		bottom.FullScreenState="120"
-		right="10"
-		top.StandardScreenState="{vid.y + 10}" 
-		top.FullScreenState="40"
-		borderVisible="true"
-		borderWeight="2"
-		>
-		<s:layout.StandardScreenState>
+	<s:BorderContainer id="bgList"
+					   width="20%"
+					   maxWidth="210"
+					   minWidth="80"
+					   bottom.StandardScreenState="30"
+					   bottom.FullScreenState="120"
+					   right="10"
+					   right.FullScreenState="30"
+					   rollOverEffect.FullScreenState="{fadeInEffect}"
+					   rollOutEffect.FullScreenState="{fadeOutEffect}"
+					   top.StandardScreenState="{vid.y + 10}" 
+					   top.FullScreenState="40"
+					   borderVisible="true"
+					   borderWeight="2"
+					   >
+		<s:layout>
 			<s:VerticalLayout/>
-		</s:layout.StandardScreenState>
+		</s:layout>
 		
-		<s:Label text="vid.y : {vid.y}"/>
+		<!--		<s:Label text="vid.y : {vid.y}"/>
 		<s:Label text="vg width: {vg.width}"/>
 		<s:Label text="option width: {VideoOptionPanel.width}"/>
-				 
+		-->		
 		<s:List id="subTopicsList" width="100%" height="100%" focusEnabled="false"
 				allowMultipleSelection="false"
+				tabFocusEnabled="false"
 				itemRenderer="view.VideoListItemRenderer"
-				includeIn="StandardScreenState"
 				dataProvider="{videoItemsList}"
 				change="videoItemSelected(event)"
 				>
@@ -273,14 +369,13 @@
 	
 	<view:videoOptionComp 
 		left="15"
-		includeIn="StandardScreenState"
 		id="VideoOptionPanel" y="-100" 
 		width.StandardScreenState="{vid.height * VideoPlayConstants._videoPlayerAspectRatio + 50}"
 		height="150"
 		maxWidth.StandardScreenState="900"
 		itemClickedEvent="VideoOptionsPanelClicked(event)"
-		showEffect="fadeInEffect"
-		hideEffect="fadeOutEffect"
+		showEffect="{GeneralfadeInEffect}"
+		hideEffect="{GeneralfadeOutEffect}"
 		>
 	</view:videoOptionComp>
 	

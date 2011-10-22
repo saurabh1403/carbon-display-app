@@ -8,12 +8,16 @@ package model
 		private var _name:String;
 		private var _contentType:String;
 		private var _relativeSrcFile:String;
-		private var _completePath:String;
+		private var _completeContentPath:String;
 		private var _duration:String;
+		
+		private var _printPageLocation:String;
 
 		private var _keywords:String;
 		private var _videoType:String;
 		private var _packageid:String;
+		
+		public var _webUrlLink:String;			//the url for learn more
 
 		private var _icon:String;				//this is the icon which is shown on the right hand screen while displaying the topics. 
 												//Also, this same icon is used to render on the video display list also
@@ -30,18 +34,30 @@ package model
 			subTopics.removeAll();
 			
 			_name = "";
-			_contentType = TutConstants.LEVELCONTENT0;
+			_contentType = "Level1";
 			_relativeSrcFile = "";
-			_completePath = "";
+			_completeContentPath = "";
 			_duration = "";
 			_keywords = "";
-			_videoType = TutConstants.CONTENT_FLV;
+			_videoType = "flv";
 			
 			_icon = "";
 			_barIcon = "";
 			_thumbnailIcon = "";
+
+			_webUrlLink = "http://www.google.com";
 		}
 		
+		public function get printPageLocation():String
+		{
+			return _printPageLocation;
+		}
+
+		public function set printPageLocation(value:String):void
+		{
+			_printPageLocation = value;
+		}
+
 		public function get name():String
 		{
 			return _name;
@@ -54,9 +70,9 @@ package model
 		{
 			return _relativeSrcFile;
 		}
-		public function get completePath():String
+		public function get completeContentPath():String
 		{
-			return _completePath;
+			return _completeContentPath;
 		}
 		public function get duration():String
 		{
@@ -99,9 +115,9 @@ package model
 		{
 			_relativeSrcFile = src;
 		}
-		public function set completePath(path:String):void
+		public function set completeContentPath(path:String):void
 		{
-			_completePath = path;
+			_completeContentPath = path;
 		}
 		public function set duration(dr:String):void
 		{
