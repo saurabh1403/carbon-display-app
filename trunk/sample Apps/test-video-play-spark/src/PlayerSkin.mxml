@@ -33,7 +33,9 @@ in accordance with the terms of the license agreement accompanying it.
 		*/
 		[HostComponent("spark.components.VideoPlayer")]
 		
-		[Event(name="testEvent", type="flash.events.Event")]
+		[Event(name="screenStateChangeEvent", type="flash.events.Event")]
+		[Event(name="previousItemPlayEvent", type="flash.events.Event")]
+		[Event(name="nextItemPlayEvent", type="flash.events.Event")]
 		
 	</fx:Metadata>
 	
@@ -74,7 +76,7 @@ in accordance with the terms of the license agreement accompanying it.
 			
 			protected function fullScreenButton1_clickHandler(event:MouseEvent):void
 			{
-				var newEvent:VideoPlayerEvent = new VideoPlayerEvent("testEvent");
+				var newEvent:VideoPlayerEvent = new VideoPlayerEvent("screenStateChangeEvent");
 				
 				switch(event.target.id.toString())
 				{
@@ -85,7 +87,6 @@ in accordance with the terms of the license agreement accompanying it.
 					
 					default:
 						break;
-						
 				}
 
 				this.dispatchEvent(newEvent);
@@ -104,6 +105,20 @@ in accordance with the terms of the license agreement accompanying it.
 					volumeButton.toolTip =  "Mute";
 				}
 			}
+			
+			protected function onNextItemClick(event:MouseEvent):void
+			{
+				var newEv:Event = new Event("nextItemPlayEvent");
+				this.dispatchEvent(newEv);
+			}
+			
+			protected function onPrevItemClick(event:MouseEvent):void
+			{
+				var newEv:Event = new Event("previousItemPlayEvent");
+				this.dispatchEvent(newEv);
+				
+			}
+			
 			
 		]]>
 		
@@ -275,8 +290,8 @@ in accordance with the terms of the license agreement accompanying it.
 						</s:fill>
 					</s:Rect>
 					
-					<!-- the central controls of the video player -->
-					<s:Group horizontalCenter="0" verticalCenter="0" width="50%" minWidth="200" maxWidth="600"
+					<!-- the central controls of the video player.minimum size of the control bar should be  400-->
+					<s:Group horizontalCenter="0" verticalCenter="0" width="50%" minWidth="400" maxWidth="600"
 							 height="90%" maxHeight="70" minHeight="55" >
 						
 						<!--  border for the video main controls (pause/play/next etc.) -->
@@ -330,7 +345,7 @@ in accordance with the terms of the license agreement accompanying it.
 						
 						<!--  prev item click button -->
 						<s:Button visible="true" width="40" height="32"
-								  click="fullScreenButton1_clickHandler(event)"
+								  click="onPrevItemClick(event)"
 								  horizontalCenter="-40" skinClass="prevVideoItemClickSkin"
 								  toolTip="Previous"
 								  verticalCenter="0"/>
@@ -345,7 +360,7 @@ in accordance with the terms of the license agreement accompanying it.
 						
 						<!--  next item click button -->
 						<s:Button visible="true" width="40" height="32"
-								  click="fullScreenButton1_clickHandler(event)"
+								  click="onNextItemClick(event)"
 								  horizontalCenter="43" skinClass="nextVideoItemClickSkin"
 								  toolTip="Next"
 								  verticalCenter="0"/>

@@ -2,38 +2,73 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
-				height="50"
+				height="70"
 				width="100%"
-				autoDrawBackground="true">
+				autoDrawBackground="false"
+				buttonMode="true" mouseChildren="false"
+				creationComplete="onItemRendererCreationComplete(event)"
+				>
 	
 	<s:layout>
 		<s:HorizontalLayout
+			paddingBottom="10" paddingTop="5"
+			paddingLeft="10" paddingRight="10"
 			verticalAlign="middle"/> 
 	</s:layout>
 	
 	<fx:Script>
 		<![CDATA[
+			import model.DataEntity;
+			
+			import mx.events.FlexEvent;
+
 			[Embed(source="assets/icon.png")]
 			[Bindable]private var img:Class;
+			
+			protected function onItemRendererCreationComplete(event:FlexEvent):void
+			{
+				overlayLight.graphics.beginFill(0xFFFFFF, 0.5);
+				overlayLight.graphics.drawRect(0, 0, thumb.width, thumb.height);
+				overlayLight.graphics.endFill();
+				overlayDark.graphics.beginFill(0x0, 0.5);
+				overlayDark.graphics.drawRect(0, 0, thumb.width, thumb.height);
+				overlayDark.graphics.endFill();
+
+				var dataEntiryVar:DataEntity = data as DataEntity;
+				if(dataEntiryVar.icon1.length == 0)
+				{
+					thumb.source = "assets/default_icons/icon" + ((Math.round(Math.random()*100))%3 + 1).toString() + ".jpg";
+					
+				}
+				else
+					thumb.source = dataEntiryVar.icon1;
+				
+				
+			}
+			
 		]]>
 	</fx:Script>
-	
-	
+
 	<s:states> 
 		<s:State name="normal"/> 
 		<s:State name="hovered"/> 
 		<s:State name="selected"/> 
+		<s:State name="down"/> 
 	</s:states> 
 
-	<s:Image source="assets\icon.png"
-			 scaleMode="stretch"
-			 smooth="true"
-			 smoothingQuality="high"
-			 width="40%"
-			 height="80%"
-			 />
+	<mx:Canvas id="thumbContainer" backgroundColor="#3DB7F9" backgroundAlpha.selected="1" backgroundAlpha="0">
+		<s:Image id="thumb" width="60" height="45"
+				 smooth="true"
+				  top="3" left="3" bottom="3" right="3" scaleMode="stretch" verticalAlign="middle" horizontalAlign="center"
+				    />
+		<mx:UIComponent id="overlayDark" width="60" height="45" 
+						visible="false" visible.down="true" 
+						top="3" left="3" bottom="3" right="3" />
+		<mx:UIComponent id="overlayLight" width="60" height="45" 
+						visible="false" visible.hovered="true" 
+						top="3" left="3" bottom="3" right="3" />
+	</mx:Canvas>
+	<mx:Text width="100%" selectable="false" htmlText="{data.name}"/>
 
-	<s:Label text="{data.toString()}" width="60%"
-			 />
 
 </s:ItemRenderer>

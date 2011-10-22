@@ -4,33 +4,17 @@
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   width="1100" height="760"
 					   showStatusBar="false"
-					   stateChangeComplete="windowedapplication1_stateChangeCompleteHandler(event)"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   xmlns:view="view.*" xmlns:TopLevelViews="view.TopLevelViews.*">
-	<fx:Script>
-		<![CDATA[
-			import mx.effects.Effect;
-			
-			import spark.effects.Fade;
-			
-			protected function windowedapplication1_stateChangeCompleteHandler(event:FlexEvent):void
-			{
-				
-			}
-			
-			//take the data entity object here
-			protected function updateView():void
-			{
-				//take action to update the option icons accordingly
-			}
-			
-		]]>
-	</fx:Script>
-	
 
 	<fx:Script>
 		<![CDATA[
+			import Controller.DataParser;
+			
+			import Events.GenericEvent;
 			import Events.VideoOptionsClickEvent;
 			import Events.VideoPlayerEvent;
+			import Events.VideoSelectionChangeEvent;
 			
 			import adobe.utils.CustomActions;
 			
@@ -38,8 +22,13 @@
 			
 			import flash.display.DisplayObject;
 			
+			import model.DataEntity;
+			import model.VideoPlayConstants;
+			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.controls.VideoDisplay;
+			import mx.core.mx_internal;
 			import mx.effects.easing.*;
 			import mx.events.FlexEvent;
 			
@@ -49,7 +38,13 @@
 			import spark.components.VideoDisplay;
 			import spark.components.VideoPlayer;
 			
+			import view.TopLevelViews.Level1VideoDisplay;
+			import view.TopLevelViews.WelcomeScreen;
+			
 			private const _aspectRatio:Number = 1.4;
+			
+			private var currView:Object = null;
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				var thisHeight:int = Capabilities.screenResolutionY *0.9;
@@ -61,15 +56,83 @@
 				nativeWindow.x = (Capabilities.screenResolutionX - nativeWindow.width) / 2;
 				nativeWindow.y = (Capabilities.screenResolutionY - nativeWindow.height) / 2 - 20;
 				
-				videoDisplayScreen.videoItemsList.addItem("hello");
-				videoDisplayScreen.videoItemsList.addItem("world");
-				videoDisplayScreen.videoItemsList.addItem("testing");
+				showWelcomeScreen();
+
+//				videoDisplayScreen.addEventListener(VideoPlayConstants.videoSelectChangeEvent, onVideoSelectionChange, false, 0, true);
+//				this.updateView();
+
+			}
+			
+			protected function onVideoSelectionChange(ev:VideoSelectionChangeEvent):void
+			{
+				var i:int = ev.selectedDataIndex;
+				var videoScr:Level1VideoDisplay = currView as Level1VideoDisplay;
+				videoScr.playCurrentSelectedVideo(i);
+			}
+			
+			//take the data entity object here
+			protected function updateView():void
+			{
+				//take action to update the option icons accordingly
 				
+				for(var i:int = 0; i < 5; i++)
+				{
+					var newData:DataEntity = new DataEntity;
+					newData.name = "title " + i.toString();
+//					videoDisplayScreen.videoItemsList.addItem(newData);
+				}
+			}
+
+			
+			private function showWelcomeScreen():void
+			{
+				var welScreen:WelcomeScreen = new WelcomeScreen;
+				welScreen.addEventListener(VideoPlayConstants.subjectSelectionEvent, onSubjectSelection, false, 0, true);
+				this.removeAllElements();
+				this.addElement(welScreen);
+				currView = welScreen;
+				
+			}
+
+			protected function onSubjectSelection(event:GenericEvent):void
+			{
+				switch(event.eventData.subjectName)
+				{
+					case "maths":
+						var _dataParser:DataParser = new DataParser(VideoPlayConstants.testBaseFolderPath, VideoPlayConstants.relativeMathsXmlPath, VideoPlayConstants.relativeContentPath, VideoPlayConstants.relativeResourcePath);
+						var dataArrayColl:ArrayCollection = new ArrayCollection;
+						if(!_dataParser.populateDataEntityFromXml(dataArrayColl))
+						{
+							Alert.show("Error in parsing xml. Reinstall the application");
+						}
+						else
+						{
+							showVideoScreen(dataArrayColl);
+						}
+						break;
+	
+					
+					case "science":
+					default:
+							break;
+				}
+			}
+			
+			private function showVideoScreen(dataArrayColl:ArrayCollection):void
+			{
+				var videoScreen:Level1VideoDisplay = new Level1VideoDisplay;
+				videoScreen.videoItemsList = dataArrayColl;
+				videoScreen.addEventListener(VideoPlayConstants.videoSelectChangeEvent, onVideoSelectionChange, false, 0, true);
+				this.removeAllElements();
+				this.addElement(videoScreen);
+				currView = null;
+				currView = videoScreen;
 			}
 			
 		]]>
 	</fx:Script>
-
+	
+<!--
   <TopLevelViews:Level1VideoDisplay id="videoDisplayScreen" width="100%" height="100%"/>
-
+-->
 </s:WindowedApplication>

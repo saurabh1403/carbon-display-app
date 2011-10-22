@@ -1,0 +1,74 @@
+<Contents>
+	<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>1</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v1.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>2</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v2.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>3</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v3.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>4</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v4.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>5</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v5.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>6</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v6.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>7</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v2.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Chemical Reaction</name>
+		<type>flv</type>
+		<number>8</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v3.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+</Contents>
