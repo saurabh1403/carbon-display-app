@@ -39,6 +39,8 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import Controller.SystemUtils;
+			
 			import Events.GenericEvent;
 			import Events.VideoOptionsClickEvent;
 			import Events.VideoPlayerEvent;
@@ -64,6 +66,7 @@
 			import mx.managers.PopUpManager;
 			
 			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.events.TimeEvent;
 			import org.osmf.media.MediaPlayerState;
 			
 			import spark.components.VideoDisplay;
@@ -198,9 +201,11 @@
 					}
 					case "print":
 					{
-						
+						Alert.show("This feature will be available soon", "Coming Soon");
+						SystemUtils.printThisImage((videoItemsList[currSelectedItemIndex] as DataEntity).printPageLocation);
 						break;
 					}
+						
 					case "askExperts":
 					{
 						var newPopUpAsk:AskExpertsOverlay = new AskExpertsOverlay;
@@ -275,6 +280,15 @@
 				dispatchEvent(newEvent);
 				
 			}
+			
+			protected function onCurrentVideoComplete(event:TimeEvent):void
+			{
+				if((vid.skin as PlayerSkin).isAutoRepeatOn)
+				{
+					playNextItem(null);
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -315,6 +329,9 @@
 					   maxWidth.StandardScreenState="900" maxHeight.StandardScreenState="700" 
 					   
 					   skinClass="PlayerSkin"
+					   
+					   complete="onCurrentVideoComplete(event)"
+					   
 					   />
 		
 		<s:Spacer height="6%" includeIn="StandardScreenState"/>		
