@@ -77,12 +77,12 @@
         <!-- shape fill -->
         <s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
             <s:fill>
-                <s:SolidColor color="0x5E9953"/>
+                <s:SolidColor color="0x00FA3E"/>
             </s:fill>
         </s:Path>
         
         <!-- shape fill highlight -->
-        <s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
+        <s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z" visible="true">
             <s:fill>
                 <s:SolidColor color="0xFFFFFF" alpha="0.22"/>
             </s:fill>

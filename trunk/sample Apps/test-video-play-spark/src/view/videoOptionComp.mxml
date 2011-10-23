@@ -20,6 +20,11 @@
 			import Events.VideoOptionsClickEvent;
 			
 			import mx.events.FlexEvent;
+			import mx.graphics.GradientEntry;
+			
+			public const lightGradientColor:Array = new Array(new GradientEntry(0x7D7A7B), new GradientEntry(0x6E6B6C));
+			public const darkGradientColor:Array = new Array(new GradientEntry(0xFFD462), new GradientEntry(0xFC7D49));
+
 			protected function VideoOptionsPanelClicked(event:Event):void
 			{
 				var e:VideoOptionsClickEvent = new VideoOptionsClickEvent('itemClickedEvent');
@@ -67,15 +72,34 @@
 				dispatchEvent(newev);
 			}
 			
+			protected function onStateChange(event:FlexEvent):void
+			{
+				switch(currentState)
+				{
+					case "Collapsed":
+					{
+						(this.skin as VideoPlayerOptionsPanelSkin).gradColor.entries = lightGradientColor;
+						break;
+					}
+						
+					case "Expanded":
+					default:
+					{
+						(this.skin as VideoPlayerOptionsPanelSkin).gradColor.entries = darkGradientColor;
+						break;
+					}
+				}
+			}
+			
 		]]>
 	</fx:Script>
-
-
+	
+	
 	<s:states>
-		<s:State name="Collapsed"/>
-		<s:State name="Expanded"/>
+		<s:State name="Collapsed" enterState="onStateChange(event)"/>
+		<s:State name="Expanded" enterState="onStateChange(event)"/>
 	</s:states>
-
+	
 	<!--Add the content of your sliding panel here  -->
 	
 	<s:HGroup top="5" width="100%">

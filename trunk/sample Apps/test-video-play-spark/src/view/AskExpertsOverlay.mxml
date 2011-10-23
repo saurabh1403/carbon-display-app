@@ -51,7 +51,7 @@
 			
 			<s:Spacer height="30"/>
 			
-			<s:RichText horizontalCenter="0" text="Ask The Experts"
+			<s:RichText horizontalCenter="0" text="Ask Your doubts."
 						color="#FDFDFD" fontFamily="Verdana"
 						textAlign="center"
 						fontSize="34"/>

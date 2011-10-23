@@ -47,6 +47,9 @@ in accordance with the terms of the license agreement accompanying it.
 				"currentTimeDisplay", "timeDivider", "durationDisplay", 
 				"volumeBar", "fullScreenButton"];
 			
+			[Bindable]
+			public var isAutoRepeatOn:Boolean = false; 
+			
 			/**
 			 * @private
 			 */
@@ -261,7 +264,7 @@ in accordance with the terms of the license agreement accompanying it.
 						
 						<!--- @copy spark.components.VideoPlayer#currentTimeDisplay -->
 						
-						
+				
 						<!--- @copy spark.components.VideoPlayer#durationDisplay -->
 						<s:Label id="durationDisplay" color.fullScreenStates="0xFFFFFF" color="0xFAFAFA"
 								 focusEnabled="false"/>
@@ -339,6 +342,7 @@ in accordance with the terms of the license agreement accompanying it.
 										click="fullScreenButton1_clickHandler(event)"
 										focusEnabled="true" focusIn="event.target.depth=1"
 										toolTip="Toggle AutoRepeat"
+										selected="@{isAutoRepeatOn}"
 										focusOut="event.target.depth=0" layoutDirection="ltr"
 										skinClass="AutoRepeatButtonSkinModified" verticalCenter="0"/>
 						
