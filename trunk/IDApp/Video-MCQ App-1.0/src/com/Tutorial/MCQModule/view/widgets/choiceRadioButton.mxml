@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx">
+	<s:states>
+		<s:State name="TestMode"/>
+		<s:State name="ReviewMode"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.MCQModule.Events.ChoiceElementEvent;
+			
+			import spark.components.RadioButtonGroup;
+			
+			[Bindable]
+			private var grpName:String = "";
+			
+			[Bindable]
+			private var radButtWidth:int = 0;
+			
+			[Bindable]
+			private var radLabel:String = " this is dummy";
+			
+			public var elementNumber:int = 0;
+			
+			[Bindable]
+			public var isImgVisible:Boolean;
+			
+			[Bindable]
+			public var isChoiceRight:Boolean;
+
+			//this should be called first when this view is getting created
+			public function initView(curState:String = "TestMode"):void
+			{
+				currentState = curState;
+			}
+
+			//use this method only
+			public function initRadioChoice(choiceStatement:String = "", isSelectedByUser:Boolean = false, isCorrectAnswer:Boolean = false):void
+			{
+				radButtWidth = this.width * 0.8;
+				radLabel = choiceStatement;
+
+				if(currentState == 'ReviewMode')
+				{
+					rad.enabled = false;
+					
+					if(isSelectedByUser)
+					{
+						rad.selected = true;
+						isImgVisible = true;
+						
+						isChoiceRight = isCorrectAnswer;
+//						if(isCorrectAnswer)
+//							imgSource = "assets/assetsMCQModule/Ok-icon.png";
+//						
+//						else
+//							imgSource = "assets/assetsMCQModule/Quit-icon.png";
+					}
+					
+					else
+					{
+						rad.selected = false;
+						if(isCorrectAnswer)
+						{
+							isImgVisible = true;
+							isChoiceRight = true;
+//							imgSource = "assets/assetsMCQModule/Ok-icon.png";
+						}
+						else
+						{
+							isImgVisible = false;
+						}
+					}
+				}
+
+				else
+				{
+					isImgVisible = false;
+					rad.enabled = true;
+					rad.selected = isSelectedByUser;
+				}
+			}
+
+			protected function rad_clickHandler(event:MouseEvent):void
+			{
+				var newEvent:ChoiceElementEvent = new ChoiceElementEvent("ff");
+				newEvent.choiceSelection = elementNumber;
+				dispatchEvent(newEvent);
+			}
+
+		]]>
+	</fx:Script>
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+
+	</fx:Style>
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+
+	<s:RadioButton id="rad" maxWidth="{radButtWidth}" label="{radLabel}"
+				   click="rad_clickHandler(event)" fontFamily="Verdana"
+				   fontStyle="normal" skinClass="com.Tutorial.MCQModule.skins.CustomMultilineRadioButtonSkin"
+				   left="0" fontSize="12" verticalCenter="0"/>
+	<s:Spacer width="3%" includeIn="ReviewMode"/>
+	<s:Image id="ok_img" scaleMode="stretch"
+			 includeIn="ReviewMode"
+			 smooth="true" smoothingQuality="high"
+			 width="25" height="20"
+			 visible="{isImgVisible &amp;&amp; isChoiceRight}"
+			 includeInLayout="{isImgVisible &amp;&amp; isChoiceRight}"
+			 source="@Embed('assets/assetsMCQModule/Ok-icon.png')"
+			 />
+
+	<s:Image id="wrong_img" scaleMode="stretch"
+			 includeIn="ReviewMode"
+			 smooth="true" smoothingQuality="high"
+			 width="25" height="20"
+			 source="@Embed('assets/assetsMCQModule/Quit-icon.png')"
+			 visible="{isImgVisible &amp;&amp; !isChoiceRight}"
+			 includeInLayout="{isImgVisible &amp;&amp; !isChoiceRight}"
+			 />
+
+</s:Group>

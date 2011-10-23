@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="com.Tutorial.MCQModule.view.components.*"
+		 width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.MCQModule.Controller.DataProcessor;
+			import com.Tutorial.MCQModule.Controller.MCQConstants;
+			
+			import com.Tutorial.MCQModule.Events.TestResultEvent;
+			import com.Tutorial.MCQModule.Events.TestSelectionEvent;
+			
+			import com.Tutorial.MCQModule.model.TestResultData;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import com.Tutorial.MCQModule.view.TopLevelViews.HomeDisplay;
+			import com.Tutorial.MCQModule.view.TopLevelViews.TestResultDisplay;
+			import com.Tutorial.MCQModule.view.TopLevelViews.TestRulesView;
+			//			import view.TopLevelViews.TestView;
+			//			import view.TopLevelViews.TestView2;
+			import com.Tutorial.MCQModule.view.TopLevelViews.TestViewHtml;
+			
+			private var topLevelView:Dictionary = new Dictionary();
+			
+			public var testXmlPath:String = "D:\\test\\test.xml";
+			
+			public var testNumber:int = -1;
+			
+			private var thisWidth:int = 1020;
+			
+			private var thisHeight:int = 720;
+			
+			private const _aspectRatio:Number = 1.4;
+			//***************************to be called by the external module to init the test view*************
+			public function initWithData(baseFolderPath:String, levelXmlPath:String):void
+			{
+				showHomeDisplay(null);
+			}
+			
+			public function showWelcomeScreen(event:FlexEvent):void
+			{
+//				MCQConstants.appWidth = this.width;
+//				MCQConstants.appHeight = this.height;
+
+				DataProcessor.instance.quesProxy.reset();
+				
+				initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
+			}
+		
+			protected function showHomeDisplay(event:Event):void
+			{
+				if(topLevelView[MCQConstants.TestResultView] != null)
+				{
+				}
+				
+				DataProcessor.instance.quesProxy.reset();
+				
+				if(topLevelView[MCQConstants.HomeDisplayView] == null)
+				{
+					var hD:HomeDisplay = new HomeDisplay();
+					topLevelView[MCQConstants.HomeDisplayView] = hD;
+					hD.addEventListener(MCQConstants.testStartEventName, startTest, false, 0, true);
+					hD.addEventListener(FlexEvent.CREATION_COMPLETE, homeViewCreationComplete, false, 0, true);
+				}
+				else
+				{
+					(topLevelView[MCQConstants.HomeDisplayView] as HomeDisplay).resetView();
+					(topLevelView[MCQConstants.HomeDisplayView] as HomeDisplay).initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[MCQConstants.HomeDisplayView] as HomeDisplay);
+			}
+			
+			public function disposeView():void
+			{
+				for (var key:String in topLevelView)
+				{
+					topLevelView[key]= null;
+					delete topLevelView[key];
+				}
+			}
+			
+			private function homeViewCreationComplete(event:Event):void
+			{
+				var homeView:HomeDisplay = event.target as HomeDisplay;
+				homeView.initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml); 
+			}
+			
+			protected function testCompleted(event:TestResultEvent):void
+			{
+				if(event!=null)
+				{
+					if(event.isTestMode)
+						DataProcessor.instance.quesProxy.processQuestionsStats(event);
+					
+					var testResult:TestResultDisplay = null;
+					
+					if(topLevelView[MCQConstants.TestResultView] == null)
+					{
+						testResult = new TestResultDisplay();
+						topLevelView[MCQConstants.TestResultView] = testResult;
+						
+						testResult.addEventListener(MCQConstants.testReviewEventName, startTestInReviewMode, false, 0, true);
+						testResult.addEventListener(MCQConstants.testViewStartEventName, startTest, false, 0, true);
+						testResult.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+						//						testResult.addEventListener(FlexEvent.CREATION_COMPLETE, resultScreenCompleted, false, 0, true);
+					}
+					else
+					{
+						testResult = (topLevelView[MCQConstants.TestResultView] as TestResultDisplay);
+						testResult.resetView();
+					}
+					
+					this.removeAllElements();
+					this.addElement(testResult);
+					testResult.processData(DataProcessor.instance.quesProxy);
+					
+					//					testResult.validateNow();
+					testResult = null;
+					
+				}
+			}
+
+			protected function resultScreenCompleted(event:Event):void
+			{
+				var testResult:TestResultDisplay = event.target as TestResultDisplay
+				this.removeAllElements();
+				this.addElement(testResult);
+				testResult.processData(DataProcessor.instance.quesProxy);
+				testResult = null;
+				
+			}
+
+			//TODO:
+			protected function showErrorMsg():void
+			{
+				//show error dialogue here
+				
+			}
+
+			protected function startTest(event:TestSelectionEvent):void
+			{
+				if(event !=null)
+				{
+					//					event.target.disposeView();
+				}
+					
+				else
+				{
+					showErrorMsg();
+					return;
+				}
+				
+				if(topLevelView[MCQConstants.TestResultView] != null)
+				{
+					//					topLevelView[MCQConstants.TestResultView]= null;
+					//					delete topLevelView[MCQConstants.TestResultView];
+				}
+				
+				DataProcessor.instance.quesProxy.initProxyWithXml(event.testFolderPath, event.testXmlName);
+				testNumber = event.testNumber;
+				
+				var testRules:TestRulesView = null;
+				
+				if(topLevelView[MCQConstants.TestRulesView] == null)
+				{
+					testRules = new TestRulesView();
+					topLevelView[MCQConstants.TestRulesView] = testRules;
+					
+					testRules.addEventListener(MCQConstants.testViewStartEventName, startTestView);
+					testRules.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+				else
+				{
+					testRules = (topLevelView[MCQConstants.TestRulesView] as TestRulesView);
+					testRules.resetView();
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[MCQConstants.TestRulesView]);
+				testRules = null;
+			}
+			
+			protected function startTestView(event:Event):void
+			{
+				if(MCQConstants.testState == MCQConstants.htmlContentType)
+				{
+					startTestHtmlView(null);
+				}
+				else
+				{
+					//					startTestTextView(null);		//this will never come
+				}
+			}
+			
+			protected function startTestHtmlView(event:Event):void
+			{
+				var currTestView:TestViewHtml = null;
+				if(topLevelView[MCQConstants.TestHtmlDisplayView] == null)
+				{
+					currTestView = new TestViewHtml();
+					topLevelView[MCQConstants.TestHtmlDisplayView] = currTestView;
+					currTestView.setCurrentState("TestMode");
+					
+					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+					
+				else
+				{
+					currTestView = (topLevelView[MCQConstants.TestHtmlDisplayView] as TestViewHtml);
+					currTestView.setCurrentState("TestMode");
+					currTestView.resetView();
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[MCQConstants.TestHtmlDisplayView]);
+				currTestView = null;
+			}
+			
+			protected function startTestInReviewMode(event:Event):void
+			{
+				if(MCQConstants.testState == MCQConstants.htmlContentType)
+				{
+					startHTMLTestInReviewMode(null);
+				}
+				else
+				{
+					//					startTextTestInReviewMode(null);			//this will never come now
+				}
+			}
+			protected function startHTMLTestInReviewMode(event:Event):void
+			{
+				
+				this.removeAllElements();
+				
+				if(topLevelView[MCQConstants.TestHtmlDisplayView] == null)
+				{
+					var currTestView:TestViewHtml = new TestViewHtml();
+					topLevelView[MCQConstants.TestHtmlDisplayView] = currTestView;
+					currTestView.setCurrentState("ReviewMode");
+					
+					currTestView.addEventListener(MCQConstants.testCompletedEventName, testCompleted, false, 0, true);
+					currTestView.addEventListener(MCQConstants.testQuitEventName, showHomeDisplay, false, 0, true);
+				}
+					
+				else
+				{
+					(topLevelView[MCQConstants.TestHtmlDisplayView] as TestViewHtml).setCurrentState("ReviewMode");
+					(topLevelView[MCQConstants.TestHtmlDisplayView] as TestViewHtml).resetView();
+				}
+				
+				this.addElement(topLevelView[MCQConstants.TestHtmlDisplayView]);
+			}
+			
+		]]>
+	</fx:Script>
+	
+</s:Group>
