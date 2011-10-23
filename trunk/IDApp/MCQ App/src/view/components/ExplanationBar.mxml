@@ -18,6 +18,12 @@
 
 			[Bindable]
 			public var explanationText:String = "";
+			
+			[Bindable]
+			public var isContentHtml:Boolean = false;
+			
+			[Bindable]
+			public var htmlContentPath:String = "";
 
 		]]>
 	</fx:Script>
@@ -34,5 +40,15 @@
 				fontSize="13" horizontalCenter="0" paddingBottom="10" paddingLeft="10"
 				paddingRight="10" paddingTop="10" text="{explanationString + explanationText}"
 				textAlign="left" verticalCenter="0"
-				verticalAlign.collapsed="top"/>
+				verticalAlign.collapsed="top"
+				visible="{!isContentHtml}" includeInLayout="{!isContentHtml}"/>
+	
+	<mx:HTML visible="{isContentHtml}" width="100%" height="100%" chromeColor="#FCF8F8"
+			 color="#767474" fontFamily="Verdana" fontSize="13" horizontalCenter="0"
+			 includeInLayout="{isContentHtml}" location="{htmlContentPath}" paddingBottom="10"
+			 paddingLeft="10" paddingRight="10" paddingTop="10" paintsDefaultBackground="false"
+			 textAlign="left" verticalCenter="0"
+			 dropShadowVisible.collapsed="false"
+			 tabEnabled="false" tabChildren="false" focusEnabled="false" mouseChildren.collapsed="false"
+			 verticalScrollPolicy.collapsed = "off"/>
 </s:BorderContainer>

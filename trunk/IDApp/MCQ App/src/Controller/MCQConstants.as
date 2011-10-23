@@ -39,7 +39,7 @@ package Controller
 		static public const htmlContentType:int = 1;
 		
 		//test state
-		static public var testState:int = textContentType;
+		static public var testState:int = htmlContentType;
 		
 		//choices type
 		static public const radioTypeQues:String = "Radio";

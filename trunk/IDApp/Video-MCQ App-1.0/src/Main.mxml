@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   width="1100" height="760"
+					   showStatusBar="false"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
+					   xmlns:view="com.Tutorial.VideoDisplay.view.*" xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import adobe.utils.CustomActions;
+			
+			import com.Tutorial.VideoDisplay.view.TopLevelViews.WelcomeScreen;
+			
+			import flash.display.DisplayObject;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.controls.VideoDisplay;
+			import mx.core.mx_internal;
+			import mx.effects.easing.*;
+			import mx.events.FlexEvent;
+			
+			import org.osmf.events.MediaPlayerStateChangeEvent;
+			import org.osmf.media.MediaPlayerState;
+			
+			import spark.components.VideoDisplay;
+			import spark.components.VideoPlayer;
+			
+			private const _aspectRatio:Number = 1.4;
+			
+			private var currView:Object = null;
+			
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				var thisHeight:int = Capabilities.screenResolutionY *0.9;
+				var thisWidth:int = thisHeight * _aspectRatio;
+				
+				nativeWindow.width = thisWidth;
+				nativeWindow.height = thisHeight;
+				
+				nativeWindow.x = (Capabilities.screenResolutionX - nativeWindow.width) / 2;
+				nativeWindow.y = (Capabilities.screenResolutionY - nativeWindow.height) / 2 - 20;
+				
+				var welScreen:WelcomeScreen = new WelcomeScreen;
+				this.removeAllElements();
+				this.addElement(welScreen);
+				welScreen.showScreen();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<!--
+	<TopLevelViews:Level1VideoDisplay id="videoDisplayScreen" width="100%" height="100%"/>
+	-->
+</s:WindowedApplication>

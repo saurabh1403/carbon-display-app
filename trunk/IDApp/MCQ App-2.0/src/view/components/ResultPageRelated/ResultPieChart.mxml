@@ -51,6 +51,7 @@
 		source="@Embed('assets/old-paper1.jpg')"
 		scaleMode="stretch"
 		smooth="true"
+		smoothingQuality="high"
 		/>
 	
 	<s:Label top="35" color="#242323" fontFamily="Arial"
