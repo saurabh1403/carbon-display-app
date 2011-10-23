@@ -5,10 +5,12 @@
 					   width="1100" height="760"
 					   showStatusBar="false"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
-					   xmlns:view="com.Tutorial.VideoDisplay.view.*" xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*">
+					   xmlns:view="com.Tutorial.VideoDisplay.view.*" xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*" xmlns:view1="view.*">
 	
 	<fx:Script>
 		<![CDATA[
+			import Event.PackageSelectEvent;
+			
 			import adobe.utils.CustomActions;
 			
 			import com.Tutorial.MCQModule.Controller.MCQConstants;
@@ -16,6 +18,8 @@
 			import com.Tutorial.VideoDisplay.view.TopLevelViews.WelcomeScreen;
 			
 			import flash.display.DisplayObject;
+			
+			import model.Package;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -30,10 +34,15 @@
 			import spark.components.VideoDisplay;
 			import spark.components.VideoPlayer;
 			
+			import view.InitialWelcomeScreen;
+			
 			private const _aspectRatio:Number = 1.4;
 			
 			private var currView:Object = null;
 			
+			private var initWelcomeScreen:InitialWelcomeScreen = new InitialWelcomeScreen;
+			
+			private const xmlPath:String = "data/pkgData.xml"; 
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				var thisHeight:int = Capabilities.screenResolutionY *0.9;
@@ -47,22 +56,69 @@
 				
 				MCQConstants.appWidth = nativeWindow.width;
 				MCQConstants.appHeight = nativeWindow.height;
-
-				var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
-				this.removeAllElements();
-				this.addElement(mcqScreen);
-				mcqScreen.showWelcomeScreen(null);
 				
-//				var welScreen:WelcomeScreen = new WelcomeScreen;
-//				this.removeAllElements();
-//				this.addElement(welScreen);
-//				welScreen.showScreen();
+				initWelcomeScreen.populateData(xmlPath);
+				initWelcomeScreen.addEventListener("newPackageStarted", onPackageSelection, false, 0, true);
+				
+				showHomeScreen();
+				
+			}
+			
+			protected function showHomeScreen():void
+			{
+//				view_stack.removeAll();
+//				view_stack.addElement(initWelcomeScreen);
+				this.removeAllElements();
+				this.addElement(initWelcomeScreen);
+			}
+
+			protected function onPackageSelection(ev:PackageSelectEvent):void
+			{
+				switch(ev.pkg_id)
+				{
+					case "maths":
+					{
+						var welScreen:WelcomeScreen = new WelcomeScreen;
+						this.removeAllElements();
+						this.addElement(welScreen);
+						welScreen.showScreen("maths");
+						
+						break;
+					}
+						
+					case "science":
+					{
+						var welScreen1:WelcomeScreen = new WelcomeScreen;
+						this.removeAllElements();
+						this.addElement(welScreen1);
+						welScreen1.showScreen("science");
+						
+						break;
+
+					}
+						
+					case "MCQ":
+					{
+						var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
+						this.removeAllElements();
+						this.addElement(mcqScreen);
+						mcqScreen.showWelcomeScreen(null);
+						break;
+					}
+
+					default:
+					{
+						break;
+					}
+				}
 			}
 			
 		]]>
 	</fx:Script>
-	
 	<!--
-	<TopLevelViews:Level1VideoDisplay id="videoDisplayScreen" width="100%" height="100%"/>
-	-->
+	<s:VGroup width="100%" height="100%">
+		<view1:TopWindowBar width="100%" height="50"/> 
+		<mx:ViewStack width="100%" height="100%" id="view_stack"/>
+	</s:VGroup>-->
+	
 </s:WindowedApplication>

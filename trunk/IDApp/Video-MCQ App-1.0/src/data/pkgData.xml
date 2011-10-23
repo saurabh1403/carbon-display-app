@@ -1,0 +1,29 @@
+<packageList>
+	<pkg>
+		<Name>xyz class</Name>
+		<PackageId>science</PackageId>
+		<TitleText>Class X Science</TitleText>
+		<Description>This Package Contains the demo lessons and NCERT questions solutions for science 10.
+You can learn the different topics and subtopics of every chapter of science 10 under this package.</Description>
+		<PackageThumbnailPath>assets/assetsCommon/thumbScience.png</PackageThumbnailPath>
+		<imageIconPath>assets/assetsCommon/iconScience.png</imageIconPath>
+	</pkg>
+	<pkg>
+		<Name>xyz class</Name>
+		<PackageId>maths</PackageId>
+		<TitleText>Class X Maths</TitleText>
+		<Description>This Package Contains the demo lessons and NCERT questions solutions for maths 10.
+You can learn the different topics and subtopics of every chapter of maths 10 under this package.</Description>
+		<PackageThumbnailPath>assets/assetsCommon/thumbMaths.png</PackageThumbnailPath>
+		<imageIconPath>assets/assetsCommon/iconMaths.png</imageIconPath>
+	</pkg>
+	<pkg>
+		<Name>xyz class</Name>
+		<PackageId>MCQ</PackageId>
+		<TitleText>Class X Multiple Choice Questions</TitleText>
+		<Description>This Package Contains the demo multiple choice questions for science and maths of 10th class.
+This would help you test your concepts for these subjects.</Description>
+		<PackageThumbnailPath>assets/assetsCommon/thumbMCQ.png</PackageThumbnailPath>
+		<imageIconPath>assets/assetsCommon/iconMCQ.png</imageIconPath>
+	</pkg>
+</packageList>

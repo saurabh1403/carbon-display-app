@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
+		 xmlns:accordionLayout = "imports.Accordion3D.com.rialvalue.layouts.*"
+		 xmlns:accordion = "imports.Accordion3D.*" xmlns:view="view.*"
+		 creationComplete="dashboard_creationComplete(event)"
+		 >
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Metadata>
+		
+		
+	</fx:Metadata>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import Event.PackageSelectEvent;
+			
+			import imports.Accordion3D.com.rialvalue.layouts.Accordion3DLayout;
+			
+			import model.Package;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			[Bindable] 
+			private var packageMainIconPath:String = "";
+			
+			[Bindable]
+			public var pkgColl:ArrayCollection = new ArrayCollection;
+			
+			[Bindable]
+			private var packageTitleString:String = "";
+			
+			[Bindable]
+			private var packageDescription:String = "";
+			
+			[Bindable]
+			public var dataProvider:ArrayCollection;
+			
+			[Bindable]
+			private var currLayout:Accordion3DLayout = new Accordion3DLayout();
+			
+			private var currSelectedPkg:model.Package = null;
+			
+			public function populateData(xmlPath:String):void
+			{
+				var file:File = File.applicationDirectory;
+				file = file.resolvePath(xmlPath);
+				
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.READ);
+				
+				var inXml:XML = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
+				
+				var contents:XMLList = inXml.pkg;
+				for(var i:int = 0; i < contents.length(); i++)
+				{
+					var pkg:model.Package = new model.Package;
+					pkg.title = contents[i].TitleText;
+					pkg.description = contents[i].Description;
+					pkg.thumbnailIconPath = contents[i].PackageThumbnailPath;
+					pkg.mainIconPath = contents[i].imageIconPath;
+					pkg.pkgID = contents[i].PackageId;
+					
+					pkgColl.addItem(pkg);
+				}
+				
+			}
+			
+			protected function packageSessionStarted(event:MouseEvent):void
+			{
+				var newEv:Event.PackageSelectEvent = new PackageSelectEvent("newPackageStarted");
+				newEv.pkg_id = currSelectedPkg.pkgID;
+				dispatchEvent(newEv);
+				
+			}
+			
+			protected function dashboard_creationComplete(event:FlexEvent):void
+			{
+				this.addEventListener(PackageSelectEvent.eventName, newPackageSelected);
+				pkgColl.refresh();
+			}
+			
+			public function newPackageSelected(event:PackageSelectEvent):void
+			{
+				var tmpSelectedPkg:model.Package = event.pkgEntity;
+				if(tmpSelectedPkg != currSelectedPkg)
+				{
+					currSelectedPkg = tmpSelectedPkg;
+					packageMainIconPath = currSelectedPkg.mainIconPath;
+					packageTitleString = currSelectedPkg.title;
+					packageDescription = currSelectedPkg.description;
+					currLayout.selectedIndex = pkgColl.getItemIndex(currSelectedPkg);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<s:BorderContainer width="100%" height="100%">
+		
+		<s:backgroundFill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x575959"/>
+			</s:LinearGradient>
+		</s:backgroundFill>
+		
+		<mx:VBox width="100%" height="100%">
+			<mx:Spacer height="5%"/>
+			
+			<mx:HBox width="100%" height="100%">
+				<mx:Spacer width="10%"/>
+				<mx:VBox width="100%">
+					<mx:Text width="70%" color="#FEFCFC" fontSize="29" selectable="false"
+							 styleName="titleHeader" tabFocusEnabled="false"
+							 text="Available Packages"/>
+					<mx:HRule width="80%" id="lightrule"
+							  strokeWidth="1" strokeColor="0xffffff" />
+					<mx:Text width="70%" color="0xffc90e" fontSize="18" selectable="false"
+							 styleName="titleHeader" tabFocusEnabled="false"
+							 text="Please select a package"/>
+					
+					<mx:Spacer height="5%"/>
+					
+					<!-- 3D accordion control -->
+					<view:PackageListAccordion3D id="pktAccordList"
+												 dataProvider="{pkgColl}"
+												 layout="{currLayout}"
+												 />				
+					
+					<mx:HBox width="100%">
+						
+						<s:Image source="{packageMainIconPath}" visible="{packageMainIconPath.length != 0}" smooth="true"
+								 smoothingQuality="high" width="200" height="350"/>
+						<s:Spacer width="20"/>
+						
+						<mx:VBox width="100%">
+							<s:Label color="#FEFEFE" fontSize="20" fontWeight="bold"
+									 text="{packageTitleString}"/>
+							<s:Spacer height="20"/>
+							<s:RichText color="#F7F1F1" fontSize="14" fontStyle="italic"
+										text="{packageDescription}" textAlign="left"/>
+							<s:Spacer height="170"/>
+							
+							<mx:HBox width="100%">
+								<s:Spacer width="80%"/>
+								
+								<s:Button width="20%" label="Start Learning" chromeColor="#A0C86B"
+										  height="30"
+										  click="packageSessionStarted(event)" visible="{packageMainIconPath.length != 0}"/>
+							</mx:HBox>
+							
+						</mx:VBox>
+						
+					</mx:HBox>
+					
+					<mx:Spacer width="10%"/>
+				</mx:VBox>
+				<mx:Spacer width="10%"/>
+			</mx:HBox>
+			
+			<mx:Spacer height="10%"/>
+		</mx:VBox>
+	</s:BorderContainer>
+	
+	
+</s:Group>
