@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+		   xmlns:s="library://ns.adobe.com/flex/spark"
+		   xmlns:mx="library://ns.adobe.com/flex/mx"
+		   backgroundColor="0x333333" borderColor="#172D3B" borderVisible="true"
+		   contentBackgroundAlpha="0.71" contentBackgroundColor="#F2D7D7"
+		   creationCompleteEffect="Fade" dropShadowVisible="true" hideEffect="Fade"
+		   backgroundAlpha.ImageState="0.0"
+		   backgroundColor.ImageState="#DFDCDC" contentBackgroundColor.ImageState="#FEFEFE"
+		   >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			
+			[Bindable]
+			public var overlayText:String;
+			
+			[Bindable]
+			public var imagePath:String = "assets/assetsMCQModule/default_diag_image.png";
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);				
+			}
+			
+		]]>
+	</fx:Script>
+	<mx:states>
+		<s:State name="TextState"/>
+		<s:State name="ImageState"/>
+	</mx:states>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:RichText includeIn="TextState" width="95%" height="80%"
+				fontFamily="Verdana" fontSize="28" fontWeight="normal" horizontalCenter="0"
+				text="{overlayText}" textAlign="center" verticalAlign="middle" verticalCenter="-20"/>
+	<s:Button includeIn="TextState" bottom="10" width="12%" height="7%"
+			  label="Button" click="clickHandler(event)" horizontalCenter="0"/>
+	
+	<s:Image id="diagImage" includeIn="ImageState" width="75%" height="90%" backgroundAlpha="0.94"
+			 backgroundColor="#FBF7F7" chromeColor="#DEDADA" click="clickHandler(event)"
+			 horizontalCenter="0" scaleMode="stretch" smooth="true" smoothingQuality="high"
+			 source="{imagePath}" verticalCenter="0"/>
+	
+</mx:Canvas>

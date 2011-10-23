@@ -11,6 +11,8 @@
 		<![CDATA[
 			import adobe.utils.CustomActions;
 			
+			import com.Tutorial.MCQModule.Controller.MCQConstants;
+			import com.Tutorial.MCQModule.view.TopLevelViews.MCQWelcomeComponent;
 			import com.Tutorial.VideoDisplay.view.TopLevelViews.WelcomeScreen;
 			
 			import flash.display.DisplayObject;
@@ -43,10 +45,18 @@
 				nativeWindow.x = (Capabilities.screenResolutionX - nativeWindow.width) / 2;
 				nativeWindow.y = (Capabilities.screenResolutionY - nativeWindow.height) / 2 - 20;
 				
-				var welScreen:WelcomeScreen = new WelcomeScreen;
+				MCQConstants.appWidth = nativeWindow.width;
+				MCQConstants.appHeight = nativeWindow.height;
+
+				var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
 				this.removeAllElements();
-				this.addElement(welScreen);
-				welScreen.showScreen();
+				this.addElement(mcqScreen);
+				mcqScreen.showWelcomeScreen(null);
+				
+//				var welScreen:WelcomeScreen = new WelcomeScreen;
+//				this.removeAllElements();
+//				this.addElement(welScreen);
+//				welScreen.showScreen();
 			}
 			
 		]]>
