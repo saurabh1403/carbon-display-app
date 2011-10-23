@@ -45,10 +45,10 @@
 				
 			}
 			
-			public function showScreen():void
+			public function showScreen(str:String):void
 			{
 				var newEv:GenericEvent = new GenericEvent(VideoPlayConstants.subjectSelectionEvent);
-				newEv.eventData.subjectName = "maths";
+				newEv.eventData.subjectName = str;
 				onSubjectSelection(newEv);
 
 			}
@@ -89,6 +89,7 @@
 				switch(event.eventData.subjectName)
 				{
 					case "maths":
+					case "science":
 						var _dataParser:DataParser = new DataParser(VideoPlayConstants.testBaseFolderPath, VideoPlayConstants.relativeMathsXmlPath, VideoPlayConstants.relativeContentPath, VideoPlayConstants.relativeResourcePath);
 						var dataArrayColl:ArrayCollection = new ArrayCollection;
 						if(!_dataParser.populateDataEntityFromXml(dataArrayColl))
@@ -102,7 +103,7 @@
 						break;
 					
 					
-					case "science":
+					
 					default:
 						break;
 				}
