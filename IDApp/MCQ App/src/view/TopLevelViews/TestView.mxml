@@ -449,7 +449,7 @@
 	<s:BorderContainer left="10" top="10" bottom="10" width="78%"
 					   cornerRadius="10">
 		<s:VGroup  horizontalCenter="0" top="50" width="100%" 
-				   paddingLeft="20" paddingTop="5" paddingBottom="5" paddingRight="10" height="70%">
+				   paddingLeft="20" paddingTop="5" paddingBottom="5" paddingRight="10" height="80%">
 			<s:RichText id="quesStatement" left="20" top="40" width="90%"
 						chromeColor="#FCFBFB" color="#678C60" fontFamily="Verdana"
 						paddingBottom="10" paddingTop="10" text="Sample statement"
@@ -464,7 +464,6 @@
 				<GeneralComponents:DiagramDisplayer id="diagram" right="10" top="120" width="28%" height="75%"
 													/>
 			</s:HGroup>
-			
 		</s:VGroup>
 		
 		<components:ExplanationBar id="quesExplanation" includeIn="ReviewMode" bottom="20"

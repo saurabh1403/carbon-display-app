@@ -281,5 +281,4 @@
 	<s:Label right="10" top="5" color="#FDA803" fontStyle="italic" fontWeight="bold" text="{MCQConstants.copyrightInfo}"/>
 	
 	
-	
 </s:BorderContainer>

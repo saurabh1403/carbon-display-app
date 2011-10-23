@@ -2,7 +2,7 @@
 <s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
 				   xmlns:s="library://ns.adobe.com/flex/spark"
 				   xmlns:mx="library://ns.adobe.com/flex/mx"
-				   width="100%" height="100%" backgroundColor="#BDBDB7" borderWeight="6"
+				   width="100%" height="100%" backgroundColor="#1D6F79" borderWeight="6"
 				   chromeColor="#BDBDBD" dropShadowVisible="false"
 				   creationPolicy="all">
 	
@@ -57,17 +57,17 @@
 					case "l3Image":
 //						cusEvent.testXmlName = xmlPathData[2];
 						cusEvent.testXmlName = levelXml.levels.level[2].levelTestXml.toString();
-						cusEvent.testType = findTestType(levelXml.levels.level[2].type.toString());
+//						cusEvent.testType = findTestType(levelXml.levels.level[2].type.toString());
 						this.dispatchEvent(cusEvent);
 						break;
 					case "l2Image":
 						cusEvent.testXmlName = levelXml.levels.level[1].levelTestXml.toString();
-						cusEvent.testType = findTestType(levelXml.levels.level[1].type.toString());
+//						cusEvent.testType = findTestType(levelXml.levels.level[1].type.toString());
 						this.dispatchEvent(cusEvent);
 						break;
 					case "l1Image":
 						cusEvent.testXmlName = levelXml.levels.level[0].levelTestXml.toString();
-						cusEvent.testType = findTestType(levelXml.levels.level[0].type.toString());
+//						cusEvent.testType = findTestType(levelXml.levels.level[0].type.toString());
 						this.dispatchEvent(cusEvent);
 						break;
 				}
@@ -123,23 +123,34 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Label left="50" top="50" width="80%" height="10%" fontFamily="Times New Roman" fontSize="29"
+
+	<s:VGroup width="100%" height="100%">
+	<s:Label left="64" top="6" width="80%" height="10%" fontFamily="Times New Roman" fontSize="29"
 			 fontStyle="italic" fontWeight="normal" lineThrough="false" text="Choose the test level"
 			 textAlign="left" textDecoration="none" verticalAlign="middle" />
-	<s:HGroup left="0" width="100%" height="40%" verticalCenter="0">
-		<s:Spacer width="50%"/>
 		
-	<s:Image id="l1Image" width="100%" height="100%" click="button1_clickHandler(event)" smooth="true"
-			 smoothingQuality="high" verticalCenter="-10" visible="false"/>
-		<s:Spacer width="50%"/>
+		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="50"
+				  paddingTop="20" verticalAlign="middle">
+			<s:Image id="l1Image" width="100%" height="100%" click="button1_clickHandler(event)" smooth="true"
+					 smoothingQuality="high" verticalCenter="-10" visible="false"/>
+			<s:Spacer width="50%"/>
 
-	<s:Image id="l2Image" width="100%" height="100%" click="button1_clickHandler(event)"
-			 verticalCenter="-10" visible="false"/>
-		<s:Spacer width="50%"/>
-
-	<s:Image id="l3Image" width="100%" height="100%" click="button1_clickHandler(event)"
-				 verticalCenter="-10" visible="false"/>
-		<s:Spacer width="50%"/>
-	</s:HGroup>
+		</s:HGroup>
+		
+		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="50" paddingRight="50"
+				  paddingTop="20">
+			<s:Image id="l2Image" width="100%" height="100%" click="button1_clickHandler(event)"
+					 verticalCenter="-10" visible="false"/>
+			<s:Spacer width="50%"/>
+		</s:HGroup>
+		
+		<s:HGroup width="100%" height="100%" paddingBottom="20" paddingLeft="30" paddingRight="50"
+				  paddingTop="20">
+			<s:Image id="l3Image" width="100%" height="100%" click="button1_clickHandler(event)"
+					 verticalCenter="-10" visible="false"/>
+			<s:Spacer width="50%"/>
+		</s:HGroup>
+	</s:VGroup>
+	
 	
 </s:BorderContainer>
