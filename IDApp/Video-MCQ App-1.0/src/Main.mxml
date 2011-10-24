@@ -4,6 +4,7 @@
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   width="1100" height="760"
 					   showStatusBar="false"
+					   skinClass="skin.ModifiedWindowSkin"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   xmlns:view="com.Tutorial.VideoDisplay.view.*" 
 					   xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*" xmlns:view1="view.*">
@@ -64,7 +65,7 @@
 				initWelcomeScreen.populateData(xmlPath);
 				initWelcomeScreen.addEventListener("newPackageStarted", onPackageSelection, false, 0, true);
 				
-//				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
+				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
 				showHomeScreen(null);
 				
 			}

@@ -97,21 +97,22 @@
     <!-- layer 2: content + status bar -->
     <s:Group left="0" right="0" top="0" bottom="0" minHeight="24" minWidth="0" >
         <s:layout>
-            <s:VerticalLayout gap="0"/>
+            <s:BasicLayout />
         </s:layout>
 		
-		<s:Rect id="titleBarBackgroundRect" width="100%" height="40">
-			
-		</s:Rect>
+<!--		<s:Rect id="titleBarBackgroundRect" width="100%" height="40" includeInLayout="false">
 
-<!--		<s:TitleBar id="titleBar" width="100%" skinClass="skin.ModifiedTitleBarSkin">
-			
-		</s:TitleBar>
--->    
+		</s:Rect>
+-->		
+    
         <!-- content -->
         <!--- @copy spark.components.SkinnableContainer#contentGroup -->
-        <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
+        <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0" top="50"/>
         
+		<s:TitleBar id="titleBar" width="100%" height="50" top="0" skinClass="skin.ModifiedTitleBarSkin">
+			
+		</s:TitleBar>
+
         <!-- status bar -->
         <!--- @copy spark.components.WindowedApplication#statusBar -->
         <s:Group id="statusBar" width="100%" minHeight="24" >
