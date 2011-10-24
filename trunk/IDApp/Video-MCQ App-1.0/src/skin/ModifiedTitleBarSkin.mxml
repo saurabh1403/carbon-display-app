@@ -69,7 +69,9 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 	
 	<!-- fill -->
 	<!--- Defines the background color of the skin. -->
-	<s:Rect id="background" left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" >
+	<s:Rect id="background" left="0" right="0" top="0" bottom="0"
+			radiusX="5" radiusY="5"
+			>
 		<s:fill>
 			<!--- @private -->
 			<s:LinearGradient id="bgFill" rotation="90">
@@ -77,6 +79,11 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 				<s:GradientEntry color="0x383B3B" />
 			</s:LinearGradient>
 		</s:fill>
+		
+		<s:stroke>
+			<s:SolidColorStroke color="#F5F29F" weight="2"/>
+		</s:stroke>
+		
 	</s:Rect>
 	
 	<s:Group minHeight="24" width="100%" height="100%" left="2" right="2" >
@@ -85,6 +92,7 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 			<s:HorizontalLayout verticalAlign="middle" gap="5" />
 		</s:layout>
 		
+		<s:Spacer width="10"/>
 		<s:Image width="40" height="40"
 				 smooth="true"
 				 smoothingQuality="high"
@@ -105,10 +113,10 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		
 		<!-- title -->
 		<!--- @copy spark.components.windowClasses.TitleBar#titleText -->
-		<s:Label id="titleText" minWidth="0" fontSize="9" color="#FAF5F5" maxDisplayedLines="1" width="100%" />
+		<s:Label id="titleText" minWidth="0" fontSize="18" color="#FAF5F5" maxDisplayedLines="1" width="100%" />
 		
 		<s:Spacer width="100%"/>
-		<s:RichText text="Copyright (c) Gurukul Classes." />
+		<s:RichText text="Copyright (c) Gurukul Classes." fontSize="18" color="#FAF202" fontFamily="italic"/>
 		
 		<s:Spacer width="20"/>
 		
@@ -157,6 +165,7 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 				  color="0xEDE8E4"
 				  verticalCenter="0"  />
 		
+		<s:Spacer width="5"/>
 	</s:Group>
 	
 </s:SparkSkin>
