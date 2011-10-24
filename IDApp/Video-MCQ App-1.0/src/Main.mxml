@@ -5,7 +5,8 @@
 					   width="1100" height="760"
 					   showStatusBar="false"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
-					   xmlns:view="com.Tutorial.VideoDisplay.view.*" xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*" xmlns:view1="view.*">
+					   xmlns:view="com.Tutorial.VideoDisplay.view.*" 
+					   xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*" xmlns:view1="view.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -30,6 +31,9 @@
 			
 			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import org.osmf.media.MediaPlayerState;
+			
+			import skin.ModifiedTitleBarSkin;
+			import skin.ModifiedWindowSkin;
 			
 			import spark.components.VideoDisplay;
 			import spark.components.VideoPlayer;
@@ -60,11 +64,12 @@
 				initWelcomeScreen.populateData(xmlPath);
 				initWelcomeScreen.addEventListener("newPackageStarted", onPackageSelection, false, 0, true);
 				
-				showHomeScreen();
+//				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
+				showHomeScreen(null);
 				
 			}
 			
-			protected function showHomeScreen():void
+			protected function showHomeScreen(ev:Event):void
 			{
 //				view_stack.removeAll();
 //				view_stack.addElement(initWelcomeScreen);
