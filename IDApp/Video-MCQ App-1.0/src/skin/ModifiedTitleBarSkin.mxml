@@ -70,7 +70,8 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 	<!-- fill -->
 	<!--- Defines the background color of the skin. -->
 	<s:Rect id="background" left="0" right="0" top="0" bottom="0"
-			radiusX="5" radiusY="5"
+			topLeftRadiusX="5" topLeftRadiusY="5"
+			topRightRadiusX="5" topRightRadiusY="5"
 			>
 		<s:fill>
 			<!--- @private -->
@@ -83,7 +84,8 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 	
 	<!--high light-->
 	<s:Rect id="highlight" left="0" right="0" top="0" bottom="0"
-			radiusX="5" radiusY="5"
+			topLeftRadiusX="5" topLeftRadiusY="5"
+			topRightRadiusX="5" topRightRadiusY="5"
 			>
 		<s:fill>
 			<!--- @private -->
