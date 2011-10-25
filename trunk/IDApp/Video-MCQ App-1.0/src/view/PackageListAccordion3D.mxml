@@ -13,7 +13,7 @@
 							distance="6"
 							blurX="8"
 							blurY="8"
-							angle="45"/>
+							angle="25"/>
 	</fx:Declarations>
 	
 	<s:itemRenderer>
@@ -30,7 +30,6 @@
 						protected function graphic2_clickHandler(event:MouseEvent):void
 						{
 							var tmpEvent:Event.PackageSelectEvent = new PackageSelectEvent(PackageSelectEvent.eventName, true);
-							tmpEvent.pkg_id = (data as model.Package).pkgID;
 							tmpEvent.pkgEntity = (data as model.Package);
 							
 							dispatchEvent(tmpEvent);

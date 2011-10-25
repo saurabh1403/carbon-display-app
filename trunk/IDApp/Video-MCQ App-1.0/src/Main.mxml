@@ -80,7 +80,7 @@
 
 			protected function onPackageSelection(ev:PackageSelectEvent):void
 			{
-				switch(ev.pkg_id)
+				switch(ev.pkgEntity.pkgID)
 				{
 					case "maths":
 					{
