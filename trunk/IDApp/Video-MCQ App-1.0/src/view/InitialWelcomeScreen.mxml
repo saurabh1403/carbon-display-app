@@ -21,6 +21,9 @@
 		<![CDATA[
 			import Event.PackageSelectEvent;
 			
+			import flash.utils.clearInterval;
+			import flash.utils.setInterval;
+			
 			import imports.Accordion3D.com.rialvalue.layouts.Accordion3DLayout;
 			
 			import model.Package;
@@ -48,6 +51,8 @@
 			private var currLayout:Accordion3DLayout = new Accordion3DLayout();
 			
 			private var currSelectedPkg:model.Package = null;
+			private var lastBlinkingFunctionId:uint = 0;
+			private var counter:uint = 0;
 			
 			public function populateData(xmlPath:String):void
 			{
@@ -96,6 +101,7 @@
 			
 			public function newPackageSelected(event:PackageSelectEvent):void
 			{
+				stopPreviousBlinking();
 				var tmpSelectedPkg:model.Package = event.pkgEntity;
 				if(tmpSelectedPkg != currSelectedPkg)
 				{
@@ -105,6 +111,23 @@
 					packageDescription = currSelectedPkg.description;
 					currLayout.selectedIndex = pkgColl.getItemIndex(currSelectedPkg);
 				}
+				lastBlinkingFunctionId = setInterval(blinkingFunction, 500);
+			}
+			
+			private function stopPreviousBlinking():void
+			{
+				clearInterval(lastBlinkingFunctionId);
+				counter = 0;
+				clickImage.visible = false;
+			}
+			
+			private function blinkingFunction():void
+			{
+				counter++;
+				if(counter == 10)
+					stopPreviousBlinking();
+				else
+					clickImage.visible = !clickImage.visible;
 			}
 			
 		]]>
@@ -114,76 +137,87 @@
 		<s:VerticalLayout/>
 	</s:layout>
 	
-	<s:BorderContainer width="100%" height="100%"
-					   borderVisible="true"
-					   borderWeight="2"
-					   borderColor="#CFCECA"
-					   cornerRadius="2"
-					   >
+	<s:BorderContainer width="100%" height="100%" backgroundColor="#FFFFFF" borderColor="#CFCECA"
+					   borderVisible="false" borderWeight="2" contentBackgroundColor="#FFFFFF"
+					   cornerRadius="2">
 		
-		<s:backgroundFill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0x575959"/>
-			</s:LinearGradient>
-		</s:backgroundFill>
 		
-		<mx:VBox width="100%" height="100%">
+		<s:VGroup width="100%" height="100%"
+				  paddingLeft="40"
+				  paddingRight="40"
+				  paddingBottom="10"
+				  >
+			
 			<mx:Spacer height="5%"/>
 			
-			<mx:HBox width="100%" height="100%">
-				<mx:Spacer width="10%"/>
-				<mx:VBox width="100%" height="100%">
-					<mx:Text width="70%" color="#FEFCFC" fontSize="29" selectable="false"
-							 styleName="titleHeader" tabFocusEnabled="false"
-							 text="Available Packages"/>
-					<mx:HRule width="80%" id="lightrule"
-							  strokeWidth="1" strokeColor="0xffffff" />
-					<mx:Text width="70%" color="0xffc90e" fontSize="18" selectable="false"
-							 styleName="titleHeader" tabFocusEnabled="false"
-							 text="Please select a package"/>
-					
-					<mx:Spacer height="5%"/>
-					
-					<!-- 3D accordion control -->
-					<view:PackageListAccordion3D id="pktAccordList"
-												 dataProvider="{pkgColl}"
-												 layout="{currLayout}"
-												 />				
-					
-					<mx:HBox width="100%" height="100%">
-						
-						<s:Image source="{packageMainIconPath}" visible="{packageMainIconPath.length != 0}" smooth="true"
-								 smoothingQuality="high" minWidth="120" minHeight="140" maxWidth="200" maxHeight="230" width="15%" height="20%"/>
-						<s:Spacer width="20"/>
-						
-						<mx:VBox width="100%" height="100%">
-							<s:Label color="#FEFEFE" fontSize="18" fontWeight="normal" fontFamily="Verdana"
-									 text="{packageTitleString}"/>
-							<s:Spacer height="20"/>
-							<s:RichText color="#F7F1F1" fontSize="14" fontStyle="italic"
-										text="{packageDescription}" textAlign="left"/>
-							
-							<s:Spacer height="100%"/>
-							
-							<mx:HBox width="100%">
-								<s:Spacer width="80%"/>
-								
-								<s:Button width="20%" label="Start Learning" chromeColor="#A0C86B"
-										  height="30"
-										  click="packageSessionStarted(event)" visible="{packageMainIconPath.length != 0}"/>
-							</mx:HBox>
-							
-						</mx:VBox>
-						
-					</mx:HBox>
-					
-					<mx:Spacer width="10%"/>
-				</mx:VBox>
-				<mx:Spacer width="10%"/>
-			</mx:HBox>
+			<mx:Text width="70%" color="#050505" fontSize="29" selectable="false"
+					 styleName="titleHeader" tabFocusEnabled="false"
+					 text="Available Packages"/>
+			<mx:HRule width="80%" id="lightrule"
+					  strokeWidth="1" strokeColor="0xffc90e" />
+			<mx:Text width="70%" color="#B22E2F" fontSize="18" selectable="false"
+					 styleName="titleHeader" tabFocusEnabled="false"
+					 text="Please select a package"/>
 			
-			<mx:Spacer height="10%"/>
-		</mx:VBox>
+			<mx:Spacer height="5%"/>
+			
+			<!-- 3D accordion control -->
+			<view:PackageListAccordion3D id="pktAccordList"
+										 dataProvider="{pkgColl}"
+										 layout="{currLayout}"
+										 width="100%"
+										 height="30%"
+										 minWidth="200"
+										 minHeight="180"
+										 maxHeight="300"
+										 />				
+			
+			<s:Spacer height="15%"/>
+			
+			<s:HGroup width="100%" height="35%" verticalAlign="bottom">
+				
+				<s:Image source="{packageMainIconPath}" visible="{packageMainIconPath.length != 0}" smooth="true"
+						 smoothingQuality="high" 
+						 minWidth="120" minHeight="140" 
+						 maxWidth="200" maxHeight="230" 
+						 width="30%" height="90%"/>
+				
+				<s:Spacer width="20"/>
+				
+				<s:VGroup width="70%" height="100%">
+					
+					<s:RichText color="#B22E2F" fontSize="18" fontWeight="bold" fontFamily="Verdana"
+							 text="{packageTitleString}"/>
+					
+					<s:Spacer height="10"/>
+					
+					<s:RichText color="#37646F" fontSize="14" fontStyle="italic"
+								text="{packageDescription}" textAlign="left"/>
+					
+					<s:Spacer height="60%"/>
+					
+					<s:HGroup width="100%">
+						<s:Spacer width="40%"/>
+						<s:Image id="clickImage" width="30%"
+								 smooth="true"
+								 scaleMode="stretch"
+								 smoothingQuality="high"
+								 source="@Embed('assets/assetsCommon/clickImage.png')"/>
+						
+						<s:Spacer width="3"/>
+						<s:Button visible="{packageMainIconPath.length != 0}" width="20%" height="35"
+								  label="Start Learning" chromeColor="#16404A"
+								  click="packageSessionStarted(event)" color="#FFFFFF"
+								  fontFamily="Verdana" fontSize="15" fontWeight="normal"
+								  skinClass="skin.StartButtonSkinModified"/>
+						<s:Spacer width="10%"/>
+					</s:HGroup>
+				</s:VGroup>
+				
+			</s:HGroup>
+			
+			<mx:Spacer height="5%"/>
+		</s:VGroup>
 	</s:BorderContainer>
 	
 	
