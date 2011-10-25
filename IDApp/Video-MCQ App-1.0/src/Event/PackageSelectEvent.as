@@ -10,7 +10,6 @@ package Event
 	{
 		public static const eventName:String = "PackageSelectionEvent";
 		
-		public var pkg_id:String = "";
 		public var pkgEntity:Package;
 
 		public function PackageSelectEvent(type:String, bubbles:Boolean=true, cancelable:Boolean=false, localX:Number=NaN, localY:Number=NaN, relatedObject:InteractiveObject=null, ctrlKey:Boolean=false, altKey:Boolean=false, shiftKey:Boolean=false, buttonDown:Boolean=false, delta:int=0, commandKey:Boolean=false, controlKey:Boolean=false, clickCount:int=0)
