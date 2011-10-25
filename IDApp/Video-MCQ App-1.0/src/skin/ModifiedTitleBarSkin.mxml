@@ -75,33 +75,57 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		<s:fill>
 			<!--- @private -->
 			<s:LinearGradient id="bgFill" rotation="90">
-				<s:GradientEntry color="#4A4D4D" />
-				<s:GradientEntry color="#383B3B" />
+				<s:GradientEntry color="#000000" />
 			</s:LinearGradient>
 		</s:fill>
 		
-<!--		<s:stroke>
-			<s:SolidColorStroke color="#141414" weight="2"/>
-		</s:stroke>
--->		
 	</s:Rect>
 	
-	<s:Group minHeight="24" width="100%" height="100%" left="2" right="2" >
+	<!--high light-->
+	<s:Rect id="highlight" left="0" right="0" top="0" bottom="0"
+			radiusX="5" radiusY="5"
+			>
+		<s:fill>
+			<!--- @private -->
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#FFFFFF"
+								 ratio="0.0"
+								 alpha="0.28" 
+								 />
+				<s:GradientEntry color="#FFFFFF"
+								 ratio="0.48"
+								 alpha="0.33" 
+								 />
+				<s:GradientEntry color="#FFFFFF"
+								 ratio="0.58001"
+								 alpha="0.0" 
+								 />
+			</s:LinearGradient>
+		</s:fill>
+		
+	</s:Rect>
+	
+	<!-- layer 3: fill lowlight -->
+	<!--- @private -->
+	<s:Rect left="0" right="0" top="0" bottom="0"
+			radiusX="5" radiusY="5" visible="true"
+			>
+		<s:fill>
+			<s:LinearGradient rotation="270">
+				<s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
+				<s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
+				<s:GradientEntry color="0x000000" ratio="0.58001" alpha="0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+
+	<s:Group minHeight="24" width="100%" height="100%" left="2" right="0" >
 		
 		<s:layout>
-			<s:HorizontalLayout verticalAlign="middle" gap="5" />
+			<s:HorizontalLayout verticalAlign="middle" gap="0"/>
 		</s:layout>
 		
 		<s:Spacer width="10"/>
-		<s:Image width="35" height="35"
-				 smooth="true"
-				 smoothingQuality="high"
-				 source="@Embed('assets/assetsCommon/home.png')"
-				 useHandCursor="true"
-				 buttonMode="true"
-				 mouseChildren="false"
-				 click="dispatchEvent(new Event('HomebuttonClicked'))"
-				 />
 		
 		<s:Spacer width="20"/>
 		<!-- title bar icon -->
@@ -116,10 +140,27 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		<s:Label id="titleText" minWidth="0" fontSize="14" color="#FAF5F5" maxDisplayedLines="1" width="100%" />
 		
 		<s:Spacer width="100%"/>
-<!--		<s:RichText text="Copyright (c) Gurukul Classes." fontSize="16" color="#FAF202" fontFamily="italic" fontWeight="normal"/>
--->		
-		<s:Spacer width="20"/>
 		
+		<s:RichText color="#FFFFFF" fontWeight="normal" text="Home"
+					fontFamily="Verdana" fontSize="13"
+					textAlign="center"
+					verticalAlign="middle"/>
+	
+		<s:Spacer width="5"/>
+
+		<s:Button width="30"
+				  height="30"
+				  label="Home"
+				  icon="@Embed('assets/assetsCommon/home4.png')"
+				  skinClass="skin.TransparentRoundButtonSkinCommon"
+				  useHandCursor="true"
+				  buttonMode="true"
+				  mouseChildren="false"
+				  click="dispatchEvent(new Event('HomebuttonClicked'))"
+				  />
+
+		
+		<s:Spacer width="35"/>
 		<!-- minimize button --> 
 		<!--- 
 		By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
@@ -129,10 +170,13 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		
 		@see spark.skins.spark.windowChrome.MinimizeButtonSkin 
 		-->
-		<s:Button id="minimizeButton" top="2" bottom="2" color="0xEDE8E4"
-				  skinClass="spark.skins.spark.windowChrome.MinimizeButtonSkin" verticalCenter="0"
-				  chromeColor.normal="#E6ED1A"/>
-		
+		<s:Button id="minimizeButton" width="20" height="20" color="0xEDE8E4"
+				  verticalCenter="0"
+				  skinClass="skin.customIconButtonSkinCommon"
+				  icon="@Embed('assets/assetsCommon/minimize.png')"
+				  />
+		<s:Spacer width="5"/>
+
 		<!-- maximize button -->
 		<!--- 
 		By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
@@ -143,11 +187,14 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		@see spark.skins.spark.windowChrome.MaximizeButtonSkin 
 		-->
 		<s:Button id="maximizeButton" 
-				  skinClass="spark.skins.spark.windowChrome.MaximizeButtonSkin"
-				  skinClass.maximizedGroup="spark.skins.spark.windowChrome.RestoreButtonSkin"
+				  width="20" height="20"
+				  skinClass="skin.customIconButtonSkinCommon"
+				  icon.normal="@Embed('assets/assetsCommon/maximize.png')"
+				  icon.maximizedGroup="@Embed('assets/assetsCommon/restore.png')"
 				  verticalCenter="0" 
 				  color="0xEDE8E4"
 				  />
+		<s:Spacer width="5"/>
 		
 		<!-- close button -->
 		<!--- 
@@ -159,11 +206,11 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		@see spark.skins.spark.windowChrome.CloseButtonSkin 
 		-->
 		<s:Button id="closeButton" 
-				  skinClass="spark.skins.spark.windowChrome.CloseButtonSkin"
+				  height="100%"
+				  skinClass="closeButtonModifiedSkin"
 				  color="0xEDE8E4"
 				  verticalCenter="0"  />
 		
-		<s:Spacer width="5"/>
 	</s:Group>
 	
 </s:SparkSkin>
