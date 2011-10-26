@@ -53,6 +53,7 @@
 			private var currSelectedPkg:model.Package = null;
 			private var lastBlinkingFunctionId:uint = 0;
 			private var counter:uint = 0;
+			private var bgValue:uint = 0;
 			
 			public function populateData(xmlPath:String):void
 			{
@@ -111,14 +112,16 @@
 					packageDescription = currSelectedPkg.description;
 					currLayout.selectedIndex = pkgColl.getItemIndex(currSelectedPkg);
 				}
-				lastBlinkingFunctionId = setInterval(blinkingFunction, 500);
+				lastBlinkingFunctionId = setInterval(blinkingFunction, 300);
 			}
 			
 			private function stopPreviousBlinking():void
 			{
 				clearInterval(lastBlinkingFunctionId);
 				counter = 0;
-				clickImage.visible = false;
+//				clickImage.visible = false;
+				startButtonBg.setStyle("backgroundAlpha", 0);
+
 			}
 			
 			private function blinkingFunction():void
@@ -127,7 +130,11 @@
 				if(counter == 10)
 					stopPreviousBlinking();
 				else
-					clickImage.visible = !clickImage.visible;
+				{
+//					clickImage.visible = !clickImage.visible;
+					bgValue = (bgValue == 0) ? 1: 0;
+					startButtonBg.setStyle("backgroundAlpha", bgValue);
+				}
 			}
 			
 		]]>
@@ -186,7 +193,7 @@
 				
 				<s:VGroup width="70%" height="100%">
 					
-					<s:RichText color="#B22E2F" fontSize="18" fontWeight="bold" fontFamily="Verdana"
+					<s:RichText color="#1B2B32" fontSize="18" fontWeight="bold" fontFamily="Verdana"
 							 text="{packageTitleString}"/>
 					
 					<s:Spacer height="10"/>
@@ -201,15 +208,22 @@
 						<s:Image id="clickImage" width="30%"
 								 smooth="true"
 								 scaleMode="stretch"
+								 visible="false"
 								 smoothingQuality="high"
 								 source="@Embed('assets/assetsCommon/clickImage.png')"/>
 						
 						<s:Spacer width="3"/>
-						<s:Button visible="{packageMainIconPath.length != 0}" width="20%" height="35"
-								  label="Start Learning" chromeColor="#16404A"
-								  click="packageSessionStarted(event)" color="#FFFFFF"
-								  fontFamily="Verdana" fontSize="15" fontWeight="normal"
-								  skinClass="skin.StartButtonSkinModified"/>
+						<mx:Canvas id="startButtonBg" width="22%" height="40" backgroundColor="#3BBF17">
+							<s:Button id="startButton" visible="{packageMainIconPath.length != 0}" 
+									  top="3"
+									  left="3"
+									  right="3"
+									  bottom="3"
+									  label="Start Learning" chromeColor="#A31200"
+									  click="packageSessionStarted(event)" color="#FFFFFF"
+									  fontFamily="Verdana" fontSize="15" fontWeight="normal"
+									  skinClass="skin.StartButtonSkinModified"/>
+						</mx:Canvas>
 						<s:Spacer width="10%"/>
 					</s:HGroup>
 				</s:VGroup>

@@ -209,7 +209,7 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		-->
 		<s:Button id="closeButton" 
 				  height="100%"
-				  skinClass="closeButtonModifiedSkin"
+				  skinClass="skin.closeButtonModifiedSkin"
 				  color="0xEDE8E4"
 				  verticalCenter="0"  />
 		

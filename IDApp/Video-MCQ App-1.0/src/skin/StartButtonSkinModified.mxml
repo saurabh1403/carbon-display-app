@@ -40,7 +40,7 @@
             import spark.components.Group;
             /* Define the skin elements that should not be colorized. 
             For button, the graphics are colorized but the label is not. */
-            static private const exclusions:Array = ["labelDisplay"];
+            static private const exclusions:Array = ["labelDisplay", "fill", "shadow", "lowlight", "highlight"];
             
             /** 
              * @private
@@ -95,7 +95,7 @@
     
     <!-- layer 1: shadow -->
     <!--- @private -->
-    <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
+    <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2" visible="false">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0x000000" 
@@ -115,14 +115,14 @@
     <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
-                <s:GradientEntry color="#FFFFFF" 
-                                 color.over="0xBBBDBD" 
-                                 color.down="0xAAAAAA" 
-                                 alpha="0.85" />
-                <s:GradientEntry color="0xD8D8D8" 
+                <s:GradientEntry color="#A31200" 
+                                 color.over="#A31200" 
+                                 color.down="#A31200" 
+                                 alpha="1.0" />
+             <!--   <s:GradientEntry color="0xD8D8D8" 
                                  color.over="0x9FA0A1" 
                                  color.down="0x929496" 
-                                 alpha="0.85" />
+                                 alpha="0.85" />-->
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
