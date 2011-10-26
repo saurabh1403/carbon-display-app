@@ -45,9 +45,14 @@
 			
 			private var currView:Object = null;
 			
-			private var initWelcomeScreen:InitialWelcomeScreen = new InitialWelcomeScreen;
 			
+			private var topLevelView:Dictionary = new Dictionary();
+
 			private const xmlPath:String = "data/pkgData.xml"; 
+			private const MCQScreenName:String = "mcqScreen";
+			private const VideoScreenName:String = "VideoScreen";
+			private const welcomeScreenName:String = "welcomeScreen";
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				var thisHeight:int = Capabilities.screenResolutionY *0.9;
@@ -62,8 +67,6 @@
 				MCQConstants.appWidth = nativeWindow.width;
 				MCQConstants.appHeight = nativeWindow.height;
 				
-				initWelcomeScreen.populateData(xmlPath);
-				initWelcomeScreen.addEventListener("newPackageStarted", onPackageSelection, false, 0, true);
 				
 				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
 				showHomeScreen(null);
@@ -72,10 +75,74 @@
 			
 			protected function showHomeScreen(ev:Event):void
 			{
-//				view_stack.removeAll();
-//				view_stack.addElement(initWelcomeScreen);
+				
+				if(currView)
+					currView.disposeView();
+				
+				if(topLevelView[welcomeScreenName] == null)
+				{
+					var initWelcomeScreen:InitialWelcomeScreen = new InitialWelcomeScreen;
+					topLevelView[welcomeScreenName] = initWelcomeScreen;
+					initWelcomeScreen.populateData(xmlPath);
+					initWelcomeScreen.addEventListener("newPackageStarted", onPackageSelection, false, 0, true);
+
+				}
+				else
+				{
+					(topLevelView[welcomeScreenName] as InitialWelcomeScreen).disposeView();
+				}
+				
 				this.removeAllElements();
-				this.addElement(initWelcomeScreen);
+				this.addElement(topLevelView[welcomeScreenName] as InitialWelcomeScreen);
+				currView = topLevelView[welcomeScreenName];
+
+			}
+			
+			private function showVideoScreen(subject:String):void
+			{
+				if(currView)
+					currView.disposeView();
+
+				if(topLevelView[MCQScreenName] == null)
+				{
+					var welScreen:WelcomeScreen = new WelcomeScreen;
+
+					var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
+					topLevelView[VideoScreenName] = welScreen;
+				}
+				else
+				{
+					(topLevelView[VideoScreenName] as WelcomeScreen).disposeView();
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[VideoScreenName] as WelcomeScreen);
+				currView = topLevelView[VideoScreenName];
+				(topLevelView[VideoScreenName] as WelcomeScreen).showScreen(subject);
+
+			}
+			
+			private function showMCQScreen():void
+			{
+				if(currView)
+					currView.disposeView();
+				
+				if(topLevelView[MCQScreenName] == null)
+				{
+					var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
+					topLevelView[MCQScreenName] = mcqScreen;
+				}
+				else
+				{
+					(topLevelView[MCQScreenName] as MCQWelcomeComponent).disposeView();
+					(topLevelView[MCQScreenName] as MCQWelcomeComponent).initWithData(MCQConstants.testBaseFolder, MCQConstants.levelXml);
+				}
+
+				this.removeAllElements();
+				this.addElement(topLevelView[MCQScreenName] as MCQWelcomeComponent);
+				currView = topLevelView[MCQScreenName];
+				(topLevelView[MCQScreenName] as MCQWelcomeComponent).showWelcomeScreen(null);
+
 			}
 
 			protected function onPackageSelection(ev:PackageSelectEvent):void
@@ -84,20 +151,14 @@
 				{
 					case "maths":
 					{
-						var welScreen:WelcomeScreen = new WelcomeScreen;
-						this.removeAllElements();
-						this.addElement(welScreen);
-						welScreen.showScreen("maths");
+						showVideoScreen("maths");
 						
 						break;
 					}
 						
 					case "science":
 					{
-						var welScreen1:WelcomeScreen = new WelcomeScreen;
-						this.removeAllElements();
-						this.addElement(welScreen1);
-						welScreen1.showScreen("science");
+						showVideoScreen("science");
 						
 						break;
 
@@ -105,10 +166,7 @@
 						
 					case "MCQ":
 					{
-						var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
-						this.removeAllElements();
-						this.addElement(mcqScreen);
-						mcqScreen.showWelcomeScreen(null);
+						showMCQScreen()
 						break;
 					}
 

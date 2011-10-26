@@ -96,6 +96,12 @@
 			
 			private var currSelectedItemIndex:int = 0;
 			
+			public function resetView():void
+			{
+				vid.stop();
+			}
+			
+			
 			protected function aniSlide_effectStartHandler(event:EffectEvent):void
 			{
 				learnMoreList.cacheAsBitmap = true;

@@ -55,6 +55,11 @@
 			private var counter:uint = 0;
 			private var bgValue:uint = 0;
 			
+			public function disposeView():void
+			{
+				
+			}
+			
 			public function populateData(xmlPath:String):void
 			{
 				var file:File = File.applicationDirectory;
