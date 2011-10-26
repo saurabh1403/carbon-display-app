@@ -147,6 +147,11 @@
 		<s:Spacer width="10%"/>
 	</s:HGroup>
 	
+	<s:RichText y="{openButton.y + 10}" right="85" text="Check more options >>"
+				color="#FFFFFF" fontFamily="Arial" fontSize="16"
+				includeIn="Collapsed"
+				fontStyle="italic"/>
+	
 	<s:Button id="openButton" right="35" bottom="0" width="40" height="40" label="Open"
 			  click="VideoOptionsPanelClicked(event)"
 			  skinClass="com.Tutorial.VideoDisplay.skins.TransparentRoundButtonSkin"
