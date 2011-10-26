@@ -610,8 +610,8 @@
 					<s:Spacer height="10%"/>
 					
 					<s:Label width="80%" height="7%" fontFamily="Verdana"
-							 fontSize="23" fontWeight="normal"
-							 text="Marks : {currQuesMark}" verticalAlign="justify"
+							 fontSize="18" fontWeight="normal"
+							 text="{currQuesMark} mark question" verticalAlign="justify"
 							 color="#F9F9F6" fontStyle="italic"
 							 textAlign="left"/>
 					

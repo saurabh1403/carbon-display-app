@@ -97,13 +97,13 @@
         </s:fill>
 		
 		<s:stroke>
-			<s:SolidColorStroke color="#949192" weight="2" alpha="0.55"/>
+			<s:SolidColorStroke color="#000000" weight="3" alpha="0.85"/>
 		</s:stroke>
 
     </s:Rect>
 
     <!-- layer 2: content + status bar -->
-    <s:Group left="2" right="2" top="2" bottom="2" minHeight="24" minWidth="0" >
+    <s:Group left="3" right="3" top="3" bottom="3" minHeight="24" minWidth="0" >
         <s:layout>
             <s:BasicLayout />
         </s:layout>
