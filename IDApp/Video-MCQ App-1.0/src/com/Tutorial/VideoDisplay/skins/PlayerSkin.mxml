@@ -286,12 +286,47 @@ in accordance with the terms of the license agreement accompanying it.
 						<s:fill>
 							<s:LinearGradient rotation="90">
 								<s:GradientEntry color="0x000000" alpha="1.0"/>
-								<s:GradientEntry color="0x171515" alpha="0.6"/>
-								<s:GradientEntry color="0x171515" alpha="1.0"/>
+<!--								<s:GradientEntry color="0x171515" alpha="0.6"/>
+								<s:GradientEntry color="0x171515" alpha="1.0"/>-->
 							</s:LinearGradient>
 						</s:fill>
 					</s:Rect>
 					
+					<s:Rect id="highlight" left="0" right="0" top="0" bottom="0"
+							>
+						<s:fill>
+							<!--- @private -->
+							<s:LinearGradient rotation="90">
+								<s:GradientEntry color="#FFFFFF"
+												 ratio="0.0"
+												 alpha="0.18" 
+												 />
+								<s:GradientEntry color="#FFFFFF"
+												 ratio="0.34"
+												 alpha="0.23" 
+												 />
+								<s:GradientEntry color="#FFFFFF"
+												 ratio="0.35001"
+												 alpha="0.0" 
+												 />
+							</s:LinearGradient>
+						</s:fill>
+						
+					</s:Rect>
+					
+					<!-- layer 3: fill lowlight -->
+					<!--- @private -->
+					<s:Rect left="0" right="0" top="0" bottom="0"
+							>
+						<s:fill>
+							<s:LinearGradient rotation="270">
+								<s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
+								<s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
+								<s:GradientEntry color="0x000000" ratio="0.58001" alpha="0" />
+							</s:LinearGradient>
+						</s:fill>
+					</s:Rect>
+
 					<!-- the central controls of the video player.minimum size of the control bar should be  400-->
 					<s:Group horizontalCenter="0" verticalCenter="0" width="50%" minWidth="400" maxWidth="600"
 							 height="90%" maxHeight="70" minHeight="55" >
@@ -330,12 +365,37 @@ in accordance with the terms of the license agreement accompanying it.
 								>
 							<s:fill>
 								<s:LinearGradient rotation="90">
-									<s:GradientEntry color="0xFFD34E" alpha="1.0"/>
-									<s:GradientEntry color="0xF77417" alpha="1.0"/>
+									<s:GradientEntry color="#FFFF05" alpha="1.0"/>
+									<s:GradientEntry color="#FF9203" alpha="1.0"/>
 								</s:LinearGradient>
 							</s:fill>
 						</s:Rect>
 						
+						<s:Rect id="highlight2" horizontalCenter="0" verticalCenter="0"
+								left="2" right="2" height="40"
+								bottomLeftRadiusX="20" bottomRightRadiusX="20"
+								topLeftRadiusX="20" topRightRadiusX="20"
+								>
+							<s:fill>
+								<!--- @private -->
+								<s:LinearGradient rotation="90">
+									<s:GradientEntry color="#FFFFFF"
+													 ratio="0.0"
+													 alpha="0.18" 
+													 />
+									<s:GradientEntry color="#FFFFFF"
+													 ratio="0.48"
+													 alpha="0.23" 
+													 />
+									<s:GradientEntry color="#FFFFFF"
+													 ratio="0.52001"
+													 alpha="0.0" 
+													 />
+								</s:LinearGradient>
+							</s:fill>
+							
+						</s:Rect>
+
 						<!--  auto repeat button -->
 						<s:ToggleButton id="autoRepeatButton" left="40" width="26" height="27"
 										click="fullScreenButton1_clickHandler(event)"

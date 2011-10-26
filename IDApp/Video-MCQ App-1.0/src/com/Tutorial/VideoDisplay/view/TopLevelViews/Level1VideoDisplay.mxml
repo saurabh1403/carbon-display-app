@@ -295,8 +295,10 @@
 	<s:backgroundFill>
 		
 		<s:LinearGradient rotation="90">
-			<s:GradientEntry color="0x5C5B5B"/>
-			<s:GradientEntry color="0x454343"/>
+			<s:GradientEntry color="#FFFFFF"
+							 ratio="0.94"/>
+			<s:GradientEntry color="#2E2D2D"
+							 ratio="1.0"/>
 		</s:LinearGradient>
 	</s:backgroundFill>
 	
