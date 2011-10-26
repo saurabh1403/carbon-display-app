@@ -40,6 +40,15 @@
 			
 			private var currView:Object = null;
 			
+			public function disposeView():void
+			{
+				if(currView != null)
+					(currView as Level1VideoDisplay).resetView();
+				
+				this.removeAllElements();
+				currView = null;
+			}
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				
@@ -58,30 +67,6 @@
 				var i:int = ev.selectedDataIndex;
 				var videoScr:Level1VideoDisplay = currView as Level1VideoDisplay;
 				videoScr.playCurrentSelectedVideo(i);
-			}
-			
-			//take the data entity object here
-			protected function updateView():void
-			{
-				//take action to update the option icons accordingly
-				
-				for(var i:int = 0; i < 5; i++)
-				{
-					var newData:DataEntity = new DataEntity;
-					newData.name = "title " + i.toString();
-					//					videoDisplayScreen.videoItemsList.addItem(newData);
-				}
-			}
-			
-			
-			private function showWelcomeScreen():void
-			{
-				var welScreen:WelcomeScreen = new WelcomeScreen;
-				welScreen.addEventListener(VideoPlayConstants.subjectSelectionEvent, onSubjectSelection, false, 0, true);
-				this.removeAllElements();
-				this.addElement(welScreen);
-				currView = welScreen;
-				
 			}
 			
 			protected function onSubjectSelection(event:GenericEvent):void
