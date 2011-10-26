@@ -234,11 +234,12 @@
 				  mouseChildren="false"
 				  />
 		
-		<s:Spacer width="100%"/>
-		<s:BorderContainer 
-			width="{MCQConstants.appWidth * 0.8}"
-			height="100%" backgroundColor="#F1CA98"
-			borderColor="#817F7F" borderWeight="4" horizontalCenter="0">
+		<s:Spacer width="5%"/>
+		<s:BorderContainer width="{MCQConstants.appWidth * 0.8}" height="100%" backgroundAlpha="0"
+						   backgroundColor="#F1CA98" borderAlpha="0.0" borderColor="#817F7F"
+						   visible="false"
+						   includeInLayout="false"
+						   borderWeight="4" contentBackgroundAlpha="0.0" horizontalCenter="0">
 			
 			<s:backgroundFill>
 				<s:LinearGradient rotation="90">
@@ -247,7 +248,8 @@
 				</s:LinearGradient>
 			</s:backgroundFill>
 			
-			
+		</s:BorderContainer>
+
 			<rs:Book id="resultBook" visible="true"  easing="0.7" flipOnClick="true"
 					 sideFlip="true"
 					 autoFlipDuration="600"
@@ -301,8 +303,7 @@
 				
 			</rs:Book>
 			
-		</s:BorderContainer>
-		<s:Spacer width="100%"/>
+		<s:Spacer width="5%"/>
 		<s:Button id="nextPageButton" visible="true" right="10" width="50" height="50"
 				  label="Next" click="nextPageButtonClicked(event)" 
 				  icon="@Embed('assets/assetsMCQModule/arrowNext.png')"
