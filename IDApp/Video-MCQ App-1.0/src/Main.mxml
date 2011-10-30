@@ -17,6 +17,7 @@
 			
 			import com.Tutorial.MCQModule.Controller.MCQConstants;
 			import com.Tutorial.MCQModule.view.TopLevelViews.MCQWelcomeComponent;
+			import com.Tutorial.PracticeQuestionsModule.view.TopLevelViews.PracticeQuestionsView;
 			import com.Tutorial.VideoDisplay.view.TopLevelViews.WelcomeScreen;
 			
 			import flash.display.DisplayObject;
@@ -52,6 +53,7 @@
 			private const MCQScreenName:String = "mcqScreen";
 			private const VideoScreenName:String = "VideoScreen";
 			private const welcomeScreenName:String = "welcomeScreen";
+			private const PracticeQuesScreenName:String = "PracticeQuesScreen";
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
@@ -69,8 +71,32 @@
 				
 				
 				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
-				showHomeScreen(null);
+//				showHomeScreen(null);
 				
+				showPracticeQuestionsScreen(null);
+				
+			}
+			
+			protected function showPracticeQuestionsScreen(ev:Event):void
+			{
+				if(currView)
+					currView.disposeView();
+				
+				if(topLevelView[PracticeQuesScreenName] == null)
+				{
+					var welScreen:PracticeQuestionsView = new PracticeQuestionsView;
+					topLevelView[PracticeQuesScreenName] = welScreen;
+				}
+				else
+				{
+					(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView).disposeView();
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView);
+				currView = topLevelView[PracticeQuesScreenName];
+//				(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView).showScreen(subject);
+
 			}
 			
 			protected function showHomeScreen(ev:Event):void
@@ -106,8 +132,6 @@
 				if(topLevelView[MCQScreenName] == null)
 				{
 					var welScreen:WelcomeScreen = new WelcomeScreen;
-
-					var mcqScreen:MCQWelcomeComponent = new MCQWelcomeComponent;
 					topLevelView[VideoScreenName] = welScreen;
 				}
 				else

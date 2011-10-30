@@ -19,15 +19,13 @@
 		<![CDATA[
 			import com.Tutorial.MCQModule.Controller.DataProcessor;
 			import com.Tutorial.MCQModule.Controller.MCQConstants;
-			
 			import com.Tutorial.MCQModule.Events.TestSelectionEvent;
-			
-			import imports.PageFlip.com.rubenswieringa.book.*;
-			import imports.PageFlip.com.rubenswieringa.book.BookEvent;
-			
 			import com.Tutorial.MCQModule.model.Question;
 			import com.Tutorial.MCQModule.model.QuestionsProxy;
 			import com.Tutorial.MCQModule.model.TestResultData;
+			
+			import imports.PageFlip.com.rubenswieringa.book.*;
+			import imports.PageFlip.com.rubenswieringa.book.BookEvent;
 			
 			import mx.charts.ChartItem;
 			import mx.charts.HitData;
@@ -59,6 +57,9 @@
 			
 			private const quoteDict:Dictionary = new Dictionary(true);
 			
+			private var newUrl:URLRequest = new URLRequest("assets/assetsMCQModule/page-flip.mp3");
+			private var pageFlipSound:Sound = new Sound(newUrl);
+
 			public function resetView():void
 			{
 				isFirstPageBeingShown = true;           //this shows whether first page is being shown or not. and it will control the prev button visibility
@@ -138,13 +139,20 @@
 				dispatchEvent(newEvent);
 			}
 			
+			private function playPageFlipSound():void
+			{
+				pageFlipSound.play();
+			}
+			
 			protected function nextPageButtonClicked(event:Event):void
 			{
+				playPageFlipSound();
 				resultBook.nextPage();
 			}
 			
 			protected function prevPageButtonClicked(event:Event):void
 			{
+				playPageFlipSound();
 				resultBook.prevPage();
 			}
 			

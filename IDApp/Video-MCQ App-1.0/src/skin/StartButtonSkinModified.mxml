@@ -115,9 +115,9 @@
     <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
-                <s:GradientEntry color="#A31200" 
-                                 color.over="#A31200" 
-                                 color.down="#A31200" 
+                <s:GradientEntry color="#FC001D" 
+                                 color.over="#FC001D" 
+                                 color.down="#FC001D" 
                                  alpha="1.0" />
              <!--   <s:GradientEntry color="0xD8D8D8" 
                                  color.over="0x9FA0A1" 

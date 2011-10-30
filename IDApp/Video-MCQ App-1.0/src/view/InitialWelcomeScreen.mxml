@@ -224,7 +224,7 @@
 									  left="3"
 									  right="3"
 									  bottom="3"
-									  label="Start Learning" chromeColor="#A31200"
+									  label="Start Learning" chromeColor="#FC001D"
 									  click="packageSessionStarted(event)" color="#FFFFFF"
 									  fontFamily="Verdana" fontSize="15" fontWeight="normal"
 									  skinClass="skin.StartButtonSkinModified"/>
