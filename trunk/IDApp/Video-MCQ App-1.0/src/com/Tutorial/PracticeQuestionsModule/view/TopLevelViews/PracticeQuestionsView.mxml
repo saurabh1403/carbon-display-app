@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:view="com.Tutorial.PracticeQuestionsModule.view.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.EffectEvent;
+			
+			private var initialXPosition:int = 10;
+			private var initialYPosition:int = 100;
+			
+			private var finalXPosition:int = 350;
+			private var finalYPosition:int = 50;
+			
+			private var initialWidth:int = 100;
+			private var initialheight:int = 100;
+			
+			private var finalWidth:int = 550;
+			private var finalHeight:int = 700;
+			
+			protected function onMoveClick(event:MouseEvent):void
+			{
+				enlarge.play();
+				img.setCurrentState("Enlarged");
+				
+			}
+			
+			public function disposeView():void
+			{
+				
+			}
+		
+			protected function onRotateClick(event:MouseEvent):void
+			{
+				if(!img.isanswerVisible)
+					rotateEffect.play();
+				else
+					rotateEffect.play(null, true);
+				
+				img.isanswerVisible = ! img.isanswerVisible;
+			}
+			
+			protected function onCollapseClick(event:MouseEvent):void
+			{
+				collapse.play();
+				img.setCurrentState("Collapsed");
+				img.isExpanded = false;
+			}
+			
+			protected function onEnlargeComplete(event:EffectEvent):void
+			{
+				
+				img.isExpanded = true;
+			}
+			
+			protected function onCollapseComplete(event:EffectEvent):void
+			{
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Rotate3D id="rotateEffect" target="{img}" 
+					angleYFrom="0" angleYTo="180"
+					duration="1000" autoCenterTransform="true"
+					effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
+		
+		<s:Parallel id="enlarge" duration="800" effectEnd="onEnlargeComplete(event)" >
+			<s:children>
+				<s:Move id="moveEffect" target="{img}" xFrom="{initialXPosition}" xTo="{finalXPosition}" 
+						yFrom="{initialYPosition}" yTo="{finalYPosition}"
+						/>
+				
+				<s:Resize id="expandEffect" target="{img}" widthTo="{finalWidth}" heightTo="{finalHeight}"
+						  />
+			</s:children>
+		</s:Parallel>
+		
+		<s:Parallel id="collapse" duration="800" effectEnd="onCollapseComplete(event)" >
+			<s:children>
+				<s:Move id="moveEffect2" target="{img}" xFrom="{finalXPosition}" xTo="{initialXPosition}" 
+						yFrom="{finalYPosition}" yTo="{initialYPosition}"
+						/>
+
+				<s:Resize id="expandEffect2" target="{img}" widthTo="{initialWidth}" heightTo="{initialheight}"
+						  />
+			</s:children>
+		</s:Parallel>
+		
+		
+	</fx:Declarations>
+	
+	<s:BorderContainer 
+		width="100%"
+		height="100%"
+		backgroundColor="#FFFFFF">
+		
+			
+			<view:PracticeQuestionPageView
+				id="img1"
+				x="{initialXPosition}"
+				y="{initialYPosition}"
+				width="100"
+				height="100"
+				/>
+			
+			<view:PracticeQuestionPageView
+				id="img"
+				x="{initialXPosition}"
+				y="{initialYPosition + 200}"
+				width="100"
+				height="100"
+				/>
+			
+		<s:Button id="playButton" x="72" y="475" label="move" click="onMoveClick(event)"/>
+		<s:Button id="rotateButton" x="72" y="416" label="rotate" click="onRotateClick(event)"/>
+		<s:Button id="zoomButton" x="72" y="446" label="zoom" click="onCollapseClick(event)"/>
+	
+	</s:BorderContainer>
+	
+	
+</s:Group>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" height="100%"
+		 creationComplete="onPageCreationComplete(event)"
+		 stateChangeComplete="onStateChange(event)">
+	
+	<fx:Declarations>
+		<s:Fade id="fadeEffectOut" alphaFrom="1" alphaTo="0"
+				duration="600"
+				repeatCount="1" repeatBehavior="reverse" />
+		
+		<s:Fade id="fadeEffectIn" alphaFrom="0" alphaTo="1"
+				duration="800"
+				repeatCount="1" repeatBehavior="reverse" />
+		
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.events.StateChangeEvent;
+			
+			[Bindable]
+			public var isanswerVisible:Boolean = false;;
+			
+			[Bindable]
+			public var isExpanded:Boolean = false;
+			
+			[Bindable]
+			public var labelText:String = "short Answers Questions";
+			
+			protected function onPageCreationComplete(event:FlexEvent):void
+			{
+			}
+			
+			protected function onStateChange(event:FlexEvent):void
+			{
+				if(currentState == "Enlarged")
+				{
+					htmlQuestions.htmlLoader.paintsDefaultBackground = false;
+					htmlAnswers.htmlLoader.paintsDefaultBackground = false;
+					this.removeEventListener(StateChangeEvent.CURRENT_STATE_CHANGE, onStateChange);
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="Collapsed"/>
+		<s:State name="Enlarged"/>
+	</s:states>
+	
+	<s:Image 
+		id="bgImage"
+		width="100%"
+		height="100%"
+		smooth="true"
+		smoothingQuality="high"
+		scaleMode="stretch"
+		showEffect="{fadeEffectIn}"
+		hideEffect="{fadeEffectOut}"
+		includeIn="Collapsed"
+		source="@Embed('assets/assetsPracticeQuestions/bgBlue.png')"
+		/>
+	
+	<s:Image
+		id="bc"
+		width="100%"
+		height="100%"
+		showEffect="{fadeEffectIn}"
+		source="@Embed('assets/assetsPracticeQuestions/htmlbg.png')"
+		hideEffect="{fadeEffectOut}"
+		scaleMode="stretch"
+		includeIn="Enlarged"
+		/>
+
+	<s:RichText id="bgText" width="100%" height="100%" color="#8C44B2"
+				fontSize="16" fontStyle="italic"
+				top="5"
+				right="10"
+				left="10"
+				bottom="5"
+				visible="{!isExpanded}"
+				includeInLayout="{!isExpanded}"
+				showEffect="{fadeEffectIn}" text="{labelText}"
+				textAlign="center" verticalAlign="middle"/>
+	
+
+		<mx:HTML id="htmlQuestions" visible="{isExpanded &amp;&amp; !isanswerVisible}"
+				 contentBackgroundAlpha="0.0" focusEnabled="false"
+				 includeInLayout="{isExpanded &amp;&amp; !isanswerVisible}"
+				 showEffect="{fadeEffectIn}"
+				 top="5"
+				 right="10"
+				 left="10"
+				 bottom="5"
+				 location="assets/assetsPracticeQuestions/ques1.html" tabChildren="false"
+				 tabEnabled="false"/>
+		
+		<mx:HTML id="htmlAnswers" visible="{isanswerVisible}" 
+				 focusEnabled="false" includeInLayout="{isanswerVisible}"
+				 showEffect="{fadeEffectIn}"
+				 hideEffect="{fadeEffectOut}"
+				 top="5"
+				 right="10"
+				 left="10"
+				 bottom="5"
+				 includeIn="Enlarged"
+				 location="assets/assetsPracticeQuestions/ans.htm" mouseChildren="false"
+				 layoutDirection="rtl"
+				 tabChildren="false" tabEnabled="false" textAlign="left"/>
+		
+	
+</s:Group>
