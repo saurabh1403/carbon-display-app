@@ -1,0 +1,249 @@
+<test>
+	<title>Life Processes</title>
+	<Subject>Maths 10</Subject>
+	<testIcon><!-- this should be 200x200 icon--></testIcon>
+	<totalTime>
+		<!--time in minutes-->15</totalTime>
+		<questions>
+<question>
+	<statement>Q1. In which group of the organism listed below food material is broken down outside the body and absorbed?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Tapeworm, Amoeba, Paramecium</choice>
+		<choice>Cuscuta, Mosquito, Tapeworm</choice>
+		<choice ans="1">Rhizopus, Mushroom, Yeast</choice>
+		<choice>Mushroom, Rhizopus, Green plants</choice>
+	</choices>
+	<explanation>All organisms are saprophytes</explanation>
+</question>
+<question>
+	<statement>Q2. Which of the following statement is correct?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">Autotrophs are capable of converting water and carbon dioxide into glucose</choice>
+		<choice>Heterotrophs cannot synthesise their own food</choice>
+		<choice>Heterotrophs convert solar energy into chemical energy</choice>
+		<choice>Heterotrophs utilise solar energy for photosynthesis</choice>
+	</choices>
+	<explanation>Only autotrophs are capable of photosynthesis.</explanation>
+</question>
+<question>
+	<statement>Q3. Which one of the following is function of pancreatic juice?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Trypsin digests fats and lipase emulsified proteins</choice>
+		<choice>Trypsin digests carbohydrates and lipase digests emulsified fats</choice>
+		<choice ans="1">Trypsin digests proteins and lipase digests emulsified fats</choice>
+		<choice>Trypsin and lipase both digest proteins</choice>
+	</choices>
+	<explanation>pancreatic juice contains protein digesting enzyme trypsin and fat digesting enzyme lipase.</explanation>
+</question>
+<question>
+	<statement>Q4. In which part of human digestive tract common bile duct opens?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Large intestine</choice>
+		<choice ans="1">Duodenum</choice>
+		<choice>Stomach</choice>
+		<choice>Liver</choice>
+	</choices>
+	<explanation>Duodenum is first part of small intestine where common bile duct opens.</explanation>
+</question>
+<question>
+	<statement>Q5. Which of the following protects inner lining of stomach from hydrochloric acid secreted by gastric glands?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Pepsinogen</choice>
+		<choice>Pepsin</choice>
+		<choice>Bile juice</choice>
+		<choice ans="1">Mucus</choice>
+	</choices>
+	<explanation>Mucus is secreted by cells of gastric gland which forms a shiny layer over inner wall of stomach.</explanation>
+</question>
+<question>
+	<statement>Q6. When few drops of iodine were poured on a potato slice, the potato turned blue black in colour. This indicates that potato contains</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Sugar</choice>
+		<choice ans="1">Starch</choice>
+		<choice>Glycogen</choice>
+		<choice>Proteins</choice>
+	</choices>
+	<explanation>Starch test is done by iodine solution which turns colour of starch blue-black.</explanation>
+</question>
+<question>
+	<statement>Q7. Salivary amylase secreted by salivary glands is responsible for which event in mouth?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Break-down of protein in amino acid</choice>
+		<choice>Break-down of fat in lipids</choice>
+		<choice ans="1">Break-down of starch in sugar</choice>
+		<choice>Both (b) and (c)</choice>
+	</choices>
+	<explanation>Salivary amylase converts starch into sugar. Proteins are digested by pepsin and trypsin while fats are digested by lipase.</explanation>
+</question>
+<question>
+	<statement>Q8. In which part of the alimentary canal complete digestion and absorption of food takes place?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Duodenum</choice>
+		<choice ans="1">Small intestine</choice>
+		<choice>Colon</choice>
+		<choice>Stomach</choice>
+	</choices>
+	<explanation>Complete digestion and absorption of food takes place in small intestine. Villi present on the surface of inner lining of small intestine increase the absorptive surface.</explanation>
+</question>
+<question>
+	<statement>Q9. In our body during the process of respiration exchange of gases takes place in</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>lungs and throat</choice>
+		<choice>alveoli and throat</choice>
+		<choice ans="1">alveoli of lungs</choice>
+		<choice>larynx and lungs</choice>
+	</choices>
+	<explanation>Exchange of gases takes place in alveolus of lungs as they are richly supplied with blood capillaries.</explanation>
+</question>
+<question>
+	<statement>Q10. First step in photosynthesis is</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>release of Oxygen and absorption of carbondioxide</choice>
+		<choice>breakdown of water</choice>
+		<choice>formation of Glucose</choice>
+		<choice ans="1">absorption of light energy by chlorophyll</choice>
+	</choices>
+	<explanation>First step pf photosynthesis is absorption of light energy by chlorophyll followed by breakdown of water and release of oxygen.</explanation>
+</question>
+<question>
+	<statement>Q11. Backflow of blood inside the heart is prevented during contraction by</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>thick muscular wall of left ventricle</choice>
+		<choice>thin walls of atria</choice>
+		<choice ans="1">valves present in heart</choice>
+		<choice>all of the above</choice>
+	</choices>
+	<explanation>Function of valves in circulatory system is to prevent backflow of blood.</explanation>
+</question>
+<question>
+	<statement>Q12. Extra cellular fluid in our tissues is also known as</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>plasma</choice>
+		<choice>serum</choice>
+		<choice ans="1">lymph</choice>
+		<choice>albumin</choice>
+	</choices>
+	<explanation>Extra cellular fluid is present in between cells of tissues and is also known as tissue fluid or lymph.</explanation>
+</question>
+<question>
+	<statement>Q13. In which vertebrate group(s),heart does not pump oxygenated blood to various parts of body?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">pisces only</choice>
+		<choice>pisces and amphibians</choice>
+		<choice>amphibians only</choice>
+		<choice>amphibians and reptiles</choice>
+	</choices>
+	<explanation>Fishes have two chambered heart. It only pumps deoxygenated blood to gills for oxygenation. Oxygenated blood goes directly to body organs from gills.</explanation>
+</question>
+<question>
+	<statement>Q14. Which of the following event does not take place during photosynthesis?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Conversion of light energy to chemical energy</choice>
+		<choice ans="1">Oxidation of carbon to carbon dioxide</choice>
+		<choice>Reduction of Carbondioxide to carbohydrates</choice>
+		<choice>Splitting of water</choice>
+	</choices>
+	<explanation>carbon dioxide is reduced during dark phase of photosynthesis to form carbohydrates.</explanation>
+</question>
+<question>
+	<statement>Q15. The food reserve for energy in producers (autotrophs) is</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>fat</choice>
+		<choice>protein</choice>
+		<choice ans="1">starch</choice>
+		<choice>glycogen</choice>
+	</choices>
+	<explanation>Food reserves for energy purpose in plants is starch and in animals glycogen.</explanation>
+</question>
+<question>
+	<statement>Q16. Urea is a nitrogenous excretary product which is formed in</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>kidney</choice>
+		<choice ans="1">liver</choice>
+		<choice>pancreas</choice>
+		<choice>intestine</choice>
+	</choices>
+	<explanation>Urea is formed in liver by deamination of proteins (amino acids) and excreted by kidney.</explanation>
+</question>
+<question>
+	<statement>Q17. The blood leaving the kidney has</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>more urea and less oxygen</choice>
+		<choice>less urea and more oxygen</choice>
+		<choice ans="1">less urea and less oxygen</choice>
+		<choice>less urea and less carbon dioxide</choice>
+	</choices>
+	<explanation>Blood entering the kidney through renal artery will have more and more oxygen while the blood leaving the kidney through renal vein will have less urea as urea will be filtered in kidney and less oxygen as kidney tissue will use the oxygen for respiration.</explanation>
+</question>
+<question>
+	<statement>Q18. Out of the following statements which is not correct?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Energy is essential for life processes</choice>
+		<choice>Organisms grow with passage of time</choice>
+		<choice ans="1">Movement of molecules does not take place among cells</choice>
+		<choice>Organisms repair and mantain their structures</choice>
+	</choices>
+	<explanation>All other statements except (c) are correct as they are must to maintain homeostasis in the body.</explanation>
+</question>
+<question>
+	<statement>Q19. Which one of the following is the first enzyme to mix with food in digestive tract?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Lipase</choice>
+		<choice>Pepsin</choice>
+		<choice>Trypsin</choice>
+		<choice ans="1">Amylase</choice>
+	</choices>
+	<explanation>Saliva contains amylase and it mixes with food in mouth the first part of digestive tract.</explanation>
+</question>
+<question>
+	<statement>Q20. Blood pressure is measured by an instrument called</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>manometer</choice>
+		<choice>Barometer</choice>
+		<choice>Anemometer</choice>
+		<choice ans="1">Sphygmomanometer</choice>
+	</choices>
+	<explanation>Manometer is used to measure pressure of gases and liquids. Barometer measures atmospheric pressure and Anemometer measures wind velocity.</explanation>
+</question>
+</questions>
+</test>

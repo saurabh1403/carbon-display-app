@@ -15,12 +15,15 @@
 			
 			import adobe.utils.CustomActions;
 			
+			import com.Tutorial.ExtraQuestionsModule.view.TopLevelViews.ExtraQuestionsView;
 			import com.Tutorial.MCQModule.Controller.MCQConstants;
 			import com.Tutorial.MCQModule.view.TopLevelViews.MCQWelcomeComponent;
 			import com.Tutorial.PracticeQuestionsModule.view.TopLevelViews.PracticeQuestionsView;
 			import com.Tutorial.VideoDisplay.view.TopLevelViews.WelcomeScreen;
 			
 			import flash.display.DisplayObject;
+			
+			import flashx.textLayout.elements.BreakElement;
 			
 			import model.Package;
 			
@@ -54,6 +57,7 @@
 			private const VideoScreenName:String = "VideoScreen";
 			private const welcomeScreenName:String = "welcomeScreen";
 			private const PracticeQuesScreenName:String = "PracticeQuesScreen";
+			private const ExtraQuesScreenName:String = "ExtraQuesScreen";
 			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
@@ -71,13 +75,12 @@
 				
 				
 				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
-//				showHomeScreen(null);
+				showHomeScreen(null);
 				
-				showPracticeQuestionsScreen(null);
 				
 			}
 			
-			protected function showPracticeQuestionsScreen(ev:Event):void
+			protected function showPracticeQuestionsScreen():void
 			{
 				if(currView)
 					currView.disposeView();
@@ -90,18 +93,42 @@
 				else
 				{
 					(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView).disposeView();
+					(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView)._initView();
 				}
+				
 				
 				this.removeAllElements();
 				this.addElement(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView);
+
 				currView = topLevelView[PracticeQuesScreenName];
-//				(topLevelView[PracticeQuesScreenName] as PracticeQuestionsView).showScreen(subject);
+
+			}
+			
+			protected function showExtraQuestionsScreen():void
+			{
+				if(currView)
+					currView.disposeView();
+				
+				if(topLevelView[ExtraQuesScreenName] == null)
+				{
+					var welScreen:ExtraQuestionsView = new ExtraQuestionsView;
+					topLevelView[ExtraQuesScreenName] = welScreen;
+				}
+				else
+				{
+					(topLevelView[ExtraQuesScreenName] as ExtraQuestionsView).disposeView();
+					(topLevelView[ExtraQuesScreenName] as ExtraQuestionsView)._initView();
+				}
+				
+				this.removeAllElements();
+				this.addElement(topLevelView[ExtraQuesScreenName] as ExtraQuestionsView);
+
+				currView = topLevelView[ExtraQuesScreenName];
 
 			}
 			
 			protected function showHomeScreen(ev:Event):void
 			{
-				
 				if(currView)
 					currView.disposeView();
 				
@@ -183,7 +210,6 @@
 					case "science":
 					{
 						showVideoScreen("science");
-						
 						break;
 
 					}
@@ -191,6 +217,18 @@
 					case "MCQ":
 					{
 						showMCQScreen()
+						break;
+					}
+						
+					case "Extra Questions":
+					{
+						showExtraQuestionsScreen();
+						break;
+					}
+						
+					case "Practice Questions":
+					{
+						showPracticeQuestionsScreen();
 						break;
 					}
 

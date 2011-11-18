@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:view="com.Tutorial.ExtraQuestionsModule.view.*">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			
+			[Bindable]
+			private var AnsAlwaysOn:Boolean = false;
+			
+			public function disposeView():void
+			{
+			}
+			
+			
+			//just a wrapper function
+			public function _initView():void
+			{
+			}
+			
+			
+			
+			protected function onFirstQues(event:MouseEvent):void
+			{
+				extraQuesPage.setViewParams("data/dataExtraQuestions/content/set1.html", "data/dataExtraQuestions/content/set1Ans.html");
+			}
+			
+			protected function onSecondQues(event:MouseEvent):void
+			{
+				extraQuesPage.setViewParams("data/dataExtraQuestions/content/set2.html", "data/dataExtraQuestions/content/set2Ans.html");
+			}
+			
+			protected function onAnswerVisibilityChange(event:Event):void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:HGroup width="100%"
+			  height="100%"
+			  >
+
+		<s:Spacer width="4%"/>
+
+		<!--For adding questions content-->
+		<s:VGroup width="25%" height="100%">
+
+			<s:Spacer height="5%"/>
+
+			<view:ExtraQuestionPageView width="100%"/>
+
+			<s:Spacer height="10"/>
+
+			<mx:LinkButton width="120" label="{toggleAnsdisplayString}" 
+						   styleName="CustomLinkButton"
+						   click="onToggleAnswerClick(event)"
+						   />
+			
+			<s:Spacer height="100%"/>
+			
+			<s:CheckBox id="ansVisibilityCheckBox" label="Always Show Answers" selected="@{AnsAlwaysOn}"
+						change="onAnswerVisibilityChange(event)"
+						/>
+
+		</s:VGroup>
+		<s:Spacer width="2%"/>
+		
+		<!--for adding answers content-->
+		<s:VGroup width="45%" height="100%">
+			
+		</s:VGroup>
+		
+		<s:Spacer width="4%"/>
+		<s:BorderContainer width="20%" height="100%">
+			
+			<s:List width="95%" height="90%"/>
+			
+		</s:BorderContainer>
+		
+	<!--	<s:Group width="70%"
+				 height="100%"
+				 >
+			
+			<view:ExtraQuestionPageView id="extraQuesPage" width="70%"
+										height="90%"
+										horizontalCenter="0"
+										verticalCenter="0"
+										/>
+		</s:Group>
+		
+		<s:Spacer width="20"/>
+		
+		<s:Group width="30%"
+				 height="100%"
+				 >
+			<s:layout>
+				<s:VerticalLayout gap="10">
+				</s:VerticalLayout>
+			</s:layout>
+			
+			<s:Spacer height="50"/>
+			
+			<s:Button width="120" height="30"
+					  label="1" click="onFirstQues(event)"/>
+			
+			<s:Button width="120" height="30"
+					  click="onSecondQues(event)"
+					  label="1"/>
+			
+		</s:Group>-->
+		
+	</s:HGroup>
+	
+	
+	
+</s:Group>

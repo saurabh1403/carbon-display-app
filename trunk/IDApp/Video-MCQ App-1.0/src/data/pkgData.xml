@@ -26,4 +26,22 @@ This would help you test your concepts for these subjects.</Description>
 		<PackageThumbnailPath>assets/assetsCommon/thumbMCQ.png</PackageThumbnailPath>
 		<imageIconPath>assets/assetsCommon/iconMCQ.png</imageIconPath>
 	</pkg>
+	<pkg>
+		<Name>xyz class</Name>
+		<PackageId>Extra Questions</PackageId>
+		<TitleText>Class X Extra Questions</TitleText>
+		<Description>This Package Contains the extra qyestions for science and maths of 10th class.
+This would help you learn more by studying extra questions</Description>
+		<PackageThumbnailPath>assets/assetsCommon/thumbExtraQuestions.jpg</PackageThumbnailPath>
+		<imageIconPath>assets/assetsCommon/iconExtraQuestions.png</imageIconPath>
+	</pkg>
+	<pkg>
+		<Name>xyz class</Name>
+		<PackageId>Practice Questions</PackageId>
+		<TitleText>Class X Practice Questions</TitleText>
+		<Description>This Package Contains the practice questions for science and maths of 10th class.
+This would help you to practice more questions and build your expertise</Description>
+		<PackageThumbnailPath>assets/assetsCommon/thumbPracticeQues.png</PackageThumbnailPath>
+		<imageIconPath>assets/assetsCommon/iconPracticeQues.png</imageIconPath>
+	</pkg>
 </packageList>

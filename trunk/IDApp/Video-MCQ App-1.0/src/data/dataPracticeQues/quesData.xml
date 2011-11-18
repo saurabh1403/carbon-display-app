@@ -1,0 +1,14 @@
+<PracticeQuestions>
+	<set>
+		<TitleText>Short Answers Questions</TitleText>
+		<Description>These are short answers questions</Description>
+		<htmlQues>content/set1.html</htmlQues>
+		<htmlAns>content/set1Ans.html</htmlAns>
+	</set>
+		<set>
+		<TitleText>Long Answers Questions</TitleText>
+		<Description>These are Long answers questions</Description>
+		<htmlQues>content/set2.html</htmlQues>
+		<htmlAns>content/set2Ans.html</htmlAns>
+	</set>
+</PracticeQuestions>

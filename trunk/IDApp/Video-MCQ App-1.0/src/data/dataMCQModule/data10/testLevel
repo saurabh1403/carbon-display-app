@@ -1,0 +1,34 @@
+<testLevel>
+	<levels>
+		<level>
+			<label>Science 10 - Magnetic Effects</label>
+			<!-- it should be a 200 x 250 image-->
+			<imgSrcPath>Level1.png</imgSrcPath>
+			<!-- this path is relative to the path where the levelXml is present. If non-empty, then it should have a slash at the end. Note that slash should be a backward slash irrespective of the platform. This slash is same which is in web URLs-->
+			<levelTestBasePath>sc1/</levelTestBasePath>
+			<!-- this path is relative to the levelTestBasePath defined above-->
+			<levelTestXml>data1</levelTestXml>
+			<Description>This contains the multiple choice questions of chapter Magnetic Effects.
+The questions are based on the CBSE pattern. 
+			</Description>
+		</level>
+		<level>
+			<label>Science 10 - Life Processes</label>
+			<imgSrcPath>Level2.jpg</imgSrcPath>
+			<levelTestBasePath>sc2/</levelTestBasePath>
+			<levelTestXml>data1</levelTestXml>
+			<Description>This contains the multiple choice questions of chapter  Life Processes.
+The questions are based on the CBSE pattern. 
+			</Description>
+		</level>
+		<level>
+			<label>Maths 10 - Quadratic Equations</label>
+			<imgSrcPath>Level3.png</imgSrcPath>
+			<levelTestBasePath>m3/</levelTestBasePath>
+			<levelTestXml>data1</levelTestXml>
+			<Description>This contains the multiple choice questions of chapter Quadratic Equations.
+The questions are based on the CBSE pattern. You can use the extra sheets for doing the rough work.
+			</Description>
+		</level>
+	</levels>
+</testLevel>

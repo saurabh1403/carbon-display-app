@@ -1,0 +1,19 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+s|VScrollBar
+{
+	
+}
+
+.CustomLinkButton {
+	cornerRadius: 13;
+	rollOverColor: #e9efe9;
+	selectionColor: #ffffff;
+	color: #e1eae1;
+	textRollOverColor: #2b333c;
+	textSelectedColor: #2b333c;
+	fontFamily: 'Trebuchet MS';
+	fontSize: 13;
+}
