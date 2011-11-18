@@ -1,0 +1,249 @@
+<test>
+	<title>Magnetic Effects</title>
+	<Subject>Science 10</Subject>
+	<testIcon><!-- this should be 200x200 icon--></testIcon>
+	<totalTime>
+		<!--time in minutes-->15</totalTime>
+		<questions>
+<question>
+	<statement>Q1. The area around a magnet,in which its influence (force of attraction or repulsion) can be felt is called its</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">magnetic field</choice>
+		<choice>magnetic strength</choice>
+		<choice>magnetic power</choice>
+		<choice>magnetic intensity</choice>
+	</choices>
+	<explanation>The region around a magnet, in which its influence can be felt, is called its magnetic field</explanation>
+</question>
+<question>
+	<statement>Q2. The direction of magnetic field developed around a current carrying conductor can be easily found by the use of</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">Right hand thumb rule</choice>
+		<choice>Left hand thumb rule</choice>
+		<choice>Fleming's left hand rule</choice>
+		<choice>Fleming's right hand rule</choice>
+	</choices>
+	<explanation>The direction of magnetic field developed around a current carrying conductor can be found by the use of right hand thumb rule.</explanation>
+</question>
+<question>
+	<statement>Q3. We know that a magnetic field is set up around a long, straight current carrying conductor. The magnetic field lines consist of</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>radial lines originating from the wire</choice>
+		<choice>straight lines parallel to the wire</choice>
+		<choice>straight lines perpendicular to the wire</choice>
+		<choice ans="1">concentric circles centred on the wire</choice>
+	</choices>
+	<explanation>The magnetic field lines around a straight current carrying conductor consists of concentric circles centered on the wire</explanation>
+</question>
+<question>
+	<statement>Q4. The strength of the magnetic field around a current carrying straight conductor</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>is same every where around the conductor</choice>
+		<choice>is directly proportional to the square of distance of a point from the conductor.</choice>
+		<choice ans="1">is directly proportional to the current flowing in the conductor</choice>
+		<choice>is inversely proportional to the current</choice>
+	</choices>
+	<explanation>The strength of the magnetic field around a current carrying straight conductor is directly proportional to the amount of current flowing in the conductor.</explanation>
+</question>
+<question>
+	<statement>Q5. The strength of a magnetic field inside a long current carrying straight soleno1d coil is</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>more at the ends than at the centre</choice>
+		<choice>minimum in the middle</choice>
+		<choice ans="1">same at all points</choice>
+		<choice>found to increase from one end to the other</choice>
+	</choices>
+	<explanation>The strength of a magnetic field inside a long, current carrying, straight solenoid is uniform at all points. Moreover, the field depends on the amount of current flowing and the number of turns in solenoid coil besides its length.</explanation>
+</question>
+<question>
+	<statement>Q6. The strength of magnetic field along the axis of a solenoid coil:</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>increases on increasing current flowing through the solenoid coil</choice>
+		<choice>increases on increasing the number of turns in the solenoid coil</choice>
+		<choice>increases on introducing a soft iron core inside the solenoid coil</choice>
+		<choice ans="1">all of the above</choice>
+	</choices>
+	<explanation>The strength of magnetic field along the axis of a solenoid coil increases on increasing the current flowing through the solenoid coil and on increasing the number of turns in the solenoid coil. Moreover, if a soft iron core is inserted inside the solenoid coil then magnetic field increases many fold.</explanation>
+</question>
+<question>
+	<statement>Q7. A current carrying conductor is placed perpendicular to the direction of a uniform magnetic field. The direction of force acting on the conductor due to magnetic field is given by</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Maxwell's cork screw rule</choice>
+		<choice>Ampere's rule</choice>
+		<choice ans="1">Fleming's left hand rule</choice>
+		<choice>Fleming's right hand rule</choice>
+	</choices>
+	<explanation>When a current carrying straight conductor is placed perpendicular to the direction of a uniform magnetic field, it experiences a mechanical force. The direction of mechanical force is given by Fleming's left hand rule.</explanation>
+</question>
+<question>
+	<statement>Q8. Choose the wrong statement out of the following :</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Magnetic poles always exist in pairs</choice>
+		<choice>Magnetic poles must have same magnetic strength</choice>
+		<choice ans="1">Like magnetic poles attract each other</choice>
+		<choice>Unlike magnetic poles attract each other</choice>
+	</choices>
+	<explanation>Like magnetic poles (say N- and N-poles) always repel each other.</explanation>
+</question>
+<question>
+	<statement>Q9. An electric motor converts</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>mechanical energy into electrical energy</choice>
+		<choice>electrical energy into sound energy</choice>
+		<choice ans="1">electrical energy into mechanical energy</choice>
+		<choice>mechanical energy into sound energy</choice>
+	</choices>
+	<explanation>An electric motor converts electrical energy into mechanical energy.</explanation>
+</question>
+<question>
+	<statement>Q10.In Fleming's left hand rule the thumb indicates the direction of</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>magnetic field applied</choice>
+		<choice>current flown in the conductor</choice>
+		<choice>induced current</choice>
+		<choice ans="1">mechanical force on the conductor</choice>
+	</choices>
+	<explanation>In Fleming's left hand rule the thumb indicates the direction of mechanical force acting on the conductor. The fore finger points in the direction of magnetic field and the central finger in the direction of current flowing in the conductor.</explanation>
+</question>
+<question>
+	<statement>Q11. Working of a D.C. motor is based on the </statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">Fleming's left hand rule</choice>
+		<choice>Fleming's right hand rule</choice>
+		<choice>Faraday's law of electromagnetic induction</choice>
+		<choice>Maxwell's cork screw rule</choice>
+	</choices>
+	<explanation>Working of a D.C. motor is based on the Fleming's left hand rule. Due to this reason Fleming's left hand rule is referred as the motor rule.</explanation>
+</question>
+<question>
+	<statement>Q12. Commercial electric motors do not use</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>an electromagnet to rotate the armature coil.</choice>
+		<choice>large number of turns of conducting wire in the armature coil</choice>
+		<choice ans="1">a permanent magnet to rotate the armature coil</choice>
+		<choice>a soft iron core on which the armature coil is wound</choice>
+	</choices>
+	<explanation>Commercial electric motors of high power do not use a permanent magnet to rotate the armature coil. It is because strong permanent magnets are not easily available. Therefore, in commercial electric motors a strong electromagnet is used to rotate the armature coil.</explanation>
+</question>
+<question>
+	<statement>Q13. The commonly prepared electromagnets are</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>temporary and weak magnets</choice>
+		<choice>permanent and strong magnets</choice>
+		<choice ans="1">temporary but strong magnets</choice>
+		<choice>permanent but weak magnets</choice>
+	</choices>
+	<explanation>The commonly prepared electromagnets are temporary because they behave as magnet so long as current is being passed through the coil wound around the electromagnet. However, these magnets can be made strong by increasing the value of current flowing. </explanation>
+</question>
+<question>
+	<statement>Q14. The phenomenon of electromagnetic induction is</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>the process of charging a body</choice>
+		<choice>the process of generating magnetic field due to current passing through a coil</choice>
+		<choice ans="1">the process of producing induced current in a coil on changing magnetic field around it</choice>
+		<choice>the process of rotating a coil of an electric motor</choice>
+	</choices>
+	<explanation>Electromagnetic induction is the phenomenon due to which an induced current is set up in a coil when magnetic field around it is changed.</explanation>
+</question>
+<question>
+	<statement>Q15. The device used to produce an electric current in a circuit is called</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>galvanometer</choice>
+		<choice ans="1">electric generator</choice>
+		<choice>electric motor</choice>
+		<choice>inverter</choice>
+	</choices>
+	<explanation>An electric generator is used to produce an electric current in a circuit.</explanation>
+</question>
+<question>
+	<statement>Q16. The direction of induced current produced in a rectangular coil, when it is rotated in a uniform magnetic field, is given by</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">Fleming's right hand rule</choice>
+		<choice>Fleming's left hand rule</choice>
+		<choice>Ampere's rule</choice>
+		<choice>Right hand thumb rule</choice>
+	</choices>
+	<explanation>Fleming's right hand rule gives the direction of induced current in a rectangular coil when the coil is rotated in a uniform magnetic field.</explanation>
+</question>
+<question>
+	<statement>Q17. The frequency of A.C. supply in India is</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>100 Hz</choice>
+		<choice ans="1">50 Hz</choice>
+		<choice>50 s</choice>
+		<choice>100 s</choice>
+	</choices>
+	<explanation>The frequency of alternating current supply in India is 50 Hz.</explanation>
+</question>
+<question>
+	<statement>Q18. While applying Fleming's right hand rule the central (middle) finger of right hand indicates</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>the direction of magnetic field</choice>
+		<choice>the direction of rotation of conductor</choice>
+		<choice>the direction of current being flown</choice>
+		<choice ans="1">the direction of induced current</choice>
+	</choices>
+	<explanation>As per Fleming's right hand rule the central finger of right hand points in the direction of induced current, when fore finger is along the direction of magnetic field and thumb points along the direction of motion of the conductor.</explanation>
+</question>
+<question>
+	<statement>Q19. At the time of short circuiting of an electrical circuit the current in the circuit</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>is substantially reduced</choice>
+		<choice ans="1">abruptly increases</choice>
+		<choice>changes continuously</choice>
+		<choice>does not change at all</choice>
+	</choices>
+	<explanation>At the time of short circuiting the circuit current abruptly increases to a high value.</explanation>
+</question>
+<question>
+	<statement>Q20. The most important safety method used in domestic electrical circuit so as to protect home appliances from short circuiting or overloading is</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>earthing</choice>
+		<choice ans="1">use of fuse of appropriate rating</choice>
+		<choice>use of voltage stabilisers</choice>
+		<choice>use of an electric meter</choice>
+	</choices>
+	<explanation>The most important safety device used in domestic electrical circuit so as to protect home appliances from short circuiting or over loading, is a fuse of appropriate current reading connected in the beginning of the circuit after the electric meter.</explanation>
+</question>
+</questions>
+</test>

@@ -1,0 +1,239 @@
+<test>
+	<title>Quadratic Equations</title>
+	<Subject>Maths 10</Subject>
+	<testIcon><!-- this should be 200x200 icon--></testIcon>
+	<totalTime>
+		<!--time in minutes-->35</totalTime>
+	<questions>
+		<question>
+			<htmlContent>m10c1q1.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q1sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q2.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q2sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q3.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q3sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q4.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q4sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q5.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q5sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q6.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+			<htmlExplanation>m10c1q6sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q7.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q7sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q8.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q8sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q9.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+			<htmlExplanation>m10c1q9sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q10.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m10c1q10sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m10c1q11.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q12.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q13.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q14.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q15.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q16.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q17.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q18.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q19.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m10c1q20.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+	</question>
+	</questions>
+</test>

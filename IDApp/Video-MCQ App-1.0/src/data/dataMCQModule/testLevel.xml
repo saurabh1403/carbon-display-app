@@ -1,0 +1,33 @@
+<testLevel>
+	<levels>
+		<level>
+			<label>Level 1</label>
+			<imgSrcPath>level1.jpg</imgSrcPath>
+			<!-- this path is relative to the path where the levelXml is present. If non-empty, then it should have a slash at the end-->
+			<levelTestBasePath>sc 1/</levelTestBasePath>
+			<!-- this path is relative to the levelTestBasePath defined above-->
+			<levelTestXml>test1.xml</levelTestXml>
+			<Description>This is the level one of the test chemical Reaction. 
+You should be able to complete this level within few minutes.
+			</Description>
+		</level>
+		<level>
+			<label>Level 2</label>
+			<imgSrcPath>level2.jpg</imgSrcPath>
+			<levelTestBasePath></levelTestBasePath>
+			<levelTestXml>test2.xml</levelTestXml>
+			<Description>This is the level two  of the test chemical Reaction. 
+You should be able to complete this level within few minutes. 
+			</Description>
+		</level>
+		<level>
+			<label>Level 3</label>
+			<imgSrcPath>level3.png</imgSrcPath>
+			<levelTestBasePath></levelTestBasePath>
+			<levelTestXml>test3.xml</levelTestXml>
+			<Description>This is the level three of the test chemical Reaction. 
+You should be able to complete this level within few minutes. 
+			</Description>
+		</level>
+	</levels>
+</testLevel>

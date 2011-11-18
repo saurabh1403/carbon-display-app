@@ -1,0 +1,238 @@
+<test>
+	<title>Real Numbers</title>
+	<Subject>Maths 9</Subject>
+	<testIcon><!-- this should be 200x200 icon--></testIcon>
+	<totalTime>
+		<!--time in minutes-->25</totalTime>
+	<questions>
+		<question>
+			<htmlContent>m9c1q1.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<statement>Q2. Every rational number is</statement>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>a whole number</choice>
+				<choice>a natural number</choice>
+				<choice ans="1">a real number</choice>
+				<choice>an integer</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q3.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q4.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>a natural number</choice>
+				<choice>an irrational number</choice>
+				<choice>a rational number</choice>
+				<choice ans="1">both a and c</choice>
+			</choices>
+			<htmlExplanation>m9c1q4sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q5.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q6.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+			<htmlExplanation>m9c1q6sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q7.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+			<htmlExplanation>m9c1q7sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q8.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m9c1q8sol.html</htmlExplanation>
+		</question>
+		<question>
+			<statement>Q9. Between two rational numbers, there is / are </statement>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">infinite number of rational number</choice>
+				<choice>one and only one rational number</choice>
+				<choice>no rational number</choice>
+				<choice>no irrational number</choice>
+			</choices>
+			<explanation></explanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q10.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice ans="1">D</choice>
+			</choices>
+			<htmlExplanation>m9c1q10sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q11.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m9c1q11sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q12.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice ans="1">A</choice>
+				<choice>B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m9c1q12sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q13.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q14.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q15.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q16.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<statement>Q17. The product of two irrational numbers is</statement>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>always a rational number</choice>
+				<choice ans="1">sometimes rational, sometimes irrational</choice>
+				<choice>always an irrational number</choice>
+				<choice>always a whole number</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q18.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+			<htmlExplanation>m9c1q18sol.html</htmlExplanation>
+		</question>
+		<question>
+			<htmlContent>m9c1q19.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice>B</choice>
+				<choice ans="1">C</choice>
+				<choice>D</choice>
+			</choices>
+		</question>
+		<question>
+			<htmlContent>m9c1q20.html</htmlContent>
+			<type>radio</type>
+			<mark>2</mark>
+			<choices>
+				<choice>A</choice>
+				<choice ans="1">B</choice>
+				<choice>C</choice>
+				<choice>D</choice>
+			</choices>
+	</question>
+	</questions>
+</test>

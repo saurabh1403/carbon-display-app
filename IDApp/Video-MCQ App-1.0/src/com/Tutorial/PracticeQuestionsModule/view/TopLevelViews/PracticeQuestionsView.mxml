@@ -1,124 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:view="com.Tutorial.PracticeQuestionsModule.view.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" 
+		 creationComplete="onCreationComplete(event)"
+		 xmlns:view="com.Tutorial.PracticeQuestionsModule.view.*">
 	
 	<fx:Script>
 		<![CDATA[
+			import com.Tutorial.PracticeQuestionsModule.view.PracticeQuestionPageView;
+			
+			import mx.collections.ArrayCollection;
 			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
 			
-			private var initialXPosition:int = 10;
-			private var initialYPosition:int = 100;
-			
+			[Bindable]
 			private var finalXPosition:int = 350;
+			[Bindable]
 			private var finalYPosition:int = 50;
 			
+			[Bindable]
 			private var initialWidth:int = 100;
+			[Bindable]
 			private var initialheight:int = 100;
 			
+			[Bindable]
 			private var finalWidth:int = 550;
+			[Bindable]
 			private var finalHeight:int = 700;
 			
-			protected function onMoveClick(event:MouseEvent):void
-			{
-				enlarge.play();
-				img.setCurrentState("Enlarged");
-				
-			}
+			[Bindable]
+			private var currExpandedObject:PracticeQuestionPageView = null;
 			
-			public function disposeView():void
+			private var listComponentsGap:int = 20;
+			
+			[Bindable]
+			private var move2X:int = 0;
+			
+			[Bindable]
+			private var move2Y:int = 0;
+			
+			[Bindable]
+			private var move1X:int = 0;
+			
+			[Bindable]
+			private var move1Y:int = 0;
+			
+			private const baseFolder:String = "data/dataPracticeQues/";
+			private const xmlName:String = "quesData.xml";
+			
+			private var uiElements:ArrayCollection = new ArrayCollection();
+			
+			protected function onQuesModuleSelection(ev:Event):void
 			{
+				if(currExpandedObject == ev.target)
+					return;
 				
+				if(currExpandedObject != null)
+				{
+//					if(currExpandedObject.isanswerVisible)
+//						onRotateClick(null);
+
+					collapseCurrentObject(currExpandedObject);
+					currExpandedObject = ev.target as PracticeQuestionPageView;
+					enlargeCurrentObject(currExpandedObject);
+				}
+				else
+				{
+					currExpandedObject = ev.target as PracticeQuestionPageView;
+					enlargeCurrentObject(currExpandedObject);
+				}
 			}
 		
-			protected function onRotateClick(event:MouseEvent):void
+			public function disposeView():void
 			{
-				if(!img.isanswerVisible)
-					rotateEffect.play();
-				else
-					rotateEffect.play(null, true);
-				
-				img.isanswerVisible = ! img.isanswerVisible;
+				for(var i:int = 0; i < uiElements.length; i++)
+				{
+					this.removeElement(uiElements[i]);
+				}
+				uiElements.removeAll();
 			}
 			
-			protected function onCollapseClick(event:MouseEvent):void
+			//just a wrapper function
+			public function _initView():void
 			{
-				collapse.play();
-				img.setCurrentState("Collapsed");
-				img.isExpanded = false;
+				var newXml:XML = readXml(baseFolder + xmlName);
+				initView(newXml, baseFolder);
 			}
+
+			//inXml is the xml object
+			//base folder is the folder relative to which the html content and resources are present
+			public function initView(inXml:XML, baseFolder:String):void
+			{
+				var moduleList:XMLList = inXml.set;
+				
+				initComponentsDimensions(2);
+				for(var i:int = 0; i < moduleList.length(); ++i)
+				{
+					var newComp:PracticeQuestionPageView = new PracticeQuestionPageView;
+					newComp.labelText = moduleList[i].TitleText.toString();
+					newComp.quesHtml = baseFolder + moduleList[i].htmlQues.toString();
+					newComp.ansHtml = baseFolder + moduleList[i].htmlAns.toString();
+					newComp.moduleDescription = moduleList[i].Description.toString();
+					positionComponent(newComp, i);
+				}
+			}
+			
+			private function positionComponent(newComp:PracticeQuestionPageView, positionIndex:int = 0):void
+			{
+				newComp.width = initialWidth;
+				newComp.height = initialheight;
+				newComp.addEventListener(newComp.clickEventName, onQuesModuleSelection, false, 0, true);
+				
+				newComp.initialX = 20;
+				newComp.x = newComp.initialX;
+				
+				newComp.initialY = 130 + (positionIndex)*(listComponentsGap + initialheight);
+				newComp.y = newComp.initialY;
+				this.addElement(newComp);
+				uiElements.addItem(newComp);
+			}
+			
+			protected function initComponentsDimensions(totalItems:int = 3):void
+			{
+				initialWidth = this.width * 0.15;
+				initialheight = initialWidth;
+				
+				finalWidth = this.width * 0.5;
+				finalHeight = this.height * 0.9;
+				
+				finalXPosition = this.width * 0.3;
+				finalYPosition = this.height * 0.05;
+				
+				listComponentsGap = (this.height - totalItems*initialheight - 130);
+				listComponentsGap /= totalItems;
+				
+			}
+			
+			protected function onRotateClick(event:MouseEvent):void
+			{
+				if(currExpandedObject != null)
+				{
+					var currPracticePage:PracticeQuestionPageView = currExpandedObject as PracticeQuestionPageView;
+					if(!currPracticePage.isanswerVisible)
+						rotateEffect.play();
+					else
+						rotateEffect.play(null, true);
+					
+					currPracticePage.isanswerVisible = ! currPracticePage.isanswerVisible;
+				}
+			}
+			
 			
 			protected function onEnlargeComplete(event:EffectEvent):void
 			{
-				
-				img.isExpanded = true;
+				(enlarge.target as PracticeQuestionPageView).isExpanded = true;
+			}
+			
+			protected function enlargeCurrentObject(_currObject:Object):void
+			{
+				if(_currObject != null)
+				{
+					var currPracticePage:PracticeQuestionPageView = _currObject as PracticeQuestionPageView;
+										
+					(currPracticePage as PracticeQuestionPageView).setCurrentState("Enlarged");
+					move1X = currPracticePage.initialX;
+					move1Y= currPracticePage.initialY;
+
+					enlarge.target = _currObject;
+					enlarge.play();
+				}
+			}
+			
+			protected function collapseCurrentObject(_currObject:Object):void
+			{
+				if(_currObject != null)
+				{
+					var currPracticePage:PracticeQuestionPageView = _currObject as PracticeQuestionPageView;
+
+					currPracticePage.setCurrentState("Collapsed");
+					currPracticePage.isExpanded = false;
+					
+					collapse.target = currPracticePage;
+					move2X = currPracticePage.initialX;
+					move2Y= currPracticePage.initialY;
+					collapse.play();
+
+				}
 			}
 			
 			protected function onCollapseComplete(event:EffectEvent):void
 			{
 			}
 			
+			private function readXml(xmlPath:String):XML
+			{
+				var file:File = File.applicationDirectory;
+				file = file.resolvePath(xmlPath);
+				
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.READ);
+				
+				var inXml:XML = XML(fileStream.readUTFBytes(fileStream.bytesAvailable));
+				return inXml;
+			}
+			
+			protected function onCreationComplete(event:FlexEvent):void
+			{
+				_initView();
+			}
+
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:Rotate3D id="rotateEffect" target="{img}" 
-					angleYFrom="0" angleYTo="180"
+		<s:Rotate3D id="rotateEffect" target="{currExpandedObject}" 
+					angleYFrom="0" angleYTo="360"
+					disableLayout="true"
 					duration="1000" autoCenterTransform="true"
-					effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
+					/>
 		
-		<s:Parallel id="enlarge" duration="800" effectEnd="onEnlargeComplete(event)" >
+		<s:Parallel id="enlarge" duration="800" 
+					effectEnd="onEnlargeComplete(event)" 
+					>
 			<s:children>
-				<s:Move id="moveEffect" target="{img}" xFrom="{initialXPosition}" xTo="{finalXPosition}" 
-						yFrom="{initialYPosition}" yTo="{finalYPosition}"
+				<s:Move id="moveEffect" xFrom="{move1X}" xTo="{finalXPosition}" 
+						yFrom="{move1Y}" yTo="{finalYPosition}"
 						/>
 				
-				<s:Resize id="expandEffect" target="{img}" widthTo="{finalWidth}" heightTo="{finalHeight}"
+				<s:Resize id="expandEffect"  widthTo="{finalWidth}" heightTo="{finalHeight}"
 						  />
 			</s:children>
 		</s:Parallel>
-		
-		<s:Parallel id="collapse" duration="800" effectEnd="onCollapseComplete(event)" >
+	
+		<s:Parallel id="collapse" duration="500" 
+					effectEnd="onCollapseComplete(event)" 
+					>
 			<s:children>
-				<s:Move id="moveEffect2" target="{img}" xFrom="{finalXPosition}" xTo="{initialXPosition}" 
-						yFrom="{finalYPosition}" yTo="{initialYPosition}"
+				<s:Move id="moveEffect2" xFrom="{finalXPosition}" xTo="{move2X}" 
+						yFrom="{finalYPosition}" yTo="{move2Y}"
 						/>
 
-				<s:Resize id="expandEffect2" target="{img}" widthTo="{initialWidth}" heightTo="{initialheight}"
+				<s:Resize id="expandEffect2" widthTo="{initialWidth}" heightTo="{initialheight}"
 						  />
 			</s:children>
 		</s:Parallel>
-		
 		
 	</fx:Declarations>
 	
-	<s:BorderContainer 
-		width="100%"
-		height="100%"
-		backgroundColor="#FFFFFF">
-		
-			
-			<view:PracticeQuestionPageView
-				id="img1"
-				x="{initialXPosition}"
-				y="{initialYPosition}"
-				width="100"
-				height="100"
+	<s:layout>
+		<s:BasicLayout>
+		</s:BasicLayout>
+	</s:layout>
+
+	<s:RichText top="{this.height*0.05}"
+				left="20"
+				text="Select a Module to study"
+				fontFamily="Verdana"
+				fontSize="20"
+				fontStyle="normal"
+				fontWeight="normal"
+				color="#1A1919"
 				/>
-			
-			<view:PracticeQuestionPageView
-				id="img"
-				x="{initialXPosition}"
-				y="{initialYPosition + 200}"
-				width="100"
-				height="100"
-				/>
-			
-		<s:Button id="playButton" x="72" y="475" label="move" click="onMoveClick(event)"/>
-		<s:Button id="rotateButton" x="72" y="416" label="rotate" click="onRotateClick(event)"/>
-		<s:Button id="zoomButton" x="72" y="446" label="zoom" click="onCollapseClick(event)"/>
-	
-	</s:BorderContainer>
-	
+
+	<s:Button height="40" bottom="{this.height*0.05}" left="{this.width * 0.8 + 20}"
+			  right="20"
+			  maxWidth="120"
+			  color="#000000"
+			  chromeColor="#CFC8CA"
+			  skinClass="com.Tutorial.CommonUtils.skin.GlossyButtonSkin"
+			  label="{((currExpandedObject as PracticeQuestionPageView).isanswerVisible) ? 'See Problems' : 'Check Answers'}"
+			  visible="{currExpandedObject != null}"
+			  click="onRotateClick(event)"
+			  />
 	
 </s:Group>

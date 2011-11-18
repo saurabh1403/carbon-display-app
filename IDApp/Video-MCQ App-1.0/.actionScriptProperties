@@ -23,7 +23,7 @@
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
     <buildTarget buildTargetName="default">
-      <airSettings airCertificatePath="C:/Users/saurgupt.ADOBENET/Desktop/my_cer.p12" airTimestamp="false" version="1">
+      <airSettings airCertificatePath="C:/Users/saurgupt.ADOBENET/Desktop/my_cer.p12" airTimestamp="true" version="1">
         <airExcludes>
           <pathEntry path="data/dataVideoDisplay/data10"/>
           <pathEntry path="data/dataMCQModule/data9"/>

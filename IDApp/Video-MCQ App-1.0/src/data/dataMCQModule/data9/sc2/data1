@@ -1,0 +1,225 @@
+<test>
+	<title>Matter in our Surrounding</title>
+	<Subject>Science 9</Subject>
+	<testIcon><!-- this should be 200x200 icon--></testIcon>
+	<totalTime>
+		<!--time in minutes-->10</totalTime>
+		<questions>
+<question>
+	<statement>Q1. Which of the following will help in determining the meltang point of ice accurately?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Ice made from tap water</choice>
+		<choice ans="1">Ice made from distilled water</choice>
+		<choice>Ice containing salt</choice>
+		<choice>None of these</choice>
+	</choices>
+	<explanation>Distilled water is the purest form of water free from any impurities. It gives purest form of ice and correct measurement of its melting point.</explanation>
+</question>
+<question>
+	<statement>Q2. By increasing the external pressure, the melting of ice</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">increases</choice>
+		<choice>decreases</choice>
+		<choice>may increase or decrease</choice>
+		<choice>does not change</choice>
+	</choices>
+	<explanation>By increasing external pressure,more of ice change into water. Therefore, the melting of ice increases.</explanation>
+</question>
+<question>
+	<statement>Q3. Which of the fdllowing will not undergo sublimation ?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Camphor</choice>
+		<choice>Ammonium chloride</choice>
+		<choice>Iodine</choice>
+		<choice ans="1">Sodium Chloride</choice>
+	</choices>
+	<explanation>Sodium chloride does not sublime. All other substances that are listed, undergo sublimation.</explanation>
+</question>
+
+<question>
+	<statement>Q4. Sulphur dioxide is collected in the laboratory in a gas jar by upward displacement of air. Which of the following statements is correct regarding the density of the gas?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">It is heavier than air</choice>
+		<choice>It is lighter than air</choice>
+		<choice>Its density is equal to that of air</choice>
+		<choice>No correct statement can be made about the density of the gas.</choice>
+	</choices>
+	<explanation>Sulphur dioxide is heavier than air.</explanation>
+</question>
+
+<question>
+	<statement>Q5. A student takes some water in a beaker and heats it over a flame for determining its boiling point. He keeps on taking its temperature readings. He would observe that the temperature of water :</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>keeps on increasing regularly</choice>
+		<choice>keeps on increasing irregularly</choice>
+		<choice>first increases slowly, then decreases rapidly and eventually becomes constant</choice>
+		<choice ans="1">first increases gradually and then becomes constant</choice>
+	</choices>
+	<explanation>The temperature of water will increase upon heating, till the boiling point is reached. Upon further heating the temperature of water remain constant.</explanation>
+</question>
+
+<question>
+	<statement>Q6. When a gas is compressed at constant temperature,</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>the speed of the molecules increases</choice>
+		<choice ans="1">the collisions among the molecules increase</choice>
+		<choice>the speed of the molecules decreases</choice>
+		<choice>the collisions among the molecules decrease.</choice>
+	</choices>
+	<explanation>At constant temperature when the gas is compresses,the molecules come closer and their collisions increase.</explanation>
+</question>
+
+<question>
+	<statement>Q7. A gas can be liquefied</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>by increasing the temperature</choice>
+		<choice>by lowering the pressure</choice>
+		<choice ans="1">by increasing the pressure and lowering the temperature</choice>
+		<choice>none of these</choice>
+	</choices>
+	<explanation>It is the best option since both the factors favour the liquefication of the gas.</explanation>
+</question>
+
+<question>
+	<statement>Q8. Which one of the following sets of phenomena would increase on raising rhe temperature ?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Diffusion, evaporation, compression of gases</choice>
+		<choice>Evaporarion, compression of gasu, solubility</choice>
+		<choice ans="1">Evaporation, diffusion, expansion of gases</choice>
+		<choice>Evaporation, solubility, diffusion , compression</choice>
+	</choices>
+	<explanation>All the three phenomenon would increase upon increasing the temperature.</explanation>
+</question>
+
+<question>
+	<statement>Q9. The property to flow is unique to fluids. Which one of the following statements is correct ?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Only gases behave like fluids</choice>
+		<choice>Gases and solids behave like fluids</choice>
+		<choice ans="1">Gases and liquids behave like fluids</choice>
+		<choice>Only liquids are fluids</choice>
+	</choices>
+	<explanation>The gases as well as liquids can behave as fluids. There is hardly any fluidity in solids as the particles are very closely packed.</explanation>
+</question>
+
+<question>
+	<statement>Q10. During summer,water kept in an earthern pot becomes cool because of the phenomenon of</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>diffusion</choice>
+		<choice>transpiration</choice>
+		<choice>osmosis</choice>
+		<choice ans="1">evaporation</choice>
+	</choices>
+	<explanation>The evaporation of a liquid is always accompanied by the lowering of temperature and results in cooling.</explanation>
+</question>
+
+<question>
+	<statement>Q11. A few substances are arranged in rhe increasing order of forces of attraction between their particles. Which one of the following represents a correct arrangement ?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Water, air, wind</choice>
+		<choice>Air, sugar, oil</choice>
+		<choice ans="1">Oxygen, water, sugar</choice>
+		<choice>Salt, juice, air</choice>
+	</choices>
+</question>
+
+<question>
+	<statement>Q12. Which condition out of the following will increase the evaporation of water ?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">Increase in temperature of water</choice>
+		<choice>Decrease in temperature of water</choice>
+		<choice>Less exposed surface area of water</choice>
+		<choice>Adding common salt to water</choice>
+	</choices>
+	<explanation>Increase in temperature always helps in evaporation of a liquid.</explanation>
+</question>
+
+<question>
+	<statement>Q13. For determining the melting point of ice we should prefer</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">ice made from distilled water</choice>
+		<choice>ice made from tap water</choice>
+		<choice>dry crushed ice mixed with salt</choice>
+		<choice>a mixture of ice and salt</choice>
+	</choices>
+	<explanation>Distilled water is the purest form of water. Ice made from it gives the correct melting point.</explanation>
+</question>
+
+<question>
+	<statement>Q14. The process of  evaporation is employed to separate a substance from its mixture if:</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>substance is soluble in water</choice>
+		<choice ans="1">substance is soluble in water but does not decompose on heating</choice>
+		<choice>substance is soluble in water but can decompose on heating</choice>
+		<choice>substance is soluble in water but sublimes on heating</choice>
+	</choices>
+</question>
+
+<question>
+	<statement>Q15. In order to find the boilng point of water,one of the precautions is that the bulb of the thermometer should not touch the sides of the beaker. This precaution is taken because :</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice ans="1">Sides of the beaker are at slightly higher temperature</choice>
+		<choice>Sides of the beaker are at slightly lower temperature</choice>
+		<choice>The bulb of the thermometer is likely to break</choice>
+		<choice>None of these</choice>
+	</choices>
+	<explanation>The temperature at the sides of the beaker is slightly higher than the temperature in the centre.</explanation>
+</question>
+
+<question>
+	<statement>Q16. When a mixture of common salt and ammonium chloride is heated, it is observed that</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>solid common salt gets deposited on the cooler parts of the funnel while solid ammonium chloride remains in the china dish.</choice>
+		<choice>mixture of common salt and ammonium chloride turns into greenish crystals when allowed to cool</choice>
+		<choice ans="1">ammonium chloride gets deposited on the cooler parts of the funnel and solid common salt remains in the china dish</choice>
+		<choice>droplets containing both common salt and ammonium chloride appear on the upper part of the funnel while some molten mixture of common salt and ammonium chloride remains in the china dish</choice>
+	</choices>
+	<explanation>Ammonium chloride is the sublimate while common salt remains as the residue.</explanation>
+</question>
+
+<question>
+	<statement>Q17. Which is not a correct precaution to be followed by Vishnu to determine the melting point of ice?</statement>
+	<type>radio</type>
+	<mark>1</mark>
+	<choices>
+		<choice>Zero mark of the thermometer remains above the ice surface</choice>
+		<choice>Keep stirring the mixture and look at the thermometer</choice>
+		<choice>Crush the ice into small pieces</choice>
+		<choice ans="1">Do not dip the thermometer in crushed ice</choice>
+	</choices>
+	<explanation>The bulb of the thermometer should be dipped in crushed ice</explanation>
+</question>
+</questions>
+</test>
