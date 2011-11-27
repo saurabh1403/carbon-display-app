@@ -2,18 +2,25 @@
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
 
-s|VScrollBar
+.CustomVScrollBar
 {
+	upArrowSkin:    ClassReference(null);
+	downArrowSkin:  ClassReference(null);
 	
+	thumbSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollThumbSkin");
+	trackSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollTrackSkin")
 }
 
 .CustomLinkButton {
 	cornerRadius: 13;
-	rollOverColor: #e9efe9;
-	selectionColor: #ffffff;
-	color: #e1eae1;
-	textRollOverColor: #2b333c;
-	textSelectedColor: #2b333c;
+	rollOverColor: #6c706c;
+	selectionColor: #5c594c;
+	color: #2C8A2C;
+	textRollOverColor: #eaf756;
+	textSelectedColor: #f6d747;
+	backgroundColor: #575253;
+	backgroundAlpha: 0.9;
 	fontFamily: 'Trebuchet MS';
 	fontSize: 13;
+	
 }

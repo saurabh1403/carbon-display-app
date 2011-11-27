@@ -1,120 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:view="com.Tutorial.ExtraQuestionsModule.view.*">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:view="com.Tutorial.ExtraQuestionsModule.view.*"
+		 creationComplete="onCreationComplete(event)"
+		 width="100%" height="100%">
 	
-	
+	<fx:Style source="com/Tutorial/CommonUtils/Styles/CommonStyles.css"/>
+
 	<fx:Script>
 		<![CDATA[
+			import com.Tutorial.ExtraQuestionsModule.model.DataCollection;
+			import com.Tutorial.ExtraQuestionsModule.model.QuestionData;
+			
+			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
+			import mx.events.IndexChangedEvent;
+			
+			import spark.events.IndexChangeEvent;
+			import spark.events.ListEvent;
 			
 			[Bindable]
 			private var AnsAlwaysOn:Boolean = false;
+
+			[Bindable]
+			private var isAnswerVisible:Boolean = false;
+			
+			[Bindable]
+			private var htmlAnswerSource:String = "";
+			
+			[Bindable]
+			private var htmlQuestionSource:String = "";
+			[Bindable]
+			private var toggleAnsdisplayString:String = "Show Solution";
+
+			private var questionsXmlPath:String = "data/dataExtraQuestions/quesData.xml";
+
+			private var basFolderName:String = "data/dataExtraQuestions/";
+			
+			private var quesData:DataCollection = new DataCollection;
+			
+			[Bindable]
+			private var currQues:QuestionData;
+			private var currQuesNo:int = 0;		//no ques. 1-based question
 			
 			public function disposeView():void
 			{
+				quesData.reset();
 			}
-			
-			
-			//just a wrapper function
+
 			public function _initView():void
 			{
+				quesData.populateData(questionsXmlPath, basFolderName);
+				showQuestion(1);
 			}
 			
-			
-			
-			protected function onFirstQues(event:MouseEvent):void
+			//quesNo starts from 1 and not 0.			
+			protected function showQuestion(quesNo:int):void
 			{
-				extraQuesPage.setViewParams("data/dataExtraQuestions/content/set1.html", "data/dataExtraQuestions/content/set1Ans.html");
+				if(quesNo > quesData.quesionsData.length || quesNo < 1 || currQuesNo == quesNo)
+				{
+					return;
+				}
+
+				if(!AnsAlwaysOn)
+				{
+					isAnswerVisible = false;
+					toggleAnsdisplayString = "Show Solution";
+				}
+			
+				else
+				{
+					isAnswerVisible = true;
+					toggleAnsdisplayString = "Hide Solution"; 
+				}
+
+				currQues = quesData.quesionsData[quesNo-1];
+				currQuesNo = quesNo;
 			}
-			
-			protected function onSecondQues(event:MouseEvent):void
+
+			protected function onQuesListClick(event:IndexChangeEvent):void
 			{
-				extraQuesPage.setViewParams("data/dataExtraQuestions/content/set2.html", "data/dataExtraQuestions/content/set2Ans.html");
+				showQuestion(event.newIndex + 1);
 			}
-			
-			protected function onAnswerVisibilityChange(event:Event):void
+
+			protected function onToggleAnswerClick(event:MouseEvent):void
 			{
+				if(AnsAlwaysOn)
+				{
+					isAnswerVisible = true;
+					toggleAnsdisplayString = "Hide Solution";
+					ansLinkButton.enabled = false;
+					
+				}
+				else
+				{
+					ansLinkButton.enabled = true;
+					
+					switch(isAnswerVisible)
+					{
+						case true:
+						{
+							isAnswerVisible = false;
+							toggleAnsdisplayString = "Show Solution";
+							break;
+						}
+							
+						case false:
+						default:
+						{
+							isAnswerVisible = true;
+							toggleAnsdisplayString = "Hide Solution";
+							break;
+						}
+					}
+				}
+			}
+
+			protected function wipeIn_effectEndHandler(event:EffectEvent):void
+			{
+
+			}
+
+			protected function onCreationComplete(event:FlexEvent):void
+			{
+				quesList.selectedIndex = currQuesNo - 1;
 				
 			}
 			
 		]]>
 	</fx:Script>
-	
-	<s:HGroup width="100%"
-			  height="100%"
-			  >
 
-		<s:Spacer width="4%"/>
+	<fx:Declarations>
 
-		<!--For adding questions content-->
-		<s:VGroup width="25%" height="100%">
+		<s:Parallel id="roatatePlusFade" duration="1000">
+			<s:children>
+				<s:Rotate3D id="rotateEffect" angleYFrom="0" angleYTo="360"
+							autoCenterTransform="true" disableLayout="true"/>
+				<s:Fade alphaFrom="0" alphaTo="1"/>
+			</s:children>
+		</s:Parallel>
 
-			<s:Spacer height="5%"/>
+		<s:Fade id="AnsFadeIn" alphaFrom="0" alphaTo="1" duration="1000"
+				target="{htmlAnswer}"/>
 
-			<view:ExtraQuestionPageView width="100%"/>
-
-			<s:Spacer height="10"/>
-
-			<mx:LinkButton width="120" label="{toggleAnsdisplayString}" 
-						   styleName="CustomLinkButton"
-						   click="onToggleAnswerClick(event)"
-						   />
-			
-			<s:Spacer height="100%"/>
-			
-			<s:CheckBox id="ansVisibilityCheckBox" label="Always Show Answers" selected="@{AnsAlwaysOn}"
-						change="onAnswerVisibilityChange(event)"
-						/>
-
-		</s:VGroup>
-		<s:Spacer width="2%"/>
+		<mx:WipeDown id="wipeIn" duration="500" target="{htmlAnswer}" effectEnd="wipeIn_effectEndHandler(event)"/>
+		<mx:WipeUp id="wipeOut" duration="500" target="{htmlAnswer}"/>
 		
-		<!--for adding answers content-->
-		<s:VGroup width="45%" height="100%">
+	</fx:Declarations>
+
+	<s:HGroup width="100%" height="100%" gap="0">
+
+		<s:BorderContainer width="80%" borderColor="#000000"
+						   height="100%"
+						   borderWeight="4" cornerRadius="0" dropShadowVisible="true">
 			
-		</s:VGroup>
-		
-		<s:Spacer width="4%"/>
-		<s:BorderContainer width="20%" height="100%">
+			<s:backgroundFill>
+				<!-- 0 rotation creates left to right gradient -->
+				<s:LinearGradient id="bgColor" rotation="90">
+					<s:GradientEntry color="#FFFFFF"/>
+					<s:GradientEntry color="#FFFFFF"/>
+					<s:GradientEntry color="#EACEED"/>
+				</s:LinearGradient>
+			</s:backgroundFill>
 			
-			<s:List width="95%" height="90%"/>
+			<s:VGroup top="15" width="100%" height="100%" horizontalCenter="0" paddingBottom="5"
+					  paddingLeft="20" paddingRight="20" paddingTop="5"
+					  >
+				
+				<view:ExtraQuestionPageView width="100%" focusEnabled="false"
+											mouseChildren="false" tabChildren="false"
+											horizontalCenter="0"
+											maxHeight="200"
+											htmlQuestionSource="{currQues.quesSource}"
+											tabEnabled="false"/>
+				
+				<s:Spacer height="10"/>
+				<s:HGroup width="100%">
+					<mx:LinkButton id="ansLinkButton" width="120" label="{toggleAnsdisplayString}"
+								   click="onToggleAnswerClick(event)" styleName="CustomLinkButton"/>
+					<s:Spacer width="100%"/>
+					<s:CheckBox id="ansVisibilityCheckBox" label="Always Show Answers"
+								fontSize="12"
+								fontStyle="normal" selected="@{AnsAlwaysOn}"
+								click="onToggleAnswerClick(event)"
+								/>
+					<s:Spacer width="5%"/>
+
+				</s:HGroup>
+
+				<s:Spacer height="10"/>
+				
+				<s:BorderContainer width="100%" height="100%"
+								   borderVisible="true"
+								   id="htmlAnswerBorder" 
+								   borderWeight="1"
+								   cornerRadius="8"
+								   backgroundAlpha="0"
+								   includeInLayout="{isAnswerVisible}"
+								   visible="{isAnswerVisible}" 
+								   creationPolicy="all"
+								   >
+					
+					<mx:HTML 
+						id="htmlAnswer" 
+						left="5" right="5" top="5" bottom="5"
+						focusEnabled="false" 
+						showEffect="{wipeIn}"
+						hideEffect="{wipeOut}"
+						includeInLayout="{isAnswerVisible}"
+						visible="{isAnswerVisible}" 
+						location="{currQues.ansSource}"
+						locationChange="{AnsFadeIn.play()}"
+						paintsDefaultBackground="false"
+						verticalScrollBarStyleName="CustomVScrollBar"
+						tabChildren="false" tabEnabled="false"
+						textAlign="left"/>
+					
+				</s:BorderContainer>
+				<s:Spacer height="10"/>
+			</s:VGroup>
 			
 		</s:BorderContainer>
-		
-	<!--	<s:Group width="70%"
-				 height="100%"
-				 >
+
+		<s:BorderContainer width="20%" height="100%"
+						   backgroundColor="#1c1a1a"
+						   >
 			
-			<view:ExtraQuestionPageView id="extraQuesPage" width="70%"
-										height="90%"
-										horizontalCenter="0"
-										verticalCenter="0"
-										/>
-		</s:Group>
-		
-		<s:Spacer width="20"/>
-		
-		<s:Group width="30%"
-				 height="100%"
-				 >
-			<s:layout>
-				<s:VerticalLayout gap="10">
-				</s:VerticalLayout>
-			</s:layout>
-			
-			<s:Spacer height="50"/>
-			
-			<s:Button width="120" height="30"
-					  label="1" click="onFirstQues(event)"/>
-			
-			<s:Button width="120" height="30"
-					  click="onSecondQues(event)"
-					  label="1"/>
-			
-		</s:Group>-->
+			<s:List id="quesList"
+				
+				width="95%" height="100%"
+					horizontalCenter="0"
+					top="20"
+					verticalScrollPolicy="auto"
+					dataProvider="{quesData.quesionsData}"
+					itemRenderer="com.Tutorial.ExtraQuestionsModule.view.renderers.extraQuestionsListItemRenderer"
+					focusEnabled="false"
+					allowMultipleSelection="false"
+					tabFocusEnabled="false"
+					change="onQuesListClick(event)"
+					contentBackgroundAlpha="0"
+					borderVisible="false"
+					/>
+		</s:BorderContainer>
+
 		
 	</s:HGroup>
-	
-	
 	
 </s:Group>

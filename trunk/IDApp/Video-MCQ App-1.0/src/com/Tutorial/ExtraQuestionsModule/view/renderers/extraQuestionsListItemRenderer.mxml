@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				height="100%"
+				width="100%"
+				autoDrawBackground="false"
+				buttonMode="true" mouseChildren="false"
+				creationComplete="onItemRendererCreationComplete(event)"
+				>
+	
+	<s:layout>
+		<s:HorizontalLayout
+			paddingBottom="2" paddingTop="2"
+			paddingLeft="5" paddingRight="5"
+			verticalAlign="middle"/> 
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.ExtraQuestionsModule.model.DataCollection;
+			import com.Tutorial.VideoDisplay.model.DataEntity;
+			
+			import mx.events.FlexEvent;
+			
+			protected function onItemRendererCreationComplete(event:FlexEvent):void
+			{
+//				overlayLight.graphics.beginFill(0xFFFFFF, 0.5);
+//				overlayLight.graphics.drawRect(0, 0, thumb.width, thumb.height);
+//				overlayLight.graphics.endFill();
+//				overlayDark.graphics.beginFill(0x0, 0.5);
+//				overlayDark.graphics.drawRect(0, 0, thumb.width, thumb.height);
+//				overlayDark.graphics.endFill();
+				
+				thumb.setStyle("chromeColor", DataCollection.buttonColors[data.quesNo % DataCollection.colorsCount]);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states> 
+		<s:State name="normal"/> 
+		<s:State name="hovered"/> 
+		<s:State name="selected"/> 
+		<s:State name="down"/> 
+	</s:states> 
+	
+	<s:VGroup width="100%" height="100%"
+			  paddingTop="4"
+			  paddingBottom="4"
+			  verticalAlign="top"
+			  horizontalAlign="center"
+			 >
+	
+		<s:Button id="thumb" width.normal="65%" width="75%" maxWidth="200" 
+				  height.normal="30" height="35"
+				  label="{data.title}"
+				  horizontalCenter="0"
+				  verticalCenter="0"
+				  color="#FFFFFF"
+				  alpha="1"
+				  skinClass="com.Tutorial.ExtraQuestionsModule.skin.extraQuestionsListButtonSkin"
+				  />
+		
+	</s:VGroup>
+	
+</s:ItemRenderer>
