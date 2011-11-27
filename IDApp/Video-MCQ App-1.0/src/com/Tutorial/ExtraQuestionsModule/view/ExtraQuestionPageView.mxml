@@ -2,9 +2,6 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
 
 	<fx:Style source="com/Tutorial/CommonUtils/Styles/CommonStyles.css"/>
 	
@@ -12,59 +9,17 @@
 		<![CDATA[
 			
 			[Bindable]
-			private var isAnswerVisible:Boolean = false;
-			
-			[Bindable]
-			private var htmlQuestionSource:String = "";
-			
-			[Bindable]
-			private var htmlAnswerSource:String = "";
-			
-			[Bindable]
-			private var toggleAnsdisplayString:String = "Show Solution";
+			public var htmlQuestionSource:String = "";
 			
 			private var isRotated:Boolean = false;
 			
-			public function onToggleAnswerClick(ev:Event):void
-			{
-				switch(isAnswerVisible)
-				{
-					case true:
-					{
-						isAnswerVisible = false;
-						toggleAnsdisplayString = "Show Solution";
-						break;
-					}
-						
-					case false:
-					{
-						isAnswerVisible = true;
-						toggleAnsdisplayString = "Hide Solution";
-						break;
-					}
-						
-					default:
-					{
-						break;
-					}
-				}
-				
-			}
-			
 			public function setViewParams(htmlQuesPath:String, htmlAnsPath:String):void
 			{
-				if(htmlQuestionSource.length != 0)
-				{
-					roatatePlusFade.play();
-					isRotated = !isRotated;
-//					htmlQuestion.layoutDirection = (isRotated) ? "rtl" : "ltr";
-//					htmlQuestion.invalidateLayoutDirection();
-				}
-				
-				htmlQuestionSource = htmlQuesPath;
-				htmlAnswerSource = htmlAnsPath;
-				isAnswerVisible = false;
-				toggleAnsdisplayString = "Show Solution";
+			}
+
+			protected function onLocationChange(event:Event):void
+			{
+				roatatePlusFade.play();
 			}
 			
 		]]>
@@ -74,70 +29,35 @@
 		
 		<s:Parallel id="roatatePlusFade" duration="1000"  >
 			<s:children>
-				<s:Rotate3D id="rotateEffect" target="{htmlQuestion}"
+				<!--<s:Rotate3D id="rotateEffect" target="{htmlQuestionPart}"
 							autoCenterTransform="true"
 							disableLayout="true"
 							angleYFrom="0" angleYTo="360"
-							/>
+							/>-->
 				<s:Fade alphaFrom="0" alphaTo="1"
 						target="{htmlQuestionPart}"
 						/>
 			</s:children>
 		</s:Parallel>
-		
-		<mx:WipeDown id="wipeIn" duration="500" target="{htmlAnswer}"/>
-		<mx:WipeUp id="wipeOut" duration="500" target="{htmlAnswer}"/>
-		
+
 	</fx:Declarations>
-	
+
 	<s:BorderContainer width="100%"
 					   height="100%"
 					   borderVisible="true"
 					   borderWeight="2"
 					   cornerRadius="8"
-					   backgroundImage="@Embed('assets/assetsPracticeQuestions/boardPage.png')"
 					   backgroundImageFillMode="scale"
 					   >
 
-		<s:VGroup width="100%"
-				  height="100%"
-				  paddingLeft="15"
-				  paddingRight="15"
-				  paddingTop="20"
-				  paddingBottom="15"
-				  >
+		<mx:HTML id="htmlQuestionPart"
+				 top="5" bottom="5" right="15" left="15"
+				 contentBackgroundAlpha="0.0" focusEnabled="false"
+				 location="{htmlQuestionSource}" tabChildren="false"
+				 locationChange="onLocationChange(event)"
+				 paintsDefaultBackground="false"
+				 tabEnabled="false"/>
 
-			<s:BorderContainer width="100%" id="htmlQuestion"
-							   borderVisible="true"
-							   borderWeight="2"
-							   >
-
-				<mx:HTML id="htmlQuestionPart"
-						 width="100%"
-						 contentBackgroundAlpha="0.0" focusEnabled="false"
-						 location="{htmlQuestionSource}" tabChildren="false"
-						 tabEnabled="false"/>
-
-			</s:BorderContainer>
-			
-			<s:Spacer height="10"/>
-			<mx:LinkButton id="toggleAnsButton" 
-						   width="120" label="{toggleAnsdisplayString}" 
-						   styleName="CustomLinkButton"
-						   click="onToggleAnswerClick(event)"
-						   />
-			<s:Spacer height="10"/>
-			
-			<mx:HTML id="htmlAnswer" visible="{isAnswerVisible}" 
-					 focusEnabled="false" includeInLayout="{isAnswerVisible}"
-					 location="{htmlAnswerSource}" 
-					 height="100%"
-					 showEffect="{wipeIn}"
-					 hideEffect="{wipeOut}"
-					 width="100%"
-					 tabChildren="false" tabEnabled="false" textAlign="left"/>
-			
-		</s:VGroup>
 	</s:BorderContainer>
-	
+
 </s:Group>
