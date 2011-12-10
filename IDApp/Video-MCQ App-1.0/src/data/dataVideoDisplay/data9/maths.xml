@@ -1,6 +1,6 @@
 <Contents>
 	<Content>
-		<name>Chemical Reaction</name>
+		<name>Chemical Reaction 1</name>
 		<type>flv</type>
 		<number>1</number>
 		<barIcon>resources/b11.png</barIcon>
@@ -8,8 +8,8 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
-		<name>Chemical Reaction</name>
+	<Content>
+		<name>Chemical Reaction 2</name>
 		<type>flv</type>
 		<number>2</number>
 		<barIcon>resources/b11.png</barIcon>
@@ -17,8 +17,8 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
-		<name>Chemical Reaction</name>
+	<Content>
+		<name>Chemical Reaction 3</name>
 		<type>flv</type>
 		<number>3</number>
 		<barIcon>resources/b11.png</barIcon>
@@ -26,7 +26,7 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
+	<Content>
 		<name>Chemical Reaction</name>
 		<type>flv</type>
 		<number>4</number>
@@ -35,7 +35,7 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
+	<Content>
 		<name>Chemical Reaction</name>
 		<type>flv</type>
 		<number>5</number>
@@ -44,7 +44,7 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
+	<Content>
 		<name>Chemical Reaction</name>
 		<type>flv</type>
 		<number>6</number>
@@ -53,7 +53,7 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
+	<Content>
 		<name>Chemical Reaction</name>
 		<type>flv</type>
 		<number>7</number>
@@ -62,12 +62,30 @@
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
-		<Content>
+	<Content>
 		<name>Chemical Reaction</name>
 		<type>flv</type>
 		<number>8</number>
 		<barIcon>resources/b11.png</barIcon>
 		<relativeSrcfile>v3.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Quadratic Equations</name>
+		<type>flv</type>
+		<number>8</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v4.flv</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+		<Content>
+		<name>Linear Equations</name>
+		<type>flv</type>
+		<number>8</number>
+		<barIcon>resources/b11.png</barIcon>
+		<relativeSrcfile>v5.flv</relativeSrcfile>
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>

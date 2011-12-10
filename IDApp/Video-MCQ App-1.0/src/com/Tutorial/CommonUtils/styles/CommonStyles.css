@@ -6,9 +6,10 @@
 {
 	upArrowSkin:    ClassReference(null);
 	downArrowSkin:  ClassReference(null);
-	
+
 	thumbSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollThumbSkin");
-	trackSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollTrackSkin")
+	trackSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollTrackSkin");
+
 }
 
 .CustomLinkButton {

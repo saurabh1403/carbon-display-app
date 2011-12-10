@@ -86,7 +86,7 @@
 					case "Expanded":
 					default:
 					{
-						(this.skin as VideoPlayerOptionsPanelSkin).gradColor.entries = lightGradientColor;
+						(this.skin as VideoPlayerOptionsPanelSkin).gradColor.entries = darkGradientColor;
 						break;
 					}
 				}
@@ -148,7 +148,7 @@
 	</s:HGroup>
 	
 	<s:RichText y="{openButton.y + 14}" right="85" text="Check more options >>"
-				color="#FFFFFF" fontFamily="Arial" fontSize="15"
+				color="#FFFFFF" fontFamily="Arial" fontSize="13"
 				includeIn="Collapsed"
 				fontStyle="italic"/>
 	

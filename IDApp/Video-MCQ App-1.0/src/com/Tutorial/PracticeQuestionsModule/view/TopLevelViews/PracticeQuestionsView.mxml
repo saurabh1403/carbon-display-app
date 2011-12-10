@@ -266,7 +266,7 @@
 			  right="20"
 			  maxWidth="120"
 			  color="#000000"
-			  chromeColor="#CFC8CA"
+			  chromeColor="#AE7FC9"
 			  skinClass="com.Tutorial.CommonUtils.skin.GlossyButtonSkin"
 			  label="{((currExpandedObject as PracticeQuestionPageView).isanswerVisible) ? 'See Problems' : 'Check Answers'}"
 			  visible="{currExpandedObject != null}"

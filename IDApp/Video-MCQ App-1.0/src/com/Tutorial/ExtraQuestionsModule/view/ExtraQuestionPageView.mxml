@@ -47,11 +47,14 @@
 					   borderVisible="true"
 					   borderWeight="2"
 					   cornerRadius="8"
+					   backgroundAlpha="0"
+					   contentBackgroundAlpha="0"
 					   backgroundImageFillMode="scale"
 					   >
-
+		
 		<mx:HTML id="htmlQuestionPart"
-				 top="5" bottom="5" right="15" left="15"
+				 top="10" bottom="5" right="15" left="15"
+				 verticalScrollBarStyleName="CustomVScrollBar"
 				 contentBackgroundAlpha="0.0" focusEnabled="false"
 				 location="{htmlQuestionSource}" tabChildren="false"
 				 locationChange="onLocationChange(event)"

@@ -1,14 +1,14 @@
 <PracticeQuestions>
 	<set>
-		<TitleText>Short Answers Questions</TitleText>
+		<TitleText>Quadratic Equations</TitleText>
 		<Description>These are short answers questions</Description>
-		<htmlQues>content/set1.html</htmlQues>
-		<htmlAns>content/set1Ans.html</htmlAns>
+		<htmlQues>content/ch-1-quadratic equations-ques.html</htmlQues>
+		<htmlAns>content/ch-1-quadratic equations-ans.html</htmlAns>
 	</set>
 		<set>
-		<TitleText>Long Answers Questions</TitleText>
+		<TitleText>Real Numbers</TitleText>
 		<Description>These are Long answers questions</Description>
-		<htmlQues>content/set2.html</htmlQues>
-		<htmlAns>content/set2Ans.html</htmlAns>
+		<htmlQues>content/ch-1-real numbers-ques.html</htmlQues>
+		<htmlAns>content/ch-1-real numbers-ans.html</htmlAns>
 	</set>
 </PracticeQuestions>

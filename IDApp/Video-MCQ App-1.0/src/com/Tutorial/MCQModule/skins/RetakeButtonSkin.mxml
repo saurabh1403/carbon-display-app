@@ -113,58 +113,53 @@
     
     <!-- layer 2: fill -->
     <!--- @private -->
-    <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
-        <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0xFFFFFF" 
-                                 color.over="0xBBBDBD" 
-                                 color.down="0xAAAAAA" 
-                                 alpha="0.85" />
-                <s:GradientEntry color="0xD8D8D8" 
-                                 color.over="0x9FA0A1" 
-                                 color.down="0x929496" 
-                                 alpha="0.85" />
-            </s:LinearGradient>
-        </s:fill>
-    </s:Rect>
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#3496A3" 
+								 alpha="0.8"
+								 alpha.down="0.9" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
 
     <!-- layer 3: fill lowlight -->
     <!--- @private -->
-    <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2">
-        <s:fill>
-            <s:LinearGradient rotation="270">
-                <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
-                <s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
-                <s:GradientEntry color="0x000000" ratio="0.48001" alpha="0" />
-            </s:LinearGradient>
-        </s:fill>
-    </s:Rect>
+	<s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2" visible="true">
+		<s:fill>
+			<s:LinearGradient rotation="270">
+				<s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
+				<s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
+				<s:GradientEntry color="0x000000" ratio="0.58001" alpha="0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
     
     <!-- layer 4: fill highlight -->
     <!--- @private -->
-    <s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2">
-        <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0xFFFFFF"
-                                 ratio="0.0"
-                                 alpha="0.33" 
-                                 alpha.over="0.22" 
-                                 alpha.down="0.12"/>
-                <s:GradientEntry color="0xFFFFFF"
-                                 ratio="0.48"
-                                 alpha="0.33"
-                                 alpha.over="0.22"
-                                 alpha.down="0.12" />
-                <s:GradientEntry color="0xFFFFFF"
-                                 ratio="0.48001"
-                                 alpha="0" />
-            </s:LinearGradient>
-        </s:fill>
-    </s:Rect>
+	<s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2" visible="true">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF"
+								 ratio="0.0"
+								 alpha="0.18" 
+								 alpha.over="0.22" 
+								 alpha.down="0.12"/>
+				<s:GradientEntry color="0xFFFFFF"
+								 ratio="0.48"
+								 alpha="0.13"
+								 alpha.over="0.22"
+								 alpha.down="0.12" />
+				<s:GradientEntry color="0xFFFFFF"
+								 ratio="0.58001"
+								 alpha="0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
     
     <!-- layer 5: highlight stroke (all states except down) -->
     <!--- @private -->
-    <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" radiusX="2" excludeFrom="down">
+    <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" radiusX="2" excludeFrom="down" visible="false">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0xFFFFFF" alpha.over="0.22" />
@@ -175,7 +170,7 @@
     
     <!-- layer 6: highlight stroke (down state only) -->
     <!--- @private -->
-    <s:Rect id="hldownstroke1" left="1" right="1" top="1" bottom="1" radiusX="2" includeIn="down">
+    <s:Rect id="hldownstroke1" left="1" right="1" top="1" bottom="1" radiusX="2" includeIn="down" visible="false">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" alpha="0.25" ratio="0.0" />
@@ -187,7 +182,7 @@
         </s:stroke>
     </s:Rect>
     <!--- @private -->
-    <s:Rect id="hldownstroke2" left="2" right="2" top="2" bottom="2" radiusX="2" includeIn="down">
+    <s:Rect id="hldownstroke2" left="2" right="2" top="2" bottom="2" radiusX="2" includeIn="down" visible="false">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" alpha="0.09" ratio="0.0" />
@@ -198,7 +193,7 @@
 
     <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <!--- @private -->
-    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" visible="false">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" 
@@ -211,20 +206,25 @@
         </s:stroke>
 	</s:Rect>
 	
-	<s:HGroup left="5" right="5" top="2" bottom="2" verticalAlign="middle">
+	<s:HGroup left="5" right="5" top="5" bottom="5" verticalAlign="middle">
 		<!-- layer 8: text -->
 		<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
 		<s:Spacer width="100%"/>
+		
 		<s:Label id="labelDisplay"
 				 textAlign="center"
 				 maxDisplayedLines="1"
-				 horizontalCenter="0" verticalCenter="1" verticalAlign="middle"
-				 left="10" right="10" top="2" bottom="2">
+				 horizontalCenter="0" verticalCenter="1" verticalAlign="middle">
+
 		</s:Label>
+		
 		<s:Spacer width="100%"/>
+		
 		<s:Image source="@Embed('assets/assetsMCQModule/reload.png')"
 				 smooth="true"
+				 width="32" height="100%"
 				 smoothingQuality="high"/>
+		
 		<s:Spacer width="100%"/>
 	</s:HGroup>
 	

@@ -169,7 +169,7 @@
 					  >
 				
 				<view:ExtraQuestionPageView width="100%" focusEnabled="false"
-											mouseChildren="false" tabChildren="false"
+											tabChildren="false"
 											horizontalCenter="0"
 											maxHeight="200"
 											htmlQuestionSource="{currQues.quesSource}"
@@ -199,21 +199,22 @@
 								   backgroundAlpha="0"
 								   includeInLayout="{isAnswerVisible}"
 								   visible="{isAnswerVisible}" 
+								   contentBackgroundAlpha="0"
 								   creationPolicy="all"
 								   >
-					
+				
 					<mx:HTML 
 						id="htmlAnswer" 
-						left="5" right="5" top="5" bottom="5"
+						left="15" right="15" top="10" bottom="5"
 						focusEnabled="false" 
 						showEffect="{wipeIn}"
-						hideEffect="{wipeOut}"
 						includeInLayout="{isAnswerVisible}"
 						visible="{isAnswerVisible}" 
 						location="{currQues.ansSource}"
 						locationChange="{AnsFadeIn.play()}"
 						paintsDefaultBackground="false"
 						verticalScrollBarStyleName="CustomVScrollBar"
+						verticalScrollPosition="10"
 						tabChildren="false" tabEnabled="false"
 						textAlign="left"/>
 					
