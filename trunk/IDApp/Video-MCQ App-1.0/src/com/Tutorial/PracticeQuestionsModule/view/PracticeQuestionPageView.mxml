@@ -10,11 +10,9 @@
 		 contentBackgroundAlpha="0"
 		 stateChangeComplete="onStateChange(event)">
 
-<!--	<fx:Style source="com/Tutorial/CommonUtil/styles/CommonStyles.css">
-		@namespace s "library://ns.adobe.com/flex/spark";
-		@namespace mx "library://ns.adobe.com/flex/mx";
+	<fx:Style source="com/Tutorial/CommonUtils/styles/CommonStyles.css">
 		
-	</fx:Style>-->
+	</fx:Style>
 
 	<fx:Metadata>
 		[Event(name="itemClicked", type="flash.events.Event")]
@@ -143,8 +141,11 @@
 				 showEffect="{fadeEffectIn}"
 				 top="5"
 				 right="10"
+				 horizontalScrollPolicy="auto"
 				 left="10"
 				 bottom="5"
+				 horizontalScrollBarStyleName="CustomVScrollBar"
+				 verticalScrollBarStyleName="CustomVScrollBar"
 				 location="{quesHtml}" tabChildren="false"
 				 tabEnabled="false"/>
 		
@@ -154,12 +155,14 @@
 				 hideEffect="{fadeEffectOut}"
 				 top="5"
 				 right="10"
+				 horizontalScrollPolicy="auto"
+				 horizontalScrollBarStyleName="CustomVScrollBar"
+				 verticalScrollBarStyleName="CustomVScrollBar"
 				 left="10"
 				 bottom="5"
 				 includeIn="Enlarged"
 				 location="{ansHtml}" mouseChildren="false"
 				 layoutDirection="ltr"
 				 tabChildren="false" tabEnabled="false" textAlign="left"/>
-		
 	
 </s:BorderContainer>

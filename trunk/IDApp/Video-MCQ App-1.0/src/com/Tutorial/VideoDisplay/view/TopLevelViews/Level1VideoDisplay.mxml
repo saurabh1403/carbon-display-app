@@ -35,7 +35,22 @@
 		
 
 	</fx:Declarations>
-	
+
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace view "com.Tutorial.VideoDisplay.view.*";
+		
+		s|List s|VScrollBar
+		{
+			upArrowSkin:    ClassReference(null);
+			downArrowSkin:  ClassReference(null);
+			
+			thumbSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollThumbSkin");
+			trackSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollTrackSkin");
+			
+		}
+	</fx:Style>
 	
 	<fx:Script>
 		<![CDATA[
@@ -298,12 +313,29 @@
 		<s:State name="FullScreenState" />
 	</s:states>
 	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace view "com.Tutorial.VideoDisplay.view.*";
+		
+		s|List s|VScrollBar
+		{
+			upArrowSkin:    ClassReference(null);
+			downArrowSkin:  ClassReference(null);
+			
+			thumbSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollThumbSkin");
+			trackSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollTrackSkin");
+			
+		}
+		
+	</fx:Style>
+
 	<s:backgroundFill>
 		
 		<s:LinearGradient rotation="90">
 			<s:GradientEntry color="#FFFFFF"
 							 ratio="0.94"/>
-			<s:GradientEntry color="#2E2D2D"
+			<s:GradientEntry color="#FFFFFF"
 							 ratio="1.0"/>
 		</s:LinearGradient>
 	</s:backgroundFill>
@@ -354,13 +386,13 @@
 	<!--Learn more expansion list-->
 	<view:LearnMoreItemsList id="learnMoreList" visible="false" includeInLayout="false"/>
 	
-	<s:BorderContainer id="bgList" right="10" width="20%" minWidth="80" maxWidth="210"
+	<s:BorderContainer id="bgList" right="10" width="20%" minWidth="80" maxWidth="310"
 					   borderVisible="true" borderWeight="1"
 					   borderColor="0x1B2B32"
 					   right.FullScreenState="30" top.FullScreenState="40"
 					   bottom.FullScreenState="120" rollOutEffect.FullScreenState="{fadeOutEffect}"
 					   rollOverEffect.FullScreenState="{fadeInEffect}"
-					   top.StandardScreenState="{vid.y + 10}" bottom.StandardScreenState="30"
+					   top.StandardScreenState="{vid.y + 10}" height.StandardScreenState="95%"
 					   backgroundAlpha="1.0"
 					   contentBackgroundAlpha="1.0"
 					   >
@@ -368,8 +400,8 @@
 		<s:backgroundFill>
 			<!-- 0 rotation creates left to right gradient -->
 			<s:LinearGradient rotation="90" id="bgColor"  >
-				<s:GradientEntry color="#2a2a2a"/>
-				<s:GradientEntry color="#363232"/>
+				<s:GradientEntry color="#FFFFFF"/>
+				<s:GradientEntry color="#FFFFFF"/>
 			</s:LinearGradient>
 		</s:backgroundFill>
 		
@@ -377,19 +409,18 @@
 			<s:VerticalLayout/>
 		</s:layout>
 		
-		<!--		<s:Label text="vid.y : {vid.y}"/>
-		<s:Label text="vg width: {vg.width}"/>
-		<s:Label text="option width: {VideoOptionPanel.width}"/>
-		-->		
 		<s:List id="subTopicsList" width="100%" height="100%" focusEnabled="false"
 				allowMultipleSelection="false"
 				tabFocusEnabled="false"
 				itemRenderer="com.Tutorial.VideoDisplay.view.VideoListItemRenderer"
 				dataProvider="{videoItemsList}"
 				change="videoItemSelected(event)"
+				skinClass="com.Tutorial.CommonUtils.skin.CustomListWithCustomScroller"
+				horizontalScrollPolicy="off"
+				verticalScrollPolicy="auto"
 				contentBackgroundAlpha="0"
 				>
-			
+
 		</s:List>
 	</s:BorderContainer>
 	
