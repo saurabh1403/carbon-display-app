@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+		   xmlns:s="library://ns.adobe.com/flex/spark"
+		   xmlns:mx="library://ns.adobe.com/flex/mx"
+		   hideEffect="Fade"
+		   creationCompleteEffect="Fade"
+		   backgroundAlpha="0.0">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		.customTitle
+		{
+			fontSize: 20;
+			color: #0A0A0A
+		}
+		
+		.customText
+		{
+			fontSize: 16;
+			color: #474546;
+				
+		}
+		
+	</fx:Style>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+			
+			import mx.managers.PopUpManager;
+			
+			[Bindable]
+			private var isSpinnerOn:Boolean = false;
+			
+			private const facebookFollowLink:String = "<a href='http://www.facebook.com/gurukulclass'>facebook</a>";
+			
+			private const twitterFollowLink:String = "<a href='http://twitter.com/#GurukulClasses'>Twitter</a>";
+			
+			protected function onCloseClick(event:MouseEvent):void
+			{
+				PopUpManager.removePopUp(this);	
+				
+			}
+			
+			protected function onSendButtonClick(event:MouseEvent):void
+			{
+				event.stopPropagation();
+				
+				isSpinnerOn  =true;
+			}
+			
+			protected function sendMailToFriend():void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:BorderContainer 
+		width="100%" height="100%"
+		top="15" right="15" left="15" bottom="15"
+		borderVisible="true" 
+		borderWeight="5"
+		cornerRadius="7"
+		borderColor="#8A516D"
+		backgroundColor="#FFFCFE">
+		
+		<s:VGroup width="90%" height="100%" 
+				  horizontalCenter="0"
+				  verticalCenter="0"
+				  verticalAlign="top">
+			
+			<s:Spacer height="30"/>
+			
+			<s:RichText horizontalCenter="0" text="Contact Us"
+						color="#0A0A0A" fontFamily="Verdana"
+						textAlign="center"
+						fontSize="34"/>
+			
+	
+			<s:HGroup width="90%" height="80%" verticalCenter="0" horizontalCenter="0"
+					  horizontalAlign="left" verticalAlign="contentJustify">
+				
+				<s:Spacer width="20"/>
+				<s:Image width="100" height="95" smooth="true"
+						 smoothingQuality="high"
+						 source="@Embed('assets/assetsCommon/contactus.png')"/>
+				
+				<s:Spacer width="30"/>
+				
+				<s:VGroup width="100%" height="100%" verticalAlign="middle"
+						  top="30" left="20" right="20" bottom="20">
+					
+					<s:Spacer height="100%"/>
+					
+					<s:RichText text="Email"
+								styleName="customTitle"/>
+					<s:Spacer height="3"/>
+					<s:RichEditableText text="manishkarangc@gmail.com, hemantkaran@gmail.com"
+										selectable="true"
+										editable="false"
+								styleName="customText"/>
+					
+					<s:Spacer height="15"/>
+					<s:RichText text="Mobile"
+								styleName="customTitle"
+								/>
+					<s:Spacer height="3"/>
+					<s:RichText text="91-9313991481, 91-7503123004"
+								styleName="customText"/>
+					
+					<s:Spacer height="15"/>
+					<s:RichText text="Follow Us on"
+								styleName="customTitle"
+								/>
+					<s:Spacer height="3"/>
+					<s:HGroup>
+						
+					<s:RichEditableText textFlow="{TextConverter.importToFlow(facebookFollowLink,TextConverter.TEXT_FIELD_HTML_FORMAT)}"
+										styleName="customText"
+										editable="false"
+										selectable="false"
+										/>
+						<s:Spacer width="5"/>
+					<s:RichEditableText textFlow="{TextConverter.importToFlow(twitterFollowLink,TextConverter.TEXT_FIELD_HTML_FORMAT)}"
+										styleName="customText"
+										editable="false"
+										selectable="false"
+										/>
+
+					</s:HGroup>
+					
+					<s:Spacer height="100%"/>
+					<s:Spacer height="40%"/>
+				</s:VGroup>
+				
+			</s:HGroup>
+		</s:VGroup>
+		
+	</s:BorderContainer>
+	<s:Image right="0" top="0" width="30" height="30"
+			 smooth="true"
+			 smoothingQuality="high"
+			 useHandCursor="true"
+			 buttonMode="true"
+			 source="@Embed('assets/assetsVideoDisplay/close_button.png')"
+			 mouseChildren="false"
+			 click="onCloseClick(event)"
+			 />
+	
+</mx:Canvas>

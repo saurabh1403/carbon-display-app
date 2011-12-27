@@ -33,6 +33,7 @@
 			import mx.core.mx_internal;
 			import mx.effects.easing.*;
 			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
 			
 			import org.osmf.events.MediaPlayerStateChangeEvent;
 			import org.osmf.media.MediaPlayerState;
@@ -44,6 +45,7 @@
 			import spark.components.VideoPlayer;
 			
 			import view.InitialWelcomeScreen;
+			import view.components.ContactUsOverlay;
 			
 			private const _aspectRatio:Number = 1.4;
 			
@@ -73,8 +75,8 @@
 				MCQConstants.appWidth = nativeWindow.width;
 				MCQConstants.appHeight = nativeWindow.height;
 				
-				
 				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("HomebuttonClicked", showHomeScreen, false, 0, true);
+				((this.skin as ModifiedWindowSkin).titleBar.skin as ModifiedTitleBarSkin).addEventListener("ContactUsClicked", showContactUs, false, 0, true);
 				showHomeScreen(null);
 				
 				
@@ -238,6 +240,16 @@
 						break;
 					}
 				}
+			}
+
+			protected function showContactUs(event:Event):void
+			{
+				var newPopUp:ContactUsOverlay = new ContactUsOverlay;
+				newPopUp.width = this.width * 0.6;
+				newPopUp.height = this.height * 0.5;
+				PopUpManager.addPopUp(newPopUp, this);
+				PopUpManager.centerPopUp(newPopUp);
+
 			}
 			
 		]]>
