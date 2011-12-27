@@ -1,0 +1,92 @@
+<Contents>
+	<Content>
+		<name>Chemical Reactions</name>
+		<type>flv</type>
+		<number>1</number>
+		<icon>s1.jpg</icon>
+		<relativeSrcfile>science/v1.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Chemical Equations</name>
+		<type>flv</type>
+		<number>2</number>
+		<icon>s2.jpg</icon>
+		<relativeSrcfile>science/v2.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Acids, Bases and Salts</name>
+		<type>flv</type>
+		<number>3</number>
+		<icon>s3.jpg</icon>
+		<relativeSrcfile>science/v3.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Life Processes</name>
+		<type>flv</type>
+		<number>4</number>
+		<icon>s1.jpg</icon>
+		<relativeSrcfile>science/v4.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Nutrition</name>
+		<type>flv</type>
+		<number>5</number>
+		<icon>s2.jpg</icon>
+		<relativeSrcfile>science/v5.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Life Processes</name>
+		<type>flv</type>
+		<number>6</number>
+		<icon>s3.jpg</icon>
+		<relativeSrcfile>science/v6.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Digestion</name>
+		<type>flv</type>
+		<number>7</number>
+		<icon>s1.jpg</icon>
+		<relativeSrcfile>science/v7.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Electricity</name>
+		<type>flv</type>
+		<number>8</number>
+		<icon>s1.jpg</icon>
+		<relativeSrcfile>science/v8.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>Electricity</name>
+		<type>flv</type>
+		<number>8</number>
+		<icon>s2.jpg</icon>
+		<relativeSrcfile>science/v9.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+	<Content>
+		<name>magentic effects of current</name>
+		<type>flv</type>
+		<number>8</number>
+		<icon>s3.jpg</icon>
+		<relativeSrcfile>science/v10.mp4</relativeSrcfile>
+		<duration>0:12</duration>
+		<keywords>chemical change;chemical reaction</keywords>
+	</Content>
+</Contents>
