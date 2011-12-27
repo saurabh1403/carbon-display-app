@@ -38,6 +38,8 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 		[HostComponent("spark.components.windowClasses.TitleBar")]
 	</fx:Metadata> 
 	
+	<fx:Style source="com/Tutorial/CommonUtils/Styles/CommonStyles.css"/>
+	
 	<fx:Script fb:purpose="styling">
 		/*  Define the skin elements that should not be colorized. 
 		*  Exclude the titleBar and scroller because they are SparkSkins and we 
@@ -160,8 +162,14 @@ and set the <code>skinClass</code> style to spark.skins.spark.SparkChromeWindowe
 				  mouseChildren="false"
 				  click="dispatchEvent(new Event('HomebuttonClicked'))"
 				  />
-
 		
+		<s:Spacer width="15"/>
+		
+		<mx:LinkButton label="Contact Us" width="110" height="60%"
+					   styleName="ContactUsLinkButton"
+					   click="{dispatchEvent(new Event('ContactUsClicked'))}"
+					   />
+
 		<s:Spacer width="35"/>
 		<!-- minimize button --> 
 		<!--- 
