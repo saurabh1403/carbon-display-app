@@ -4,12 +4,12 @@
 		<type>flv</type>
 		<number>1</number>
 		<barIcon>resources/b11.png</barIcon>
-		<relativeSrcfile>v1.mp4</relativeSrcfile>
+		<relativeSrcfile>v3.flv</relativeSrcfile>
 		<duration>0:12</duration>
 		<keywords>chemical change;chemical reaction</keywords>
 	</Content>
 	<Content>
-		<name>Chemical Reaction 2</name>
+		<name>Physical Reactions</name>
 		<type>flv</type>
 		<number>2</number>
 		<barIcon>resources/b11.png</barIcon>

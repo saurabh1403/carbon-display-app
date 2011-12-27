@@ -71,26 +71,27 @@
 			
 			protected function onSubjectSelection(event:GenericEvent):void
 			{
+				var _dataParser:DataParser = null;
 				switch(event.eventData.subjectName)
 				{
 					case "maths":
+						_dataParser = new DataParser(VideoPlayConstants.testBaseFolderPath, VideoPlayConstants.relativeMathsXmlPath, VideoPlayConstants.relativeContentPath, VideoPlayConstants.relativeResourcePath);
+						break;
+
 					case "science":
-						var _dataParser:DataParser = new DataParser(VideoPlayConstants.testBaseFolderPath, VideoPlayConstants.relativeMathsXmlPath, VideoPlayConstants.relativeContentPath, VideoPlayConstants.relativeResourcePath);
-						var dataArrayColl:ArrayCollection = new ArrayCollection;
-						if(!_dataParser.populateDataEntityFromXml(dataArrayColl))
-						{
-							Alert.show("Error in parsing xml. Reinstall the application");
-						}
-						else
-						{
-							showVideoScreen(dataArrayColl);
-						}
-						break;
-					
-					
-					
-					default:
-						break;
+						_dataParser = new DataParser(VideoPlayConstants.testBaseFolderPath, VideoPlayConstants.relativeScienceXmlPath, VideoPlayConstants.relativeContentPath, VideoPlayConstants.relativeResourcePath);
+						default:
+							break;
+				}
+				
+				var dataArrayColl:ArrayCollection = new ArrayCollection;
+				if(!_dataParser.populateDataEntityFromXml(dataArrayColl))
+				{
+					Alert.show("Error in parsing xml. Reinstall the application");
+				}
+				else
+				{
+					showVideoScreen(dataArrayColl);
 				}
 			}
 			

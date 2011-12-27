@@ -14,12 +14,11 @@ package com.Tutorial.VideoDisplay.model
 		static public const subjectSelectionEvent:String = "subjectSelectionEvent";
 			
 		static public const OSSlash:String = "/";
-		static public var testBaseFolderPath:String = "data/dataVideoDisplay/data9/";
+		static public var testBaseFolderPath:String = "data/dataVideoDisplay/data10/";
 		static public var relativeContentPath:String = "content/";
 		static public var relativeResourcePath:String = "resources/";
 		static public var relativeMathsXmlPath:String = "maths.xml";
 		static public var relativeScienceXmlPath:String = "science.xml";
-		
 		
 	}
 }
