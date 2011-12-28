@@ -8,7 +8,7 @@
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   xmlns:view="com.Tutorial.VideoDisplay.view.*" 
 					   xmlns:TopLevelViews="com.Tutorial.VideoDisplay.view.TopLevelViews.*" xmlns:view1="view.*">
-
+	
 	<fx:Script>
 		<![CDATA[
 			import Event.PackageSelectEvent;
