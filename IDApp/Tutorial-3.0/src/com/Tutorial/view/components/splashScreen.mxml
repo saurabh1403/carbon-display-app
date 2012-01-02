@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			[Embed(source="assets/assetsCommon/backgroundImage.jpg")]
+			private const bgImage:Class;
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<mx:Canvas width="100%" height="100%" id="myCan">
+		<s:Image source="@Embed('assets/assetsCommon/backgroundImage.jpg')"
+				 width="100%" height="100%"
+				 scaleMode="stretch"
+				 smooth="true"
+				 includeInLayout="false"
+				 />
+		
+		<s:VGroup width="100%" height="100%">
+			<s:Spacer height="70%"/>
+			
+			<s:HGroup width="100%">
+				<s:Spacer width="10%"/>
+				<mx:ProgressBar width="80%" indeterminate="true" height="10"
+								label="Loading..." color="white"
+								trackHeight="24"/>
+				<s:Spacer width="10%"/>
+			</s:HGroup>
+			
+			<s:Spacer height="30%"/>
+		</s:VGroup>
+				
+	</mx:Canvas>
+	
+</s:Group>

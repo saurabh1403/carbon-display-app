@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   creationComplete="onApplicationCreationComplete(event)" 
+					   showStatusBar="false"
+					   skinClass="com.Tutorial.skins.skinsWindow.ModifiedWindowSkin"
+					   xmlns:components="com.Tutorial.view.components.*"
+					   width="400" height="600"
+					   >
+	<fx:Script>
+		<![CDATA[
+			import com.Tutorial.ApplicationFacade;
+			import com.Tutorial.business.TutConstants;
+			import com.Tutorial.controller.ApplicationStartupCommand;
+			import com.Tutorial.skins.skinsWindow.ModifiedWindowSkin;
+			import com.Tutorial.view.ApplicationMediator;
+			import com.Tutorial.view.components.splashScreen;
+			
+			import mx.events.FlexEvent;
+			
+			public static var _facade:ApplicationFacade = null;
+			
+			public static var _appInstance:TutorialApplication;
+			
+			protected function setSplashScreenDimensions():void
+			{
+				var thisHeight:int = Capabilities.screenResolutionY *0.5;
+				var thisWidth:int = thisHeight * 1.5;
+				
+				nativeWindow.width = thisWidth;
+				nativeWindow.height = thisHeight;
+				
+				nativeWindow.x = (Capabilities.screenResolutionX - nativeWindow.width) / 2;
+				nativeWindow.y = (Capabilities.screenResolutionY - nativeWindow.height) / 2 - 20;
+				
+				(this.skin as ModifiedWindowSkin).isTitleVisible = false;
+
+			}
+			
+			protected function showSplashScreen():void
+			{
+				setSplashScreenDimensions();
+				
+				//in the very beginning, show the splash screen
+				var newSplashScreen:splashScreen = new splashScreen;
+				appMainDisplay.removeAllElements();
+				appMainDisplay.addElement(newSplashScreen);
+
+			}
+			
+			protected function onApplicationCreationComplete(event:FlexEvent):void
+			{
+				_appInstance = this;
+				
+				showSplashScreen();
+				
+				initializePureMVCControls();
+				
+			}
+			
+			private function initializePureMVCControls():void
+			{
+				
+				_facade = new ApplicationFacade();
+				
+				//register the main application mediator
+				_facade.registerMediator(new ApplicationMediator(this));
+				
+				//register the very initial command
+				_facade.registerCommand(TutConstants.COMMAND_APP_STARTUP, ApplicationStartupCommand);
+				_facade.sendNotification(TutConstants.COMMAND_APP_STARTUP, this);
+
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<components:mainDynamicContent id="appMainDisplay" width="100%" height="100%"/>
+	
+</s:WindowedApplication>
