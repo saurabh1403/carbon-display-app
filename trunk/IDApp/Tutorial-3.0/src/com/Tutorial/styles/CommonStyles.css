@@ -1,0 +1,41 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+/*
+.CustomVScrollBar
+{
+	upArrowSkin:    ClassReference(null);
+	downArrowSkin:  ClassReference(null);
+
+	thumbSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollThumbSkin");
+	trackSkin: ClassReference("com.Tutorial.CommonUtils.skin.CustomVScrollTrackSkin");
+
+}*/
+
+.CustomLinkButton {
+	cornerRadius: 13;
+	rollOverColor: #6c706c;
+	selectionColor: #5c594c;
+	color: #2C8A2C;
+	textRollOverColor: #eaf756;
+	textSelectedColor: #f6d747;
+	backgroundColor: #575253;
+	backgroundAlpha: 0.9;
+	fontFamily: 'Trebuchet MS';
+	fontSize: 13;
+	
+}
+
+.ContactUsLinkButton {
+	cornerRadius: 13;
+	rollOverColor: #979997;
+	selectionColor: #757266;
+	color: #F5FAF5;
+	textRollOverColor: #eaf756;
+	textSelectedColor: #f6d747;
+	backgroundColor: #575253;
+	backgroundAlpha: 0.9;
+	fontFamily: 'Trebuchet MS';
+	fontSize: 13;
+	
+}
