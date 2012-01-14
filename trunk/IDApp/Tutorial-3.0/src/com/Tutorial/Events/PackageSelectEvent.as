@@ -1,5 +1,7 @@
 package com.Tutorial.Events
 {
+	import com.Tutorial.model.data.Package;
+	
 	import flash.display.InteractiveObject;
 	import flash.events.MouseEvent;
 	
@@ -7,7 +9,7 @@ package com.Tutorial.Events
 	{
 		public static const eventName:String = "PackageSelectionEvent";
 		
-		public var pkg_id:String = "";
+		public var currPkg:Package = null;
 
 		public function PackageSelectEvent(type:String, bubbles:Boolean=true, cancelable:Boolean=false, localX:Number=NaN, localY:Number=NaN, relatedObject:InteractiveObject=null, ctrlKey:Boolean=false, altKey:Boolean=false, shiftKey:Boolean=false, buttonDown:Boolean=false, delta:int=0, commandKey:Boolean=false, controlKey:Boolean=false, clickCount:int=0)
 		{

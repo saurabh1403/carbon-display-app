@@ -1,6 +1,7 @@
 package com.Tutorial.business
 {
 	import com.Tutorial.ApplicationFacade;
+	import com.Tutorial.model.vo.MessageObject;
 	
 	import flash.desktop.NativeProcess;
 	import flash.desktop.NativeProcessStartupInfo;
@@ -30,7 +31,6 @@ package com.Tutorial.business
 		
 		//private static var nativeProcess:NativeProcess;
 		private static var nativeProcess:Object;
-		
 		
 		public function NativeCommunicator()
 		{
@@ -172,7 +172,8 @@ s								ApplicationFacade.getInstance().sendNotification(TutConstants.HIDE_SPIN
 				//Alert.show("Error with the output data received from the native binary....");
 			}*/
 //		}
-		/*private static function sendDataToNative(msgobj:MsgObj):void
+		
+		public static function sendDataToNative(msgobj:MessageObject):void
 		{
 			var xml:XML = new XML(<message/>);
 			xml.callIdentifier = msgobj.callIdentifier;
@@ -182,33 +183,10 @@ s								ApplicationFacade.getInstance().sendNotification(TutConstants.HIDE_SPIN
 			xml.targetobject = msgobj.targetobject;
 			xml.appendChild(msgobj.argumentXml);
 			
-			/*switch(msgobj.targetobject)
-			{
-			case "getAvailablePackages":
-			{
-			Tutorial._appInstance.addEventListener("getAvailablePackages", getAvailablePackagesReceivedHandler);
-			break;
-			}
-			case "startPackageSession":
-			{
-			Tutorial._appInstance.addEventListener("startPackageSession", startPackageSessionReceivedHandler);
-			break;
-			}
-			case "getPackageSessionData":
-			{
-			Tutorial._appInstance.addEventListener("getPackageSessionData", getPackageSessionDataReceivedHandler);
-			break;
-			}
-			}*/
-			
-			//var len:int = xml.toXMLString().length;
-//			nativeProcess.standardInput.endian = Endian.LITTLE_ENDIAN;
-//			//				process.standardInput.writeUnsignedInt(len);
-//			//				sendLen.text  = process.standardInput.endian;
-//			
-//			nativeProcess.standardInput.writeUTF(xml.toXMLString());
-//		}*/
-//		
+			nativeProcess.standardInput.endian = Endian.LITTLE_ENDIAN;
+			nativeProcess.standardInput.writeUTF(xml.toXMLString());
+		}
+		
 		
 		/*public function getAllPackageData():Boolean
 		{	

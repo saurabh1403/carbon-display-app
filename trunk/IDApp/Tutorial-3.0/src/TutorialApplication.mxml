@@ -5,6 +5,7 @@
 					   creationComplete="onApplicationCreationComplete(event)" 
 					   showStatusBar="false"
 					   skinClass="com.Tutorial.skins.skinsWindow.ModifiedWindowSkin"
+					   close="onApplicationClose(event)"
 					   xmlns:components="com.Tutorial.view.components.*"
 					   width="400" height="600"
 					   >
@@ -12,12 +13,15 @@
 		<![CDATA[
 			import com.Tutorial.ApplicationFacade;
 			import com.Tutorial.business.TutConstants;
+			import com.Tutorial.controller.ApplicationQuitCommand;
 			import com.Tutorial.controller.ApplicationStartupCommand;
 			import com.Tutorial.skins.skinsWindow.ModifiedWindowSkin;
 			import com.Tutorial.view.ApplicationMediator;
 			import com.Tutorial.view.components.splashScreen;
 			
 			import mx.events.FlexEvent;
+			
+			import org.puremvc.Tutorial.patterns.facade.Facade;
 			
 			public static var _facade:ApplicationFacade = null;
 			
@@ -61,17 +65,24 @@
 			
 			private function initializePureMVCControls():void
 			{
-				
 				_facade = new ApplicationFacade();
 				
 				//register the main application mediator
-				_facade.registerMediator(new ApplicationMediator(this));
+				_facade.registerMediator(new ApplicationMediator(this.appMainDisplay));
 				
 				//register the very initial command
 				_facade.registerCommand(TutConstants.COMMAND_APP_STARTUP, ApplicationStartupCommand);
+				_facade.registerCommand(TutConstants.COMMAND_APP_QUIT, ApplicationQuitCommand);
 				_facade.sendNotification(TutConstants.COMMAND_APP_STARTUP, this);
-
 				
+			}
+			
+			protected function onApplicationClose(event:Event):void
+			{
+				var _facade:Facade = ApplicationFacade.getInstance();
+
+				_facade.sendNotification(TutConstants.COMMAND_APP_QUIT);
+				_facade.removeMediator(ApplicationMediator.NAME);
 			}
 			
 		]]>

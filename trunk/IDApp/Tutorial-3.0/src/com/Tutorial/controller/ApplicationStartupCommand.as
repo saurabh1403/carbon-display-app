@@ -1,7 +1,11 @@
 package com.Tutorial.controller
 {
+	import com.Tutorial.Modules.MCQ.controller.MCQWorkflowManagerCommand;
 	import com.Tutorial.business.NativeCommunicator;
 	import com.Tutorial.business.TutConstants;
+	import com.Tutorial.controller.PackageSessionRelated.CallAppropriatePackageModuleCommand;
+	import com.Tutorial.controller.PackageSessionRelated.RetrievePackageSessionDataCommand;
+	import com.Tutorial.controller.PackageSessionRelated.ShowPackageSessionScreenCommand;
 	import com.Tutorial.model.proxies.AppSessionProxy;
 	import com.Tutorial.model.vo.GenericErrorVo;
 	
@@ -26,6 +30,8 @@ package com.Tutorial.controller
 			super.execute(notification);
 			
 			registerCommands();
+			
+			registerModuleCommands();
 			registerProxies();
 			
 			if(!NativeCommunicator.initiateNativeProcess())
@@ -39,6 +45,17 @@ package com.Tutorial.controller
 			timer = new Timer(10000);
 			timer.addEventListener(TimerEvent.TIMER, checkLaunchOfNativeProcess, false, 0, true);
 			timer.start();
+			
+		}
+		
+		private function registerModuleCommands():void
+		{
+			//TODO: do it for other modules also
+			
+			//MCQ module related
+			facade.registerCommand(TutConstants.moduleIdentifierMap.MCQ + TutConstants.RenderModuleScreen, MCQWorkflowManagerCommand);
+			facade.registerCommand(TutConstants.moduleIdentifierMap["MCQ"] + TutConstants.handleNativeDataForModule, MCQWorkflowManagerCommand);
+			facade.registerCommand(TutConstants.moduleIdentifierMap["MCQ"] + TutConstants.PopulateModuleDataFromModuleXml, MCQWorkflowManagerCommand);
 			
 		}
 		
@@ -57,14 +74,27 @@ package com.Tutorial.controller
 		{
 			
 			facade.registerCommand(TutConstants.NativeDataRecievedNotification, HandleNativeDataCommand);
+			facade.registerCommand(TutConstants.FetchAllAvailablePackagesNotification, GetAvailablePakcagesCommand);
+			facade.registerCommand(TutConstants.HandleErrorNotification, ErrorHandlerCommand);
+
+			facade.registerCommand(TutConstants.ShowDashBoardScreenNotification, ShowDashboardScreenCommand);
+			facade.registerCommand(TutConstants.DisposeDashBoardMediatorScreenNotification, DisposeDashboardScreen);
+
+			facade.registerCommand(TutConstants.StartPackageSessionNotification, RetrievePackageSessionDataCommand);
+			facade.registerCommand(TutConstants.PackageSessionStartedNotification, RetrievePackageSessionDataCommand);
+
+			facade.registerCommand(TutConstants.ShowPackageSessionScreenNotification, ShowPackageSessionScreenCommand);
 			
+			facade.registerCommand(TutConstants.CallAppropriatePackageModuleNotification, CallAppropriatePackageModuleCommand);
+
+			facade.registerCommand(TutConstants.PackageSessionClosedNotification, ApplicationQuitCommand);
+
 			facade.registerCommand(TutConstants.NativeProcessLaunchedNotification, WorkflowManagerCommand);
 			facade.registerCommand(TutConstants.AvailablePkgDataReceivedNotification, WorkflowManagerCommand);
 			facade.registerCommand(TutConstants.PackageStartClickedNotification, WorkflowManagerCommand);
-			facade.registerCommand(TutConstants.PackageDataReceievdNotification, WorkflowManagerCommand);
+			facade.registerCommand(TutConstants.PackageSessionDataReceivedNotification, WorkflowManagerCommand);
 			facade.registerCommand(TutConstants.NavigationObjectClickedNotification, WorkflowManagerCommand);
 			facade.registerCommand(TutConstants.HomeButtonClickedNotification, WorkflowManagerCommand);
-			facade.registerCommand(TutConstants.ApplicationQuitNotification, WorkflowManagerCommand);
 			
 		}
 		
