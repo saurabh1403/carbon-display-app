@@ -1,5 +1,7 @@
 package com.Tutorial.business
 {
+	import flash.utils.Dictionary;
+
 	public class TutConstants
 	{
 		public static const WINDOWWIDTH:Number = 800;
@@ -8,21 +10,78 @@ package com.Tutorial.business
 		
 		//******************new life constants**************************//
 		public static const COMMAND_APP_STARTUP:String = "ApplicationStartSignal";
+		public static const COMMAND_APP_QUIT:String = "ApplicationQuitSignal";
 		public static const NativeDataRecievedNotification:String = "nativeDataReceivedSignal";
+		public static const FetchAllAvailablePackagesNotification:String = "fetchAvailablePkgsSignal";
+		
+		//dash board screen related
+		public static const ShowDashBoardScreenNotification:String = "showDashboardSignal";
+		public static const populateDashBoardScreenNotification:String = "populateDashboardScreen";
+		public static const DisposeDashBoardScreenNotification:String = "disposeDashboardScreen";
+		public static const DisposeDashBoardMediatorScreenNotification:String = "disposeDashboardMediator";
+		
+		
+		//package session related
+		public static const StartPackageSessionNotification:String = "startPackageSessionSignal";
+		public static const PackageSessionStartedNotification:String = "packageSessionStartedSignal";
+		public static const RetrievePackageSessionDataNotification:String = "getPackageSessionDataSignal";		//not  needed
+		public static const PackageSessionDataReceivedNotification:String = "packageSessionDataReceievdSignal";
+		
+		
+		//package session screen related
+		public static const ShowPackageSessionScreenNotification:String = "showPackageScreenSignal";
+		public static const PopulatePackageSessionScreenNotification:String = "populatePackageScreenSignal";
+		public static const PopulateNavigationPanelNotification:String = "populateNavigationPanelSignal";
+		public static const DisposePackageSessionScreenNotification:String = "disposePackageScreenSignal";
+		public static const AddScreenToPackageModuleScreenNotification:String = "addScreenToPackageModuleScreenSignal";
+		
+
+		//main application screen related
+		public static const AddScreenToMainDisplayNotification:String = "addScreenToMainDisplay";
+		public static const PackageSessionClosedNotification:String = "packageSessionCloseSignal";
+		
+		//generic utils related
+		public static const CallAppropriatePackageModuleNotification:String = "CallAppropriateModuleSignal";
 		
 		
 		//workflow manager related commands
 		public static const NativeProcessLaunchedNotification:String = "nativeProcessLaunchSignal";
 		public static const AvailablePkgDataReceivedNotification:String = "allPkgDataReceivedSignal";
 		public static const PackageStartClickedNotification:String = "pkgStartClickedSignal";
-		public static const PackageDataReceievdNotification:String = "pkgDataReceivedSignal";
 		public static const NavigationObjectClickedNotification:String = "navigationObjectClickedSignal";		//when an object is clicked on the navigation panel
 		public static const HomeButtonClickedNotification:String = "homeButtonClickedSignal";
-		public static const ApplicationQuitNotification:String = "appQuitSignal";
 		
 		
 		//error handling related
 		public static const HandleErrorNotification:String = "handleErrorSignal";
+		
+		
+		//******************Events name************************************
+		public static const packageStartedEventName:String = "newPackageStarted";
+		
+		
+		//*****************package modules related constants*******************
+		
+		public static const moduleIdentifierMap:Object = {Explanation:"Explanation", 
+			NCERTSol:"NCERTSolution", 
+			MCQ:"MCQ", 
+			ExtraQues:"ExtraQuestions",
+			PracticeQues:"PracticeQuestions"};
+		
+		public static const InitModule:String = "initModuleDataSignal";
+		public static const PopulateModuleDataFromModuleXml:String = "populateModuleDataSignal";
+		public static const RenderModuleScreen:String = "renderModuleScreenSignal";
+		public static const handleNativeDataForModule:String = "handleModuleRelatedNativeDataSignal";
+		
+		
+		
+		//*****************native call methods constants********************
+		public static const GET_AVAILABLE_PKG_METHOD:String = "getAvailablePackages";
+		public static const START_PACKAGE_SESSION_METHOD:String = "startPackageSession";
+		public static const GET_PACKAGE_SESSION_DATA_METHOD:String = "getPackageSessionData";
+		public static const CLOSE_PACKAGE_SESSION:String = "closePackageSession";
+		public static const CLOSE_IDAPP_SESSION:String = "closeIDAppSession";
+		
 		
 		//***************************************************************
 		

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DataGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300"	
+			 xmlns:accordionLayout = "imports.Accordion3D.com.rialvalue.layouts.*"
+			 xmlns:accordion = "imports.Accordion3D.*"
+			 filters="{[dropShadow]}"
+			 >
+	<fx:Declarations>
+		<s:DropShadowFilter id="dropShadow"
+							color="0x666666"
+							alpha="0.8"
+							distance="6"
+							blurX="8"
+							blurY="8"
+							angle="45"/>
+	</fx:Declarations>
+	
+	<s:itemRenderer>
+		<fx:Component>
+			<s:ItemRenderer>
+				<fx:Script>
+					<![CDATA[
+						import com.Tutorial.Events.PackageSelectEvent;
+						import com.Tutorial.model.data.Package;
+						
+						import mx.controls.Alert;
+						
+						protected function graphic2_clickHandler(event:MouseEvent):void
+						{
+							var tmpEvent:PackageSelectEvent = new PackageSelectEvent(PackageSelectEvent.eventName, true);
+							tmpEvent.currPkg = data as com.Tutorial.model.data.Package;
+							dispatchEvent(tmpEvent);
+						}
+					]]>
+				</fx:Script>
+
+				<s:Graphic click="graphic2_clickHandler(event)"
+						   toolTip="{data.title}">
+					<s:BitmapImage 
+						width="{Number(180) }" height="{Number(180)}"
+						left="12" top="16"
+						source="{data.thumbnailIconPath}"
+						/>
+					
+					<s:BitmapImage source="@Embed('imports/Accordion3D/assets/funda.png')"/>
+				</s:Graphic>
+			</s:ItemRenderer>
+		</fx:Component>
+	</s:itemRenderer>
+</s:DataGroup>
