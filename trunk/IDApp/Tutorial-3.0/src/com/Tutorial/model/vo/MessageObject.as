@@ -1,5 +1,11 @@
 package com.Tutorial.model.vo
 {
+	
+	/**
+	 * This vo is for sending a message to the native 
+	 * @author saurgupt
+	 * 
+	 */	
 	public class MessageObject
 	{
 		public var callIdentifier:String;		// some guid

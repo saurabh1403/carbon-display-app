@@ -9,7 +9,7 @@ package com.Tutorial.view
 	import org.puremvc.Tutorial.interfaces.INotification;
 	import org.puremvc.Tutorial.patterns.mediator.Mediator;
 
-	public class PackageSessionScreenContainerMediator extends Mediator
+	public class PackageSessionScreenContainerMediator extends BaseScreenContainerMediator
 	{
 		public static const NAME:String = 'PackageSessionScreen';
 

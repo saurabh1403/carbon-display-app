@@ -52,11 +52,10 @@ package com.Tutorial.controller
 		{
 			//TODO: do it for other modules also
 			
-			//MCQ module related
-			facade.registerCommand(TutConstants.moduleIdentifierMap.MCQ + TutConstants.RenderModuleScreen, MCQWorkflowManagerCommand);
-			facade.registerCommand(TutConstants.moduleIdentifierMap["MCQ"] + TutConstants.handleNativeDataForModule, MCQWorkflowManagerCommand);
-			facade.registerCommand(TutConstants.moduleIdentifierMap["MCQ"] + TutConstants.PopulateModuleDataFromModuleXml, MCQWorkflowManagerCommand);
-			
+			//MCQ module related. only single command is to be registered
+			facade.registerCommand(TutConstants.moduleIdentifierMap.MCQ + TutConstants.moduleProcessingActionNotification, MCQWorkflowManagerCommand);
+
+		
 		}
 		
 		protected function checkLaunchOfNativeProcess():void

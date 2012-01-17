@@ -4,6 +4,11 @@ package com.Tutorial.model.vo
 	
 	import org.puremvc.Tutorial.patterns.mediator.Mediator;
 
+	/**
+	 * This vo is used to create a request to add a screen to the container 
+	 * @author saurgupt
+	 * 
+	 */	
 	public class AddViewNotificationObject
 	{
 		public var activeView:IVisualElement = null;

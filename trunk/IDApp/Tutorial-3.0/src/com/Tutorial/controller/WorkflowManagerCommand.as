@@ -56,6 +56,8 @@ package com.Tutorial.controller
 					break;
 			
 				case TutConstants.PackageSessionDataReceivedNotification:
+
+					//TODO: ask the main screen to show some spinner here
 					_appSessProxy.currSelectedPackage.populateFromPackageSessionData(msgBody as XML);
 					
 					facade.sendNotification(TutConstants.ShowPackageSessionScreenNotification, _appSessProxy.currSelectedPackage);

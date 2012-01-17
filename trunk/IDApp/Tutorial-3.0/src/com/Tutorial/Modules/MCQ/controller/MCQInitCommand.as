@@ -19,10 +19,14 @@ package com.Tutorial.Modules.MCQ.controller
 			
 			//register commands here
 			facade.registerCommand(MCQConstants.MCQPopulateModuleDataFromModuleXml, PopulateMCQDataFromXmlCommand);
-			
+			facade.registerCommand(MCQConstants.MCQRenderModuleScreen, MCQRenderScreenCommand);
+			facade.registerCommand(MCQConstants.MCQhandleNativeDataForModule, MCQHandleNativeDataCommand);
 			
 			//register proxy here
-			facade.registerMediator(new MCQModuleProxy);
+			facade.registerProxy(new MCQModuleProxy);
+			
+			//register mediators here
+			//no mediator now
 			
 		}
 

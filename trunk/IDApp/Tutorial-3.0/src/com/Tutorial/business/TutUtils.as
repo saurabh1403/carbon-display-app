@@ -1,5 +1,11 @@
 package com.Tutorial.business
 {
+	import flash.filesystem.File;
+	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;
+	
+	import mx.controls.Alert;
+
 	public class TutUtils
 	{
 		public function TutUtils()
@@ -13,11 +19,26 @@ package com.Tutorial.business
 		}
 		
 		//TODO:
-		public static function readDataFromFile(inFilePath:String, outDataString:String):Boolean
+		public static function readDataFromFile(inFilePath:String):String
 		{
+			try
+			{
+				var file:File = File.applicationDirectory;
+				file = file.resolvePath(inFilePath);
+				
+				var fileStream:FileStream = new FileStream();
+				fileStream.open(file, FileMode.READ);
+				
+				return fileStream.readUTFBytes(fileStream.bytesAvailable);
+			}
 			
+			catch(err:Error)
+			{
+				Alert.show("Error in reading file at " + inFilePath);
+				return null;
+			}
 			
-			return true;
+			return null;
 		}
 		
 	}
