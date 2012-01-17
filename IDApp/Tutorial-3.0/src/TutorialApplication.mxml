@@ -68,7 +68,7 @@
 				_facade = new ApplicationFacade();
 				
 				//register the main application mediator
-				_facade.registerMediator(new ApplicationMediator(this.appMainDisplay));
+				_facade.registerMediator(new ApplicationMediator(this));
 				
 				//register the very initial command
 				_facade.registerCommand(TutConstants.COMMAND_APP_STARTUP, ApplicationStartupCommand);

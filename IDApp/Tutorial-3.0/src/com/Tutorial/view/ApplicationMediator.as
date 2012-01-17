@@ -5,6 +5,7 @@ package com.Tutorial.view
 	import com.Tutorial.business.TutConstants;
 	import com.Tutorial.model.vo.AddViewNotificationObject;
 	import com.Tutorial.skins.skinsWindow.ModifiedWindowSkin;
+	import com.Tutorial.view.components.mainDynamicContent;
 	
 	import flash.events.Event;
 	
@@ -14,17 +15,26 @@ package com.Tutorial.view
 	import org.puremvc.Tutorial.interfaces.IMediator;
 	import org.puremvc.Tutorial.interfaces.INotification;
 	import org.puremvc.Tutorial.patterns.mediator.Mediator;
+	
+	import spark.components.Group;
 
-	public class ApplicationMediator extends Mediator
+	
+	/**
+	 * This is a special mediator. It acts as a mediator for both main windowed application and the main container inside that windowed application
+	 * This is made in this way to reduce one extra mediator for the main windowed application which has very less work to do ;) 
+	 * @author saurgupt
+	 * 
+	 */	
+	public class ApplicationMediator extends BaseScreenContainerMediator
 	{
         public static const NAME:String = 'ApplicationMediator';
-	
-		public var currViewVo:AddViewNotificationObject = null;
 		
-       
-        public function ApplicationMediator( viewComponent:Object )
+		public var currApp:TutorialApplication = null;
+
+		public function ApplicationMediator( viewComponent:Object )
         {
-            super( NAME, viewComponent );   
+			currApp = viewComponent as TutorialApplication;
+            super( NAME, currApp.appMainDisplay);   
         }
 		
 		override public function listNotificationInterests():Array
@@ -42,11 +52,7 @@ package com.Tutorial.view
 			{
 				case TutConstants.AddScreenToMainDisplayNotification:
 				{
-					
-					removeCurrentView();		//this will remove the view and unregister the mediator
-					
-					setCurrentView(msgBody as AddViewNotificationObject);	//this will add the new view and then register the mediator when the creation is completed
-					
+					addScreenToContainer(note);
 					break;
 				}
 					
@@ -56,61 +62,31 @@ package com.Tutorial.view
 			}
 		}
 		
-		private function setCurrentView(newView:AddViewNotificationObject):void
-		{
-			currViewVo = newView;
-			app.appMainDisplay.removeAllElements();
-
-			newView.activeView.percentHeight = 100;
-			newView.activeView.percentWidth = 100;
-			
-			newView.activeView.addEventListener(FlexEvent.CREATION_COMPLETE, onCurrentViewCreationComplete);
-			app.appMainDisplay.addElement(newView.activeView);
-		}
-		
-		protected function onCurrentViewCreationComplete(event:Event):void
-		{
-			//here mediator will be initialized too
-			var mediatorClass:Class = currViewVo.mediatorClass;
-			var newMediator:IMediator = new mediatorClass(currViewVo.activeView);
-			facade.registerMediator(newMediator);
-			
-			currViewVo.creationCompleteCallback();
-		}
-		
-		private function removeCurrentView():void
-		{
-			if(currViewVo != null)
-			{
-				facade.removeMediator(currViewVo.mediatorClassName);
-				app.appMainDisplay.removeElement(currViewVo.activeView);
-			}
-		}
-
         override public function onRegister():void
         {
+			registerContainer();
         }
 
 		override public function onRemove():void
         {
-			removeCurrentView();
+			removeChild();
         }
 
-        protected function get app():TutorialApplication
+        protected function get appMainContainer():mainDynamicContent
         {
-            return viewComponent as TutorialApplication;
+            return currApp.appMainDisplay as mainDynamicContent;
         }
 
 		protected function setMainDisplayDimensions():void
 		{
-			app.maximize();
+			currApp.maximize();
 		}
 		
 		public function showMainDisplay():void
 		{
 			setMainDisplayDimensions();
-			app.appMainDisplay.removeAllElements();
-			(app.skin as ModifiedWindowSkin).isTitleVisible = true;
+			appMainContainer.removeAllElements();
+			(currApp.skin as ModifiedWindowSkin).isTitleVisible = true;
 		}
 		
 	}

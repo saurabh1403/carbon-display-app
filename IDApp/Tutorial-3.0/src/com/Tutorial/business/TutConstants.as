@@ -68,11 +68,12 @@ package com.Tutorial.business
 			ExtraQues:"ExtraQuestions",
 			PracticeQues:"PracticeQuestions"};
 		
+		public static const moduleProcessingActionNotification:String = "moduleProcessAction";
+
 		public static const InitModule:String = "initModuleDataSignal";
 		public static const PopulateModuleDataFromModuleXml:String = "populateModuleDataSignal";
 		public static const RenderModuleScreen:String = "renderModuleScreenSignal";
 		public static const handleNativeDataForModule:String = "handleModuleRelatedNativeDataSignal";
-		
 		
 		
 		//*****************native call methods constants********************

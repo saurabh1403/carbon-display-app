@@ -12,11 +12,9 @@ package com.Tutorial.view
 	import org.puremvc.Tutorial.interfaces.INotification;
 	import org.puremvc.Tutorial.patterns.mediator.Mediator;
 
-	public class PackageModuleScreenContainerMediator extends Mediator
+	public class PackageModuleScreenContainerMediator extends BaseScreenContainerMediator
 	{
 		public static const NAME:String = 'PackageModuleScreen';
-		
-		public var currViewVo:AddViewNotificationObject = null;
 
 		public function PackageModuleScreenContainerMediator(viewComponent:Object)
 		{
@@ -26,8 +24,7 @@ package com.Tutorial.view
 		override public function listNotificationInterests():Array
 		{
 			return [
-				TutConstants.AddScreenToPackageModuleScreenNotification,
-				super.listNotificationInterests()
+				TutConstants.AddScreenToPackageModuleScreenNotification
 				
 			];
 		}
@@ -40,10 +37,7 @@ package com.Tutorial.view
 			{
 				case TutConstants.AddScreenToPackageModuleScreenNotification:
 				{
-					removeCurrentView();		//this will remove the view and unregister the mediator
-					
-					setCurrentView(msgBody as AddViewNotificationObject);	//this will add the new view and then register the mediator when the creation is completed
-					
+					addScreenToContainer(note);
 					break;
 				}
 					
@@ -52,45 +46,16 @@ package com.Tutorial.view
 				
 			}
 		}
-
-		private function setCurrentView(newView:AddViewNotificationObject):void
-		{
-			currViewVo = newView;
-			moduleScreen.removeAllElements();
-			
-			newView.activeView.percentHeight = 100;
-			newView.activeView.percentWidth = 100;
-			
-			newView.activeView.addEventListener(FlexEvent.CREATION_COMPLETE, onCurrentViewCreationComplete);
-			moduleScreen.addElement(newView.activeView);
-		}
-		
-		protected function onCurrentViewCreationComplete(event:Event):void
-		{
-			//here mediator will be initialized too
-			var mediatorClass:Class = currViewVo.mediatorClass;
-			var newMediator:IMediator = new mediatorClass(currViewVo.activeView);
-			facade.registerMediator(newMediator);
-			
-			currViewVo.creationCompleteCallback();
-		}
-		
-		private function removeCurrentView():void
-		{
-			if(currViewVo != null)
-			{
-				facade.removeMediator(currViewVo.mediatorClassName);
-				moduleScreen.removeElement(currViewVo.activeView);
-			}
-		}
 		
 		override public function onRegister():void
 		{
+			registerContainer();
+
 		}
 		
 		override public function onRemove():void
 		{
-			removeCurrentView();
+			removeChild();
 		}
 		
 		protected function get moduleScreen():PackageModuleScreenContainer

@@ -26,7 +26,6 @@ package com.Tutorial.controller
 			_appSessProxy = facade.retrieveProxy(AppSessionProxy.NAME) as AppSessionProxy;
 
 			var dashboardMediator:DashboardMediator = facade.retrieveMediator(DashboardMediator.NAME) as DashboardMediator;
-			
 
 			if(dashboardMediator == null)
 			{
